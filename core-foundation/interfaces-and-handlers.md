@@ -8,7 +8,23 @@ Cement builds upon a standard interface and handler system that is used extensiv
 In Cement, an interface is what **defines** some functionality, and a handler is what **implements** that functionality.
 {% endhint %}
 
-In Cement, we call the implementation of interfaces `handlers` and provide the ability to easily register, and retrieve them via the app.
+In Cement, we call the implementation of interfaces **handlers** and provide the ability to easily register, and retrieve them via the `app.handler` object.  Cement interfaces are defined as [Python Abstract Base Classes](https://docs.python.org/3/library/abc.html), and handlers implement them by sub-classing and overriding the defined abstract methods required to make the implementation legit.
+
+### Builtin Interfaces
+
+The following interfaces are builtin to Cement's core foundation:
+
+| \*\*\*\*[**Extension**](https://cement.readthedocs.io/en/portland/api/core/extension/#cement.core.extension.ExtensionHandler)\*\*\*\* | Framework extension loading. |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| \*\*\*\*[**Log**](https://cement.readthedocs.io/en/portland/api/core/log/#cement.core.log.LogHandler)\*\*\*\* | Messaging to console, and/or file via common log facilities \(INFO, WARNING, ERROR, FATAL, DEBUG\). |
+| \*\*\*\*[**Config**](https://cement.readthedocs.io/en/portland/api/core/config/#cement.core.config.ConfigHandler)\*\*\*\* | Merging of application configuration defaults, configuration files, and environment settings into a single config object \(`app.config`\). |
+| \*\*\*\*[**Mail**](https://cement.readthedocs.io/en/portland/api/core/mail/#cement.core.mail.MailHandler)\*\*\*\* | Remote message sending \(email, smtp, etc\). |
+| \*\*\*\*[**Plugin**](https://cement.readthedocs.io/en/portland/api/core/plugin/#cement.core.plugin.PluginHandler)\*\*\*\* | Application plugin loading. |
+| \*\*\*\*[**Template**](https://cement.readthedocs.io/en/portland/api/core/template/#cement.core.template.TemplateHandler)\*\*\*\* | Rendering of template data \(content, files, etc\). |
+| \*\*\*\*[**Output**](https://cement.readthedocs.io/en/portland/api/core/output/#cement.core.output.OutputHandler)\*\*\*\* | Rendering of data/content to end-user output \(console text from template, JSON, Yaml, etc\).  Often uses an associated template handler backend. |
+| \*\*\*\*[**Argument**](https://cement.readthedocs.io/en/portland/api/core/arg/#cement.core.arg.ArgumentHandler)\*\*\*\* | Command line argument/option parsing. |
+| \*\*\*\*[**Controller**](https://cement.readthedocs.io/en/portland/api/core/controller/#cement.core.controller.ControllerHandler)\*\*\*\* | Command dispatch \(sub-commands, arguments, etc\) |
+| \*\*\*\*[**Cache**](https://cement.readthedocs.io/en/portland/api/core/cache/#cement.core.cache.CacheHandler)\*\*\*\* | Key/Value data store \(memcached, redis, etc\) |
 
 ### Defining an Interface
 

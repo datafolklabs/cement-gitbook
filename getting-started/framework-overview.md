@@ -1,3 +1,9 @@
+---
+description: >-
+  An in-depth overview of the key features of the framework that all developers
+  should be familiar with.
+---
+
 # Framework Overview
 
 This section is intended to give a brief overview of some of the most commonly used core features of Cement. Please do not be discouraged if you don't "get it" right away. Please also do not think, "is this it?". This is not intended to be an exhaustive end-all-be-all coverage of every feature of the framework.
@@ -107,23 +113,24 @@ Foo => bar
 
 ### Interfaces and Handlers
 
-All aspects of the framework are broken up into interfaces, and handlers. Interfaces **define** some functionality, while Handlers **implement** that functionality. Cement defines the following interfaces:
+All aspects of the framework are broken up into interfaces, and handlers. Interfaces **define** some functionality, while handlers **implement** that functionality. Cement defines the following interfaces:
 
-* `extension` - Framework extension loading
-* `log` - Logging to console/file
-* `config` - Application Configuration defaults, overrides by file, etc
-* `mail` - Mail sending \(smtp, etc\)
-* `plugin` - Application plugin loading
-* `template` - Rendering of template data \(content, files, etc\)
-* `output` - Rendering of data/content to end-user output \(console text from template, JSON, Yaml, etc\). Often uses an associated `template` handler on the backend.
-* `argument` - Command line argument parsing
-* `controller` - Command dispatch \(sub-commands, sub-command arguments, etc\)
-* `cache` - Key/Value data store \(memcached, redis, etc\)
+| **Extension** | Framework extension loading. |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| **Log** | Messaging to console, and/or file via common log facilities \(INFO, WARNING, ERROR, FATAL, DEBUG\). |
+| **Config** | Merging of application configuration defaults, configuration files, and environment settings into a single config object \(`app.config`\). |
+| **Mail** | Remote message sending \(email, smtp, etc\). |
+| **Plugin** | Application plugin loading. |
+| **Template** | Rendering of template data \(content, files, etc\). |
+| **Output** | Rendering of data/content to end-user output \(console text from template, JSON, Yaml, etc\).  Often uses an associated template handler backend. |
+| **Argument** | Command line argument/option parsing. |
+| **Controller** | Command dispatch \(sub-commands, arguments, etc\) |
+| **Cache** | Key/Value data store \(memcached, redis, etc\) |
 
 For example, the builtin configuration handler `ConfigParserConfigHandler`, implements the `config` interface.
 
 {% hint style="info" %}
-Handlers are referred to by the interfaces they implement, such as config.configparser, config.json, config.yaml, etc. Application developers can also define their own interfaces, allowing customization by plugins.
+Handlers are referred to by the interfaces they implement, such as `config.configparser`, `config.json`, `config.yaml`, etc. Application developers can also define their own interfaces, allowing customization by plugins.
 {% endhint %}
 
 Ex: Overriding Default Framework Handlers
