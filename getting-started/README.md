@@ -35,7 +35,7 @@ with App('helloworld') as app:
 ```
 {% endtab %}
 
-{% tab title="Usage" %}
+{% tab title="cli" %}
 ```text
 $ python helloworld.py --help
 usage: helloworld [-h] [--debug] [--quiet]
