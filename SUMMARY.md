@@ -9,6 +9,7 @@
   * [Installation](getting-started/installation.md)
   * [Developer Tools](getting-started/developer-tools.md)
   * [Framework Overview](getting-started/framework-overview.md)
+  * [Beginner Tutorial](getting-started/beginner-tutorial.md)
 * [Core Foundation](core-foundation/README.md)
   * [Interfaces and Handlers](core-foundation/interfaces-and-handlers.md)
   * [Configuration Settings](core-foundation/configuration-settings.md)

@@ -8,7 +8,7 @@ Cement builds upon a standard interface and handler system that is used extensiv
 In Cement, an interface is what **defines** some functionality, and a handler is what **implements** that functionality.
 {% endhint %}
 
-In Cement, we call the implementation of interfaces **handlers** and provide the ability to easily register, and retrieve them via the `app.handler` object.  Cement interfaces are defined as [Python Abstract Base Classes](https://docs.python.org/3/library/abc.html), and handlers implement them by sub-classing and overriding the defined abstract methods required to make the implementation legit.
+We call the implementation of an interface a **handler**, and provide the ability to easily register and retrieve them via the `app.handler` object.  Cement interfaces are defined as [Python Abstract Base Classes](https://docs.python.org/3/library/abc.html), and handlers implement them by sub-classing and overriding the defined abstract methods required to make the implementation legit.
 
 ### Builtin Interfaces
 
@@ -28,19 +28,93 @@ The following interfaces are builtin to Cement's core foundation:
 
 ### Defining an Interface
 
-Cement uses interfaces and handlers extensively to manage the framework, however developers can also make use of this system to provide a clean, and standardized way of allowing other developers to customize their application.
+{% hint style="warning" %}
+Defining interfaces is more of an advanced topic, and is not required to fully grasp for new developers or those new to the framework. 
+{% endhint %}
 
-The following defines a basic interface:
+Cement uses interfaces and handlers extensively to manage the framework, however developers can also make use of this system to provide a clean, and standardized way of allowing other developers to customize their application \(generally via application plugins\).
 
-```text
-from cement.core.foundation import CementAppfrom cement.core.interface import Interface, Attribute​class MyInterface(Interface):    class IMeta:        label = 'myinterface'​    # Must be provided by the implementation    Meta = Attribute('Handler Meta-data')    my_var = Attribute('A variable of epic proportions.')​    def _setup(app_obj):        """        The setup function is called during application initialization and        must 'setup' the handler object making it ready for the framework        or the application to make further calls to it.​        Required Arguments:​            app_obj                The application object.​        Returns: n/a​        """​    def do_something():        """        This function does something.​        """​class MyApp(CementApp):    class Meta:        label = 'myapp'        define_handlers = [MyInterface]​​Alternatively, if you need more control you might define a handler this way:​```pythonfrom cement.core.foundation import CementApp​with CementApp('myapp') as app:    # define interfaces after app is created    app.handler.define(MyInterface)​    app.run()
+The following defines a basic interface we'll call `greeting:`
+
+```python
+from abc import abstractmethod
+from cement import App, Handler
+
+​class GreetingHandler(Handler):    
+    class Meta:     
+        interface = 'greeting'   
+        
+    @abstractmethod
+    def greet(self):
+        """
+        Greet the end-user with a message by printing
+        something to console.
+        """
+        pass
+
+class MyApp(App):
+    label = 'myapp'
+    handler_define = [
+        GreetingHandler,
+    ]
 ```
 
-The above simply defines the interface. It does _not_ implement any functionality, and can't be used directly. This is why the class functions do not have an argument of `self`, nor do they contain any code other than comments.
+The above simply defines the `greeeting` interface. It does not implement any functionality on it's own, though it can and often does implement common methods usable by any implementation.  However, the primary detail is that it can not be used directly as it requires a handler to sub-class it and implement the missing abstract method\(s\).
 
-That said, what is required is an `IMeta` class that is used to interact with the interface. At the very least, this must include a unique `label` to identify the interface. This can also be considered the 'handler type'. For example, the `ILog` interface has a label of `log` and any handlers registered to that interface are stored in `HandlerManager.__handlers__['log']`.
+{% hint style="info" %}
+An interface defines itself via the `Handler.Meta.interface`option, which will be inherited by any implementation handlers that sub-class from it.  When subclassing, the handler will define itself via the `Handler.Meta.label` option.  Collectively, a handler is ultimately defined and referred to via it's  `<interface>.<label>`.  For example, the builtin configuration handler \(`ConfigParserConfigHandler`\) is referred to as `config.configparser.`
+{% endhint %}
 
-Notice that we defined `Meta` and `my_var` as Interface Attributes. This is a simple identifier that describes an attribute that an implementation is expected to provide.
+### Implementing an Interface
+
+In order to implement the above `greeting` interface, we simply create another class that sub-classes from it, and then register that with the app as well:
+
+```python
+from abc import abstractmethod
+from cement import App, Handler
+
+​class GreetingHandler(Handler):    
+    class Meta:     
+        interface = 'greeting'   
+        
+    @abstractmethod
+    def greet(self):
+        """
+        Greet the end-user with a message by printing
+        something to console.
+        """
+        pass
+
+
+class Hello(GreetingHandler):
+    class Meta:
+        label = 'hello'
+    
+    def greet(self):
+        print('Hello!')
+
+
+class Goodbye(GreetingHandler):
+    class Meta:
+        label = 'goodbye'
+    
+    def greet(self):
+        print('Goodbye!')
+
+
+class MyApp(App):
+    label = 'myapp'
+
+    handler_define = [
+        GreetingHandler,
+    ]
+    
+    handler_register = [
+        Hello,
+        Goodbye,
+    ]
+
+```
 
 ### Validating Interfaces
 
