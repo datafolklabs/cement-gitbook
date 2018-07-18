@@ -4,3 +4,107 @@ description: Overview of notable features and major changes in the latest releas
 
 # What's New!
 
+## Notable Features and Changes
+
+### Developer Tools CLI
+
+Now builtin to Cement, you can generate apps, plugins, extensions, and script with a simple command:
+
+```text
+$ cement generate app ./myapp
+
+$ cement generate plugin ./myapp/plugins/
+INFO: Generating cement plugin in ./myapp/plugins/
+Plugin Label [myplugin]:
+Plugin Class Name [MyPlugin]:
+
+cement generate extension ./myapp/ext/
+INFO: Generating cement extension in ./myapp/ext/
+Extension Label [myextension]:
+
+$ cement generate script .
+INFO: Generating cement script in .
+Script Name [myscript]:
+```
+
+### Clearer Interface Definition and Implementation
+
+In Cement 2, the design of the interface and handler system was not easy to follow for new developers to the framework.  It was also loosely modeled after ZopeInterface that may have lead to some odd naming conventions \(IMeta, IMyInterface, etc\), and an implementation that just felt weird.
+
+Interfaces are now defined using the standard library's [Abstract Base Class](https://docs.python.org/3/library/abc.html) module per the [request of the community](https://github.com/datafolklabs/cement/issues/192), moving the framework away from oddities and more toward common Python standards.  
+
+### Docker / Docker Compose Support 
+
+Cement now includes a fully functioning docker setup out-of-the-box for local development of the framework that includes all dependencies, and dependency services like Redis, Memcached, etc. 
+
+Getting up and running is as simple as running the following:
+
+```text
+$ make dev
+
+|> cement <| app #
+```
+
+This drops you into a shell within the docker container, and environment so that everything required to dev, and test is ready to roll:
+
+```text
+|> cement <| app # make test
+
+|> cement <| app # make docs
+```
+
+### Environment Variable Overrides
+
+Cement now supports the ability to override all config object settings via their associated environment variables.  For example:
+
+{% tabs %}
+{% tab title="myapp.py" %}
+```python
+from cement import App, init_defaults
+
+defaults = init_defaults('myapp')
+defaults['myapp']['foo'] = 'bar'
+
+class MyApp(App):
+    class Meta:
+        label = 'myapp'
+        config_defaults = defaults
+
+with MyApp() as app:
+    app.run()
+    foo = app.config.get('myapp', 'foo')
+    print('Foo => %s' % foo)
+```
+{% endtab %}
+
+{% tab title="cli" %}
+```text
+$ python myapp.py
+Foo => bar
+
+$ export MYAPP_FOO='not-bar'
+
+$ python myapp.py
+Foo => not-bar
+```
+{% endtab %}
+{% endtabs %}
+
+Environment variables are logically mapped to configuration settings based on their config keys and are prefixed with `MYAPP_` \(based on the label of the app\).  So: 
+
+* `config['myapp']['foo']` =&gt; `$MYAPP_FOO`
+* `config['some_section']['foo']` =&gt; `$MYAPP_SOME_SECTION_FOO`
+
+## New Interfaces
+
+| \*\*\*\*[**Template**](../core-foundation/templating.md)\*\*\*\* | Rendering of template data \(content, files, etc\).  Existing output handler type plugins were also updates to include an associated template handler \(`MustacheTemplateHandler`, `Jinja2TemplateHandler`, etc\). |
+| --- |
+
+
+## New Extensions
+
+| \*\*\*\*[**Print**](../extensions/print.md)\*\*\*\* | Used primarily in development as a replacement for standard `print()`, allowing the developer to honor framework features like `pre_render` and `post_render` hooks. |
+| --- | --- | --- |
+| \*\*\*\*[**Scrub**](../extensions/scrub.md)\*\*\*\* | Adds the ability to easily obfuscate sensitive data from rendered output \(think IP addresses, credit card numbers, etc\) |
+| \*\*\*\*[**Generate**](../extensions/generate.md)\*\*\*\* | Adds the ability for application developers to add a `generate` controller to their application, an include any number of source templates to generate from.  Think `myapp generate plugin` for third party developers to create plugins for your application from a fully-functional working template. |
+
