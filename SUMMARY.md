@@ -1,6 +1,6 @@
 # Table of contents
 
-* [Application Framework for Python](README.md)
+* [Cement Developer Guide](README.md)
 * [Release Information](release-information/README.md)
   * [What's New!](release-information/whats-new.md)
   * [Upgrading](release-information/upgrading.md)

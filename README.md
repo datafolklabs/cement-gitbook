@@ -1,4 +1,4 @@
-# Application Framework for Python
+# Cement Developer Guide
 
 {% hint style="warning" %}
 Portland is a complete fork of Cement 2, and will eventually become Cement 3. It is guaranteed to be broken! Please use Cement 2 in production until stable/3.0.0 is released.
@@ -19,15 +19,15 @@ The first commit to Git was on Dec 4, 2009. Since then, the framework has seen s
 Cement core features include \(but are not limited to\):
 
 * Core pieces of the framework are customizable via handlers/interfaces
-* Handler system connects implementation classes with Interfaces
-* Extension handler interface to easily extend framework functionality
-* Config handler supports parsing multiple config files into one config
-* Argument handler parses command line arguments and merges with config
-* Log handler supports console and file logging
-* Plugin handler provides an interface to easily extend your application
-* Output handler interface renders return dictionaries to console
-* Cache handler interface adds caching support for improved performance
-* Controller handler supports sub-commands, and nested controllers
+* Extension handler to easily extend framework functionality
+* Config handler merges defaults, multiple files, and environment variables into one config
+* Argument handler parses command line arguments and options
+* Log handler supports logging to console and file
+* Plugin handler provides the ability to easily extend your application
+* Output handler renders data to the end-user \(often via template handler backends\)
+* Template handler renders content and file templates
+* Cache handler adds caching support for improved performance or key/value storage
+* Controller handler supports sub-commands, and nested/embedded controllers
 * Hook support adds a bit of magic to apps and also ties into framework
 * Zero external dependencies\* \(not including optional extensions\)
 * 100% test coverage using `pytest` and `coverage`
@@ -36,16 +36,11 @@ Cement core features include \(but are not limited to\):
 * Tested on Python 3.5+
 * Does not support Python 2.x
 
-Some optional extensions that are shipped with the mainline Cement sources do require external dependencies. It is the responsibility of the application developer to include these dependencies along with their application, as Cement explicitly does not include them.
+_Some optional extensions that are shipped with the mainline Cement sources do require external dependencies. It is the responsibility of the application developer to include these dependencies along with their application, as Cement explicitly does not include them._
 
 ## License
 
-The Cement Framework is Open Source and is distributed under the [BSD License \(three clause\)](https://opensource.org/licenses/BSD-3-Clause).
-
-```text
-Copyright (c) 2009-2017 Data Folk Labs, LLC
-All rights reserved.
-```
+The Cement Framework is Open Source and is distributed under the [BSD License \(three clause\)](https://opensource.org/licenses/BSD-3-Clause).  Copyright \(c\) 2009-2018 Data Folk Labs, LLC.  All rights reserved.
 
 ## Projects Built on Cement™
 

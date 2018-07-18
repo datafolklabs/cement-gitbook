@@ -14,6 +14,7 @@ Development versions are available via Github:
 
 ```text
 $ git clone git://github.com/datafolklabs/cement.git
-​$ cd cement/​$ python setup.py install
+​$ cd cement/
+​$ python setup.py install
 ```
 
