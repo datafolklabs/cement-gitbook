@@ -26,6 +26,24 @@ The following interfaces are builtin to Cement's core foundation:
 | \*\*\*\*[**Controller**](https://cement.readthedocs.io/en/portland/api/core/controller/#cement.core.controller.ControllerHandler)\*\*\*\* | Command dispatch \(sub-commands, arguments, etc\) |
 | \*\*\*\*[**Cache**](https://cement.readthedocs.io/en/portland/api/core/cache/#cement.core.cache.CacheHandler)\*\*\*\* | Key/Value data store \(memcached, redis, etc\) |
 
+### Working With Interfaces
+
+The `InterfaceManager` \(`app.interface`\) provides quick mechanisms to list, get, and verify interfaces:
+
+```python
+from cement import App
+
+with App('myapp') as app:
+    # list defined interfaces
+    app.interface.list()
+
+    # get an interface class
+    i = app.interface.get('output')
+
+    # validate if an interface is defined
+    app.interface.defined('mail')
+```
+
 ### Defining an Interface
 
 {% hint style="warning" %}
@@ -34,99 +52,193 @@ Defining interfaces is more of an advanced topic, and is not required to fully g
 
 Cement uses interfaces and handlers extensively to manage the framework, however developers can also make use of this system to provide a clean, and standardized way of allowing other developers to customize their application \(generally via application plugins\).
 
-The following defines a basic interface we'll call `greeting:`
+The following defines a basic interface we'll call `greeting`, along with a handler base class that should accompany any custom interface as a provided starting point for third-party developers to implement from:
 
 ```python
 from abc import abstractmethod
-from cement import App, Handler
+from cement import App, Interface, Handler
 
-​class GreetingHandler(Handler):    
+​class GreetingInterface(Interface):    
     class Meta:     
         interface = 'greeting'   
         
     @abstractmethod
-    def greet(self):
+    def _get_greeting(self):
         """
-        Greet the end-user with a message by printing
-        something to console.
+        Get a greeting message for the end-user.
+        
+        Returns:
+            greeting (str): The greeting string to present to
+                the end-user.
         """
         pass
 
 class MyApp(App):
     label = 'myapp'
-    handler_define = [
-        GreetingHandler,
+    interfaces = [
+        GreetingInterface,
     ]
 ```
 
-The above simply defines the `greeeting` interface. It does not implement any functionality on it's own, though it can and often does implement common methods usable by any implementation.  However, the primary detail is that it can not be used directly as it requires a handler to sub-class it and implement the missing abstract method\(s\).
-
-{% hint style="info" %}
-An interface defines itself via the `Handler.Meta.interface`option, which will be inherited by any implementation handlers that sub-class from it.  When subclassing, the handler will define itself via the `Handler.Meta.label` option.  Collectively, a handler is ultimately defined and referred to via it's  `<interface>.<label>`.  For example, the builtin configuration handler \(`ConfigParserConfigHandler`\) is referred to as `config.configparser.`
-{% endhint %}
+The above example defines the `greeting` interface, by providing abstract methods stating that any handlers that implement this interface must provide them. It does not implement any functionality on it's own \(though it could\), but rather defines and documents it's purpose and it's expected implementation.  The interface is easily defined with the framework by listing it in `App.Meta.interfaces`, but you can also define interfaces directly with `app.interface.define()`.
 
 ### Implementing an Interface
 
-In order to implement the above `greeting` interface, we simply create another class that sub-classes from it, and then register that with the app as well:
+In order to implement the above `greeting` interface, we first want to provide a handler base class that will be the starting point for all implementations that sub-class from it:
 
 ```python
-from abc import abstractmethod
-from cement import App, Handler
+class GreetingHandler(GreetingInterface, Handler):
 
-​class GreetingHandler(Handler):    
-    class Meta:     
-        interface = 'greeting'   
-        
-    @abstractmethod
     def greet(self):
-        """
-        Greet the end-user with a message by printing
-        something to console.
-        """
-        pass
+        self.app.log.debug('about to greet end-user')
+        msg = self._get_greeting()
+        assert isinstance(str, msg), "The msg is not a string!"
+        print(msg)
+```
 
+{% hint style="info" %}
+Handler base classes sub-class from both the interface they are implementing \(`GreetingInterface`\), and also the Cement Handler base class \(`Handler`\).  The application developer defining the interface should always provide a handler base class for the implementation, even if the base class does not fully satisfy the interface.
+{% endhint %}
 
+In the above example, the developer would call the `greet()` method that will do all of the common operations like logging, exception handling, etc for all implementations, leaving only the minimal `_get_greeting()` method to be provided by the final implementation sub-classes.  This follows the common [Don't Repeat Yourself \(DRY\)](https://en.wikipedia.org/wiki/Don%27t_repeat_yourself) principle's best practice \(all-be-it a tediously simple example\), where all of the reusable logic can live in one place, and sub-classes only focus on their unique means of implementing an interface.
+
+In order to complete our implementation of the above `greeting` interface, we can now sub-class from the provided `GreetingHandler` base class, and fill in the missing pieces:
+
+```python
 class Hello(GreetingHandler):
     class Meta:
         label = 'hello'
     
-    def greet(self):
-        print('Hello!')
+    def _get_greeting(self):
+        return 'Hello!'
 
 
 class Goodbye(GreetingHandler):
     class Meta:
         label = 'goodbye'
     
+    def _get_greeting(self):
+        return 'Goodbye!'
+
+```
+
+{% hint style="info" %}
+An interface defines itself to the framework via the `Interface.Meta.interface` string, and a handler defines itself via the `Handler.Meta.label` string.  Collectively, all implementation handlers are referred to by both as `<interface>.<label>` or in the above examples `greeting.hello` and `greeting.goodbye`.
+{% endhint %}
+
+### Putting It All Together
+
+The following is a MVCE of defining an interface, providing an implementation handler base class, and registering multiple handlers that implement the interface differently:
+
+{% tabs %}
+{% tab title="myapp.py" %}
+```python
+from abc import abstractmethod
+from cement import App, Interface, Handler
+
+class GreetingInterface(Interface):
+    class Meta:
+        interface = 'greeting'
+
+    @abstractmethod
+    def _get_greeting(self):
+        """
+        Get a greeting message for the end-user.
+
+        Returns:
+            greeting (str): The greeting string to present to
+                the end-user.
+        """
+        pass
+
+class GreetingHandler(GreetingInterface, Handler):
+
     def greet(self):
-        print('Goodbye!')
+        self.app.log.debug('about to greet end-user')
+        msg = self._get_greeting()
+        assert isinstance(msg, str), "The msg is not a string!"
+        print(msg)
+
+
+class Hello(GreetingHandler):
+    class Meta:
+        label = 'hello'
+
+    def _get_greeting(self):
+        return 'Hello!'
+
+
+class Goodbye(GreetingHandler):
+    class Meta:
+        label = 'goodbye'
+
+    def _get_greeting(self):
+        return 'Goodbye!'
 
 
 class MyApp(App):
-    label = 'myapp'
+    class Meta:
+    	label = 'myapp'
 
-    handler_define = [
-        GreetingHandler,
-    ]
-    
-    handler_register = [
-        Hello,
-        Goodbye,
-    ]
+    	interfaces = [
+        	GreetingInterface,
+    	]
 
+    	handlers = [
+        	Hello,
+        	Goodbye,
+    	]
+
+with MyApp() as app:
+    app.run()
+    g = app.handler.get('greeting', 'hello', setup=True)
+    g.greet()
 ```
+{% endtab %}
 
-### Validating Interfaces
-
-A validator call back function can be defined in the interfaces IMeta class like this:
-
+{% tab title="cli" %}
 ```text
-from cement.core import interface​def my_validator(klass, obj):    members = [        '_setup',        'do_something',        'my_var',        ]    interface.validate(MyInterface, obj, members)​class MyInterface(interface.Interface):    class IMeta:        label = 'myinterface'        validator = my_validator
-```
+$ python myapp.py
+Hello!
 
-When `CementApp.handler.register()` is called to register a handler to an interface, the validator is called and the handler object is passed to the validator. In the above example, we simply define what members we want to validate for and then call `interface.validate()` which will raise `cement.core.exc.InterfaceError` if validation fails. It is not necessary to use `interface.validate()` but it is useful and recommended. In general, the key thing to note is that a validator either raises `InterfaceError` or does nothing if validation passes.
+$ python myapp.py -l debug
+2018-07-17 20:28:21,449 (DEBUG) myapp : about to greet end-user
+Hello!
+```
+{% endtab %}
+{% endtabs %}
 
 ## Introduction to Handlers
+
+Where an interface defines what an implementation is expected to provide, a handler is what actually implements the interface.
+
+### Working with Handlers
+
+The `HandlerManager` \(`app.handler`\) provides quick mechanisms to list, get, resolve and verify handlers. The following are a few examples of working with handlers:
+
+```python
+from cement import App
+
+​with App('myapp') as app:    
+    # get a log handler called logging
+    lh = app.handler.get('log', 'logging', setup=True)​    
+    
+    # List all handlers registered to the config interface    
+    app.handler.list('config')​    
+    
+    # check if the handler argparse is registered 
+    # to the argument interface    
+    app.handler.registered('argument', 'argparse')
+    
+    # resolve a handler by string, class, or object
+    app.handler.resolve('log', 'logging')
+    app.handler.resolve('log', LoggingLogHandler)
+    app.handler.resolve('log', LoggingLogHandler())
+```
+
+{% hint style="info" %}
+It is important to note that handlers are stored within the application as uninstantiated objects. Meaning you must instantiate them after retrieval \(call `_setup(app)`\) or simply pass `setup=True` to the `app.handler.get()` method.
+{% endhint %}
 
 ### Registering Handlers to an Interface
 
@@ -143,16 +255,6 @@ from cement.core.foundation import CementApp​with CementApp('myapp') as app:  
 ```
 
 The above is a simple class that meets all the expectations of the interface. When calling `CementApp.handler.register()`, `MyHandler` is passed to the validator \(if defined in the interface\) and if it passes validation will be registered into `HandlerManager.__handlers__`.
-
-### Using Handlers
-
-The following are a few examples of working with handlers:
-
-```text
-from cement.core.foundation import CementApp​with CementApp('myapp') as app:    # Get a log handler called 'logging'    lh = app.handler.get('log', 'logging')​    # Instantiate the handler class, passing any keyword arguments that     # the handler supports.    log = log_handler()​    # Setup the handler, passing it the app object.    log._setup(app)​    # List all handlers of type 'config'    app.handler.list('config')​    # Check if an interface called 'output' is defined    app.handler.defined('output')​    # Check if the handler 'argparse' is registered to the 'argument'     # interface    app.handler.registered('argument', 'argparse')
-```
-
-It is important to note that handlers are stored with the app as uninstantiated objects. Meaning you must instantiate them after retrieval, and call `_setup(app)` when using handlers directly \(as in the above example\).
 
 ### Overriding Default Handlers {#overriding-default-handlers}
 

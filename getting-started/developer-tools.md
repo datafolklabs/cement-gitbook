@@ -35,5 +35,5 @@ Project URL [https://github.com/johndoe/myapp/]:
 License [unlicensed]:
 ```
 
-We have just generated a new application in the directory `./myapp`.
+We have just generated a new application in the directory `./myapp`.  The included `README.md` includes general information that is built-in to your new project out-of-the box including how to setup a development environment, run tests, push packages to PyPi, and deploy via Docker.
 
