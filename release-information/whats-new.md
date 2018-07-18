@@ -17,7 +17,7 @@ class Base(Controller):
     class Meta:
         label = 'base'
 
-    @ex()
+    @ex(help='this is a command')
     def cmd1(self):
         print('Inside Base.cmd1()')
     
