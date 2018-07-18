@@ -6,9 +6,31 @@ description: Overview of notable features and major changes in the latest releas
 
 ## Notable Features and Changes
 
+### Simplified API Naming Conventions and Usage
+
+The naming conventions and library paths in Cement 2 were laborious to type and remember.  Now all modules/methods/etc are importable from `cement` namespace directly, and the naming is simplified \(ex: `CementApp` is now `App`, `CementHandler` is now `Handler`, etc\).
+
+```python
+from cement import App, Controller, ex
+
+class Base(Controller):
+    class Meta:
+        label = 'base'
+
+    @ex()
+    def cmd1(self):
+        print('Inside Base.cmd1()')
+    
+class MyApp(App):
+    class Meta:
+        label = 'myapp'
+        handlers = [Base]
+
+```
+
 ### Developer Tools CLI
 
-Now builtin to Cement, you can generate apps, plugins, extensions, and script with a simple command:
+You can generate apps, plugins, extensions, and scripts with the included `cement` command-line tool:
 
 ```text
 $ cement generate app ./myapp
