@@ -52,11 +52,11 @@ Defining interfaces is more of an advanced topic, and is not required to fully g
 
 Cement uses interfaces and handlers extensively to manage the framework, however developers can also make use of this system to provide a clean, and standardized way of allowing other developers to customize their application \(generally via application plugins\).
 
-The following defines a basic interface we'll call `greeting`, along with a handler base class that should accompany any custom interface as a provided starting point for third-party developers to implement from:
+The following defines a basic interface we'll call `greeting`:
 
 ```python
 from abc import abstractmethod
-from cement import App, Interface, Handler
+from cement import App, Interface
 
 ​class GreetingInterface(Interface):    
     class Meta:     
@@ -72,6 +72,16 @@ from cement import App, Interface, Handler
                 the end-user.
         """
         pass
+        
+    
+    @abstractmethod
+    def greet(self):
+        """
+        Display a greeting message for the end-user.
+        
+        Returns: None
+        """
+        pass
 
 class MyApp(App):
     label = 'myapp'
@@ -80,13 +90,15 @@ class MyApp(App):
     ]
 ```
 
-The above example defines the `greeting` interface, by providing abstract methods stating that any handlers that implement this interface must provide them. It does not implement any functionality on it's own \(though it could\), but rather defines and documents it's purpose and it's expected implementation.  The interface is easily defined with the framework by listing it in `App.Meta.interfaces`, but you can also define interfaces directly with `app.interface.define()`.
+The above example defines the `greeting` interface, by providing abstract methods that any handlers implementing this interface must provide. It does not implement any functionality on it's own \(though it could\), but rather defines and documents it's purpose and it's expected implementation.  The interface is easily defined with the framework by listing it in `App.Meta.interfaces`, but you can also define interfaces directly with `app.interface.define()`.
 
 ### Implementing an Interface
 
 In order to implement the above `greeting` interface, we first want to provide a handler base class that will be the starting point for all implementations that sub-class from it:
 
 ```python
+from cement import Handler
+
 class GreetingHandler(GreetingInterface, Handler):
 
     def greet(self):
@@ -128,7 +140,7 @@ An interface defines itself to the framework via the `Interface.Meta.interface` 
 
 ### Putting It All Together
 
-The following is a MVCE of defining an interface, providing an implementation handler base class, and registering multiple handlers that implement the interface differently:
+The following is an MVCE of defining an interface, providing an implementation handler base class, and registering multiple handlers that implement the interface differently:
 
 {% tabs %}
 {% tab title="myapp.py" %}
@@ -150,6 +162,16 @@ class GreetingInterface(Interface):
                 the end-user.
         """
         pass
+
+    @abstractmethod
+    def greet(self):
+        """
+        Display a greeting message for the end-user.
+        
+        Returns: None
+        """
+        pass
+
 
 class GreetingHandler(GreetingInterface, Handler):
 
