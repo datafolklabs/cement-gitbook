@@ -4,9 +4,10 @@
 
 Throughout this tutorial we will be building a TODO application called `todo`.  We will begin with a barebones template using the `cement generate` tool, and build up from there to cover as much of the core features of the framework as possible.
 
-Our `HoneyDo` application will include the following features:
+Our todo application will include the following features:
 
 * Ability to create, update, and delete task items
+* List and display tasks via Jinja2 templates
 * Persist data using [TinyDB](http://tinydb.readthedocs.io/en/latest/intro.html)
 * Send an email message when tasks are complete
 
