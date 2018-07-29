@@ -19,24 +19,11 @@ description: >-
 
 * `[core]` Add Docker / Docker Compose Support
   * [Issue \#439](https://github.com/datafolklabs/cement/issues/439)
-* `[core]` Add ability to override the output handler used when `app.render()`
-
-  is called.
-
+* `[core]` Add ability to override the output handler used when `app.render()`is called.
   * [Issue \#471](https://github.com/datafolklabs/cement/issues/471)
-
-* `[ext.print]` Add the Print Extension to be used as a drop in replacement
-
-  for the standard `print()`, but allowing the developer to honor framework
-
-  features like `pre_render` and `post_render` hooks.
-
-* `[ext.scrub]` Add Scrub Extension to easily obfuscate sensitive data from
-
-  rendered output.
-
+* `[ext.print]` Add the Print Extension to be used as a drop in replacement for the standard `print()`, but allowing the developer to honor framework features like `pre_render` and `post_render` hooks.
+* `[ext.scrub]` Add Scrub Extension to easily obfuscate sensitive data from rendered output.
   * [Issue \#469](https://github.com/datafolklabs/cement/issues/469)
-
 * `[core]` Add ability to override config settings via environment variables.
   * [Issue \#437](https://github.com/datafolklabs/cement/issues/437)
 * `[ext.argparse]` Add ability to get list of exposed commands
@@ -81,9 +68,7 @@ description: >-
 * `[ext.genshi]` Drop Genshi Extension
 * `[ext.argparse]` `ArgparseController.Meta.default_func` is now `_default`, and
 
-  will print help info and exit.  Can now set this to `None` as well to
-
-  pass/exit.
+  will print help info and exit.  Can now set this to `None` as well to pass/exit.
 
   * [Issue \#426](https://github.com/datafolklabs/cement/issues/426)
 

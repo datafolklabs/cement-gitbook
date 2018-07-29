@@ -30,7 +30,7 @@ class MyApp(App):
 
 ### Developer Tools CLI
 
-You can generate apps, plugins, extensions, and scripts with the included `cement` command-line tool:
+You can generate projects, plugins, extensions, and scripts with the included `cement` command-line tool:
 
 ```text
 $ cement generate app ./myapp
@@ -40,7 +40,7 @@ INFO: Generating cement plugin in ./myapp/plugins/
 Plugin Label [myplugin]:
 Plugin Class Name [MyPlugin]:
 
-cement generate extension ./myapp/ext/
+$ cement generate extension ./myapp/ext/
 INFO: Generating cement extension in ./myapp/ext/
 Extension Label [myextension]:
 
@@ -64,16 +64,18 @@ Getting up and running is as simple as running the following:
 ```text
 $ make dev
 
-|> cement <| app #
+|> cement <| dev #
 ```
 
-This drops you into a shell within the docker container, and environment so that everything required to dev, and test is ready to roll:
+This drops you into a shell within a docker container, and environment so that everything required to dev, and test is ready to roll:
 
 ```text
-|> cement <| app # make test
+|> cement <| dev # make test
 
-|> cement <| app # make docs
+|> cement <| dev # make docs
 ```
+
+_See the `Makefile` for more common development tasks \(for framework development\)._
 
 ### Environment Variable Overrides
 
@@ -119,7 +121,7 @@ Environment variables are logically mapped to configuration settings based on th
 
 ## New Interfaces
 
-| \*\*\*\*[**Template**](../core-foundation/templating.md)\*\*\*\* | Rendering of template data \(content, files, etc\).  Existing output handler type plugins were also updates to include an associated template handler \(`MustacheTemplateHandler`, `Jinja2TemplateHandler`, etc\). |
+| \*\*\*\*[**Template**](../core-foundation/templating.md)\*\*\*\* | Rendering of template data \(content, files, etc\).  Existing output handler type plugins were also updated to include an associated template handler \(`MustacheTemplateHandler`, `Jinja2TemplateHandler`, etc\). |
 | --- |
 
 
@@ -128,5 +130,5 @@ Environment variables are logically mapped to configuration settings based on th
 | \*\*\*\*[**Print**](../extensions/print.md)\*\*\*\* | Used primarily in development as a replacement for standard `print()`, allowing the developer to honor framework features like `pre_render` and `post_render` hooks. |
 | --- | --- | --- |
 | \*\*\*\*[**Scrub**](../extensions/scrub.md)\*\*\*\* | Adds the ability to easily obfuscate sensitive data from rendered output \(think IP addresses, credit card numbers, etc\) |
-| \*\*\*\*[**Generate**](../extensions/generate.md)\*\*\*\* | Adds the ability for application developers to add a `generate` controller to their application, an include any number of source templates to generate from.  Think `myapp generate plugin` for third party developers to create plugins for your application from a fully-functional working template. |
+| \*\*\*\*[**Generate**](../extensions/generate.md)\*\*\*\* | Adds the ability for application developers to add a `generate` controller to their application, and include any number of source templates to generate from.  Think `myapp generate plugin` for third party developers to create plugins for your application from a fully-functional working template. |
 
