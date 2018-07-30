@@ -53,21 +53,15 @@ The following covers the primary components included with your new project.  Fir
 │   ├── conftest.py
 │   └── test_main.py
 └── todo
-    ├── __init__.py
     ├── controllers
-    │   ├── __init__.py
     │   └── base.py
     ├── core
-    │   ├── __init__.py
     │   ├── exc.py
     │   └── version.py
     ├── ext
-    │   └── __init__.py
     ├── main.py
     ├── plugins
-    │   └── __init__.py
     └── templates
-        ├── __init__.py
         └── command1.jinja2
 
 9 directories, 24 files
@@ -99,7 +93,7 @@ These files should look familiar as they are common in most projects.  The `READ
 
 These files should look familiar to anyone who has packaged and distributed a Python project before, and are required for proper installation, setup, and distribution.  Note that the `requirements.txt` lists dependencies that are strictly required for deployment \(production\), where the additional `requirements-dev.txt` includes additional dependencies that are only required for development \(running tests, building documentation, etc\).
 
-**Miscellaneous Development**
+**Miscellaneous Development Files**
 
 ```text
 ├── Dockerfile
@@ -125,21 +119,15 @@ A good application has excellent documentation and testing, along with example c
 
 ```text
 └── todo
-    ├── __init__.py
     ├── controllers
-    │   ├── __init__.py
     │   └── base.py
     ├── core
-    │   ├── __init__.py
     │   ├── exc.py
     │   └── version.py
     ├── ext
-    │   └── __init__.py
     ├── main.py
     ├── plugins
-    │   └── __init__.py
     └── templates
-        ├── __init__.py
         └── command1.jinja2
 ```
 
@@ -214,7 +202,7 @@ Foo => bar
 
 ## Adding Functionality
 
-Now that we have a working development environment and have become familiar with running our `todo` app, we can built in our initial feature set to manage tasks.
+Now that we have a working development environment and have become familiar with running our `todo` app, we can build in our initial feature set to manage tasks.
 
 ### Persistent Storage
 
@@ -240,9 +228,10 @@ Successfully installed tinydb-3.10.0
 {% endtab %}
 {% endtabs %}
 
-With our dependency installed, we need to add it to our application.  Two primary things we will cover here are:
+With our dependency installed, we need to add it to our application.  The primary things we will cover here are:
 
 * Configuration settings for where we will store the `db.json` file on disk
+* Using framework hooks to run code at a specific point in our runtime
 * Extending our `app` with a `db` object we will use to integrate and access the TinyDB functionality in our application
 
 {% tabs %}
@@ -267,9 +256,11 @@ todo:
 {% endtab %}
 {% endtabs %}
 
+We want to extend our application with a re-usable `db` object that can be used throughout our code.  There are many ways we could do this, however here we are going to use a [framework hook](../../core-foundation/hooks.md).
+
 {% tabs %}
 {% tab title="Add DB Object Code" %}
-We want to extend our application with a re-usable `db` object that can be used throughout or code.  There are many ways we could do this, however we are going to use a [framework hook](../../core-foundation/hooks.md).  Add the following to the top of the `todo/main.py` file:
+Add the following to the top of the `todo/main.py` file:
 
 ```python
 import os
@@ -316,6 +307,96 @@ And we can see that the database was created:
 ```text
 $ cat ~/.todo/db.json
 {"_default": {}}
+```
+{% endtab %}
+{% endtabs %}
+
+### Controllers and Sub-Commands
+
+In order to create, update, delete todo items we need to map out commands with our app.  We could do this with the existing `Base` controller, however to keep code clean and organized we want to create an new controller called `Items`.  
+
+At this point, we have a decision to make.  Do we want our controllers commands to appear **embedded** under the primary applications namespace \(ex: `todo my-command`\) or do we want a separate **nested** namespace \(ex: `todo items my-command`\).  As our application is still small, we will opt to embed our controllers commands under the primary namespace \(to keep our commands and examples shorter\).
+
+{% tabs %}
+{% tab title="Add Items Controller Code" %}
+Add the following stubs to `todo/controllers/items.py` as a placeholder for our sub-commands:
+
+```python
+from cement import Controller, ex
+
+
+class Items(Controller):
+    class Meta:
+        label = 'items'
+        stacked_type = 'embedded'
+        stacked_on = 'base'
+    
+    @ex(help='create new item')
+    def create(self):
+        pass
+        
+    @ex(help='update an existing item')
+    def update(self):
+        pass
+    
+    @ex(help='delete an item')
+    def delete(self):
+        pass
+    
+    @ex(help='complete an item')
+    def complete(self):
+        pass
+        
+```
+{% endtab %}
+{% endtabs %}
+
+We've created the controller code, however for it to take affect we need to register it with our application.
+
+{% tabs %}
+{% tab title="Register Controller with App" %}
+Add/modify the following in `todo/main.py`:
+
+```python
+from todo.controllers.items import Items
+
+class Todo(App):
+    class Meta:
+        # ...
+        handlers = [
+            Base,
+            Items,
+        ]
+```
+
+With our new controller registered, lets see it in action:
+
+```text
+$ todo --help
+INFO: extending todo application with tinydb
+INFO: tinydb database file is: /Users/derks/.todo/db.json
+usage: todo [-h] [-d] [-q] [-v] [-l {info,warning,error,debug,fatal}]
+            {command1,complete,create,delete,update} ...
+
+A Simple TODO Application
+
+optional arguments:
+  -h, --help            show this help message and exit
+  -d, --debug           full application debug mode
+  -q, --quiet           suppress all console output
+  -v, --version         show program's version number and exit
+  -l {info,warning,error,debug,fatal}
+                        logging level
+
+sub-commands:
+  {command1,complete,create,delete,update}
+    command1            example sub command1
+    complete            complete an item
+    create              create new item
+    delete              delete an item
+    update              update an existing item
+
+Usage: todo command1 --foo bar
 ```
 {% endtab %}
 {% endtabs %}
