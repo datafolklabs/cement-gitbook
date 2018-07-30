@@ -73,7 +73,7 @@ The following covers the primary components included with your new project.  Fir
 9 directories, 24 files
 ```
 
-This looks like a lot, however there is a lot of placeholders here for best practice or recommended design.  Keep in mind, a Cement application can be as simple as a single file script... however we know that our TODO application will be disrupting the industry of task management, therefore we want to start things on the right tract. 
+This looks like a lot, however there is a lot of placeholders here for best practice or recommended design.  Keep in mind, a Cement application can be as simple as a single file script... however we know that our TODO application will be disrupting the industry of task management, therefore we want to start things on the right track. 
 
 Let's break this down into more manageable pieces:
 
@@ -146,4 +146,69 @@ A good application has excellent documentation and testing, along with example c
 Finally, our code lives in a python module called `todo`, with what should be an obvious breakdown of submodules that clearly separate code into relevant and organized buckets.  Take a moment to briefly review all of the files provided in the generated project repository.
 
 Again, note that a Cement project does not need to be organized this way but is a solid starting point to streamline development.  If you aren't entirely happy with the layout and organization of the generated projects you can always [create your own templates to start from](../developer-tools.md#customizing-templates).
+
+## Setting up Our Development Environment
+
+Our generated project includes a `Makefile` with several helpers to streamline the development process.  You can use these helpers, add your own, or do away with it and follow any other development process you are more familiar with.
+
+First we will setup our VirtualENV:
+
+```text
+$ make virtualenv
+
+$ source env/bin/activate
+
+|> todo <| $ 
+```
+
+This runs common commands to create our virtual environment in `./env/`, and then runs `pip` to install our dependencies.  We activate the environment, and are ready to run our TODO application:
+
+```text
+|> todo <| $ todo --help
+usage: todo [-h] [-d] [-q] [-v] [-l {info,warning,error,debug,fatal}]
+            {command1} ...
+
+A Simple TODO Application
+
+optional arguments:
+  -h, --help            show this help message and exit
+  -d, --debug           full application debug mode
+  -q, --quiet           suppress all console output
+  -v, --version         show program's version number and exit
+  -l {info,warning,error,debug,fatal}
+                        logging level
+
+sub-commands:
+  {command1}
+    command1            example sub command1
+
+Usage: todo command1 --foo bar
+```
+
+Look at that!  Let's play around with some of the pre-built features:
+
+```text
+### display version information
+
+$ todo --version
+A Simple TODO Application 0.0.1.dev20180730022818
+Cement Framework 2.99.2
+Python 3.7.0
+Platform Darwin-17.7.0-x86_64-i386-64bit
+
+### display sub-command help
+
+$ todo command1 --help
+usage: todo command1 [-h] [-f FOO]
+
+optional arguments:
+  -h, --help         show this help message and exit
+  -f FOO, --foo FOO  notorious foo option
+
+### execute the example command1 sub-command
+
+$ todo command1 -f bar
+Example Template (templates/command1.jinja2)
+Foo => bar
+```
 
