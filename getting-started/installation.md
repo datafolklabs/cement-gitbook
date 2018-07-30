@@ -25,6 +25,6 @@ $ git clone git://github.com/datafolklabs/cement.git
 Cement is also available via Docker Hub:
 
 ```text
-$ docker run -it datafolklabs/cement:3 --help
+$ docker run -it datafolklabs/cement:2.99 --help
 ```
 

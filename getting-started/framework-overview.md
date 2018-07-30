@@ -12,7 +12,7 @@ Some assumptions are being made here. Primarily, we assume that you've used and 
 
 ### The Application Object
 
-The core of your application starts with the Cement `App` object, which we will refer to throughout this documentation in several ways:
+The core of your project starts with the Cement `App` object, which we will refer to throughout this documentation in several ways:
 
 * `App` - The uninstantiated Cement `App` base class
 * `MyApp` - The uninstatiated/sub-classed Cement application you are creating
@@ -83,37 +83,9 @@ App('myapp', config_defaults={'foo': 'bar'})
 
 Nearly every Cement class has an associated `Meta` class, which we often refer to as `App.Meta`, `SomeHandlerClass.Meta`, etc. The instantiated object is refered to in code as `app._meta`, `some_handler._meta`, etc.
 
-Ex: Sub-classing Cement App / Overriding Metadata Options:
-
-```python
-from cement import App, init_defaults
-
-# define default application configuration settings
-defaults = init_defaults('myapp')
-defaults['myapp']['foo'] = 'bar'
-
-
-class MyApp(App):
-    class Meta:
-        label = 'myapp'
-        config_defaults = defaults
-
-
-with MyApp() as app:
-    app.run()
-    print("Foo => %s" % app.config.get('myapp', 'foo'))
-```
-
-CLI Usage
-
-```text
-$ python myapp.py
-Foo => bar
-```
-
 ### Interfaces and Handlers
 
-All aspects of the framework are broken up into interfaces, and handlers. Interfaces **define** some functionality, while handlers **implement** that functionality. Cement defines the following interfaces:
+All aspects of the framework are broken up into interfaces, and handlers. Interfaces **define** some functionality, while handlers **implement** that functionality. Cement defines the following builtin core interfaces:
 
 | **​**[**Extension**](https://cement.readthedocs.io/en/portland/api/core/extension/#cement.core.extension.ExtensionHandler) | Framework extension loading. |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
@@ -127,11 +99,17 @@ All aspects of the framework are broken up into interfaces, and handlers. Interf
 | **​**[**Controller**](https://cement.readthedocs.io/en/portland/api/core/controller/#cement.core.controller.ControllerHandler)**​** | Command dispatch \(sub-commands, arguments, etc\) |
 | **​**[**Cache**](https://cement.readthedocs.io/en/portland/api/core/cache/#cement.core.cache.CacheHandler)**​** | Key/Value data store \(memcached, redis, etc\) |
 
-For example, the builtin configuration handler `ConfigParserConfigHandler`, implements the `config` interface.
+
+
+To accompany the above interfaces, Cement also defines and registers default Handlers that implement the required functionality.  For example, the builtin configuration handler `ConfigParserConfigHandler`, implements the `config` interface.
 
 {% hint style="info" %}
 Handlers are referred to by the interfaces they implement, such as `config.configparser`, `config.json`, `config.yaml`, etc. Application developers can also define their own interfaces, allowing customization by plugins.
 {% endhint %}
+
+
+
+Developers can override the default functionality by creating their own handlers, or by sub-classing what is provided to alter its implementation.  The following example demonstrates how you would sub-class and override an existing handler:
 
 Ex: Overriding Default Framework Handlers
 
@@ -159,18 +137,22 @@ class MyApp(App):
 
 **Overriding Via Configuration Files**
 
-`MyApp` defines and/or defaults to builtin handlers for all of the above listed core handlers. Whatever the application code defines is the default, however you can also override via the configuration file\(s\) as in the example to the right.
+The `App.Meta` options define the builtin handlers for all of the above listed core handlers. Whatever the application code defines is the default, however you can also override via the configuration file\(s\).
 
-For example, imagine that your default `mail_handler` is `smtp` for sending email via your local SMTP server. This is a configuration that might very on a per-user/environment basis. Via the application configuration, you could override this with an alternative mail handler like `mail_handler=some_other_mail_handler`
+For example, imagine that your default `mail_handler` is `smtp` for sending email via your local SMTP server. This is a configuration that might vary on a per-user/environment basis. Via the application configuration, you could override this with an alternative mail handler like `mail_handler = some_other_mail_handler`
 
 Ex: Overriding Via Configuration File
 
+{% tabs %}
+{% tab title="~/.myapp.conf" %}
 ```text
 [myapp]
 
 ### override App.Meta.mail_handler
 mail_handler = my_mail_handler
 ```
+{% endtab %}
+{% endtabs %}
 
 ### Configuration
 
@@ -185,20 +167,20 @@ Cement looks for configuration files in the most common places by default.  For 
 * ~/.myapp.yml
 * ~/.myapp/config
 
-The list of configuration file paths can be customized via the meta option `App.Meta.config_files` as well as their extension \(i.e. `.conf`\) can also be easily modified with `App.Meta.config_extension`.
+The list of configuration file paths can be customized via the meta option [`App.Meta.config_files`](https://cement.readthedocs.io/en/portland/api/core/foundation/#cement.core.foundation.App.Meta.config_files) as well as their extension \(i.e. `.conf`\) can also be easily modified with [`App.Meta.config_file_suffix`](https://cement.readthedocs.io/en/portland/api/core/foundation/#cement.core.foundation.App.Meta.config_file_suffix).
 
 The builtin configuration handler `ConfigParserConfigHandler` uses common unix-like config files where `blocks` or `sections` are defined with brackets; `[myapp]`, `[plugin.myplugin]`, `[interface.handler]`, etc.
 
 Additional support for the following file formats is provided via optional extensions:
 
-* Json
-* Yaml
+* [Json](../extensions/json.md)
+* [Yaml](../extensions/yaml.md)
 
 {% hint style="info" %}
-Config handler's provide dropin replacements for the default ConfigParserConfigHandler, and are often based on it. For example, the JsonConfigHandler and YamlConfigHandler handlers do nothing more than support reading alternative file formats. Accessing the config settings in the app is exactly the same.
+Config handler's provide dropin replacements for the default ConfigParserConfigHandler, and are often based on it. For example, the JsonConfigHandler and YamlConfigHandler classes do little more than support reading alternative file formats. Accessing the config settings in the app is exactly the same.
 {% endhint %}
 
-All extensions and application plugins can support customization loaded from the application configuration file under the section `[interface.handler]`. For example, the `ColorLogHandler` extension reads it's configuration from `[log.colorlog]`.
+All extensions and application plugins can support customizations loaded from the application configuration files under the section `[interface.handler]`. For example, the `ColorLogHandler` extension reads it's configuration from `[log.colorlog]`.
 
 Ex: Application Configuration Settings
 
@@ -242,6 +224,8 @@ The following is an example of overriding the default config handler with an alt
 
 Ex: Alternative Configuration Handler \(Yaml\):
 
+{% tabs %}
+{% tab title="myapp.py" %}
 ```python
 from cement import App
 
@@ -250,19 +234,21 @@ class MyApp(App):
         label = 'myapp'
         extensions = ['yaml']
         config_handler = 'yaml'
-        config_extension = '.yml'
+        config_file_suffix = '.yml'
 ```
+{% endtab %}
 
-Configuration \(`~/.myapp.yml`\):
-
+{% tab title="~/.myapp.yml" %}
 ```yaml
 myapp:
     foo: not-bar
 ```
+{% endtab %}
+{% endtabs %}
 
 **Overriding Configuration Setting with Environment Variables**
 
-All configuration settings can be overridden by their associated environment variables. For example `config['myapp']['foo']` is overridable by `MYAPP_FOO`.
+All configuration settings can be overridden by their associated environment variables. For example `config['myapp']['foo']` is overridable by `$MYAPP_FOO`.
 
 Note that all environment variable configurations are prefixed with the application label, therefore secondary namespaces such as `config['log.logging']['level']` would be overridable by `MYAPP_LOG_LOGGING_LEVEL`.
 
@@ -272,6 +258,8 @@ Argument parsing is based on the standard [Argparse](https://docs.python.org/3/l
 
 Ex: Simple Arguments Defined With Cement App
 
+{% tabs %}
+{% tab title="myapp.py" %}
 ```python
 from cement import App
 
@@ -285,9 +273,9 @@ with App('myapp') as app:
     if app.pargs.foo is not None:
         print("Foo Argument => %s" % app.pargs.foo)
 ```
+{% endtab %}
 
-CLI Usage:
-
+{% tab title="cli" %}
 ```text
 $ python myapp.py --help
 usage: myapp [-h] [--debug] [--quiet] [-f FOO]
@@ -301,13 +289,17 @@ optional arguments:
 $ python myapp.py -f bar
 Foo Argument => bar
 ```
+{% endtab %}
+{% endtabs %}
 
 **Arguments Defined by Controllers**
 
-The power of the framework comes into play when we start talking about application controllers that streamline the process of mapping arguments and sub-commands to actions/functions as in the example \(more on that later\).
+The power of the framework comes into play when we start talking about application controllers that streamline the process of mapping arguments and sub-commands to actions/functions as in the example \(more on this later\).
 
 Ex: Arguments Defined by Controllers
 
+{% tabs %}
+{% tab title="myapp.py" %}
 ```python
 from cement import App, Controller, ex
 
@@ -341,9 +333,9 @@ class MyApp(App):
 with MyApp() as app:
     app.run()
 ```
+{% endtab %}
 
-CLI Usage:
-
+{% tab title="cli" %}
 ```text
 $ python myapp.py --help
 usage: myapp [-h] [--debug] [--quiet] [-f FOO]
@@ -357,6 +349,8 @@ optional arguments:
 $ python myapp.py -f bar
 Foo Argument => bar
 ```
+{% endtab %}
+{% endtabs %}
 
 ### Logging
 
@@ -377,10 +371,12 @@ Logging is based on the standard [Logging](https://docs.python.org/3/library/log
 
 Cement also includes the following optional extensions that provide drop-in replacements for the default log handler:
 
-* `ColorlogHandler` - Provides colorized log output via the [Colorlog](https://github.com/borntyping/python-colorlog) library.
+* [ColorlogHandler](../extensions/colorlog.md) - Provides colorized log output via the [Colorlog](https://github.com/borntyping/python-colorlog) library.
 
 Ex: Logging Example
 
+{% tabs %}
+{% tab title="myapp.py" %}
 ```python
 from cement import App
 
@@ -394,9 +390,9 @@ with App('myapp') as app:
     app.log.fatal('this is an fatal message')
     app.log.debug('this is an debug message')
 ```
+{% endtab %}
 
-Ex: Logging Configuration Example
-
+{% tab title="~/.myapp.conf" %}
 ```text
 [myapp]
 log_handler = logging
@@ -406,9 +402,9 @@ to_console = true
 file = /path/to/myapp.log
 level = warning
 ```
+{% endtab %}
 
-CLI Usage:
-
+{% tab title="cli" %}
 ```text
 $ python myapp.py
 INFO: this is an info message
@@ -416,6 +412,8 @@ WARNING: this is an warning message
 ERROR: this is an error message
 CRITICAL: this is an fatal message
 ```
+{% endtab %}
+{% endtabs %}
 
 ### Output
 
@@ -430,12 +428,12 @@ Cement ships with several types of extensions that produce output in different f
 
 The following output handlers ship with Cement:
 
-* `Json` - Produces JSON output from dicts
-* `Yaml` - Produces Yaml output from dicts
-* `Mustache` - Produces text output rendered from [Mustache](http://mustache.github.io/) templates
-* `Handlebars` - Produces text output rendered from [Handlebars](https://github.com/wbond/pybars3) templates
-* `Jinja2` - Produces text output rendered from [Jinja2](http://jinja.pocoo.org/) templates
-* `Tabulated` - Produces tabulated text output rendered via the [Tabulate](https://pypi.python.org/pypi/tabulate) library.
+* [Json](../extensions/json.md) - Produces JSON output from dicts
+* [Yaml](../extensions/yaml.md) - Produces Yaml output from dicts
+* [Mustache](../extensions/mustache.md) - Produces text output rendered from [Mustache](http://mustache.github.io/) templates
+* [Handlebars](../extensions/handlebars.md) - Produces text output rendered from [Handlebars](https://github.com/wbond/pybars3) templates
+* [Jinja2](../extensions/jinja2.md) - Produces text output rendered from [Jinja2](http://jinja.pocoo.org/) templates
+* [Tabulated](../extensions/tabulate.md) - Produces tabulated text output rendered via the [Tabulate](https://pypi.python.org/pypi/tabulate) library.
 
 Ex: Standard Output via Print Statements
 
@@ -449,17 +447,25 @@ with App('myapp') as app:
 
 **Multiple Output Handler Support**
 
-One of the unique features of Cement is that you can build your application to support multiple output handlers and formats. Output handlers have a special attribute that allows them to be exposed via the CLI option `-o` \(configurable via `App.Meta.core_handler_override_options`\). Therefore, you might have default text based output rendered from Mustache templates, but optionally output programatic structures _from the same dict_ when necessary \(i.e.`$ myapp -o json`\).
+One of the unique features of Cement is that you can build your application to support multiple output handlers and formats. Output handlers have a special attribute that allows them to be exposed via the CLI option `-o` \(configurable via [`App.Meta.core_handler_override_options`](https://cement.readthedocs.io/en/portland/api/core/foundation/#cement.core.foundation.App.Meta.core_handler_override_options)\). Therefore, you might have default text based output rendered from Mustache templates, but optionally output programatic structures **from the same dict** when necessary \(i.e.`$ myapp -o json`\).
 
 Ex: Mixed Template/JSON Output Example
 
+{% tabs %}
+{% tab title="myapp.py" %}
 ```python
-from cement import App
+from cement import App, init_defaults
+
+META = init_defaults('output.json')
+META['output.json']['overridable'] = True
 
 class MyApp(App):
     class Meta:
         label = 'myapp'
 
+        ### override default handler meta options
+        meta_defaults = META
+        
         ### add optional extensions
         extensions = ['json', 'mustache']
 
@@ -484,15 +490,15 @@ with MyApp() as app:
     ### render data using mustache template (by default)
     app.render(data, 'example.m')
 ```
+{% endtab %}
 
-Ex: Mustache Template: /path/to/templates/example.m
-
+{% tab title="templates/example.m" %}
 ```text
 The value of foo={{foo}}.
 ```
+{% endtab %}
 
-CLI Usage:
-
+{% tab title="cli" %}
 ```text
 $ python myapp.py --help
 usage: myapp [-h] [--debug] [--quiet] [-o {json}]
@@ -511,6 +517,8 @@ The value of foo=bar
 $ python myapp.py -o json
 {"foo": "bar"}
 ```
+{% endtab %}
+{% endtabs %}
 
 ### Controllers
 
@@ -522,6 +530,8 @@ The most notable action of `Runtime Dispatch` is mapping arguments and sub-comma
 
 Ex: Application Base Controller
 
+{% tabs %}
+{% tab title="myapp.py" %}
 ```python
 from cement import App, Controller, ex
 
@@ -566,10 +576,10 @@ class MyApp(App):
 with MyApp() as app:
     app.run()
 ```
+{% endtab %}
 
-CLI Usage:
-
-```bash
+{% tab title="cli" %}
+```text
 ### help output shows base namespace arguments and sub-commands
 
 $ python myapp.py --help
@@ -605,13 +615,15 @@ $ python myapp.py cmd1 -b foo
 Inside Base.cmd1()
 Recieved Option: -b
 ```
+{% endtab %}
+{% endtabs %}
 
 **Nested / Embedded Controllers**
 
-Cement supports two types of controller `stacking`:
+Cement supports two types of controller **stacking**:
 
-* `nested` - The arguments and commands are nested under a sub-parser whose label is that of the controller.  For example, a nested controller with a label of `my-nested-controller` would be called as `$ myapp my-nested-controller sub-command`.
-* `embedded` - The arguments and commands are embedded within it's parent controller, therefore appearing as if they were defined by the parent itself.  A sub-command under an embedded controller would be called as `$ myapp sub-command`.
+* **nested** - The arguments and commands are nested under a sub-parser whose label is that of the controller.  For example, a nested controller with a label of `my-nested-controller` would be called as `$ myapp my-nested-controller sub-command`.
+* **embedded** - The arguments and commands are embedded within it's parent controller, therefore appearing as if they were defined by the parent itself.  A sub-command under an embedded controller would be called as `$ myapp sub-command`.
 
 Controllers can be stacked on other controllers as many levels deep as necessary. An `embedded` controller can be stacked on top of a `nested` controller, and vice versa. There is little, if any, limitation.
 
@@ -619,7 +631,7 @@ Controllers can be stacked on other controllers as many levels deep as necessary
 
 Both Controllers and their sub-commands can have arguments defined. Think of controllers as the primary namespace. It's arguments should be globally relevant within that namespace. A sub-command within the namespace can have it's own arguments, but are only relevant to that sub-command.
 
-I.e. `$ myapp -a my-controller -b my-sub-command -c`
+Ex: `$ myapp -a my-controller -b my-sub-command -c`
 
 In the above example, `-a` is relevant to the global scope of the entire application because it is defined on the `base` controller. Option `-b` is relevant to the scope of `my-controller` and all sub-commands under it. Finally, `-c` is only relevant to the `my-sub-command` and has no use elsewhere.
 
@@ -639,12 +651,14 @@ To expose a function as a sub-command, you must decorate it with `@ex()`. It's u
 
 ### Framework Extensions
 
-Cement's Interfaces and Handlers system makes extending the framework easy, and limitless. Cement ships dozens of extensions that either alter existing funtionality, or add to it. For example, the default logging facility provides basic logging capabilities, however with a single line of code an application can instead use the `colorlog` extension to enable colorized console logging.
+Cement's Interfaces and Handlers system makes extending the framework easy, and limitless. Cement ships dozens of extensions that either alter existing funtionality, or add to it. For example, the default logging facility provides basic logging capabilities, however with a single line of code an application can instead use the [Colorlog](../extensions/colorlog.md) extension to enable colorized console logging.
 
-The example provides a quick look at using the `alarm` extension to handle application timeouts of long running operations
+The following example provides a quick look at using the [Alarm](../extensions/alarm.md) extension to handle application timeouts of long running operations
 
 Ex: Using Framework Extensions:
 
+{% tabs %}
+{% tab title="myapp.py" %}
 ```python
 from time import sleep
 from cement import App
@@ -653,15 +667,13 @@ from cement import App
 class MyApp(App):
     class Meta:
         label = 'myapp'
-        extensions = [
-            'alarm',
-        ]
+        extensions = ['alarm']
 
 
 with MyApp() as app:
     app.run()
 
-    ### set an alarm based on the max allowed run time
+    ### set an alarm for max allowed run time
     app.alarm.set(3, "The operation timed out after 3 seconds!")
 
     ### do something that takes time to operate
@@ -670,10 +682,10 @@ with MyApp() as app:
     ### stop the alarm if it ran within the time frame
     app.alarm.stop()
 ```
+{% endtab %}
 
-CLI Usage:
-
-```bash
+{% tab title="cli" %}
+```text
 $ python myapp.py
 ERROR: The operation timed out after 3 seconds!
 Traceback (most recent call last):
@@ -683,32 +695,10 @@ Traceback (most recent call last):
     raise exc.CaughtSignal(signum, frame)
 cement.core.exc.CaughtSignal: Caught signal 14
 ```
+{% endtab %}
+{% endtabs %}
 
-**Included Extensions**
-
-Cement includes \(but is not limited to\) the following extensions:
-
-* **alarm** - Provides easy access to setting an application alarm to handle timing out operations
-* **argparse** - Provides `ArgparseArgumentHandler` and `ArgparseController` handlers built on Argparse
-* **colorlog** - Provides `ColorLogHandler` that produces colorized console logging
-* **configparser** - Provides `ConfigParserConfigHandler` handler for application configuration built on on ConfigParser
-* **daemon** - Provides daemonization, pidfile management, user/group context switching, etc
-* **handlebars** - Provides `HandlebarsOutputHandler` to render text output from Handlerbars templates
-* **jinja2** - Provides `Jinja2OutputHandler` to render text output from Jinja2 templates
-* **json** - Provides `JsonConfigHandler` and `JsonOutputHandler` to read JSON configuration files, and produce JSON structured output.
-* **logging** - Provides `LoggingLogHandler` for standard application logging
-* **memcached** - Providers `MemcachedCacheHandler` for caching built on Memcached
-* **mustache** - Provides `MustacheOutputHandler` to render text output from Mustache templates
-* **plugin** - Provides `CementPluginHandler` for application plugin support
-* **redis** - Provides `RedisCacheHandler` for caching built on Redis
-* **scrub** - Provides a easy mechanism for obfuscating sensitive
-
-  information from command line output.
-
-* **smtp** - Provides `SMTPMailHandler` for email messaging
-* **tabulate** - Provides `TabulateOutputHandler` for text output tabularized like MySQL, etc
-* **watchdog** - Provides cross-platform directory/file monitoring in order to handle filesystem events as they occur.
-* **yaml** - Provides `YamlConfigHandler` and `YamlOutputHandler` to read Yaml configuration files, and produce Yaml structured output.
+See the [Extensions Documentation](../core-foundation/extensions-1.md) to learn more about the extended capabilities of the framework.
 
 ### Application Plugins
 
@@ -718,6 +708,8 @@ A plugin can be anything, and provide any kind of functionality from defining ru
 
 Ex: Basic Application
 
+{% tabs %}
+{% tab title="myapp.py" %}
 ```python
 from cement import App, Controller, ex
 
@@ -738,9 +730,9 @@ class MyApp(App):
 with MyApp() as app:
     app.run()
 ```
+{% endtab %}
 
-CLI Usage \(without plugin enabled\):
-
+{% tab title="cli" %}
 ```text
 $ python test.py --help
 usage: myapp [-h] [--debug] [--quiet] {} ...
@@ -753,9 +745,15 @@ optional arguments:
 sub-commands:
   {}
 ```
+{% endtab %}
+{% endtabs %}
 
-Ex: Plugin
+Using the same application, we can create a plugin to extend functionality:
 
+Ex: Application Plugin
+
+{% tabs %}
+{% tab title="myplugin.py" %}
 ```python
 from cement import Controller, ex
 
@@ -774,9 +772,9 @@ class MyPlugin(Controller):
 def load(app):
     app.handler.register(MyPlugin)
 ```
+{% endtab %}
 
-Configuration \(`~/.myapp.conf`\):
-
+{% tab title="~/.myapp.conf" %}
 ```text
 [myapp]
 plugin_dir = /path/to/myapp/plugins
@@ -784,9 +782,9 @@ plugin_dir = /path/to/myapp/plugins
 [plugin.myplugin]
 enabled = true
 ```
+{% endtab %}
 
-CLI Usage:
-
+{% tab title="cli " %}
 ```text
 $ python myapp.py --help
 usage: myapp [-h] [--debug] [--quiet] {cmd1} ...
@@ -803,6 +801,10 @@ sub-commands:
 $ python myapp.py cmd1
 Inside MyPlugin.cmd1()
 ```
+{% endtab %}
+{% endtabs %}
+
+
 
 ### Hooks
 
@@ -812,6 +814,8 @@ Cement defines several hooks that tie in to specific points throughout the appli
 
 Ex: Executing Code Via Hooks
 
+{% tabs %}
+{% tab title="myapp.py" %}
 ```python
 from cement import App
 
@@ -831,11 +835,13 @@ class MyApp(App):
 with MyApp() as app:
     app.run()
 ```
+{% endtab %}
 
-CLI Usage:
-
-```bash
+{% tab title="cli" %}
+```text
 $ python myapp.py
 Inside my_example_hook()
 ```
+{% endtab %}
+{% endtabs %}
 
