@@ -33,7 +33,7 @@ class MyApp(App):
 You can generate projects, plugins, extensions, and scripts with the included `cement` command-line tool:
 
 ```text
-$ cement generate app ./myapp
+$ cement generate project ./myapp
 
 $ cement generate plugin ./myapp/plugins/
 INFO: Generating cement plugin in ./myapp/plugins/
@@ -64,15 +64,15 @@ Getting up and running is as simple as running the following:
 ```text
 $ make dev
 
-|> cement <| dev #
+|> cement <| src #
 ```
 
 This drops you into a shell within a docker container, and environment so that everything required to dev, and test is ready to roll:
 
 ```text
-|> cement <| dev # make test
+|> cement <| src # make test
 
-|> cement <| dev # make docs
+|> cement <| src # make docs
 ```
 
 _See the `Makefile` for more common development tasks \(for framework development\)._
