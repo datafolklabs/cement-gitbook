@@ -2,9 +2,9 @@
 
 ## Introduction
 
-Throughout this tutorial we will be building a TODO application called `todo`.  We will begin with a barebones template using the `cement generate` tool, and build up from there to cover as much of the core features of the framework as possible.
+Throughout this tutorial we will be building a task management application called `todo`.  We will begin with a barebones template using the `cement generate` tool, and build up from there to cover as much of the core features of the framework as possible.
 
-Our todo application will include the following features:
+Our application will include the following features:
 
 * Ability to create, update, and delete task items
 * List and display tasks via [Jinja2](../../extensions/jinja2.md) templates
@@ -211,4 +211,112 @@ $ todo command1 -f bar
 Example Template (templates/command1.jinja2)
 Foo => bar
 ```
+
+## Adding Functionality
+
+Now that we have a working development environment and have become familiar with running our `todo` app, we can built in our initial feature set to manage tasks.
+
+### Persistent Storage
+
+Before we can create anything, we need some way to store it.  For this project, we've chosen [TinyDB](http://tinydb.readthedocs.io/en/latest/), a light-weight key-value database that stores data on disk in a single JSON file.
+
+Let's begin by adding the dependency to our `requirements.txt` file, and installing it to our virtualenv:
+
+{% tabs %}
+{% tab title="Add TinyDB Dependency" %}
+Add the following to the bottom of the pip `requirements.txt` file:
+
+```text
+tinydb
+```
+
+Install the new requirements with `pip`:
+
+```text
+$ pip install -r requirements.txt
+...
+Successfully installed tinydb-3.10.0
+```
+{% endtab %}
+{% endtabs %}
+
+With our dependency installed, we need to add it to our application.  Two primary things we will cover here are:
+
+* Configuration settings for where we will store the `db.json` file on disk
+* Extending our `app` with a `db` object we will use to integrate and access the TinyDB functionality in our application
+
+{% tabs %}
+{% tab title="Add Configuration Defaults" %}
+Find and modify the following section of `todo/main.py` in order to define a default configuration for our database file called `db_file`:
+
+```python
+# configuration defaults
+DEFAULTS = init_defaults('todo')
+DEFAULTS['todo']['db_file'] = '~/.todo/db.json'
+```
+
+To be kind to our users, we will also want to add this default setting to our example configuration file `config/todo.yml.example`.  Modify the file to include the following:
+
+```yaml
+---
+todo:
+
+### Database file path
+# db_file: ~/.todo/db.json
+```
+{% endtab %}
+{% endtabs %}
+
+{% tabs %}
+{% tab title="Add DB Object Code" %}
+We want to extend our application with a re-usable `db` object that can be used throughout or code.  There are many ways we could do this, however we are going to use a [framework hook](../../core-foundation/hooks.md).  Add the following to the top of the `todo/main.py` file:
+
+```python
+import os
+from tinydb import TinyDB
+from cement.utils import fs
+
+def extend_tinydb(app):
+    app.log.info('extending todo application with tinydb')
+    db_file = app.config.get('todo', 'db_file')
+    
+    # ensure that we expand the full path
+    db_file = fs.abspath(db_file)
+    app.log.info('tinydb database file is: %s' % db_file)
+    
+    # ensure our parent directory exists
+    db_dir = os.path.dirname(db_file)
+    if not os.path.exists(db_dir):
+        os.makedirs(db_dir)
+
+    app.extend('db', TinyDB(db_file))
+```
+
+We've created a function to extend our application object to include an `app.db` object, however in order for it to take affect we need to register the function as a hook with the framework.  Add the following `hooks` meta option to our Todo app in `todo/main.py`:
+
+```python
+class Todo(App):
+    class Meta:
+        hooks = [
+            ('post_setup', extend_tinydb),
+        ]
+```
+
+Now, when we run `todo` again you will see that our hook is executed \(via the `info` logs\):
+
+```text
+$ todo --help
+INFO: extending todo application with tinydb
+INFO: tinydb database file is: /Users/derks/.todo/db.json
+...
+```
+
+And we can see that the database was created:
+
+```text
+$ cat ~/.todo/db.json
+{"_default": {}}
+```
+{% endtab %}
+{% endtabs %}
 

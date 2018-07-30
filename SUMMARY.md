@@ -25,6 +25,7 @@
   * [Caching](core-foundation/caching.md)
   * [Extensions](core-foundation/extensions-1.md)
   * [Plugins](core-foundation/plugins.md)
+  * [Hooks](core-foundation/hooks.md)
 * [Builtin Extensions](extensions/README.md)
   * [Argparse](extensions/argparse.md)
   * [Alarm](extensions/alarm.md)
