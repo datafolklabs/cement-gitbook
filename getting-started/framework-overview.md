@@ -115,17 +115,17 @@ Foo => bar
 
 All aspects of the framework are broken up into interfaces, and handlers. Interfaces **define** some functionality, while handlers **implement** that functionality. Cement defines the following interfaces:
 
-| **Extension** | Framework extension loading. |
+| **​**[**Extension**](https://cement.readthedocs.io/en/portland/api/core/extension/#cement.core.extension.ExtensionHandler) | Framework extension loading. |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
-| **Log** | Messaging to console, and/or file via common log facilities \(INFO, WARNING, ERROR, FATAL, DEBUG\). |
-| **Config** | Merging of application configuration defaults, configuration files, and environment settings into a single config object \(`app.config`\). |
-| **Mail** | Remote message sending \(email, smtp, etc\). |
-| **Plugin** | Application plugin loading. |
-| **Template** | Rendering of template data \(content, files, etc\). |
-| **Output** | Rendering of data/content to end-user output \(console text from template, JSON, Yaml, etc\).  Often uses an associated template handler backend. |
-| **Argument** | Command line argument/option parsing. |
-| **Controller** | Command dispatch \(sub-commands, arguments, etc\) |
-| **Cache** | Key/Value data store \(memcached, redis, etc\) |
+| **​**[**Log**](https://cement.readthedocs.io/en/portland/api/core/log/#cement.core.log.LogHandler)**​** | Messaging to console, and/or file via common log facilities \(INFO, WARNING, ERROR, FATAL, DEBUG\). |
+| **​**[**Config**](https://cement.readthedocs.io/en/portland/api/core/config/#cement.core.config.ConfigHandler)**​** | Merging of application configuration defaults, configuration files, and environment settings into a single config object. |
+| **​**[**Mail**](https://cement.readthedocs.io/en/portland/api/core/mail/#cement.core.mail.MailHandler)**​** | Remote message sending \(email, smtp, etc\). |
+| **​**[**Plugin**](https://cement.readthedocs.io/en/portland/api/core/plugin/#cement.core.plugin.PluginHandler)**​** | Application plugin loading. |
+| **​**[**Template**](https://cement.readthedocs.io/en/portland/api/core/template/#cement.core.template.TemplateHandler)**​** | Rendering of template data \(content, files, etc\). |
+| **​**[**Output**](https://cement.readthedocs.io/en/portland/api/core/output/#cement.core.output.OutputHandler)**​** | Rendering of data/content to end-user output \(console text from template, JSON, Yaml, etc\). Often uses an associated template handler backend. |
+| **​**[**Argument**](https://cement.readthedocs.io/en/portland/api/core/arg/#cement.core.arg.ArgumentHandler)**​** | Command line argument/option parsing. |
+| **​**[**Controller**](https://cement.readthedocs.io/en/portland/api/core/controller/#cement.core.controller.ControllerHandler)**​** | Command dispatch \(sub-commands, arguments, etc\) |
+| **​**[**Cache**](https://cement.readthedocs.io/en/portland/api/core/cache/#cement.core.cache.CacheHandler)**​** | Key/Value data store \(memcached, redis, etc\) |
 
 For example, the builtin configuration handler `ConfigParserConfigHandler`, implements the `config` interface.
 
@@ -176,12 +176,14 @@ mail_handler = my_mail_handler
 
 Cement supports loading multiple configuration files out-of-the-box. Configurations loaded from files are merged in, overriding the applications default settings \(`App.Meta.config_defaults`\). The default configuration handler is `ConfigParserConfigHandler`, based on [ConfigParser](https://docs.python.org/3/library/configparser.html) in the standard library, and is instantiated as `app.config`.
 
-Cement looks for configuration files in the most common places such as:
+Cement looks for configuration files in the most common places by default.  For example:
 
-* `/etc/myapp/myapp.conf`
-* `~/.myapp.conf`
-* `~/.myapp/config`
-* etc
+* /etc/myapp/myapp.yml
+* ~/.config/myapp/myapp.yml
+* ~/.config/myapp/config
+* ~/.config/myapp.yml
+* ~/.myapp.yml
+* ~/.myapp/config
 
 The list of configuration file paths can be customized via the meta option `App.Meta.config_files` as well as their extension \(i.e. `.conf`\) can also be easily modified with `App.Meta.config_extension`.
 
