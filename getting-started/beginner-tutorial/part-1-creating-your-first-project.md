@@ -13,7 +13,7 @@ Our application will include the following features:
 
 ## Generating a New Project Repository
 
-Cement includes a cli utility called `cement` that has tools to make developers lives easier.  This was introduced in Cement 3, and will continue to grow as feature requests are made for new and improved ways of streamlining the development process.
+Cement includes a [developer utility](../developer-tools.md) called `cement` that includes tools to make our lives easier.  This was introduced in Cement 3, and will continue to grow as feature requests are made for new and improved ways of streamlining the development process.
 
 Create a new project with the following command and parameters:
 
@@ -163,8 +163,6 @@ optional arguments:
   -d, --debug           full application debug mode
   -q, --quiet           suppress all console output
   -v, --version         show program's version number and exit
-  -l {info,warning,error,debug,fatal}
-                        logging level
 
 sub-commands:
   {command1}
@@ -199,4 +197,8 @@ $ todo command1 -f bar
 Example Template (templates/command1.jinja2)
 Foo => bar
 ```
+
+## Conclusion
+
+And that completes Part 1.  In the next section we will add the functionality of managing task items, storing data in a database, and sending email messages when completing tasks.
 

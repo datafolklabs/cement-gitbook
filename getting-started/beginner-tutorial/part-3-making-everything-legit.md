@@ -1,8 +1,10 @@
 # Part 4: Making Everything Legit
 
-## Documentation
+## FIXME - Coming Soon
 
-## Unit Testing
+* Documentation
+* Unit Testing
+* Distribution and Packaging
 
-## Distribution and Packaging
+
 

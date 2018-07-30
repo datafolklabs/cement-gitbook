@@ -412,20 +412,32 @@ class Items(Controller):
         arguments=[
             ( ['item_id'],
               {'help': 'todo item database id',
-               'action': 'store' } ),
+              'action': 'store' } ),
         ],
     )
     def complete(self):
         id = int(self.app.pargs.item_id)
         now = strftime("%Y-%m-%d %H:%M:%S")
-        self.app.log.info('completing todo item id: %s' % id)
+        item = self.app.db.get(doc_id=id)
+        item['timestamp'] = now
+        item['state'] = 'complete'
 
-        item = {
-            'timestamp': now,
-            'state': 'complete',
-        }
-
+        self.app.log.info('completing todo item: %s - %s' % (id, item['text']))
         self.app.db.update(item, doc_ids=[id])
+
+        ### send an email message
+        
+        msg = """
+        Congratulations! The following item has been completed:
+
+        %s - %s
+        """ % (id, item['text'])
+        
+        self.app.mail.send(msg,
+                      subject='TODO Item Complete',
+                      to=[self.app.config.get('todo', 'email')],
+                      from_addr='noreply@localhost',
+                      )
 ```
 {% endcode-tabs-item %}
 {% endcode-tabs %}
@@ -436,11 +448,37 @@ Now let's complete one of our items:
 $ todo complete 2
 INFO: completing todo item id: 2
 
+=============================================================================
+DUMMY MAIL MESSAGE
+-----------------------------------------------------------------------------
+
+To: you@yourdomain.com
+From: noreply@localhost
+CC:
+BCC:
+Subject: TODO Item Complete
+
+---
+
+
+        Congratulations! The following item has been completed:
+
+        2 - Send Skyler to Car Wash
+
+
+-----------------------------------------------------------------------------
+
 $ todo list
 1 [ ] Call Saul
 2 [X] Send Skyler to Car Wash
 3 [ ] Meet with Jessie About a Thing
 ```
+
+
+
+{% hint style="info" %}
+Notice that the email message was not sent, but rather printed to console.  This is because the default `mail_handler` is set to `dummy`.  You can override this to use the `smtp` mail handler via the applications configuration files \(ex:`~/.todo.yml)`
+{% endhint %}
 {% endtab %}
 {% endtabs %}
 
@@ -486,4 +524,8 @@ $ todo list
 ```
 {% endtab %}
 {% endtabs %}
+
+## Conclusion
+
+That concludes Part 2!  We now have a fully functional TODO application.  In the next parts we will discuss more indepth about extending the project with plugins, and digging deeper on things like documentation and testing.
 

@@ -1,8 +1,10 @@
 # Part 3: Extending a Project
 
-## Defining Runtime Hooks
+## FIXME - Coming Soon
 
-## Defining Interfaces
+* Defining Hooks
+* Defining Interfaces
+* Creating Plugins
 
-## Creating a Plugin
+
 
