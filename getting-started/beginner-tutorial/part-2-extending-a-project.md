@@ -1,4 +1,4 @@
-# Part 2: Extending a Project
+# Part 3: Extending a Project
 
 ## Defining Runtime Hooks
 
