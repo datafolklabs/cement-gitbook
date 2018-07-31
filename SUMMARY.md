@@ -49,4 +49,5 @@
   * [Tabulate](extensions/tabulate.md)
   * [Watchdog](extensions/watchdog.md)
   * [Yaml](extensions/yaml.md)
+* [Terminology](terminology.md)
 

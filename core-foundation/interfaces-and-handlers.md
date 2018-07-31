@@ -1,5 +1,10 @@
 # Interfaces and Handlers
 
+## API References
+
+* [cement.core.interface](https://cement.readthedocs.io/en/2.99/api/core/interface)
+* [cement.core.handler](https://cement.readthedocs.io/en/2.99/api/core/handler/)
+
 ## Introduction to Interfaces
 
 Cement builds upon a standard interface and handler system that is used extensively to break up pieces of the framework into relatable chucks, and allow customization of everything from logging to config file parsing, and almost every operation in between.
@@ -28,7 +33,7 @@ The following interfaces are builtin to Cement's core foundation:
 
 ### Working With Interfaces
 
-The `InterfaceManager` \(`app.interface`\) provides quick mechanisms to list, get, and verify interfaces:
+The [InterfaceManager](https://cement.readthedocs.io/en/2.99/api/core/handler/) \(`app.interface`\) provides quick mechanisms to list, get, and verify interfaces:
 
 ```python
 from cement import App
@@ -140,7 +145,7 @@ An interface defines itself to the framework via the `Interface.Meta.interface` 
 
 ### Putting It All Together
 
-The following is an MVCE of defining an interface, providing an implementation handler base class, and registering multiple handlers that implement the interface differently:
+The following is an [MCVE](../terminology.md#minimal-complete-verifiable-example-mcve) of defining an interface, providing an implementation handler base class, and registering multiple handlers that implement the interface differently:
 
 {% tabs %}
 {% tab title="myapp.py" %}
@@ -236,7 +241,7 @@ Where an interface defines what an implementation is expected to provide, a hand
 
 ### Working with Handlers
 
-The `HandlerManager` \(`app.handler`\) provides quick mechanisms to list, get, resolve and verify handlers. The following are a few examples of working with handlers:
+The [HandlerManager](https://cement.readthedocs.io/en/2.99/api/core/handler/#cement.core.handler.HandlerManager) \(`app.handler`\) provides quick mechanisms to list, get, resolve and verify handlers. The following are a few examples of working with handlers:
 
 ```python
 from cement import App
@@ -264,119 +269,167 @@ It is important to note that handlers are stored within the application as unins
 
 ### Registering Handlers to an Interface
 
-An interface simply defines what an implementation is expected to provide, where a handler actually implements the interface. The following example is a handler that implements the MyInterface above:
+An interface simply defines what an implementation is expected to provide, where a handler actually implements the interface. 
 
-```text
-from cement.core.foundation import CementAppfrom cement.core.handler import CementBaseHandlerfrom myapp.interfaces import MyInterface​class MyHandler(CementBaseHandler):    class Meta:        interface = MyInterface        label = 'my_handler'        description = 'This handler implements MyInterface'        config_defaults = dict(            foo='bar'            )​    my_var = 'This is my var'​    def __init__(self):        self.app = None​    def _setup(self, app_obj):        self.app = app_obj​    def do_something(self):        print "Doing work!"​class MyApp(CementApp):    class Meta:        label = 'myapp'        handlers = [MyHandler]
+Ex: Registering a Handler to an Interface
+
+{% tabs %}
+{% tab title="Registering a Handler to an Interface" %}
+The following is a simple example of sub-classing an existing handler, then registering that with the framework.
+
+```python
+from cement import App
+from cement.ext.ext_configparser import ConfigParserConfigHandler
+
+
+class MyConfigHandler(ConfigParserConfigHandler):
+    class Meta:
+        label = 'my_config_handler'
+
+    # do something to sub-class ConfigParserConfigHandler
+    
+    
+class MyApp(App):
+    class Meta:
+        label = 'myapp'
+        handlers = [MyConfigHandler]
 ```
-
-Alternatively, if you need more control you might use this approach:
-
-```text
-from cement.core.foundation import CementApp​with CementApp('myapp') as app:    # register handler after the app is created    app.handler.register(MyHandler)​    app.run()
-```
-
-The above is a simple class that meets all the expectations of the interface. When calling `CementApp.handler.register()`, `MyHandler` is passed to the validator \(if defined in the interface\) and if it passes validation will be registered into `HandlerManager.__handlers__`.
+{% endtab %}
+{% endtabs %}
 
 ### Overriding Default Handlers {#overriding-default-handlers}
 
-Cement sets up a number of default handlers for logging, config parsing, etc. These can be overridden in a number of ways. The first way is by passing them as keyword arguments to `CementApp`:
+Cement sets up a number of default handlers for logging, config parsing, etc. These can be overridden in a number of ways, however the primary method is to override their associated setting in [App.Meta](https://cement.readthedocs.io/en/2.99/api/core/foundation/#cement.core.foundation.App.Meta).
 
-```text
-from cement.core.foundation import CementAppfrom myapp.log import MyLogHandler​# Create the applicationapp = CementApp('myapp', log_handler=MyLogHandler)app.setup()app.run()app.close()
+{% tabs %}
+{% tab title="Overriding Default Handlers" %}
+Using the above `MyConfigHandler` example, we simply need to register a handler to an interface, and then override the `App.Meta.config_handler` option:
+
+```python
+class MyApp(App):
+    class Meta:
+        label = 'myapp'
+        handlers = [MyConfigHandler]
+        config_handler = 'my_config_handler'
 ```
+{% endtab %}
+{% endtabs %}
 
-The second way to override a handler is by setting it directly in the `CementApp` meta data:
-
-```text
-from cement.core.foundation import CementAppfrom myapp.log import MyLogHandler​class MyApp(CementApp):    class Meta:        label = 'myapp'        log_handler = MyLogHandler​with MyApp() as app:    app.run()
-```
-
-There are times that you may want to pre-instantiate handlers before passing them to CementApp\(\). The following works just the same:
-
-```text
-from cement.core.foundation import CementAppfrom myapp.log import MyLogHandler​my_log = MyLogHandler(some_param='some_value')​class MyApp(CementApp):    class Meta:        label = 'myapp'        log_handler = my_log​with MyApp() as app:    app.run()
-```
-
-To see what default handlers can be overridden, see the [cement.core.foundation](https://docs.builtoncement.com/2.10/api/cement.core.foundation) documentation.
+All builtin core interfaces have an associated `App.Meta.x_handler` option, allowing complete customization of every aspect of the framework.  See the reference documentation of [App.Meta](https://cement.readthedocs.io/en/2.99/api/core/foundation/#cement.core.foundation.App.Meta) for more detail.
 
 ### Multiple Registered Handlers {#multiple-registered-handlers}
 
-All handlers and interfaces are unique. In most cases, where the framework is concerned, only one handler is used. For example, whatever is configured for the `log_handler` will be used and setup as `app.log`. However, take for example an Output Handler. You might have a default `output_handler` of `mustache`' \(a text templating language\) but may also want to override that handler with the `json` output handler when `-o json` is passed at command line. In order to allow this functionality, both the `mustache` and `json` output handlers must be registered.
+All handlers and interfaces are unique. In most cases, where the framework is concerned, only one handler is used. For example, whatever is configured for the [`App.Meta.log_handler`](https://cement.readthedocs.io/en/2.99/api/core/foundation/#cement.core.foundation.App.Meta.log_handler) will be used and setup as `app.log`. However, take for example an Output Handler. You might have a default [`App.Meta.output_handler`](https://cement.readthedocs.io/en/2.99/api/core/foundation/#cement.core.foundation.App.Meta.output_handler) of `mustache` \(a text templating language\) but may also want to override that handler with the `json` output handler when `-o json` is passed at command line. In order to allow this functionality, both the `mustache` and `json` output handlers must be registered.
 
 Any number of handlers can be registered to an interface. You might have a use case for an Interface/Handler that may provide different compatibility base on the operating system, or perhaps based on simply how the application is called. A good example would be an application that automates building packages for Linux distributions. An interface would define what a build handler needs to provide, but the build handler would be different based on the OS. The application might have an `rpm` build handler, or a `dpkg` build handler to perform the build process differently.
 
-### Customizing Handlers {#customizing-handlers}
+### Customizing Handler Configuration and Meta {#customizing-handlers}
 
-The most common way to customize a handler is to subclass it, and then pass it to `CementApp`:
+Depending on the handler, you will have different ways of customizing its functionality.  Some handlers honor application configuration setting, while others may only rely on meta-options.  In either case, both can be modified at the top level of your application meta.
 
-```text
-from cement.core.foundation import CementAppfrom cement.lib.ext_logging import LoggingLogHandler​class MyLogHandler(LoggingLogHandler):    class Meta:        label = 'mylog'​    def info(self, msg):        # do something to customize this function, here...        super(MyLogHandler, self).info(msg)​app = CementApp('myapp', log_handler=MyLogHandler)
+In the following example, we modify the configuration _defaults_ of the log handler, and also the meta-options to enable an optional log level command line argument feature it supports.  
+
+{% hint style="warning" %}
+Note that configuration settings are always overridable via configuration files, however this example is modifying the builtin default setting of the log handler.
+{% endhint %}
+
+{% tabs %}
+{% tab title="Example: Customizing Handler Configuration and Meta" %}
+```python
+from cement import App, init_defaults
+
+CONFIG = init_defaults('myapp', 'log.logging')
+CONFIG['log.logging']['level'] = 'warning'
+
+META = init_defaults('log.logging')
+META['log.logging']['log_level_argument'] = ['-l', '--level']
+
+class MyApp(App):
+    class Meta:
+        label = 'myapp'
+        config_defaults = CONFIG
+        meta_defaults = META
 ```
+{% endtab %}
+{% endtabs %}
 
-### Handler Default Configuration Settings {#handler-default-configuration-settings}
+{% hint style="info" %}
+If modifying the configuration or meta options isn't enough, you can always sub-class an existing handler and register your own in it's place.
+{% endhint %}
 
-All handlers can define default config file settings via their `config_defaults` meta option. These will be merged into the `app.config` under the `[handler_interface].[handler_label]` section. These settings are overridden in the following order.
+###  {#handler-default-configuration-settings}
 
-* The config\_defaults dictionary passed to `CementApp`
-* Via any application config files with a `[handler_interface].[handler_type]` block \(i.e. `cache.memcached`\)
+### Overriding Handlers via Command Line {#overriding-handlers-via-command-line}
 
-The following shows how to override defaults by passing them with the defaults dictionary to `CementApp`:
+In some use cases, you will want the end user to have access to override the default handler of a particular interface. For example, Cement ships with multiple Output Handlers including `json`, `yaml`, and `mustache`. A typical application might default to using `mustache` to render console output from text templates. That said, without changing any code in the application, the end user could simply pass the `-o json` command line option and output the same data that is rendered to template, out in pure JSON.
 
-```text
-from cement.core import foundationfrom cement.utils.misc import init_defaults​defaults = init_defaults('myinterface.myhandler')defaults['myinterface.myhandler'] = dict(foo='bar')app = foundation.CementApp('myapp', config_defaults=defaults)
-```
-
-Cement will use all defaults set via `MyHandler.Meta.config_defaults` \(for this example\), and then override just what is passed via `config_defaults['myinterface.myhandler']`. You should use this approach only to modify the global defaults for your application. The second way is to then set configuration file defaults under the `[myinterface.myhandler]` section. For example:
-
-**my.config**
-
-```text
-[myinterface.myhandler]foo = bar
-```
-
-In the real world this may look like `[cache.memcached]`, or `[database.mysql]` depending on what the interface label, and handler label's are. Additionally, individual handlers can override their config section by setting `Meta.config_section`.
-
-### Overriding Handlers Via Command Line {#overriding-handlers-via-command-line}
-
-In some use cases, you will want the end user to have access to override the default handler of a particular interface. For example, Cement ships with multiple Output Handlers including `json`, `yaml`, and `mustache`. A typical application might default to using `mustache` to render console output from text templates. That said, without changing any code in the application, the end user can simply pass the `-o json` command line option and output the same data that is rendered to template, out in pure JSON.
+{% hint style="warning" %}
+Output hander overrides are not enabled by default, but can be enabled by  setting the `OutputHandler.Meta.overridable` option to `True` for the output handlers that you want overridable by the `-o` option at command line.  See the documentation on [Output Rendering](output-rendering.md) for more details and examples.
+{% endhint %}
 
 The only built-in handler override that Cement includes is for the above mentioned example, but you can add any that your application requires.
 
-The following example shows this in action... note that the following is already setup by Cement, but we're putting it here for clarity:
+{% tabs %}
+{% tab title="Example: Overriding Handlers via Command Line" %}
+{% code-tabs %}
+{% code-tabs-item title="myapp.py" %}
+```python
+from cement import App, init_defaults
 
-```text
-from cement.core.foundation import CementApp​class MyApp(CementApp):    class Meta:        label = 'myapp'​        # define what extensions we want to load        extensions = ['mustache', 'json', 'yaml']​        # define our default output handler        output_handler = 'mustache'​        # define our handler override options        handler_override_options = dict(            output = (['-o'], dict(help='output format')),            )​​with MyApp() as app:    # run the application    app.run()​    # define some data for the output handler    data = dict(foo='bar')​    # render something using out output handlers, using mustache by    # default which will use the default.m templae    app.render(data, 'default.m')
+META = init_defaults('output.json', 'output.yaml')
+META['output.json']['overridable'] = True
+META['output.yaml']['overridable'] = True
+
+class MyApp(App):
+    class Meta:
+        label = 'myapp'
+        extensions = ['json', 'yaml', 'mustache']
+        meta_defaults = META
+        output_handler = 'mustache'
+        template_dir = './templates'
+
+with MyApp() as app:
+    app.run()
+    
+    data = {'foo': 'bar'}
+    app.render(data, 'example.m')
 ```
+{% endcode-tabs-item %}
 
-Note what we see at command line:
-
-```text
-$ python myapp.py --helpusage: myapp.py [-h] [--debug] [--quiet] [-o {yaml,json}]​optional arguments:  -h, --help      show this help message and exit  --debug         toggle debug output  --quiet         suppress all output  -o {yaml,json}  output format
+{% code-tabs-item title="templates/example.m" %}
 ```
-
-Notice the `-o` command line option, that includes the choices: `yaml` and `json`. This feature will include all Output Handlers that have the `overridable` meta-data option set to `True`. The MustacheOutputHandler does not set this option, therefore it does not show up as a valid choice.
-
-Now what happens when we run it?
-
-```text
-$ python myapp.pyThis text is being rendered via Mustache.The value of the 'foo' variable is => 'bar'
+Foo: {{ foo }}
 ```
+{% endcode-tabs-item %}
+{% endcode-tabs %}
+{% endtab %}
 
-The above is the default output, using `mustache` as our `output_handler`, and rendering the output text from a template called `default.m`. We can now override the output handler using the `-o` option and modify the output format:
-
+{% tab title="cli" %}
 ```text
-$ python myapp.py -o json{"foo": "bar"}
+$ python myapp.py --help
+usage: myapp [-h] [-d] [-q] [-o {json,yaml}]
+
+optional arguments:
+  -h, --help      show this help message and exit
+  -d, --debug     full application debug mode
+  -q, --quiet     suppress all console output
+  -o {json,yaml}  output handler
+  
+$ python myapp.py
+Foo: bar
+
+$ python -o json myapp.py
+{"foo": "bar"}
+
+$ python -o yaml myapp.py
+foo: bar
 ```
+{% endtab %}
+{% endtabs %}
 
-Again, any handler can be overridden in this fashion.
+Notice the `-o` command line option, that includes the choices: `yaml` and `json`. This feature will include all Output Handlers that have the `overridable` meta-data option set to `True`. We did not set this option for the mustache handler, therefore it did not show up as a choice for the `-o` option at command-line.
 
-## API References
 
-{{book}}
-
-* ​[Cement Interface Module](https://docs.builtoncement.com/2.10/api/cement.core.interface)​
-* ​[Cement Handler Module](https://docs.builtoncement.com/2.10/api/cement.core.handler)​
 
 
 
