@@ -113,7 +113,7 @@ $ cat ~/.todo/db.json
 
 In order to work with todo items we need to map out commands with our app.  We could do this with the existing `Base` controller, however to keep code clean and organized we want to create an new controller called `Items`.  
 
-At this point, we have a decision to make.  Do we want our controllers commands to appear **embedded** under the primary applications namespace \(ex: `todo my-command`\) or do we want a separate **nested** namespace \(ex: `todo items my-command`\).  As our application is still small, we will opt to embed our controllers commands under the primary namespace \(to keep our commands and examples shorter\).
+At this point, we have a decision to make regarding [controller stacking](../../terminology.md#controller-stacking).  Do we want our controllers commands to appear **embedded** under the primary applications namespace \(ex: `todo my-command`\) or do we want a separate **nested** namespace \(ex: `todo items my-command`\).  As our application is still small, we will opt to embed our controllers commands under the primary namespace \(to keep our commands and examples shorter\).
 
 {% tabs %}
 {% tab title="Add Items Controller Code" %}
@@ -177,7 +177,7 @@ With our new controller registered, lets see it in action:
 $ todo --help
 INFO: extending todo application with tinydb
 INFO: tinydb database file is: /Users/derks/.todo/db.json
-usage: todo [-h] [-d] [-q] [-v] [-l {info,warning,error,debug,fatal}]
+usage: todo [-h] [-d] [-q] [-v]
             {complete,create,delete,update} ...
 
 A Simple TODO Application
