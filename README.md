@@ -8,7 +8,7 @@ Portland is a complete fork of Cement 2, and will eventually become Cement 3. It
 The developer guide assumes intermediate level knowledge of Python. If you are totally new to Python development, you might want to get more familiar with the language before jumping into a framework.
 {% endhint %}
 
-##  What is Cement?
+## What is Cement?
 
 Cement is an advanced Application Framework for Python, with a primary focus on Command Line Interfaces \(CLI\). Its goal is to introduce a standard, and feature-full platform for both simple and complex command line applications as well as support rapid development needs without sacrificing quality. Cement is flexible, and it's use cases span from the simplicity of a micro-framework to the complexity of a mega-framework. Whether it's a single file script, or a multi-tier application, Cement is the foundation you've been looking for.
 
