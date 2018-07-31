@@ -435,19 +435,9 @@ The following output handlers ship with Cement:
 * [Jinja2](../extensions/jinja2.md) - Produces text output rendered from [Jinja2](http://jinja.pocoo.org/) templates
 * [Tabulated](../extensions/tabulate.md) - Produces tabulated text output rendered via the [Tabulate](https://pypi.python.org/pypi/tabulate) library.
 
-Ex: Standard Output via Print Statements
-
-```python
-from cement import App
-
-with App('myapp') as app:
-    print('About to run MyApp!')
-    app.run()
-```
-
 **Multiple Output Handler Support**
 
-One of the unique features of Cement is that you can build your application to support multiple output handlers and formats. Output handlers have a special attribute that allows them to be exposed via the CLI option `-o` \(configurable via [`App.Meta.core_handler_override_options`](https://cement.readthedocs.io/en/portland/api/core/foundation/#cement.core.foundation.App.Meta.core_handler_override_options)\). Therefore, you might have default text based output rendered from Mustache templates, but optionally output programatic structures **from the same dict** when necessary \(i.e.`$ myapp -o json`\).
+One of the unique features of Cement is that you can build your application to support multiple output handlers and formats. Output handlers have a special attribute that _optionally_ allows them to be exposed via the CLI option `-o` \(configurable via [`Handler.Meta.overridable`](http://cement.readthedocs.io/en/2.99/api/core/handler/#cement.core.handler.Handler.Meta.overridable) and [`App.Meta.core_handler_override_options`](https://cement.readthedocs.io/en/portland/api/core/foundation/#cement.core.foundation.App.Meta.core_handler_override_options)\). Therefore, you might have default text based output rendered from Mustache templates, but optionally output programatic structures **from the same code** when necessary \(i.e.`$ myapp -o json`\).
 
 Ex: Mixed Template/JSON Output Example
 
@@ -524,9 +514,9 @@ $ python myapp.py -o json
 
 Controllers provide a common means of organizing application logic into relevant chunks of code, as well as the ability for plugins and extensions to extend an applications capabilities. It is the `Controller` piece of the traditional [MVC Framework](https://en.wikipedia.org/wiki/Model-view-controller).
 
-The first controller is called `base`, and if registered will take over runtime control when `app.run()` is called. What this means is, instead of Cement calling `app.args.parse_arguments()` directly, the application dispatch is handed over to the `base` controller, that is then responsible for parsing and handling arguments. This is what we call `Runtime Dispatch`.
+The first controller is called `base`, and if registered will take over runtime control when `app.run()` is called. What this means is, instead of Cement calling `app.args.parse_arguments()` directly, the [runtime dispatch](../terminology.md#runtime-dispatch) is handed over to the `base` controller, that is then responsible for parsing and handling arguments. 
 
-The most notable action of `Runtime Dispatch` is mapping arguments and sub-commands to their respective controllers and functions. For example, the default action when running `$ myapp` without any arguments or sub-commands is to execute the `BaseController._default()` function.
+The most notable action of runtime dispatch is mapping arguments and sub-commands to their respective controllers and functions. For example, the default action when running `$ myapp` without any arguments or sub-commands is to execute the `Base._default()` function.
 
 Ex: Application Base Controller
 
@@ -620,7 +610,7 @@ Recieved Option: -b
 
 **Nested / Embedded Controllers**
 
-Cement supports two types of controller **stacking**:
+Cement supports two types of [controller stacking](../terminology.md#controller-stacking):
 
 * **nested** - The arguments and commands are nested under a sub-parser whose label is that of the controller.  For example, a nested controller with a label of `my-nested-controller` would be called as `$ myapp my-nested-controller sub-command`.
 * **embedded** - The arguments and commands are embedded within it's parent controller, therefore appearing as if they were defined by the parent itself.  A sub-command under an embedded controller would be called as `$ myapp sub-command`.
@@ -646,12 +636,12 @@ To expose a function as a sub-command, you must decorate it with `@ex()`. It's u
 * `**kwargs` - Additional keyword arguments are passed directly to Argparse when creating the sub-parser for this command.
 
 {% hint style="info" %}
-'ex' is short for 'expose', and allows for shorter reference and also four character indentation/alignment with functions to be easier on the eyes.
+The term `ex` is short for `expose`, and allows for shorter reference and also four character indentation/alignment with functions to be easier on the eyes.
 {% endhint %}
 
 ### Framework Extensions
 
-Cement's Interfaces and Handlers system makes extending the framework easy, and limitless. Cement ships dozens of extensions that either alter existing funtionality, or add to it. For example, the default logging facility provides basic logging capabilities, however with a single line of code an application can instead use the [Colorlog](../extensions/colorlog.md) extension to enable colorized console logging.
+Cement's [Interfaces and Handlers](../core-foundation/interfaces-and-handlers.md) system makes extending the framework easy, and limitless. Cement ships with dozens of extensions that either alter existing functionality, or add to it. For example, the default logging facility provides basic logging capabilities, however with a single line of code an application can instead use the [Colorlog](../extensions/colorlog.md) extension to enable colorized console logging.
 
 The following example provides a quick look at using the [Alarm](../extensions/alarm.md) extension to handle application timeouts of long running operations
 
