@@ -153,7 +153,7 @@ This runs common commands to create our virtual environment in `./env/`, and the
 
 ```text
 |> todo <| $ todo --help
-usage: todo [-h] [-d] [-q] [-v] [-l {info,warning,error,debug,fatal}]
+usage: todo [-h] [-d] [-q] [-v]
             {command1} ...
 
 A Simple TODO Application
