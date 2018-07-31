@@ -257,10 +257,6 @@ $ todo create "Meet with Jessie About a Thing"
 INFO: creating todo item: Meet with Jessie About a Thing
 ```
 {% endtab %}
-
-{% tab title="Second Tab" %}
-
-{% endtab %}
 {% endtabs %}
 
 ### List Items
@@ -290,7 +286,7 @@ $ cat ~/.todo/db.json | python -m json.tool
 }
 ```
 
-We can see that TinyDB automatically generates database IDs, so we will want to display that when listing our items so that latest we can easily update/delete/complete by ID later.
+We can see that TinyDB automatically generates database IDs, so we will want to display that when listing our items so that we can easily update/delete/complete by ID later.
 
 {% tabs %}
 {% tab title="Add List Items Code" %}
@@ -323,13 +319,12 @@ Here we are pulling all of the items from the database, putting it into a data d
 {% endcode-tabs-item %}
 {% endcode-tabs %}
 
-It's a little messy, but that's why we put this in a separate template and not in our code.  We are including the ID so that we can use that for updating/deleting/etc, and also a `[ ]` \(checkbox\) that will be "checked" when complete the item's state is `complete`.
+It's a little messy, but that's why we put this in a separate template and not in our code.  We are including the ID so that we can use that for updating/deleting/etc, and also a `[ ]` \(checkbox\) that will be "checked" when the item's state is `complete`.
 
 Let's have a go:
 
 ```text
 $ todo list
-
 1 [ ] Call Saul
 2 [ ] Go to Car Wash
 3 [ ] Meet with Jessie About a Thing

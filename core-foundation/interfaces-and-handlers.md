@@ -77,8 +77,7 @@ from cement import App, Interface
                 the end-user.
         """
         pass
-        
-    
+            
     @abstractmethod
     def greet(self):
         """
@@ -271,8 +270,6 @@ It is important to note that handlers are stored within the application as unins
 
 An interface simply defines what an implementation is expected to provide, where a handler actually implements the interface. 
 
-Ex: Registering a Handler to an Interface
-
 {% tabs %}
 {% tab title="Registering a Handler to an Interface" %}
 The following is a simple example of sub-classing an existing handler, then registering that with the framework.
@@ -281,13 +278,11 @@ The following is a simple example of sub-classing an existing handler, then regi
 from cement import App
 from cement.ext.ext_configparser import ConfigParserConfigHandler
 
-
 class MyConfigHandler(ConfigParserConfigHandler):
     class Meta:
         label = 'my_config_handler'
 
     # do something to sub-class ConfigParserConfigHandler
-    
     
 class MyApp(App):
     class Meta:
