@@ -246,7 +246,7 @@ myapp:
 {% endtab %}
 {% endtabs %}
 
-**Overriding Configuration Setting with Environment Variables**
+**Overriding Configuration Settings with Environment Variables**
 
 All configuration settings can be overridden by their associated environment variables. For example `config['myapp']['foo']` is overridable by `$MYAPP_FOO`.
 
