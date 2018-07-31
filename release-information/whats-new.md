@@ -6,6 +6,15 @@ description: Overview of notable features and major changes in the latest releas
 
 ## Notable Features and Changes
 
+### Better Documentation
+
+A lot of time and effort has gone into revamping the developer documentation, which includes:
+
+* Separation of Developer Guide \(this\) and [API Reference](http://cement.readthedocs.io/en/2.99/)
+* Complete [framework overview](../getting-started/framework-overview.md) and [beginner tutorial](../getting-started/beginner-tutorial/) to get started building your first application
+* List of [terminology](../terminology.md) used throughout the framework and documentation
+* Thorough guide of all [builtin extensions](../extensions/)
+
 ### Simplified API Naming Conventions and Usage
 
 The naming conventions and library paths in Cement 2 were laborious to type and remember.  Now all modules/methods/etc are importable from `cement` namespace directly, and the naming is simplified \(ex: `CementApp` is now `App`, `CementHandler` is now `Handler`, etc\).
@@ -30,7 +39,7 @@ class MyApp(App):
 
 ### Developer Tools CLI
 
-You can generate projects, plugins, extensions, and scripts with the included `cement` command-line tool:
+The [Cement Developer Tools](../getting-started/developer-tools.md) allow developers to quickly generate projects, plugins, extensions, and scripts:
 
 ```text
 $ cement generate project ./myapp
