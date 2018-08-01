@@ -15,7 +15,7 @@ The ConfigParser Extension provides configuration handling based on the standard
 
 ## Configuration
 
-This extension does not honor any application configuration settings.
+This extension does rely on any application configuration settings or meta options.
 
 ## Usage
 

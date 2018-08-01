@@ -21,7 +21,7 @@ The Alarm Extension provides easy mechanisms for handling long running operation
 
 ## **Configuration**
 
-This extension does not honor any application configuration settings.
+This extension does rely on any application configuration settings or meta options.
 
 ## **Usage**
 

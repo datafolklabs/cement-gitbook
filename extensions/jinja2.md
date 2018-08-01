@@ -1,27 +1,48 @@
 # Jinja2
 
+## Introduction
+
+The Jinja2 Extension provides the [`Jinja2OutputHandler`](http://cement.readthedocs.io/en/2.99/api/ext/ext_jinja2/#cement.ext.ext_jinja2.Jinja2OutputHandler) for output rendering, and the [`Jinja2TemplateHandler`](http://cement.readthedocs.io/en/2.99/api/ext/ext_jinja2/#cement.ext.ext_jinja2.Jinja2TemplateHandler) for file/content templating based on the Jinja2 templating language.
+
+**Documentation References:**
+
+* [Output Rendering](../core-foundation/output-rendering.md)
+* [Templating](../core-foundation/templating.md)
+
+**API References:**
+
+* [Cement Jinja2 Extension](http://cement.readthedocs.io/en/2.99/api/ext/ext_jinja2/)
+* [Jinja2 Module](http://jinja.pocoo.org/docs/2.10/api/)
+
+## Requirements
+
+* Jinja2 \(`pip install jinja2`\)
+
+## Configuration
+
+### **Configuration File Settings**
+
+This extension honors the following settings under the primary namespace \(ex: `[myapp]`\) of the application configuration:
+
+| **template\_dir** | Directory path of a local template directory. |
+| --- |
 
 
-The Jinja2 Extension module provides output and file templating based on the [Jinja2 Templating Language](http://jinja.pocoo.org/).
+### **Application Meta Options**
 
-### Requirements
+This extension honors the following [`App.Meta`](http://cement.readthedocs.io/en/2.99/api/core/foundation/?highlight=app.meta#cement.core.foundation.App.Meta) options:
 
-> * Jinja2 \(`pip install Jinja2`\)
+| **template\_dirs** | A list of data directories to look for templates |
+| --- | --- |
+| **template\_module** | A python module to look for templates |
 
-### Configuration
+## Usage
 
-To **prepend** a directory to the `template_dirs` list defined by the application/developer, an end-user can add the configuration option `template_dir` to their application configuration file under the main config section:
+### **Output Handler**
 
-```text
-[myapp]
-template_dir = /path/to/my/templates
-```
-
-Example
-
-**Output Handler**
-
-```text
+{% tabs %}
+{% tab title="Example: Using Jinja2 Output Handler" %}
+```python
 from cement import App
 
 class MyApp(App):
@@ -29,11 +50,6 @@ class MyApp(App):
         label = 'myapp'
         extensions = ['jinja2']
         output_handler = 'jinja2'
-        template_module = 'myapp.templates'
-        template_dirs = [
-            '~/.myapp/templates',
-            '/usr/lib/myapp/templates',
-            ]
 
 with MyApp() as app:
     app.run()
@@ -44,12 +60,14 @@ with MyApp() as app:
     # render the data to STDOUT (default) via a template
     app.render(data, 'my_template.jinja2')
 ```
+{% endtab %}
+{% endtabs %}
 
-Note that the above `template_module` and `template_dirs` are the auto-defined defaults but are added here for clarity. From here, you would then put a Jinja2 template file in`myapp/templates/my_template.jinja2` or `/usr/lib/myapp/templates/my_template.jinja2`.
+### **Template Handler**
 
-**Template Handler**
-
-```text
+{% tabs %}
+{% tab title="Example: Using Jinja2 Template Handler" %}
+```python
 from cement import App
 
 class MyApp(App):
@@ -62,12 +80,18 @@ with MyApp() as app:
     app.run()
 
     # create some data
-    data = dict(foo='bar')
+    data = {
+        'foo': 'bar'
+    }
 
     # copy a source template directory to destination
-    app.template.copy('/path/to/source/', '/path/to/destination/', data)
+    app.template.copy('/path/to/source/', 
+                      '/path/to/destination/', 
+                      data)
 
     # render any content as a template
     app.template.render('foo -> {{ foo }}', data)
 ```
+{% endtab %}
+{% endtabs %}
 

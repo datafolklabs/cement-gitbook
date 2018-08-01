@@ -22,7 +22,7 @@ The Daemon Extension enables applications to easily perform standard daemonizati
 
 ## Configuration
 
-The daemon extension is configurable with the following settings under the `[daemon]` section.
+The daemon extension is configurable with the following settings under a `[daemon]` section in the application configuration:
 
 | **user** | The user name the process runs as.  Default: `os.getlogin()` |
 | --- | --- | --- | --- | --- |

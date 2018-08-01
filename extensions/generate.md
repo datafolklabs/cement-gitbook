@@ -17,11 +17,17 @@ API References
 
 ## **Configuration**
 
-This extension does not currently honor any application configuration settings.
+### **Configuration File Settings**
 
-## **App Meta Options**
+This extension honors the following settings under the primary namespace \(ex: `[myapp]`\) of the application configuration:
 
-This extension honors the following `App.Meta` options:
+| **template\_dir** | Directory path of a local template directory. |
+| --- |
+
+
+### **Application Meta Options**
+
+This extension honors the following [`App.Meta`](http://cement.readthedocs.io/en/2.99/api/core/foundation/?highlight=app.meta#cement.core.foundation.App.Meta) options:
 
 | **template\_handler** | A template handler to use as the backend for templating |
 | --- | --- | --- |

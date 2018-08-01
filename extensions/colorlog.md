@@ -15,7 +15,7 @@ The ColorLog Extension provides logging based on the standard `logging` module a
 
 ## Configuration
 
-This handler honors the following settings under a `[log.colorlog]` section of the configuration.:
+This handler honors the following settings under a `[log.colorlog]` section of the configuration:
 
 | **level** | The logging to display logs for. One of `INFO, WARNING, ERROR, FATAL, DEBUG`. Default: `INFO` |
 | --- | --- | --- | --- | --- | --- | --- | --- |

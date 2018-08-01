@@ -16,7 +16,7 @@ The Argparse Extension provides argument handling based on [`argparse.ArgumentPa
 
 ## Configuration
 
-This extension does not have any application configuration settings.
+This extension does rely on any application configuration settings or meta options.
 
 ## Usage
 
