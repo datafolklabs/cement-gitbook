@@ -4,7 +4,7 @@
 
 The Argparse Extension provides the [`ArgparseArgumentHandler`](http://cement.readthedocs.io/en/2.99/api/ext/ext_argparse/#cement.ext.ext_argparse.ArgparseArgumentHandler) for argument parsing, and the [`ArgparseController`](http://cement.readthedocs.io/en/2.99/api/ext/ext_argparse/#cement.ext.ext_argparse.ArgparseController) for runtime dispatch.  Both are the defaults used by Cement.
 
-Documentation References:
+**Documentation References:**
 
 * [Arguments](../core-foundation/arguments.md)
 * [Controllers](../core-foundation/controllers.md)
