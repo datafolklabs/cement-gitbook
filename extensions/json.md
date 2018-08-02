@@ -6,8 +6,8 @@ The JSON Extension provides the [`JsonOutputHandler`](http://cement.readthedocs.
 
 **Documentation References:**
 
+* [Configuration Settings](../core-foundation/configuration-settings.md)
 * [Output Rendering](../core-foundation/output-rendering.md)
-* [Templating](../core-foundation/templating.md)
 
 **API References:**
 

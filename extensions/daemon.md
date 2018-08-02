@@ -11,6 +11,10 @@ The Daemon Extension enables applications to easily perform standard daemonizati
 * Add `app.daemonize()` function to trigger daemon functionality where necessary \(either in a cement `pre_run` hook or an application controller sub-command, etc\)
 * Manages a PID file including cleanup on `app.close()`
 
+**API References:**
+
+* [Cement Daemon Extension](https://cement.readthedocs.io/en/2.99/api/ext/ext_daemon/)
+
 ## Requirements
 
 * Python 2.6+, 3+

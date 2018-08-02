@@ -6,6 +6,7 @@ The Mustache Extension provides output and file templating based on the [Mustach
 
 **Documentation References:**
 
+* [Output Rendering](../core-foundation/output-rendering.md)
 * [Templating](../core-foundation/templating.md)
 
 **API References**

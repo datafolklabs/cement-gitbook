@@ -1,12 +1,14 @@
 # Contributing
 
-Cement is an open-source project, and is open to any and all contributions that other developers would like to provide. This document provides some guidelines that all contributors must be aware of, and abide by to have their submissions included in the source.
+## Introduction
 
-### Licensing {#licensing}
+Cement is an open-source project, and is open to any and all contributions that other developers would like to provide. This document provides some guidelines that all contributors should be aware of, and abide by to have their submissions included in the source.
+
+## Licensing
 
 The Cement source code is licensed under the BSD three-clause license and is approved by the [Open Source Initiative](http://www.opensource.org/). All contributed source code must be either the original work of the contributing author, which will be contributed under the BSD license, or work taken from another project that is released under a BSD-compatible license.
 
-### Submitting Bug Reports and Feature Requests {#submitting-bug-reports-and-feature-requests}
+## Submitting Bug Reports and Feature Requests
 
 If you've found a bug, or would like to request a feature please create a detailed issue for it at [github.com/datafolklabs/cement](http://github.com/datafolklabs/cement/issues).
 
@@ -35,7 +37,7 @@ If you've found a bug, or would like to request a feature please create a detail
 
    c. Documentation that outlines how to use the feature
 
-### Guidelines for Code Contributions {#guidelines-for-code-contributions}
+## Guidelines for Code Contributions
 
 If you are new to Cement, looking for something quick to fix, or just want an opportunity to contribute to the project... the best place to start is to review the issues labeled as `low-hanging-fruit` on [Github](https://github.com/datafolklabs/cement/labels/low-hanging-fruit).
 
@@ -66,13 +68,7 @@ Regarding git commit messages, please read the following:
 
 * ​[Commit Guidelines](http://git-scm.com/book/en/Distributed-Git-Contributing-to-a-Project#Commit-Guidelines)​
 
-The majority of commits only require a single line commit message. That said, for more complex commits, please use the following as an example \(as outlined in the ProGit link above\):
-
-```text
-Short (50 chars or less) summary of changes​More detailed explanatory text, if necessary.  Wrap it to about 72characters or so.  In some contexts, the first line is treated as thesubject of an email and the rest of the text as the body.  The blankline separating the summary from the body is critical (unless you omitthe body entirely); tools like rebase can get confused if you run thetwo together.​Further paragraphs come after blank lines.​ - Bullet points are okay, too​ - Typically a hyphen or asterisk is used for the bullet, preceded by a   single space, with blank lines in between, but conventions vary here
-```
-
-### Source Code and Versioning {#source-code-and-versioning}
+## Source Code and Versioning
 
 One of the primary goals of Cement is stability in the source code. For this reason we maintain a number of different git branches for focused development.
 

@@ -6,7 +6,11 @@ The Generate Extension includes the [Generate](https://cement.readthedocs.io/en/
 
 The [Cement Developer Tools](../getting-started/developer-tools.md) use this extension to generate projects, plugins, extensions, scripts, etc for developers building their applications on the framework.
 
-API References
+**Documentation References:**
+
+* [Templating](../core-foundation/templating.md)
+
+**API References:**
 
 * [Cement Generate Extension](http://cement.readthedocs.io/en/2.99/api/ext/ext_generate/)
 

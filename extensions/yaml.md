@@ -1,9 +1,12 @@
 # Yaml
 
+## Introduction
+
 The Yaml Extension includes the [`YamlOutputHandler`](http://cement.readthedocs.io/en/2.99/api/ext/ext_yaml/#cement.ext.ext_yaml.YamlOutputHandler) to render output in pure Yaml, as well as the [`YamlConfigHandler`](http://cement.readthedocs.io/en/2.99/api/ext/ext_yaml/#cement.ext.ext_yaml.YamlConfigHandler) that allows applications to use Yaml configuration files as a drop-in replacement of the default [`ConfigParserConfigHandler`](https://cement.readthedocs.io/en/2.99/api/ext/ext_configparser/#cement.ext.ext_configparser.ConfigParserConfigHandler).
 
 **Documentation References:**
 
+* [Configuration Settings](../core-foundation/configuration-settings.md)
 * [Output Rendering](../core-foundation/output-rendering.md)
 
 **API References:**

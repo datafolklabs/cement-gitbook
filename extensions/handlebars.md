@@ -4,11 +4,16 @@
 
 The Handlebars Extension provides output and file templating using the [pybars3](https://github.com/wbond/pybars3) package.
 
+**Documentation References:**
+
+* [Output Rendering](../core-foundation/output-rendering.md)
+* [Templating](../core-foundation/templating.md)
+
 **API References:**
 
 * [Cement Handlebars Extension](http://cement.readthedocs.io/en/2.99/api/ext/ext_handlebars/)
 
-### Requirements
+## Requirements
 
 * pybars3 \(`pip install pybars3`\)
 
