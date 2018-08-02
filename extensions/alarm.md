@@ -2,7 +2,7 @@
 
 ## Introduction
 
-The Alarm Extension provides easy mechanisms for handling long running operations that might timeout after a set amount of time.
+The Alarm Extension provides the [AlarmManager](http://cement.readthedocs.io/en/2.99/api/ext/ext_alarm/#cement.ext.ext_alarm.AlarmManager) extended object, with easy mechanisms for handling long running operations that might timeout after a set amount of time.
 
 **API References:**
 
@@ -21,7 +21,7 @@ The Alarm Extension provides easy mechanisms for handling long running operation
 
 ## **Configuration**
 
-This extension does rely on any application configuration settings or meta options.
+This extension does rely on any application level configuration settings or meta options.
 
 ## **Usage**
 

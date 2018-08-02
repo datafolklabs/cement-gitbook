@@ -2,7 +2,11 @@
 
 ## Introduction
 
-The ColorLog Extension provides logging based on the standard `logging` module and is a sub-class and drop-in replacement for the default log handler [`cement.ext.ext_logging.LoggingLogHandler`](http://cement.readthedocs.io/en/2.99/api/ext/ext_logging/#cement.ext.ext_logging.LoggingLogHandler).
+The ColorLog Extension provides the [`ColorLogHandler`](http://cement.readthedocs.io/en/2.99/api/ext/ext_colorlog/#cement.ext.ext_colorlog.ColorLogHandler) for logging, and is a sub-class and drop-in replacement for the default log handler [`LoggingLogHandler`](http://cement.readthedocs.io/en/2.99/api/ext/ext_logging/#cement.ext.ext_logging.LoggingLogHandler).
+
+**Documentation References:**
+
+* [Logging](../core-foundation/logging-1.md)
 
 **API References:**
 

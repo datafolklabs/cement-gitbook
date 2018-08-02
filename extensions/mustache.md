@@ -1,27 +1,47 @@
 # Mustache
 
-
+## Introduction
 
 The Mustache Extension provides output and file templating based on the [Mustache Templating Language](http://mustache.github.com/).
 
-### Requirements
+**Documentation References:**
 
-> * pystache \(`pip install pystache`\)
+* [Templating](../core-foundation/templating.md)
 
-### Configuration
+**API References**
 
-To **prepend** a directory to the `template_dirs` list defined by the application/developer, an end-user can add the configuration option `template_dir` to their application configuration file under the main config section:
+* [Cement Mustache Extension](https://cement.readthedocs.io/en/2.99/api/ext/ext_mustache/)
+* [Mustache Library](http://mustache.github.io/)
 
-```text
-[myapp]
-template_dir = /path/to/my/templates
-```
+## Requirements
 
-Example
+* Pystache \(`pip install pystache`\)
 
-**Output Handler**
+## Configuration
 
-```text
+### **Application Configuration Settings**
+
+This extension honors the following settings under the primary namespace \(ex: `[myapp]`\) of the application configuration:
+
+| **template\_dir** | Directory path of a local template directory. |
+| --- |
+
+
+### **Application Meta Options**
+
+This extension honors the following [`App.Meta`](http://cement.readthedocs.io/en/2.99/api/core/foundation/?highlight=app.meta#cement.core.foundation.App.Meta) options:
+
+| **template\_dirs** | A list of data directories to look for templates |
+| --- | --- |
+| **template\_module** | A python module to look for templates |
+
+## Usage
+
+### Output Handler
+
+{% tabs %}
+{% tab title="Example: Mustache Output Handler" %}
+```python
 from cement import App
 
 class MyApp(App):
@@ -29,23 +49,26 @@ class MyApp(App):
         label = 'myapp'
         extensions = ['mustache']
         output_handler = 'mustache'
-        template_module = 'myapp.templates'
-        template_dirs = [
-            '~/.myapp/templates',
-            '/usr/lib/myapp/templates',
-            ]
-# ...
+
+with MyApp() as app:
+    app.run()
+
+    # create some data
+    data = {
+        'foo': 'bar',
+    }
+
+    # render the data to STDOUT (default) via a template
+    app.render(data, 'my_template.mustache')
 ```
+{% endtab %}
+{% endtabs %}
 
-Note that the above `template_module` and `template_dirs` are the auto-defined defaults but are added here for clarity. From here, you would then put a Mustache template file in`myapp/templates/my_template.mustache` or `/usr/lib/myapp/templates/my_template.mustache` and then render a data dictionary with it:
+### **Template Handler**
 
-```text
-app.render(some_data_dict, 'my_template.mustache')
-```
-
-**Template Handler**
-
-```text
+{% tabs %}
+{% tab title="Example: Using Mustache Template Handler" %}
+```python
 from cement import App
 
 class MyApp(App):
@@ -58,35 +81,45 @@ with MyApp() as app:
     app.run()
 
     # create some data
-    data = dict(foo='bar')
+    data = {
+        'foo': 'bar'
+    }
 
     # copy a source template directory to destination
-    app.template.copy('/path/to/source/', '/path/to/destination/', data)
+    app.template.copy('/path/to/source/', 
+                      '/path/to/destination/', 
+                      data)
 
     # render any content as a template
     app.template.render('foo -> {{ foo }}', data)
 ```
+{% endtab %}
+{% endtabs %}
 
 ### Loading Partials
 
-Mustache supports `partials`, or in other words template `includes`. These are also loaded by the output handler, but require a full file name. The partials will be loaded in the same way as the base templates
+Mustache supports `partials`, or in other words template `includes`. These are also loaded by the output handler, but require a full file name. The partials will be loaded in the same way as the base templates.
 
-For example:
-
-**templates/base.mustache**
-
-```text
+{% tabs %}
+{% tab title="Example: Using Mustache Partials" %}
+{% code-tabs %}
+{% code-tabs-item title="templates/base.mustache" %}
+```python
 Inside base.mustache
 {{> partial.mustache}}
 ```
+{% endcode-tabs-item %}
 
-**template/partial.mustache**
-
-```text
+{% code-tabs-item title="templates/partial.mustache" %}
+```
 Inside partial.mustache
 ```
+{% endcode-tabs-item %}
+{% endcode-tabs %}
+{% endtab %}
+{% endtabs %}
 
-Would output:
+The above would output:
 
 ```text
 Inside base.mustache

@@ -20,7 +20,7 @@ This extension does not have any external dependencies.
 
 ## Configuration
 
-This extension does not support any application configuration settings or meta options.
+This extension does rely on any application level configuration settings or meta options.
 
 ### Using an Alternative Json Module
 

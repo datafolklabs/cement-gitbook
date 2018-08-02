@@ -1,16 +1,26 @@
 # Plugin
 
+## Introduction
+
 The Plugin Extension handles application plugin support, and is the default plugin handler used by Cement.
 
-### Requirements
+**Documentation References:**
 
-> * No external dependencies
+* [Application Plugins](../core-foundation/plugins.md)
 
-### Configuration
+**API References:**
 
-This extension does not directly honor any configuration settings.
+* [Cement Plugin Extension](https://cement.readthedocs.io/en/2.99/api/ext/ext_plugin/)
 
-### Usage
+## Requirements
 
-For usage information see [Application Plugins](http://builtoncement.com/2.99/dev/plugins.html).
+* no external dependencies
+
+## Configuration
+
+This extension does rely on any application level configuration settings or meta options.
+
+## Usage
+
+For usage information see [Application Plugins](../core-foundation/plugins.md).
 

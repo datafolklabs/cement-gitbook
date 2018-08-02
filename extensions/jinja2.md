@@ -20,7 +20,7 @@ The Jinja2 Extension provides the [`Jinja2OutputHandler`](http://cement.readthed
 
 ## Configuration
 
-### **Configuration File Settings**
+### **Application Configuration Settings**
 
 This extension honors the following settings under the primary namespace \(ex: `[myapp]`\) of the application configuration:
 
@@ -55,7 +55,9 @@ with MyApp() as app:
     app.run()
 
     # create some data
-    data = dict(foo='bar')
+    data = {
+        'foo': 'bar',
+    }
 
     # render the data to STDOUT (default) via a template
     app.render(data, 'my_template.jinja2')
