@@ -1,63 +1,78 @@
 # Watchdog
 
-The Watchdog Framework Extension enables applications Built on Cement \(tm\) to easily monitor, and react to, changes in filesystem paths based on the filesystem events monitoring library[Watchdog](https://pypi.python.org/pypi/watchdog).
+## Introduction
+
+The Watchdog Extension includes the [`WatchdogManager`](https://cement.readthedocs.io/en/2.99/api/ext/ext_watchdog/#cement.ext.ext_watchdog.WatchdogManager), enabling applications to easily monitor, and react to, changes in filesystem paths based on the filesystem events monitoring library [Watchdog](https://pypi.python.org/pypi/watchdog).
 
 On application startup, the Watchdog Observer is automatically started and then upon application close, the observer thread is properly stopped and joined with the parent process before exit.
 
-This is a simplified wrapper around the functionality of the Watchdog library. For full usage, please see the [Watchdog API Documentation](http://pythonhosted.org/watchdog/index.html).
+**API References:**
 
-### Requirements
+* [Cement Watchdog Extension](https://cement.readthedocs.io/en/2.99/api/ext/ext_watchdog/)
+* [Watchdog Library](https://pythonhosted.org/watchdog/)
 
-> * Watchdog \(`pip install watchdog`\)
+## Requirements
 
-### Features
+* Watchdog \(`pip install watchdog`\)
 
-> * Cross platform support for Linux, OSX, Windows, etc.
+## Platform Support
 
-### Configuration
+* Unix/Linux
+* macOS
+* Windows
 
-This extension honors the following application meta-data settings:
+## Configuration
 
-> * **watchdog\_paths** - A List of tuples that are passed directly as arguments to `WatchdogManager.add()` \(shortcut equivalent of `app.watchdog.add(...)`.
+### Application Configuration Settings
 
-### Hooks
+This extension does not support any application level configuration settings
+
+### Application Meta Options
+
+This extension honors the following application meta options:
+
+| **watchdog\_paths** | A list of tuples that are passed directly as arguments to [`WatchdogManager.add()`](https://cement.readthedocs.io/en/2.99/api/ext/ext_watchdog/#cement.ext.ext_watchdog.WatchdogManager.add) \(a shortcut equivalent to `app.watchdog.add()`. |
+| --- |
+
+
+## Hooks
 
 This extension defines the following hooks:
 
-#### watchdog\_pre\_start
+### watchdog\_pre\_start
 
 Run first when `App.watchdog.start()` is called. The application object is passed as an argument. Nothing is expected in return.
 
-#### watchdog\_post\_start
+### watchdog\_post\_start
 
 Run last when `App.watchdog.start()` is called. The application object is passed as an argument. Nothing is expected in return.
 
-#### watchdog\_pre\_stop
+### watchdog\_pre\_stop
 
 Run first when `App.watchdog.stop()` is called. The application object is passed as an argument. Nothing is expected in return.
 
-#### watchdog\_post\_stop
+### watchdog\_post\_stop
 
 Run last when `App.watchdog.stop()` is called. The application object is passed as an argument. Nothing is expected in return.
 
-#### watchdog\_pre\_join
+### watchdog\_pre\_join
 
 Run first when `App.watchdog.join()` is called. The application object is passed as an argument. Nothing is expected in return.
 
-#### watchdog\_post\_join
+### watchdog\_post\_join
 
 Run last when `App.watchdog.join()` is called. The application object is passed as an argument. Nothing is expected in return.
 
-### Usage
+## Usage
 
-The following example uses the default `WatchdogEventHandler` that simply logs all events to `debug`:
+The following example uses the default `WatchdogEventHandler` that by default only logs all events to `debug`:
 
-```text
+{% tabs %}
+{% tab title="Example: Using Watchdog Extension" %}
+```python
 from time import sleep
-from cement import App
-from cement.core.exc import CaughtSignal
+from cement import App, CaughtSignal
 from cement.ext.ext_watchdog import WatchdogEventHandler
-
 
 class MyApp(App):
     class Meta:
@@ -67,16 +82,17 @@ class MyApp(App):
             ('./tmp/', WatchdogEventHandler),
         ]
 
-
 with MyApp() as app:
     app.run()
-
+    
     try:
         while True:
             sleep(1)
     except CaughtSignal as e:
         print(e)
 ```
+{% endtab %}
+{% endtabs %}
 
 In the above example, nothing is printed to console however you will see something like the following via debug logging:
 
@@ -118,12 +134,19 @@ cement.core.foundation : closing the myapp application
 
 To expand on the above example, we can add our own event handlers:
 
-```text
+{% tabs %}
+{% tab title="Example: Adding Watchdog Event Handlers" %}
+{% code-tabs %}
+{% code-tabs-item title="myapp.py" %}
+```python
+from time import sleep
+from cement import App, CaughtSignal
+from cement.ext.ext_watchdog import WatchdogEventHandler
+
 class MyEventHandler(WatchdogEventHandler):
     def on_any_event(self, event):
         # do something with the ``event`` object
         print("The modified path was: %s" % event.src_path)
-
 
 class MyApp(App):
     class Meta:
@@ -132,16 +155,35 @@ class MyApp(App):
         watchdog_paths = [
             ('./tmp/', MyEventHandler),
         ]
-```
 
+with MyApp() as app:
+    app.run()
+    
+    try:
+        while True:
+            sleep(1)
+    except CaughtSignal as e:
+        print(e)
+```
+{% endcode-tabs-item %}
+{% endcode-tabs %}
+{% endtab %}
+
+{% tab title="cli" %}
 ```text
 $ python myapp.py
 The modified path was: /path/to/tmp/test.file
 ```
+{% endtab %}
+{% endtabs %}
 
-Note that the `WatchdogEventHandler` could be replaced with any other event handler classes \(i.e. those available from `watchdog` directly\), however to play nicely with Cement, we sub-class them first in order to pass in our application object:
+{% hint style="info" %}
+Note that the `WatchdogEventHandler` could be replaced with any other event handler classes \(i.e. those available from `watchdog` directly\), however to play nicely with Cement, we sub-class them first in order to pass in our application object
+{% endhint %}
 
-```text
+{% tabs %}
+{% tab title="Example: Creating a Watchdog Event Handler" %}
+```python
 from watchdog.events import FileSystemEventHandler
 
 class MyEventHandler(FileSystemEventHandler):
@@ -149,6 +191,8 @@ class MyEventHandler(FileSystemEventHandler):
         super(MyEventHandler, self).__init__(*args, **kw)
         self.app = app
 ```
+{% endtab %}
+{% endtabs %}
 
 For full usage of Watchdog event handlers, refer to the [Watchdog API Documentation](http://pythonhosted.org/watchdog/index.html).
 

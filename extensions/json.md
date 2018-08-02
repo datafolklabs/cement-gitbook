@@ -90,7 +90,7 @@ See the documentation on [Overriding Handlers via Command Line](../core-foundati
 ```python
 from cement import App, init_defaults
 
-META = init_defaults('output.json', 'output.yaml')
+META = init_defaults('output.json')
 META['output.json']['overridable'] = True
 
 class MyApp(App):

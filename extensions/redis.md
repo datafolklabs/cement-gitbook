@@ -15,7 +15,7 @@ API References:
 
 ## Requirements
 
-> * redis \(`pip install redis`\)
+* Redis \(`pip install redis`\)
 
 ## Configuration
 

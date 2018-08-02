@@ -1,20 +1,33 @@
 # Tabulate
 
+## Introduction
 
+The Tabulate Extension includes the [`TabulateOutputHandler`](https://cement.readthedocs.io/en/2.99/api/ext/ext_tabulate/#cement.ext.ext_tabulate.TabulateOutputHandler), and provides output handling based on the [Tabulate](https://pypi.python.org/pypi/tabulate) library. It’s format is familiar to users of MySQL, Postgres, etc.
 
-The Tabulate Extension provides output handling based on the [Tabulate](https://pypi.python.org/pypi/tabulate) library. It’s format is familiar to users of MySQL, Postgres, etc.
+**Documentation References:**
 
-### Requirements
+* [Output Rendering](../core-foundation/output-rendering.md)
 
-> * Tabulate \(`pip install tabulate`\)
+**API References:**
 
-### Configuration
+* [Cement Tabulate Extension](https://cement.readthedocs.io/en/2.99/api/ext/ext_tabulate)
+* [Tabulate Library](https://github.com/gregbanks/python-tabulate)
 
-This extension does not support any configuration settings.
+## Requirements
 
-### Usage
+* Tabulate \(`pip install tabulate`\)
 
-```text
+## Configuration
+
+This extension does not support any application level configuration settings or meta options.
+
+## Usage
+
+{% tabs %}
+{% tab title="Example: Using Tabulate Output Handler" %}
+{% code-tabs %}
+{% code-tabs-item title="myapp.py" %}
+```python
 from cement import App
 
 class MyApp(App):
@@ -36,14 +49,19 @@ with MyApp() as app:
 
     app.render(data, headers=headers)
 ```
+{% endcode-tabs-item %}
+{% endcode-tabs %}
+{% endtab %}
 
-Looks like:
-
+{% tab title="cli" %}
 ```text
+$ python myapp.py
 | NAME               | AGE | ADDRESS                                 |
 |--------------------+-----+-----------------------------------------|
 | Krystin Bartoletti |  47 | PSC 7591, Box 425, APO AP 68379         |
 | Cris Hegan         |  54 | 322 Reubin Islands, Leylabury, NC 34388 |
 | George Champlin    |  25 | Unit 6559, Box 124, DPO AA 25518        |
 ```
+{% endtab %}
+{% endtabs %}
 

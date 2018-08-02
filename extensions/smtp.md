@@ -1,37 +1,70 @@
 # SMTP
 
+## Introduction
 
+The SMTP Extension includes the [`SMTPMailHandler`](https://cement.readthedocs.io/en/2.99/api/ext/ext_smtp/#cement.ext.ext_smtp.SMTPMailHandler), and provides the ability for applications to send email via standard SMTP.
 
-The SMTP Extension provides the ability for applications to send email based on the [smtplib](http://docs.python.org/dev/library/smtplib.html)standard library.
+**Documentation References:**
 
-### Requirements
+* [Mail Messaging](../core-foundation/mail-messaging.md)
+
+**API References:**
+
+* [Cement SMTP Extension](https://cement.readthedocs.io/en/2.99/api/ext/ext_smtp)
+* [Python SMTP Library](https://docs.python.org/3/library/smtplib.html)
+
+## Requirements
 
 * No external depencies
 
-### Configuration
+## Configuration
 
-This extension honors the following configuration settings:
+### Application Configuration Settings
 
-> * **to** - Default `to` addresses \(list, or comma separated depending on the ConfigHandler in use\)
-> * **from\_addr** - Default `from_addr` address
-> * **cc** - Default `cc` addresses \(list, or comma separated depending on the ConfigHandler in use\)
-> * **bcc** - Default `bcc` addresses \(list, or comma separated depending on the ConfigHandler in use\)
-> * **subject** - Default `subject`
-> * **subject\_prefix** - Additional string to prepend to the `subject`
-> * **host** - The SMTP host server
-> * **port** - The SMTP host server port
-> * **timeout** - The timeout in seconds before terminating a connection
-> * **ssl** - Whether to initiate SSL or not
-> * **tls** - Whether to use TLS or not \(requires SSL\)
-> * **auth** - Whether or not to initiate SMTP authentication
-> * **username** - SMTP authentication username
-> * **password** - SMTP authentication password
+This extension supports the following configuration settings under a `[mail.dummy]` configuration section:
 
-You can add these to any application configuration file under a `[mail.smtp]` section, for example:
+| **to** | Default recipient address \(list, or comma separated depending on the config handler in use. |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| **from\_addr** | Default sender address |
+| **cc** | Default carbon-copy addresses \(list, or comma separated depending on the config handler in use |
+| **bcc** | Default blind-carbon-copy addresses \(list, or comma separated depending on the config handler in use |
+| **subject** | Default subject line |
+| **subject\_prefix** | Additional string to prepend to the subject line of all messages |
+| **host** | The SMTP host server address. Default: `localhost` |
+| **port** | The SMTP host server port. Default: `25` |
+| **timeout** | The timeout in seconds before terminating a connection. Default: 30 |
+| **ssl** | Whether to initiate SSL or not. Default: `False` |
+| **tls** | Whether to use TLS or not \(requires SSL\). Default: `False` |
+| **auth** | Whether or not to initiate SMTP authentication. Default: `False` |
+| **username** | SMTP authentication username. Default: `None` |
+| **password** | SMTP authentication password. Default: `None` |
 
-**~/.myapp.conf**
+## Usage
 
-```text
+{% tabs %}
+{% tab title="Example: Using SMTP Mail Handler" %}
+{% code-tabs %}
+{% code-tabs-item title="myapp.py" %}
+```python
+from cement import App
+
+class MyApp(App):
+    class Meta:
+        label = 'myapp'
+        mail_handler = 'smtp'
+
+with MyApp() as app:
+    app.run()
+    app.mail.send('This is my fake message',
+        subject='This is my subject',
+        to=['john@example.com', 'rita@example.com'],
+        from_addr='me@example.com',
+        )
+```
+{% endcode-tabs-item %}
+
+{% code-tabs-item title="~/.myapp.conf" %}
+```
 [myapp]
 
 # set the mail handler to use
@@ -68,13 +101,13 @@ port = 465
 timeout = 30
 
 # whether or not to establish an ssl connection
-ssl = 1
+ssl = true
 
 # whether or not to use start tls
-tls = 1
+tls = true
 
 # whether or not to initiate smtp auth
-auth = 1
+auth = true
 
 # smtp auth username
 username = john.doe
@@ -82,22 +115,8 @@ username = john.doe
 # smtp auth password
 password = oober_secure_password
 ```
-
-### Usage
-
-```text
-from cement import App
-
-class MyApp(App):
-    class Meta:
-        label = 'myapp'
-        mail_handler = 'smtp'
-
-with MyApp() as app:
-    app.mail.send('This is my fake message',
-        subject='This is my subject',
-        to=['john@example.com', 'rita@example.com'],
-        from_addr='me@example.com',
-        )
-```
+{% endcode-tabs-item %}
+{% endcode-tabs %}
+{% endtab %}
+{% endtabs %}
 
