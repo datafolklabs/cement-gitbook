@@ -43,19 +43,16 @@ The [Cement Developer Tools](../getting-started/developer-tools.md) allow develo
 
 ```text
 $ cement generate project ./myapp
+INFO: Generating cement project in ./myapp/
 
 $ cement generate plugin ./myapp/plugins/
 INFO: Generating cement plugin in ./myapp/plugins/
-Plugin Label [myplugin]:
-Plugin Class Name [MyPlugin]:
 
 $ cement generate extension ./myapp/ext/
 INFO: Generating cement extension in ./myapp/ext/
-Extension Label [myextension]:
 
 $ cement generate script .
 INFO: Generating cement script in .
-Script Name [myscript]:
 ```
 
 ### Clearer Interface Definition and Implementation
