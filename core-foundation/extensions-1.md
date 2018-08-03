@@ -2,9 +2,11 @@
 
 Cement defines an extension interface called [IExtension](https://docs.builtoncement.com/%7B%7B%20version%20%7D%7D/api/core/extension.html#cement.core.extension.IExtension), as well as the default [CementExtensionHandler](https://docs.builtoncement.com/%7B%7B%20version%20%7D%7D/api/core/extension.html#cement.core.extension.CementExtensionHandler) that implements the interface. Its purpose is to manage loading framework extensions and making them usable by the application. Extensions are similar to [Application Plugins](https://docs.builtoncement.com/%7B%7B%20version%20%7D%7D/dev/plugins.html), but at the framework level \(application agnostic\).
 
-Please note that there may be other handler's that implement the `IExtension` interface. The documentation below only references usage based on the interface and not the full capabilities of the implementation.
+{% hint style="warning" %}
+Cement often includes multiple handler implementations of an interface that may or may not have additional features or functionality than the interface requires.  The documentation below only references usage based on the interface and default handler \(not the full capabilities of an implementation\).
+{% endhint %}
 
-The following extension handlers are included and maintained with Cement:
+**Extension Handlers Included with Cement:**
 
 * ​[CementExtensionHandler](https://docs.builtoncement.com/%7B%7B%20version%20%7D%7D/api/core/extension.html#cement.core.extension.CementExtensionHandler)​
 

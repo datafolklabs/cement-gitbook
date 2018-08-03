@@ -26,7 +26,7 @@ The [Cement Developer Tools](../getting-started/developer-tools.md) use this ext
 This extension honors the following settings under the primary namespace \(ex: `[myapp]`\) of the application configuration:
 
 | **template\_dir** | Directory path of a local template directory. |
-| --- |
+| :--- | :--- |
 
 
 ### **Application Meta Options**
@@ -34,7 +34,7 @@ This extension honors the following settings under the primary namespace \(ex: `
 This extension honors the following [`App.Meta`](http://cement.readthedocs.io/en/2.99/api/core/foundation/?highlight=app.meta#cement.core.foundation.App.Meta) options:
 
 | **template\_handler** | A template handler to use as the backend for templating |
-| --- | --- | --- |
+| :--- | :--- |
 | **template\_dirs** | A list of data directories to look for templates |
 | **template\_module** | A python module to look for templates |
 
@@ -113,7 +113,7 @@ variables:
 The following configurations are supported in a generate template’s config:
 
 | **ignore** | A list of regular expressions to match files that you want to completely ignore |
-| --- | --- | --- |
+| :--- | :--- |
 | **exclude** | A list of regular expressions to match files that you want to copy only \(not rendered as template\) |
 | **variables** | A list of variable definitions that support the following sub-keys: |
 

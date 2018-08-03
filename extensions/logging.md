@@ -24,7 +24,7 @@ The Logging Extension includes the LoggingLogHandler, and provides log handling 
 This handler honors the following settings under a `[log.logging]` section of the configuration:
 
 | **level** | The logging to display logs for. One of `INFO, WARNING, ERROR, FATAL, DEBUG`. Default: `INFO` |
-| --- | --- | --- | --- | --- | --- |
+| :--- | :--- |
 | **file** | The filesystem path of the log file.  Default: `None` |
 | **to\_console** | Whether or not to log to console.  Default: `True` |
 | **rotate** | Whether or not rotate the log file.  Default: `False` |

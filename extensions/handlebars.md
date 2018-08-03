@@ -24,7 +24,7 @@ The Handlebars Extension provides output and file templating using the [pybars3]
 This extension supports the following application meta options under [`App.Meta`](http://cement.readthedocs.io/en/2.99/api/core/foundation/?highlight=app.meta#cement.core.foundation.App.Meta):
 
 | **handlebars\_helpers** | A dictionary of helper functions to register with the compiler.  Will **override** [`HandlebarsOutputHandler.Meta.helpers`](http://cement.readthedocs.io/en/2.99/api/ext/ext_handlebars/#cement.ext.ext_handlebars.HandlebarsTemplateHandler.Meta.helpers). |
-| --- | --- |
+| :--- | :--- |
 | **handlerbars\_partials** | A list of partials \(template file names\) to search for, and pre-load before rendering templates.  Will **override** [`HandlebarsOutputHandler.Meta.partials`](http://cement.readthedocs.io/en/2.99/api/ext/ext_handlebars/#cement.ext.ext_handlebars.HandlebarsTemplateHandler.Meta.partials). |
 
 ### Template Directories

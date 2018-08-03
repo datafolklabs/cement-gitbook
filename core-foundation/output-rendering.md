@@ -4,9 +4,11 @@
 
 Cement defines an output interface called [IOutput](https://docs.builtoncement.com/%7B%7B%20version%20%7D%7D/api/core/output.html#cement.core.output.IOutput), as well as the default [DummyOutputHandler](https://docs.builtoncement.com/%7B%7B%20version%20%7D%7D/api/ext/ext_dummy.html) that implements the interface. This handler is part of Cement, and actually does nothing to produce output. Therefore it can be said that by default a Cement application does not handle rendering output to the console, but can if another output handler be used.
 
-Please note that there may be other handler's that implement the `IOutput` interface. The documentation below only references usage based on the interface and not the full capabilities of the implementation.
+{% hint style="warning" %}
+Cement often includes multiple handler implementations of an interface that may or may not have additional features or functionality than the interface requires.  The documentation below only references usage based on the interface and default handler \(not the full capabilities of an implementation\).
+{% endhint %}
 
-The following output handlers are included and maintained with Cement:
+**Output Handlers Included with Cement:**
 
 * ​[DummyOutputHandler](https://docs.builtoncement.com/%7B%7B%20version%20%7D%7D/api/ext/ext_dummy.html)​
 * ​[JsonOutputHandler](https://docs.builtoncement.com/%7B%7B%20version%20%7D%7D/api/ext/ext_json.html)​

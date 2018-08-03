@@ -19,7 +19,7 @@ The Dummy Extension provides several placeholder type handlers to either mock op
 This extension supports the following configuration settings under a `[mail.dummy]` configuration section:
 
 | **to** | Default recipient address \(list, or comma separated depending on the config handler in use. |
-| --- | --- | --- | --- | --- | --- |
+| :--- | :--- |
 | **from\_addr** | Default sender address |
 | **cc** | Default carbon-copy addresses \(list, or comma separated depending on the config handler in use |
 | **bcc** | Default blind-carbon-copy addresses \(list, or comma separated depending on the config handler in use |

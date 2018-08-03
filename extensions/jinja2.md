@@ -25,7 +25,7 @@ The Jinja2 Extension provides the [`Jinja2OutputHandler`](http://cement.readthed
 This extension honors the following settings under the primary namespace \(ex: `[myapp]`\) of the application configuration:
 
 | **template\_dir** | Directory path of a local template directory. |
-| --- |
+| :--- | :--- |
 
 
 ### **Application Meta Options**
@@ -33,7 +33,7 @@ This extension honors the following settings under the primary namespace \(ex: `
 This extension honors the following [`App.Meta`](http://cement.readthedocs.io/en/2.99/api/core/foundation/?highlight=app.meta#cement.core.foundation.App.Meta) options:
 
 | **template\_dirs** | A list of data directories to look for templates |
-| --- | --- |
+| :--- | :--- |
 | **template\_module** | A python module to look for templates |
 
 ## Usage

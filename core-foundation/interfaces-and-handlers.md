@@ -1,10 +1,5 @@
 # Interfaces and Handlers
 
-## API References
-
-* [cement.core.interface](https://cement.readthedocs.io/en/2.99/api/core/interface)
-* [cement.core.handler](https://cement.readthedocs.io/en/2.99/api/core/handler/)
-
 ## Introduction to Interfaces
 
 Cement builds upon a standard interface and handler system that is used extensively to break up pieces of the framework into relatable chucks, and allow customization of everything from logging to config file parsing, and almost every operation in between.
@@ -15,12 +10,17 @@ In Cement, an interface is what **defines** some functionality, and a handler is
 
 We call the implementation of an interface a **handler**, and provide the ability to easily register and retrieve them via the `app.handler` object.  Cement interfaces are defined as [Python Abstract Base Classes](https://docs.python.org/3/library/abc.html), and handlers implement them by sub-classing and overriding the defined abstract methods required to make the implementation legit.
 
+**API References**
+
+* [Cement Core Interface Module](https://cement.readthedocs.io/en/2.99/api/core/interface/)
+* [Cement Core Handler Module](https://cement.readthedocs.io/en/2.99/api/core/handler/)
+
 ### Builtin Interfaces
 
 The following interfaces are builtin to Cement's core foundation:
 
 | \*\*\*\*[**Extension**](https://cement.readthedocs.io/en/portland/api/core/extension/#cement.core.extension.ExtensionHandler)  **** | Framework extension loading. |
-| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| :--- | :--- |
 | \*\*\*\*[**Log**](https://cement.readthedocs.io/en/portland/api/core/log/#cement.core.log.LogHandler)\*\*\*\* | Messaging to console, and/or file via common log facilities \(INFO, WARNING, ERROR, FATAL, DEBUG\). |
 | \*\*\*\*[**Config**](https://cement.readthedocs.io/en/portland/api/core/config/#cement.core.config.ConfigHandler)\*\*\*\* | Merging of application configuration defaults, configuration files, and environment settings into a single config object. |
 | \*\*\*\*[**Mail**](https://cement.readthedocs.io/en/portland/api/core/mail/#cement.core.mail.MailHandler)\*\*\*\* | Remote message sending \(email, smtp, etc\). |

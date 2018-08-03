@@ -1,23 +1,23 @@
 # Configuration Settings
 
-## API References:
-
-* [cement.core.config](http://cement.readthedocs.io/en/2.99/api/core/config/)
-* [cement.ext.ext\_configparser](http://cement.readthedocs.io/en/2.99/api/ext/ext_configparser/)
-
 ## Introduction to the Config Interface
 
 Cement defines a [Config Interface](http://cement.readthedocs.io/en/2.99/api/core/config/#cement.core.config.ConfigInterface), as well as the default [ConfigParserConfigHandler](http://cement.readthedocs.io/en/2.99/api/ext/ext_configparser/#cement.ext.ext_configparser.ConfigParserConfigHandler) that implements the interface. This handler is built on top of [ConfigParser](http://docs.python.org/library/configparser.html) which is included in the Python standard library. Therefor, this class will work much like ConfigParser but with any added functions necessary to meet the requirements of the interface.
 
 {% hint style="warning" %}
-Cement includes multiple handler implementations of the config interface that may or may not have additional features or functionality than the interface requires.  This documentation only references usage based on the interface, and not the full capabilities of any of the implementations.
+Cement often includes multiple handler implementations of an interface that may or may not have additional features or functionality than the interface requires.  The documentation below only references usage based on the interface and default handler \(not the full capabilities of an implementation\).
 {% endhint %}
 
-The following config handlers are included and maintained with Cement:
+**Config Handlers Included with Cement:**
 
 * [ConfigParserConfigHandler](../extensions/configparser.md) _\(default\)_
 * [JsonConfigHandler](../extensions/json.md)
 * [YamlConfigHandler](../extensions/yaml.md)
+
+**API References:**
+
+* [Cement Core Config Module](https://cement.readthedocs.io/en/2.99/api/core/config/)
+* [Cement ConfigParser Extension](https://cement.readthedocs.io/en/2.99/api/ext/ext_configparser/)
 
 ## Configuration Load Order
 

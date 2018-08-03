@@ -32,7 +32,7 @@ This extension does not support any application level configuration settings
 This extension honors the following application meta options:
 
 | **watchdog\_paths** | A list of tuples that are passed directly as arguments to [`WatchdogManager.add()`](https://cement.readthedocs.io/en/2.99/api/ext/ext_watchdog/#cement.ext.ext_watchdog.WatchdogManager.add) \(a shortcut equivalent to `app.watchdog.add()`. |
-| --- |
+| :--- | :--- |
 
 
 ## Hooks

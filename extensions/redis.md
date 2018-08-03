@@ -22,7 +22,7 @@ API References:
 This extension honors the following config settings under a `[cache.redis]` section in any configuration file:
 
 | **expire\_time** | The default time in seconds to expire items in the cache.  Default: `0` |
-| --- | --- | --- | --- |
+| :--- | :--- |
 | **host** | Redis server ip address or hostname |
 | **port** | Redis server port |
 | **db** | Redis server database id/namespace |

@@ -4,9 +4,11 @@
 
 Cement defines a mail interface called [IMail](https://docs.builtoncement.com/%7B%7B%20version%20%7D%7D/api/core/mail.html#cement.core.mail.IMail), as well as the default [DummyMailHandler](https://docs.builtoncement.com/%7B%7B%20version%20%7D%7D/api/ext/ext_dummy.html#cement.ext.ext_dummy.DummyMailHandler) that implements the interface.
 
-Please note that there are other handlers that implement the `IMail` interface. The documentation below only references usage based on the interface and not the full capabilities of the implementation.
+{% hint style="warning" %}
+Cement often includes multiple handler implementations of an interface that may or may not have additional features or functionality than the interface requires.  The documentation below only references usage based on the interface and default handler \(not the full capabilities of an implementation\).
+{% endhint %}
 
-The following mail handlers are included and maintained with Cement:
+**Mail Handlers Included with Cement:**
 
 * ​[DummyMailHandler](https://docs.builtoncement.com/%7B%7B%20version%20%7D%7D/api/ext/ext_dummy.html#cement.ext.ext_dummy.DummyMailHandler) _\(default\)_
 * ​[SMTPMailHandler](https://docs.builtoncement.com/%7B%7B%20version%20%7D%7D/api/ext/ext_smtp#cement.ext.ext_smtp.SMTPMailHandler)​

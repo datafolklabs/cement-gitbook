@@ -1,30 +1,78 @@
 # Arguments
 
-Cement defines an argument interface called [IArgument](https://docs.builtoncement.com/2.10/api/core/arg.html), as well as the default [ArgParseArgumentHandler](https://docs.builtoncement.com/2.10/api/ext/ext_argparse.html) that implements the interface. This handler is built on top of the [ArgParse](http://docs.python.org/library/argparse.html) module which is included in the Python standard library.
+## Introduction to the Argument Interface
 
-Please note that there may be other handler's that implement the `IArgument` interface. The documentation below only references usage based on the interface and not the full capabilities of the implementation.
+Cement defines an [Argument Interface](https://cement.readthedocs.io/en/2.99/api/core/arg/#cement.core.arg.ArgumentInterface), as well as the default [ArgParseArgumentHandler](https://cement.readthedocs.io/en/2.99/api/core/arg/#cement.core.arg.ArgumentHandler) that implements the interface. This handler is built on top of the [ArgParse](http://docs.python.org/library/argparse.html) module which is included in the Python standard library.
 
-The following argument handlers are included and maintained with Cement:
+{% hint style="warning" %}
+Cement often includes multiple handler implementations of an interface that may or may not have additional features or functionality than the interface requires.  The documentation below only references usage based on the interface and default handler \(not the full capabilities of an implementation\).
+{% endhint %}
 
-* ​[ArgParseArgumentHandler](https://docs.builtoncement.com/2.10/api/ext/ext_argparse)​
+**Argument Handlers Included with Cement:**
 
-Please reference [IArgument](https://docs.builtoncement.com/2.10/api/core/arg.html) interface documentation for writing your own argument handler.
+* [​ArgParseArgumentHandler​](https://cement.readthedocs.io/en/2.99/api/ext/ext_argparse/#cement.ext.ext_argparse.ArgparseArgumentHandler)
 
-### Adding Arguments {#adding-arguments}
+**API References:**
 
-The `IArgument` interface is loosely based on `ArgParse` directly. That said, it only defines a minimal set of params that must be honored by the handler implementation, even though the handler itself may except more than that. The following shows some basic examples of adding arguments based on the interface \(meaning, these examples should work regardless of what the handler is\):
+* [Cement Core Argument Module](https://cement.readthedocs.io/en/2.99/api/core/arg/)
+* [Cement Argparse Extension](https://cement.readthedocs.io/en/2.99/api/ext/ext_argparse)
 
-```text
-from cement.core import foundation​# create the applicationapp = foundation.CementApp('myapp')​# then setup the application... which will use our 'mylog' handlerapp.setup()​# add any arguments after setup(), and before run()app.args.add_argument('-f', '--foo', action='store', dest='foo',                      help='the notorious foo option')app.args.add_argument('-V', action='store_true', dest='vendetta',                      help='v for vendetta')app.args.add_argument('-A', action='store_const', const=12345,                      help='the big a option')​# then run the applicationapp.run()​# access the parsed args from the app.pargs shortcutif app.pargs.foo:    print "Received foo option with value %s" % app.pargs.fooif app.pargs.vendetta:    print "Received V for Vendetta!"if app.pargs.A:    print "Received the A option with value %s" % app.pargs.A​# close the applicationapp.close()
+## Adding Arguments
+
+The argument interface is loosely based on Argparse, but only defines a minimal set of params that must be honored as to ensure that the framework and extensions can add arguments regardless of what the argument handler implementation is.  That said, Cement has never intended to use anything other than Argparse to handle arguments and for that reason there may be some assumptions inherently builtin that assume the underlying argument handler is 100% argparse compliant.  For that reason, adding and working with arguments will be completely familiar for anyone who has ever used Argparse.
+
+{% tabs %}
+{% tab title="Example: Adding Arguments" %}
+```python
+from cement import App
+
+with App('myapp') as app:
+    # add arguments before app.run()
+    app.args.add_argument('-f', '--foo', 
+                          action='store', 
+                          dest='foo')                     
+    
+    # run the application (parses arguments)
+    app.run()
 ```
+{% endtab %}
 
-Here we have setup a basic application, and then add a few arguments to the parser.
-
+{% tab title="cli" %}
 ```text
-$ python test.py --helpusage: test.py [-h] [--debug] [--quiet] [-f FOO] [-V] [-A]​optional arguments:  -h, --help         show this help message and exit  --debug            toggle debug output  --quiet            suppress all output  -f FOO, --foo FOO  the notorious foo option  -V                 v for vendetta  -A                 the big a option​$ python test.py --foo=barReceived foo option with value bar​$ python test.py -VReceived V for Vendetta!
+$ python myapp.py --help
+usage: myapp [-h] [-d] [-q] [-f FOO]
+
+optional arguments:
+  -h, --help         show this help message and exit
+  -d, --debug        full application debug mode
+  -q, --quiet        suppress all console output
+  -f FOO, --foo FOO
 ```
+{% endtab %}
+{% endtabs %}
 
-### Accessing Parsed Arguments {#accessing-parsed-arguments}
+## Accessing Parsed Arguments
 
-The `IArgument` interface defines that the `parse()` function return any type of object that stores the name of the argument as a class member. Meaning, when adding the `foo` option with `action='store'` and the value is stored as the `foo` destination... that would be accessible as `app.pargs.foo`. In the case of the `ArgParseArgumentHandler` the return object is exactly what you would expect by calling `parser.parse_args()`, but may be different with other argument handler implementations. The parsed arguments are actually stored as `app._parsed_args`, but are exposed as `app.pargs`. Accessing `app.pargs` can be seen in the examples above.
+During `app.run()`, command line arguments are parsed by the argument handler, and the results are stored by the application.  Arguments are then accessible by [`App.pargs`](https://cement.readthedocs.io/en/2.99/api/core/foundation/#cement.core.foundation.App.pargs) \(parsed args\).
+
+{% tabs %}
+{% tab title="Example: Accessing Parsed Arguments" %}
+```python
+from cement import App
+
+with App('myapp') as app:
+    # add arguments before app.run()
+    app.args.add_argument('-f', '--foo', 
+                          action='store', 
+                          dest='foo')                     
+    
+    # run the application (parses arguments)
+    app.run()
+    
+    # test if argument was passed
+    if app.pargs.foo is not None:
+        print('Foo => %s ' app.pargs.foo
+```
+{% endtab %}
+{% endtabs %}
 

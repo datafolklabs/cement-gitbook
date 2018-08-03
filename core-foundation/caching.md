@@ -2,9 +2,13 @@
 
 
 
-Cement defines a cache interface called [ICache](https://docs.builtoncement.com/%7B%7B%20version%20%7D%7D/api/core/cache.html#cement.core.cache.ICache), but does not implement caching by default. The documentation below references usage based on the interface and not the full capabilities of any given implementation.
+Cement defines a cache interface called [ICache](https://docs.builtoncement.com/%7B%7B%20version%20%7D%7D/api/core/cache.html#cement.core.cache.ICache), but does not implement caching by default. 
 
-The following cache handlers are included and maintained with Cement:
+{% hint style="warning" %}
+Cement often includes multiple handler implementations of an interface that may or may not have additional features or functionality than the interface requires.  The documentation below only references usage based on the interface and default handler \(not the full capabilities of an implementation\).
+{% endhint %}
+
+**Cache Handlers Included with Cement:**
 
 * ​[MemcachedCacheHandler](https://docs.builtoncement.com/%7B%7B%20version%20%7D%7D/api/ext/ext_memcached.html#cement.ext.ext_memcached.MemcachedCacheHandler)​
 * ​[RedisCacheHandler](https://docs.builtoncement.com/%7B%7B%20version%20%7D%7D/api/ext/ext_redis.html#cement.ext.ext_redis.RedisCacheHandler)​

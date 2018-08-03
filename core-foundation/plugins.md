@@ -2,9 +2,11 @@
 
 Cement defines a plugin interface called [IPlugin](https://docs.builtoncement.com/%7B%7B%20version%20%7D%7D/api/core/plugin.html#cement.core.plugin.IPlugin), as well as the default [CementPluginHandler](https://docs.builtoncement.com/%7B%7B%20version%20%7D%7D/api/ext/ext_plugin.html#cement.ext.ext_plugin.CementPluginHandler) that implements the interface.
 
-Please note that there may be other handlers that implement the `IPlugin` interface. The documentation below only references usage based on the interface and not the full capabilities of the implementation.
+{% hint style="warning" %}
+Cement often includes multiple handler implementations of an interface that may or may not have additional features or functionality than the interface requires.  The documentation below only references usage based on the interface and default handler \(not the full capabilities of an implementation\).
+{% endhint %}
 
-The following plugin handlers are included and maintained with Cement:
+**Plugin Handlers Included with Cement:**
 
 * ​[CementPluginHandler](https://docs.builtoncement.com/%7B%7B%20version%20%7D%7D/api/ext/ext_plugin.html#cement.ext.ext_plugin.CementPluginHandler)​
 

@@ -29,7 +29,7 @@ The Daemon Extension enables applications to easily perform standard daemonizati
 The daemon extension is configurable with the following settings under a `[daemon]` section in the application configuration:
 
 | **user** | The user name the process runs as.  Default: `os.getlogin()` |
-| --- | --- | --- | --- | --- |
+| :--- | :--- |
 | **group** | The group name the process runs as. Default: _the primary group of the user_ |
 | **dir** | The directory that the process runs in.  Default: `/` |
 | **pid\_file** | The filesystem path to store the PID \(Process ID\) file.  Default: `None` |

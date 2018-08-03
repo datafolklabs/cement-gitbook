@@ -4,7 +4,11 @@ Cement defines a controller interface called [IController](https://docs.builtonc
 
 Using application controllers is not necessary, but enables rapid development by wrapping pieces of the framework like adding arguments, and linking commands with functions to name a few. The examples below use the `CementBaseController` for examples. It is important to note that this class also requires that your application's argument\_handler be the `ArgParseArgumentHandler`. That said, the `CementBaseController` is relatively useless when used directly and therefore should be used as a Base class to create your own application controllers from.
 
-The following controllers are included and maintained with Cement:
+{% hint style="warning" %}
+Cement often includes multiple handler implementations of an interface that may or may not have additional features or functionality than the interface requires.  The documentation below only references usage based on the interface and default handler \(not the full capabilities of an implementation\).
+{% endhint %}
+
+**Controller Handlers Included with Cement:**
 
 * ​[CementBaseController](https://docs.builtoncement.com/%7B%7B%20version%20%7D%7D/api/core/controller.html#cement.core.controller.CementBaseController)​
 
