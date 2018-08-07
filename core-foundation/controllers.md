@@ -1,43 +1,370 @@
 # Controllers
 
-Cement defines a controller interface called [IController](https://docs.builtoncement.com/%7B%7B%20version%20%7D%7D/api/core/controller.html#cement.core.controller.IController), but does not enable any default handlers that implement the interface.
+## Introduction to the Controller Interface
 
-Using application controllers is not necessary, but enables rapid development by wrapping pieces of the framework like adding arguments, and linking commands with functions to name a few. The examples below use the `CementBaseController` for examples. It is important to note that this class also requires that your application's argument\_handler be the `ArgParseArgumentHandler`. That said, the `CementBaseController` is relatively useless when used directly and therefore should be used as a Base class to create your own application controllers from.
+Cement defines a [Controller Interface](https://cement.readthedocs.io/en/2.99/api/core/controller/#cement.core.controller.ControllerInterface), but does not enable any handlers that implement the interface by default.  
+
+{% hint style="info" %}
+For convenience, the preferred `ArgparseController` and `expose()` decorator from the [Argparse Extension](../extensions/argparse.md) are available as `Controller` and `ex` in the top level cement module.
+{% endhint %}
+
+Using application controllers is not necessary, but enables rapid development by wrapping pieces of the framework like adding arguments, and linking commands with controller methods. The examples below use the [`ArgparseController`](https://cement.readthedocs.io/en/2.99/api/ext/ext_argparse/#cement.ext.ext_argparse.ArgparseController) as examples \(again, imported as `cement.Controller` for convenience\). 
 
 {% hint style="warning" %}
 Cement often includes multiple handler implementations of an interface that may or may not have additional features or functionality than the interface requires.  The documentation below only references usage based on the interface and default handler \(not the full capabilities of an implementation\).
 {% endhint %}
 
-**Controller Handlers Included with Cement:**
+**Cement Extensions That Provide Controller Handlers**
 
-* ​[CementBaseController](https://docs.builtoncement.com/%7B%7B%20version%20%7D%7D/api/core/controller.html#cement.core.controller.CementBaseController)​
+* [Argparse](../extensions/argparse.md)
 
-Please reference the [IController](https://docs.builtoncement.com/%7B%7B%20version%20%7D%7D/api/core/controller.html#cement.core.controller.IController) interface documentation for writing your own controller.
+**API References:**
 
-### Example Application Base Controller {#example-application-base-controller}
+* [Cement Core Controller Module](https://cement.readthedocs.io/en/2.99/api/core/controller)
+* [Cement Argparse Extension](https://cement.readthedocs.io/en/2.99/api/ext/ext_argparse)
 
-This example demonstrates the use of application controllers that handle command dispatch and rapid development.
+## Application Base Controllers
 
-```text
-from cement.core import backendfrom cement.core.foundation import CementAppfrom cement.core.controller import CementBaseController, expose​# define an application base controllerclass MyAppBaseController(CementBaseController):    class Meta:        label = 'base'        description = "My Application does amazing things!"        epilog = "This is the text at the bottom of --help."​        config_defaults = dict(            foo='bar',            some_other_option='my default value',            )​        arguments = [            (['-f', '--foo'],             dict(action='store', help='the notorious foo option')),            (['-C'],             dict(action='store_true', help='the big c option')),            ]​    @expose(hide=True, aliases=['run'])    def default(self):        self.app.log.info('Inside base.default function.')        if self.app.pargs.foo:            self.app.log.info("Recieved option 'foo' with value '%s'." % \                          self.app.pargs.foo)​    @expose(help="this command does relatively nothing useful.")    def command1(self):        self.app.log.info("Inside base.command1 function.")​    @expose(aliases=['cmd2'], help="more of nothing.")    def command2(self):        self.app.log.info("Inside base.command2 function.")​​class MyApp(CementApp):    class Meta:        label = 'example'        base_controller = MyAppBaseController​​with MyApp() as app:    app.run()
+When using application controllers there must be a single `base` controller responsible for handling [runtime dispatch](../terminology.md#runtime-dispatch).  All other controllers are then [stacked](../terminology.md#controller-stacking) on top of the base controller \(or other controllers already stacked on base\).  The base controller is the root of the applications command-line namespace.
+
+{% hint style="info" %}
+The  initial base controller must have a `Controller.Meta.label` of `base` to designate it as the application's route of handing over runtime \(argument parsing, mapping sub-commands to controllers, etc.
+{% endhint %}
+
+{% tabs %}
+{% tab title="Example: Defining an Application Base Controller" %}
+```python
+from cement import App, Controller, ex
+
+class Base(Controller):
+    class Meta:
+        label = 'base'
+
+    @ex(help='example sub-command')
+    def cmd1(self):
+        print('Inside Base.cmd1()')
+
+class MyApp(App):
+    class Meta:
+        label = 'myapp'
+        handlers = [
+            Base,
+        ]
+
+with MyApp() as app:
+    app.run()
 ```
+{% endtab %}
 
-As you can see, we're able to build out the core functionality of our app via a controller class. Lets see what this looks like:
-
+{% tab title="cli" %}
 ```text
-$ python example.py --helpusage: example.py <CMD> -opt1 --opt2=VAL [arg1] [arg2] ...​My Application does amazing things!​commands:​  command1    this command does relatively nothing useful.​  command2 (aliases: cmd2)    more of nothing.​optional arguments:  -h, --help  show this help message and exit  --debug     toggle debug output  --quiet     suppress all output  --foo FOO   the notorious foo option  -C          the big C option​This is the text at the bottom of --help.​​$ python example2.pyINFO: Inside base.default function.​$ python example2.py command1INFO: Inside base.command1 function.​$ python example2.py cmd2INFO: Inside base.command2 function.
+$ python myapp.py
+usage: myapp [-h] [-d] [-q] {cmd1} ...
+
+optional arguments:
+  -h, --help   show this help message and exit
+  -d, --debug  full application debug mode
+  -q, --quiet  suppress all console output
+
+sub-commands:
+  {cmd1}
+    cmd1       example sub-command
+
+$ python myapp.py cmd1
+Inside Base.cmd1()
 ```
+{% endtab %}
+{% endtabs %}
 
-### Additional Controllers and Namespaces {#additional-controllers-and-namespaces}
+The above example demonstrates registering an application base controller.  You will note in the `cli` tab that running `python myapp.py` without any arguments produces help output \(same as if passing `--help`\).  This is the default action of the `ArgparseController`, but can be modified by overriding the `_default` method.
 
-Any number of additional controllers can be added to your application after a base controller is created. Additionally, these controllers can be `stacked` onto the base controller \(or any other controller\) in one of two ways:
+{% tabs %}
+{% tab title="Example: Controller Default Method" %}
+```python
+from cement import App, Controller, ex
+
+class Base(Controller):
+    class Meta:
+        label = 'base'
+
+    def _default(self):
+        print('Inside Base._default()')
+
+    @ex(help='example sub-command')
+    def cmd1(self):
+        print('Inside Base.cmd1()')
+
+
+class MyApp(App):
+    class Meta:
+        label = 'myapp'
+        handlers = [
+            Base,
+        ]
+
+with MyApp() as app:
+    app.run()
+```
+{% endtab %}
+
+{% tab title="cli" %}
+```text
+$ python myapp.py
+Inside Base._default()
+```
+{% endtab %}
+{% endtabs %}
+
+{% hint style="info" %}
+The `Controller._default` method is hidden from the command-line \(ex: `--help` output\), and does not require the `ex()` decorator to be active.  You can modify the default method by setting it via `Controller.Meta.default_func`.
+{% endhint %}
+
+## Controller Arguments
+
+Command line arguments defined by controllers are handled in two ways:
+
+* Controller level 
+* Sub-command level
+
+Controller level arguments are defined via `Controller.Meta.arguments` and are displayed/used at the top level of that controller, while sub-command level arguments are defined via the `ex()` decorator and only displayed and used under that sub-command namespace.  
+
+{% hint style="info" %}
+Controller level arguments should be considered global, and relevant to the entire controller namespace.  Sub-command level arguments are only relevant to that sub-command.
+{% endhint %}
+
+{% tabs %}
+{% tab title="Example: Defining Controller Arguments" %}
+```python
+from cement import App, Controller, ex
+
+class Base(Controller):
+    class Meta:
+        label = 'base'
+
+        arguments = [
+            ( [ '-f', '--foo' ],
+              { 'help' : 'the notorious foo option',
+                'action' : 'store',
+                'dest' : 'foo', } ),
+        ]
+
+    @ex(
+        help='example sub-command',
+        arguments=[
+            ( [ '--sub-option' ],
+              { 'help' : 'option under sub-command',
+                'action' : 'store_true',
+                'dest' : 'sub_option' } ),
+        ]
+    )
+    def cmd1(self):
+        print('Inside Base.cmd1()')
+
+        if self.app.pargs.foo is not None:
+            print('Foo => %s' % self.app.pargs.foo)
+
+        if self.app.pargs.sub_option is True:
+            print('Sub Option Was Passed')
+
+
+class MyApp(App):
+    class Meta:
+        label = 'myapp'
+        handlers = [
+            Base,
+        ]
+
+with MyApp() as app:
+    app.run()
+```
+{% endtab %}
+
+{% tab title="cli" %}
+```text
+$ python myapp.py --help
+usage: myapp [-h] [-d] [-q] [-f FOO] {cmd1} ...
+
+optional arguments:
+  -h, --help         show this help message and exit
+  -d, --debug        full application debug mode
+  -q, --quiet        suppress all console output
+  -f FOO, --foo FOO  the notorious foo option
+
+sub-commands:
+  {cmd1}
+    cmd1             example sub-command
+
+
+$ python myapp.py cmd1 --help
+usage: myapp cmd1 [-h] [--sub-option]
+
+optional arguments:
+  -h, --help    show this help message and exit
+  --sub-option  option under sub-command
+  
+  
+$ python myapp.py -f bar cmd1 --sub-option
+Inside Base.cmd1()
+Foo => bar
+Sub Option Was Passed
+```
+{% endtab %}
+{% endtabs %}
+
+{% hint style="warning" %}
+How and where arguments are defined determines how they are used.  An argument defined under a controller, must be passed before any sub-command namespaces otherwise the sub-parser will not recognize it and result in an `unrecognized argument error`.
+{% endhint %}
+
+## Processing Controller Level Arguments
+
+In the above example we demonstrated accessing the controller level argument via `app.pargs.foo` in the `Base.cmd1()` method/sub-command.  This worked, however because controller level arguments should be considered global to the entire namespace, we should reduce duplicate code and handle controller level argument parsing in one place, regardless of what sub-command is passed.
+
+The `ArgparseController` defines both a`_pre_argument_parsing` and`_post_argument_parsing` methods for providing direct access to that controllers sub-parser \(`self._parser`\) and processing arguments.  This is very similar to the `pre_argument_parsing` and `post_argument_parsing` [framework hooks](hooks.md#cement-framework-hooks), but local in scope to the controller.
+
+{% tabs %}
+{% tab title="Example: Processing Controller Level Arguments" %}
+```python
+from cement import App, Controller, ex
+
+class Base(Controller):
+    class Meta:
+        label = 'base'
+
+        arguments = [
+            ( [ '-f', '--foo' ],
+              { 'help' : 'the notorious foo option',
+                'action' : 'store',
+                'dest' : 'foo', } ),
+        ]
+
+    def _post_argument_parsing(self):
+        if self.app.pargs.foo is not None:
+            print('Foo => %s' % self.app.pargs.foo)
+
+    @ex(help='example sub-command')
+    def cmd1(self):
+        print('Inside Base.cmd1()')
+
+    @ex(help='another example sub-command')
+    def cmd2(self):
+        print('Inside Base.cmd2()')
+
+
+class MyApp(App):
+    class Meta:
+        label = 'myapp'
+        handlers = [
+            Base,
+        ]
+
+with MyApp() as app:
+    app.run()
+```
+{% endtab %}
+
+{% tab title="cli" %}
+```text
+$ python myapp.py -f bar cmd1
+Foo => bar
+Inside Base.cmd1()
+
+$ python myapp.py -f bar cmd2
+Foo => bar
+Inside Base.cmd2()
+```
+{% endtab %}
+{% endtabs %}
+
+## Additional Controllers and Namespaces
+
+Any number of additional controllers can be added to your application after a base controller is registered. Additionally, these controllers can be `stacked` onto the base controller \(or any other controller\) in one of two ways:
 
 * `embedded` - The controllers commands and arguments are included under the parent controllers name space.
 * `nested` - The controller label is added as a sub-command under the parent controllers namespace \(effectively this is a sub-command with additional sub-sub-commands under it\)
 
-For example, The `base` controller is accessed when calling `example.py` directly. Any commands under the `base` controller would be accessible as `example.py <cmd1>`, or `example.py <cmd2>`, etc. An `embedded` controller will merge its commands and options into the `base` controller namespace and appear to be part of the base controller... meaning you would still access the `embedded` controllers commands as `example.py <embedded_cmd1>`, etc \(same for options\).
+For example, The `base` controller is accessed when calling `myapp.py` directly. Any commands under the `base` controller would be accessible as `myapp.py <cmd1>`, or `myapp.py <cmd2>`, etc. An `embedded` controller will merge its commands and options into the `base` controller namespace and appear to be part of the base controller... meaning you would still access the `embedded` controllers commands as `myapp.py <embedded_cmd1>`, etc \(same for options\).
 
-For `nested` controllers, a prefix will be created with that controllers label under its parents namespace. Therefore you would access that controllers commands and options as `example.py <controller_label> <controller_cmd1>`.
+For `nested` controllers, a prefix will be created with that controllers label under its parents namespace. Therefore you would access that controllers commands and options as `myapp.py <controller_label> <controller_cmd1>`.
 
-See the [Multiple Stacked Controllers](https://docs.builtoncement.com/%7B%7B%20version%20%7D%7D/examples/multiple_stacked_controllers.html) example for more help.
+{% tabs %}
+{% tab title="Example: Multiple Stacked Controllers" %}
+```python
+from cement import App, Controller, ex
+
+class Base(Controller):
+    class Meta:
+        label = 'base'
+
+    @ex(help='example sub-command')
+    def cmd1(self):
+        print('Inside Base.cmd1()')
+
+class Embedded(Controller):
+    class Meta:
+        label = 'embedded'
+        stacked_on = 'base'
+        stacked_type = 'embedded'
+
+    @ex(help='embedded sub-command')
+    def cmd2(self):
+        print('Inside Embedded.cmd2()')
+
+class Nested(Controller):
+    class Meta:
+        label = 'nested'
+        stacked_on = 'base'
+        stacked_type = 'nested'
+
+    @ex(help='nested sub-command')
+    def cmd3(self):
+        print('Inside Nested.cmd3()')
+
+class MyApp(App):
+    class Meta:
+        label = 'myapp'
+        handlers = [
+            Base,
+            Embedded,
+            Nested,
+        ]
+
+with MyApp() as app:
+    app.run()
+```
+{% endtab %}
+
+{% tab title="cli" %}
+```text
+$ python myapp.py  --help
+usage: myapp [-h] [-d] [-q] {nested,cmd1,cmd2} ...
+
+optional arguments:
+  -h, --help          show this help message and exit
+  -d, --debug         full application debug mode
+  -q, --quiet         suppress all console output
+
+sub-commands:
+  {nested,cmd1,cmd2}
+    nested            nested controller
+    cmd1              example sub-command
+    cmd2              embedded sub-command
+
+
+$ python myapp.py cmd1
+Inside Base.cmd1()
+
+
+$ python myapp.py cmd2
+Inside Embedded.cmd2()
+
+
+$ python myapp.py nested cmd3
+Inside Nested.cmd3()
+```
+{% endtab %}
+{% endtabs %}
+
+{% hint style="info" %}
+Controllers can be stacked on other controllers as many levels deep as necessary. An `embedded` controller can be stacked on top of a `nested` controller, and vice versa. There is little, if any, limitation.
+{% endhint %}
 

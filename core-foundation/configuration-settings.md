@@ -8,11 +8,11 @@ Cement defines a [Config Interface](http://cement.readthedocs.io/en/2.99/api/cor
 Cement often includes multiple handler implementations of an interface that may or may not have additional features or functionality than the interface requires.  The documentation below only references usage based on the interface and default handler \(not the full capabilities of an implementation\).
 {% endhint %}
 
-**Config Handlers Included with Cement:**
+**Cement Extensions That Provide Config Handlers:**
 
-* [ConfigParserConfigHandler](../extensions/configparser.md) _\(default\)_
-* [JsonConfigHandler](../extensions/json.md)
-* [YamlConfigHandler](../extensions/yaml.md)
+* [ConfigParser](../extensions/configparser.md) _\(default\)_
+* [Json](../extensions/json.md)
+* [Yaml](../extensions/yaml.md)
 
 **API References:**
 
@@ -127,7 +127,7 @@ with App('myapp') as app:
 
 
 
-## Parsing Config Files
+## Configuratio File Loading
 
 Most applications benefit from allowing their users to customize runtime via configuration files.  Cement defines the following builtin default configuration file paths:
 

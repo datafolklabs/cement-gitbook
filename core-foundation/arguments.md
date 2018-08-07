@@ -8,9 +8,9 @@ Cement defines an [Argument Interface](https://cement.readthedocs.io/en/2.99/api
 Cement often includes multiple handler implementations of an interface that may or may not have additional features or functionality than the interface requires.  The documentation below only references usage based on the interface and default handler \(not the full capabilities of an implementation\).
 {% endhint %}
 
-**Argument Handlers Included with Cement:**
+**Cement Extensions That Provide Argument Handlers:**
 
-* [​ArgParseArgumentHandler​](https://cement.readthedocs.io/en/2.99/api/ext/ext_argparse/#cement.ext.ext_argparse.ArgparseArgumentHandler)
+* [Argparse](../extensions/argparse.md)
 
 **API References:**
 

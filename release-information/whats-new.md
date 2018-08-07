@@ -92,13 +92,13 @@ Cement now supports the ability to override all config object settings via their
 ```python
 from cement import App, init_defaults
 
-defaults = init_defaults('myapp')
-defaults['myapp']['foo'] = 'bar'
+CONFIG = init_defaults('myapp')
+CONFIG['myapp']['foo'] = 'bar'
 
 class MyApp(App):
     class Meta:
         label = 'myapp'
-        config_defaults = defaults
+        config_defaults = CONFIG
 
 with MyApp() as app:
     app.run()
@@ -127,14 +127,15 @@ Environment variables are logically mapped to configuration settings based on th
 
 ## New Interfaces
 
-| \*\*\*\*[**Template**](../core-foundation/templating.md)\*\*\*\* | Rendering of template data \(content, files, etc\).  Existing output handler type plugins were also updated to include an associated template handler \(`MustacheTemplateHandler`, `Jinja2TemplateHandler`, etc\). |
+| **Interface** | Description |
 | :--- | :--- |
-
+| [Template](../core-foundation/templating.md) | Rendering of template data \(content, files, etc\).  Existing output handler extensions were also updated to include an associated template handler \(`MustacheTemplateHandler`, `Jinja2TemplateHandler`, etc\). |
 
 ## New Extensions
 
-| \*\*\*\*[**Print**](../extensions/print.md)\*\*\*\* | Used primarily in development as a replacement for standard `print()`, allowing the developer to honor framework features like `pre_render` and `post_render` hooks. |
+| Extension | Description |
 | :--- | :--- |
+| [Print](../extensions/print.md) | Used primarily in development as a replacement for standard `print()`, allowing the developer to honor framework features like `pre_render` and `post_render` hooks. |
 | \*\*\*\*[**Scrub**](../extensions/scrub.md)\*\*\*\* | Adds the ability to easily obfuscate sensitive data from rendered output \(think IP addresses, credit card numbers, etc\) |
 | \*\*\*\*[**Generate**](../extensions/generate.md)\*\*\*\* | Adds the ability for application developers to add a `generate` controller to their application, and include any number of source templates to generate from.  Think `myapp generate plugin` for third party developers to create plugins for your application from a fully-functional working template. |
 

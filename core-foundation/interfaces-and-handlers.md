@@ -19,8 +19,9 @@ We call the implementation of an interface a **handler**, and provide the abilit
 
 The following interfaces are builtin to Cement's core foundation:
 
-| \*\*\*\*[**Extension**](https://cement.readthedocs.io/en/portland/api/core/extension/#cement.core.extension.ExtensionHandler)  **** | Framework extension loading. |
+| **Interface**  | **Description** |
 | :--- | :--- |
+| \*\*\*\*[**Extension**](extensions-1.md)\*\*\*\* | Framework extension loading. |
 | \*\*\*\*[**Log**](https://cement.readthedocs.io/en/portland/api/core/log/#cement.core.log.LogHandler)\*\*\*\* | Messaging to console, and/or file via common log facilities \(INFO, WARNING, ERROR, FATAL, DEBUG\). |
 | \*\*\*\*[**Config**](https://cement.readthedocs.io/en/portland/api/core/config/#cement.core.config.ConfigHandler)\*\*\*\* | Merging of application configuration defaults, configuration files, and environment settings into a single config object. |
 | \*\*\*\*[**Mail**](https://cement.readthedocs.io/en/portland/api/core/mail/#cement.core.mail.MailHandler)\*\*\*\* | Remote message sending \(email, smtp, etc\). |

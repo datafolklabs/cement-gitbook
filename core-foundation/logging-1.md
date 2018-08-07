@@ -8,10 +8,15 @@ Cement defines the [Log Interface](https://cement.readthedocs.io/en/2.99/api/cor
 Cement often includes multiple handler implementations of an interface that may or may not have additional features or functionality than the interface requires.  The documentation below only references usage based on the interface and default handler \(not the full capabilities of an implementation\).
 {% endhint %}
 
-**Log Handlers Included with Cement:**
+**Cement Extensions That Provide Log Handlers**
 
-* ​[LoggingLogHandler](https://docs.builtoncement.com/%7B%7B%20version%20%7D%7D/api/ext/ext_logging.html)​
-* [ColorLogHandler](https://cement.readthedocs.io/en/2.99/api/ext/ext_colorlog/#cement.ext.ext_colorlog.ColorLogHandler)
+* [Logging](../extensions/logging.md)
+* [Colorlog](../extensions/colorlog.md)
+
+**API References:**
+
+* [Cement Core Log Module](https://cement.readthedocs.io/en/2.99/api/core/log/)
+* [Cement Logging Extension](https://cement.readthedocs.io/en/2.99/api/ext/ext_logging/)
 
 ## Logging Messages
 
@@ -79,7 +84,7 @@ Cement also includes a `--debug` command line option by default. This triggers `
 
 ## Logging to Console
 
-The default log handler configuration enables logging to messages to console.
+The default log handler configuration enables logging messages to console.
 
 {% tabs %}
 {% tab title="Example: Logging to Console" %}
@@ -115,33 +120,53 @@ Console logging can be disabled by setting `to_console` to `False` in either the
 
 ## Logging to File
 
-File logging is disabled by default but can be enabled by setting the , but is just one line to enable. Simply set the 'file' setting under the '\[log.logging\]' config section either by application defaults, or via a configuration file.
+File logging is disabled by default but can be enabled by setting the `file` setting under the `[log.logging]` section of the application configuration.
 
-```text
-from cement.core import foundation, backendfrom cement.utils.misc import init_defaults​defaults = init_defaults('myapp', 'log.logging')defaults['log.logging']['file'] = 'my.log'​app = foundation.CementApp('myapp', config_defaults=defaults)app.setup()app.run()app.log.info('This is my info message')app.close()
+{% tabs %}
+{% tab title="Example: Logging to File" %}
+{% code-tabs %}
+{% code-tabs-item title="myapp.py" %}
+```python
+from cement import App, init_defaults
+
+CONFIG = init_defaults('myapp', 'log.logging')
+CONFIG['log.logging']['file'] = '/path/to/file.log'
+
+class MyApp(App):
+    class Meta:
+        label = 'myapp'
+        config_defaults = CONFIG
 ```
+{% endcode-tabs-item %}
 
-Running this we will see:
-
-```text
-$ python test.pyINFO: This is my info message​$ cat my.log2011-08-26 17:50:16,306 (INFO) myapp : This is my info message
+{% code-tabs-item title="~/.myapp.conf" %}
 ```
+[myapp]
+# ...
 
-Notice that the logging is a bit more verbose when logged to a file.
+[log.logging]
+file = /path/to/file.log
+```
+{% endcode-tabs-item %}
+{% endcode-tabs %}
+{% endtab %}
+{% endtabs %}
 
 ## Tips on Debugging
 
-Note: The following is specific to the default [LoggingLogHandler](https://docs.builtoncement.com/%7B%7B%20version%20%7D%7D/api/ext/ext_logging) only, and is not an implementation of the ILog interface.
+{% hint style="info" %}
+The following is specific to the default [`LoggingLogHandler`](https://cement.readthedocs.io/en/2.99/api/ext/ext_logging/#cement.ext.ext_logging.LoggingLogHandler), and is not an requirement of the logging interface.
+{% endhint %}
 
-Logging to 'app.log.debug\(\)' is pretty straight forward, however adding an additional parameter for the 'namespace' can greatly increase insight into where that log is happening. The 'namespace' defaults to the application name which you will see in every log like this:
+Logging to `app.log.debug()` is pretty straight forward, however adding an additional parameter for the `namespace` can greatly increase insight into where that log is happening. The `namespace` defaults to the application name which you will see in every log like this:
 
 ```text
 2012-07-30 18:05:11,357 (DEBUG) myapp : This is my message
 ```
 
-For debugging, it might be more useful to change this to **name**:
+For debugging, it might be more useful to change this to `__name__`:
 
-```text
+```python
 app.log.debug('This is my info message', __name__)
 ```
 
@@ -151,17 +176,15 @@ Which looks like:
 2012-07-30 18:05:11,357 (DEBUG) myapp.somepackage.test : This is my message
 ```
 
-Or even more verbose, the **file** and a line number of the log:
+Or even more verbose, you might prefer adding something like `__file__` and the function or class method:
 
-```text
-app.log.debug('This is my info message', '%s,L2734' % __file__)
+```python
+app.log.debug('This is my info message', '%s : my_func()' % __file__)
 ```
 
-Which looks like:
+Which would look like:
 
 ```text
-2012-07-30 18:05:11,357 (DEBUG) myapp/somepackage/test.py,L2345 : This is my message
+2012-07-30 18:05:11,357 (DEBUG) myapp/somepackage/test.py : my_func() : This is my message
 ```
-
-You can override this with anything... it doesn't have to be just for debugging.
 

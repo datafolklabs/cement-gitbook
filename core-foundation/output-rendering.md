@@ -1,27 +1,28 @@
 # Output Rendering
 
+## Introduction to the Output Interface
 
-
-Cement defines an output interface called [IOutput](https://docs.builtoncement.com/%7B%7B%20version%20%7D%7D/api/core/output.html#cement.core.output.IOutput), as well as the default [DummyOutputHandler](https://docs.builtoncement.com/%7B%7B%20version%20%7D%7D/api/ext/ext_dummy.html) that implements the interface. This handler is part of Cement, and actually does nothing to produce output. Therefore it can be said that by default a Cement application does not handle rendering output to the console, but can if another output handler be used.
+Cement defines an [Output Interface](https://cement.readthedocs.io/en/2.99/api/core/output/#cement.core.output.OutputInterface), as well as the default [DummyOutputHandler](https://docs.builtoncement.com/%7B%7B%20version%20%7D%7D/api/ext/ext_dummy.html) that implements the interface as a placeholder that does not actually produce any output.
 
 {% hint style="warning" %}
 Cement often includes multiple handler implementations of an interface that may or may not have additional features or functionality than the interface requires.  The documentation below only references usage based on the interface and default handler \(not the full capabilities of an implementation\).
 {% endhint %}
 
-**Output Handlers Included with Cement:**
+**Cement Extensions That Provide Output Handlers:**
 
-* ​[DummyOutputHandler](https://docs.builtoncement.com/%7B%7B%20version%20%7D%7D/api/ext/ext_dummy.html)​
-* ​[JsonOutputHandler](https://docs.builtoncement.com/%7B%7B%20version%20%7D%7D/api/ext/ext_json.html)​
-* ​[YamlOutputHandler](https://docs.builtoncement.com/%7B%7B%20version%20%7D%7D/api/ext/ext_yaml.html)​
-* ​[GenshiOutputHandler](https://docs.builtoncement.com/%7B%7B%20version%20%7D%7D/api/ext/ext_genshi.html)​
-* ​[HandlebarsOutputHandler](https://docs.builtoncement.com/%7B%7B%20version%20%7D%7D/api/ext/ext_handlebars.html)​
-* ​[Jinja2OutputHandler](https://docs.builtoncement.com/%7B%7B%20version%20%7D%7D/api/ext/ext_jinja2.html)​
-* ​[MustacheOutputHandler](https://docs.builtoncement.com/%7B%7B%20version%20%7D%7D/api/ext/ext_mustache.html)​
-* ​[TabulateOUtputHandler](https://docs.builtoncement.com/%7B%7B%20version%20%7D%7D/api/ext/ext_tabulate.html)​
+* [Dummy](../extensions/dummy.md)
+* [Json](../extensions/json.md)
+* [Yaml](../extensions/yaml.md)
+* [Handlebars](../extensions/handlebars.md)
+* [Jinja2](../extensions/jinja2.md)
+* [Mustache](../extensions/mustache.md)
+* [Tabulate](../extensions/tabulate.md)
 
-Please reference the [IOutput](https://docs.builtoncement.com/%7B%7B%20version%20%7D%7D/api/core/output.html#cement.core.output.IOutput) interface documentation for writing your own output handler.
+**API References:**
 
-### Rending Output {#rending-output}
+* [Cement Core Output Module](https://cement.readthedocs.io/en/2.99/api/core/output)
+
+## Rending Output
 
 Cement applications do not need to use an output handler by any means. Most small applications can get away with simple `print()` statements. However, anyone who has ever built a bigger application that produces a lot of output will know that this can get ugly very quickly in your code.
 
@@ -29,49 +30,125 @@ Using an output handler allows the developer to keep their logic clean, and offl
 
 An output handler has a `render()` function that takes a data dictionary to produce output. Some output handlers may also accept a `template` or other parameters that define how output is rendered. This is easily accessible by the application object.
 
-```text
-from cement.core.foundation import CementApp​with CementApp('myapp') as app:    app.run()​    # render data dictionary with the output handler    data = dict(foo='bar')    app.render(data)
+{% tabs %}
+{% tab title="Example: Rendering Output" %}
+```python
+from cement import App
+
+with App('myapp' as app:
+    app.run()
+    
+    # create a data dictionary
+    data = {
+        'foo': 'bar',
+    }
+    
+    # render data dictionary
+    app.render(data)
 ```
+{% endtab %}
+{% endtabs %}
 
-The above example uses the default output handler, therefore nothing is displayed on screen. That said, if we write our own quickly we can see something happen:
+The above example uses the default `dummy` output handler, therefore nothing is displayed on screen. That said, for an example we can use the JSonOutputHandler to see something happen:
 
-```text
-from cement.core.foundation import CementAppfrom cement.core.output import CementOutputHandler​# Create a custom output handlerclass MyOutputHandler(CementOutputHandler):    class Meta:        label = 'myoutput'​    def render(self, data):        for key in data:            print "%s => %s" % (key, data[key])​​class MyApp(CementApp):    class Meta:        label = 'myapp'        output_handler = MyOutputHandler​​with MyApp() as app:    app.run()​    # render data dictionary with the output handler    data = dict(foo='bar')    app.render(data)
+{% tabs %}
+{% tab title="Example: Defining an Output Handler" %}
+```python
+from cement import App
+
+class MyApp(App):
+    class Meta:
+        label = 'myapp'
+        extensions = ['json']
+        output_handler = 'json'
+
+with MyApp() as app:
+    app.run()
+    
+    # create a data dictionary
+    data = {
+        'foo': 'bar',
+    }
+
+    # render data dictionary
+    app.render(data)
 ```
+{% endtab %}
 
-Which looks like:
-
+{% tab title="cli" %}
 ```text
-$ python test.pyfoo => bar
+$ python myapp.py
+{"foo": "bar"}
 ```
+{% endtab %}
+{% endtabs %}
 
-### Rendering Output Via Templates {#rendering-output-via-templates}
+## Rendering Output via Templates
 
-An extremely powerful feature of Cement is the ability to offload console output to a template output handler. Several are inluded with Cement but not enabled by default \(listed above\). The following example shows the use of the Mustache templating langugage, as well as Json output handling.
+While some output handlers only require the `data` dictionary, others can utilize text templates to render formatted output to console.
 
-**myapp.py**
+{% tabs %}
+{% tab title="Example: Rendering Output via Templates" %}
+{% code-tabs %}
+{% code-tabs-item title="myapp.py" %}
+```python
+from cement import App
 
+class MyApp(App):
+    class Meta:
+        label = 'myapp'
+        extensions = ['jinja2']
+        output_handler = 'jinja2'
+        template_dir = './templates'
+
+with MyApp() as app:
+    app.run()
+
+    # create a data dictionary
+    data = {
+        'foo': 'bar',
+    }
+
+    # render data dictionary
+    app.render(data, 'example.jinja2')
+```
+{% endcode-tabs-item %}
+
+{% code-tabs-item title="templates/example.jinja2" %}
+```
+Example Jinja2 Template
+
+{% if foo %}
+    Foo => {{ foo }}
+{% endif %}
+```
+{% endcode-tabs-item %}
+{% endcode-tabs %}
+{% endtab %}
+
+{% tab title="cli" %}
 ```text
-from cement.core.foundation import CementAppfrom cement.core.controller import CementBaseController, expose​​class MyBaseController(CementBaseController):    class Meta:        label = 'base'        description = 'MyApp Does Amazing Things'​    @expose(hide=True)    def default(self):        data = dict(foo='bar')        self.app.render(data, 'default.m')​        # always return the data, some output handlers require this        # such as Json/Yaml (which don't use templates)        return data​​class MyApp(CementApp):    class Meta:        label = 'myapp'        base_controller = MyBaseController        extensions = ['mustache', 'json']​        # default output handler        output_handler = 'mustache'​​with MyApp() as app:    app.run()
+$ python myapp.py
+Example Jinja2 Template
+
+    Foo => bar
 ```
+{% endtab %}
+{% endtabs %}
 
-**/usr/lib/myapp/templates/default.m**
+## Template Directory Loading
 
-```text
-This is the output of the MyBaseController.default() command.​The value of the 'foo' variable is => '{{foo}}'
-```
+Template directories are looked for in the most common places by default as defined by [`App.Meta.template_dirs`](https://cement.readthedocs.io/en/2.99/api/core/foundation/#cement.core.foundation.App.Meta.template_dirs):
 
-And this looks like:
+* ~/.myapp/templates
+* ~/.config/myapp/templates
+* /usr/lib/myapp/templates
 
-```text
-$ python myapp.py​This is the output of the MyBaseController.default() command.​The value of the 'foo' variable is => 'bar'
-```
+{% hint style="info" %}
+End-users can prepend their own paths to this list by setting the `template_dir` setting under the application configuration settings.
+{% endhint %}
 
-Optionally, we can use the `JsonOutputHandler` via `-o json` to trigger just Json output \(supressing all other output\) using our return dictionary:
-
-```text
-$ python myapp.py -o json{"foo": "bar"}
-```
+Once a template is found, loading stops and the template is rendered.
 
 ## 
 
