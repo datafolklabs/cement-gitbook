@@ -34,67 +34,120 @@ The following options under [`App.Meta`](https://cement.readthedocs.io/en/2.99/a
 
 The extension system is a mechanism for dynamically loading code to extend the functionality of the framework. In general, this includes the registration of interfaces, handlers, and/or hooks but can include controllers, command-line options, or anything else.
 
-The following is an example extension that provides an Output Handler. We will assume this extension is part of our `myapp` application, and the extension module will be `myapp.ext.ext_myoutput` \(or whatever you want to call it\).
+The preferred method of creating an extension would be via the included [developer tools](../getting-started/developer-tools.md):
 
 ```text
-from cement.core import handler, outputfrom cement.utils.misc import minimal_logger​LOG = minimal_logger(__name__)​class MyOutputHandler(output.CementOutputHandler):    class Meta:        label = 'myoutput'​    def render(self, data_dict, template=None):        LOG.debug("Rendering output via MyAppOutputHandler")        for key in data_dict.keys():            print "%s => %s" % (key, data_dict[key])​def load(app):    handler.register(MyOutputHandler)
+$ cement generate extension /path/to/myapp/ext
 ```
 
-Take note of two things. One is, the `LOG` we are using is from `cement.utils.misc.minimal_logger(__name__)`. Framework extensions do not use the application log handler, ever. Use the `minimal_logger()`, and only log to 'DEBUG' \(recommended\).
+This would produce something like the following:
 
-Secondly, in our extension file we need to define any interfaces, and register handlers and/or hooks if necessary. In this example we only needed to register our output handler \(which happens when the extension is loaded by the application\).
+{% tabs %}
+{% tab title="Example: Creating an Extension" %}
+{% code-tabs %}
+{% code-tabs-item title="myapp/ext/ext\_myextension.py" %}
+```python
+from cement import minimal_logger
 
-Last, notice that all `bootstrapping` code goes in a `load()` function. This is where registration of handlers/hooks should happen. For convenience, and certain edge cases, the `app` object is passed here in its current state at the time that `load()` is called.
+LOG = minimal_logger(__name__)
 
-You will notice that extensions are essentially the same as application plugins, however the difference is both when/how the code is loaded, as well as the purpose of that code. Framework extensions add functionality to the framework for the application to utilize, where application plugins extend the functionality of the application itself.
+def myextension_pre_run_hook(app):
+    # do something with app
+    LOG.debug('Inside myextension_pre_run_hook!')
 
-## Loading an Extension
+def load(app):
+    # do something to extend cement
+    app.hook.register('pre_run', myextension_pre_run_hook)
+```
+{% endcode-tabs-item %}
+{% endcode-tabs %}
+{% endtab %}
+{% endtabs %}
 
-Extensions are loaded when `setup()` is called on an application. Cement automatically loads all extensions listed under the applications `core_extensions` and `extensions` meta options.
+{% hint style="info" %}
+Extensions can provide anything from defining interfaces, registering hooks, or even adding command line arguments.  The only thing required to make up an extension is the `load()` function.
+{% endhint %}
 
-To load the above example into our application, we just add it to the list of `extensions` \(not core extensions\). Lets assume the extension code lives in `myapp/ext/ext_something_fancy.py`:
+You will notice that extensions are essentially the same as application plugins, however the difference is both when/how the code is loaded, as well as the purpose of that code. 
+
+{% hint style="info" %}
+Framework extensions add functionality **to the framework** for the application to utilize, where application plugins **extend the functionality of the application** itself.
+{% endhint %}
+
+## Loading Extensions
+
+Extensions are loaded when [`App.setup()`](http://cement.readthedocs.io/en/2.99/api/core/foundation/#cement.core.foundation.App.setup) is called on an application. Cement automatically loads all extensions listed under the applications [`App.Meta.core_extensions`](http://cement.readthedocs.io/en/2.99/api/core/foundation/#cement.core.foundation.App.Meta.core_extensions) and [`App.Meta.extensions`](http://cement.readthedocs.io/en/2.99/api/core/foundation/#cement.core.foundation.App.Meta.extensions) meta options.
+
+To load the above example into our application, we just add it to the list of `App.Meta.extensions`. Lets assume the extension code lives in `myapp/ext/ext_myextension.py`:
+
+{% tabs %}
+{% tab title="Example: Loading Extensions" %}
+```python
+from cement import App
+
+class MyApp(App):
+    class Meta:
+        label = 'myapp'
+        extensions = 'myapp.ext.ext_myextension'
+```
+{% endtab %}
+{% endtabs %}
 
 ```text
 from cement.core.foundation import CementApp​class MyApp(CementApp):    class Meta:        label = 'myapp'        extensions = ['myapp.ext.ext_something_fancy']​with MyApp() as app:    app.run()
 ```
 
-Note that Cement provides a shortcut for Cement extensions. For example, the following:
+{% hint style="info" %}
+Note that Cement provides a shortcut for its own builtin extensions so that you can refer to extensions via their short name \(ex: `json` instead of `cement.ext.ext_json`\).  All other extensions must be referenced by their full dotted Python module name.
+{% endhint %}
 
-```text
-CementApp('myapp', extensions=['json', 'daemon'])
+## Loading Extensions via a Configuration File
+
+Some use cases may require that end-users be able to modify what framework extensions are loaded depending on the needs of the application, while most extensions are defined by the developer to support key features.
+
+The following example demonstrates an application loading extensions defined via the `extensions` setting under the application's configuration settings.
+
+{% tabs %}
+{% tab title="Example: Loading Extensions via Configuration File" %}
+{% code-tabs %}
+{% code-tabs-item title="myapp.py" %}
+```python
+from cement import App
+
+with App('myapp') as app:
+    app.run()
+    
+    for e in app.extension.list():
+        print(e)
 ```
+{% endcode-tabs-item %}
 
-Is equivalent to:
-
-```text
-CementApp('myapp',    extensions=[        'cement.ext.ext_json',        'cement.ext.ext_daemon',        ]    )
+{% code-tabs-item title="~/.myapp.conf" %}
 ```
+[myapp]
+exensions = json, yaml, myapp.ext.ext_myextension
+```
+{% endcode-tabs-item %}
+{% endcode-tabs %}
+{% endtab %}
 
-For non-cement extensions you need to use the full python 'dotted' module path.
+{% tab title="cli" %}
+```text
+$ python myapp.py
+cement.ext.ext_dummy
+cement.ext.ext_smtp
+cement.ext.ext_plugin
+cement.ext.ext_configparser
+cement.ext.ext_logging
+cement.ext.ext_argparse
+cement.ext.ext_json
+cement.ext.ext_yaml
+myapp.ext.ext_myextension
+```
+{% endtab %}
+{% endtabs %}
 
-## Loading Extensions Via a Configuration File
-
-Some use cases require that end-users are able to modify what framework extensions are loaded via a configuration file. The following gives an example of how an application can support an optional `extensions` configuration setting that will **append** extensions to `CementApp.Meta.extensions`.
-
+{% hint style="warning" %}
 Note that extensions loaded in this way will happen **after** the config handler is setup. Normally, extensions are loaded just before the configuration files are read. Therefore, some extensions may not be compatible with this method if they attempt to perform any actions before `app.setup()` completes \(such as in early framework hooks before configuration files are loaded\).
-
-**myapp.py**
-
-```text
-from cement.core.foundation import CementApp​class MyApp(CementApp):    class Meta:        label = 'myapp'        config_files = [            './myapp.conf',            ]​def main():    with MyApp() as app:        app.run()​if __name__ == '__main__':    main()
-```
-
-**myapp.conf**
-
-```text
-[myapp]extensions = json, yaml
-```
-
-Which looks like:
-
-```text
-$ python myapp.py --helpusage: myapp.py (sub-commands ...) [options ...] {arguments ...}​MyApp Does Amazing Things​optional arguments:  -h, --help     show this help message and exit  --debug        toggle debug output  --quiet        suppress all output  -o {json,yaml} output format
-```
-
-Note the `-o` command line option that are provided by Cement allowing the end user to override the output handler with the available/loaded extensions \(that support this feature\).
+{% endhint %}
 

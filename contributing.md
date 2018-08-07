@@ -112,3 +112,25 @@ It should be noted that both the Minor, and Bugfix versions follow a `even == st
 
 The `portland` branch is always very forward looking, and will contain significant \(and likely broken\) code changes. It should never be used for anything other than development and testing.
 
+## New Release Checklist
+
+For maintainers before finalizing a release, create a Github issue called `Cement X.YY.Z Release Tracker` with the following:
+
+```text
+- [ ] 100% Test Passing on Travis CI
+    - [ ] Python 3.5
+    - [ ] Python 3.6
+    - [ ] Python 3.7
+- [ ] 100% Test Coverage
+- [ ] API Documentation Builds (Read The Docs)
+    - [ ] X.Y
+- [ ] Developer Documentation (Gitbook)
+    - [ ] stable/X.Y
+- [ ] Docker Image Builds (Docker Hub)
+    - [ ] datafolklabs/cement:X
+    - [ ] datafolklabs/cement:X.Y
+    - [ ] datafolklabs/cement:X.Y.Z
+```
+
+_Replace X.Y.Z with the release versions._
+
