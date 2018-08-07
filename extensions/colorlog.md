@@ -21,8 +21,9 @@ The ColorLog Extension provides the [`ColorLogHandler`](http://cement.readthedoc
 
 This handler honors the following settings under a `[log.colorlog]` section of the configuration:
 
-| **level** | The logging to display logs for. One of `INFO, WARNING, ERROR, FATAL, DEBUG`. Default: `INFO` |
+| **Setting** | **Description** |
 | :--- | :--- |
+| **level** | The level to display logs for.  One of `INFO`, `WARNING`, `ERROR`, `FATAL`, `DEBUG`.  Default: `INFO` |
 | **file** | The filesystem path of the log file.  Default: `None` |
 | **to\_console** | Whether or not to log to console.  Default: `True` |
 | **rotate** | Whether or not rotate the log file.  Default: `False` |

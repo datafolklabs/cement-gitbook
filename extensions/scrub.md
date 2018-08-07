@@ -24,8 +24,9 @@ This extension does rely on any application level configuration settings or meta
 
 This extension honors the following `App.Meta` options:
 
-| **scrub** | A list of tuples in the form of `[ ('REGEX'), 'REPLACEMENT' ]` |
+| Option | **Description** |
 | :--- | :--- |
+| **scrub** | A list of tuples in the form of `[ ( 'REGEX', 'REPLACEMENT' ) ]` |
 | **scrub\_argument** | The list of args to use when adding the scrub option to the parser.  Default: `['--scrub']` |
 | **scrub\_argument\_help** | The help text to use when adding the scrub option to the parser.  Default: `'obfuscate sensitive data from output'` |
 

@@ -22,8 +22,9 @@ The Memcached Extension includes the [`MemcachedCacheHandler`](https://cement.re
 
 This extension honors the following config settings under a `[cache.memcached]` section in any configuration file:
 
-| **expire\_time** | The default time in seconds to expire items in the cache.  Default: `0` _\(does not expire\)_ |
+| **Setting** | **Description** |
 | :--- | :--- |
+| **expire\_time** | The default time in seconds to expire items in the cache.  Default: `0` \(does not expire\) |
 | **hosts** | List of memcached servers. |
 
 ## Usage

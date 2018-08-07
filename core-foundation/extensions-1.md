@@ -1,36 +1,38 @@
 # Framework Extensions
 
-Cement defines an extension interface called [IExtension](https://docs.builtoncement.com/%7B%7B%20version%20%7D%7D/api/core/extension.html#cement.core.extension.IExtension), as well as the default [CementExtensionHandler](https://docs.builtoncement.com/%7B%7B%20version%20%7D%7D/api/core/extension.html#cement.core.extension.CementExtensionHandler) that implements the interface. Its purpose is to manage loading framework extensions and making them usable by the application. Extensions are similar to [Application Plugins](https://docs.builtoncement.com/%7B%7B%20version%20%7D%7D/dev/plugins.html), but at the framework level \(application agnostic\).
+## Introduction to the Extension Interface
+
+Cement defines an [Extension Interface](https://cement.readthedocs.io/en/2.99/api/core/extension/#cement.core.extension.ExtensionInterface), as well as the default [CementExtensionHandler](https://cement.readthedocs.io/en/2.99/api/core/extension/#cement.core.extension.ExtensionHandler) that implements the interface. Its purpose is to manage loading framework extensions and making them usable by the application. Extensions are similar to [Application Plugins](plugins.md), but at the framework level \(application agnostic\).
 
 {% hint style="warning" %}
 Cement often includes multiple handler implementations of an interface that may or may not have additional features or functionality than the interface requires.  The documentation below only references usage based on the interface and default handler \(not the full capabilities of an implementation\).
 {% endhint %}
 
-**Extension Handlers Included with Cement:**
+{% hint style="info" %}
+As of Cement 2.1.3, optional extensions with external dependencies are now being shipped along with mainline sources. This means, that Cement Core continues to maintain a 100% zero dependency policy, however Framework Extensions _can_ rely on external deps. It is the responsibility of the application developer to include these dependencies in their application \(as the Cement package does not include these dependencies\).
+{% endhint %}
 
-* ​[CementExtensionHandler](https://docs.builtoncement.com/%7B%7B%20version%20%7D%7D/api/core/extension.html#cement.core.extension.CementExtensionHandler)​
 
-Please reference the [IExtension](https://docs.builtoncement.com/%7B%7B%20version%20%7D%7D/api/core/extension.html#cement.core.extension.IExtension) interface documentation for writing your own extension handler.
 
- As of Cement 2.1.3, optional extensions with external dependencies are now being shipped along with mainline sources. This means, that Cement Core continues to maintain a 100% zero dependency policy, however Framework Extensions \*can\* rely on external deps. It is the responsibility of the application developer to include these dependencies in their application \(as the Cement package does not include these dependencies\).
+**API References:**
 
-### Extension Configuration Settings {#extension-configuration-settings}
+* [Cement Core Extension Module](https://cement.readthedocs.io/en/2.99/api/core/extension)
 
-The following Meta settings are honored under the CementApp:
+## Configuration
 
-* **extension\_handler** - A handler class that implements the `IExtension` interface. This can be a string \(label of a registered handler\), an uninstantiated class, or an instantiated class object. Default: `CementExtensionHandler`.
-* **core\_extensions** - List of Cement core extensions. These are generally required by Cement and should only be modified if you know what you're doing. Use `extensions` to add to this list, rather than overriding core extensions. That said if you want to prune down your application, you can remove core extensions if they are not necessary \(for example if using your own log handler extension you likely don't want/need `LoggingLogHandler` to be registered, but removing it really doesn't buy you much\).
-* **extensions** - List of additional framework extensions to load.
+### Application Meta Options
 
-The following example shows how to alter these settings for your application:
+The following options under [`App.Meta`](https://cement.readthedocs.io/en/2.99/api/core/foundation/#cement.core.foundation.App.Meta) modify extension handling:
 
-```text
-from cement.core.foundation import CementAppfrom cement.core.ext import CementExtensionHandler​class MyExtensionHandler(CementExtensionHandler):    pass​class MyApp(CementApp):    class Meta:        label = 'myapp'        extension_handler = MyExtensionHandler        extensions = ['myapp.ext.ext_something_fancy']​with MyApp() as app:    app.run()
-```
+| **Option** | **Description** |
+| :--- | :--- |
+| **extension\_handler** | A handler class that implements the Extension Interface.  This can be a string \(label of a registered handler\), an uninstantiated class, or an instantiated class object.  Default: [`ExtensionHandler`](https://cement.readthedocs.io/en/2.99/api/core/extension/#cement.core.extension.ExtensionHandler) |
+| **core\_extensions** | A list of Cement core extensions.  These are generally required by the framework and should only be modified if you know what you're doing.  Use `App.Meta.extensions` to add to this list, rather than overriding core extensions. |
+| **extensions** | A list of additional framework extensions to load. |
 
-### Creating an Extension {#creating-an-extension}
+## Creating an Extension
 
-The extension system is a mechanism for dynamically loading code to extend the functionality of the framework. In general, this includes the registration of interfaces, handlers, and/or hooks.
+The extension system is a mechanism for dynamically loading code to extend the functionality of the framework. In general, this includes the registration of interfaces, handlers, and/or hooks but can include controllers, command-line options, or anything else.
 
 The following is an example extension that provides an Output Handler. We will assume this extension is part of our `myapp` application, and the extension module will be `myapp.ext.ext_myoutput` \(or whatever you want to call it\).
 
@@ -46,7 +48,7 @@ Last, notice that all `bootstrapping` code goes in a `load()` function. This is 
 
 You will notice that extensions are essentially the same as application plugins, however the difference is both when/how the code is loaded, as well as the purpose of that code. Framework extensions add functionality to the framework for the application to utilize, where application plugins extend the functionality of the application itself.
 
-### Loading an Extension {#loading-an-extension}
+## Loading an Extension
 
 Extensions are loaded when `setup()` is called on an application. Cement automatically loads all extensions listed under the applications `core_extensions` and `extensions` meta options.
 
@@ -70,7 +72,7 @@ CementApp('myapp',    extensions=[        'cement.ext.ext_json',        'cement.
 
 For non-cement extensions you need to use the full python 'dotted' module path.
 
-### Loading Extensions Via a Configuration File {#loading-extensions-via-a-configuration-file}
+## Loading Extensions Via a Configuration File
 
 Some use cases require that end-users are able to modify what framework extensions are loaded via a configuration file. The following gives an example of how an application can support an optional `extensions` configuration setting that will **append** extensions to `CementApp.Meta.extensions`.
 

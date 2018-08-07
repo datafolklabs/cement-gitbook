@@ -19,13 +19,23 @@ The Handlebars Extension provides output and file templating using the [pybars3]
 
 ## Configuration
 
-### Application Meta Options
+### **Application Configuration Settings**
 
-This extension supports the following application meta options under [`App.Meta`](http://cement.readthedocs.io/en/2.99/api/core/foundation/?highlight=app.meta#cement.core.foundation.App.Meta):
+This extension honors the following settings under the primary namespace \(ex: `[myapp]`\) of the application configuration:
 
-| **handlebars\_helpers** | A dictionary of helper functions to register with the compiler.  Will **override** [`HandlebarsOutputHandler.Meta.helpers`](http://cement.readthedocs.io/en/2.99/api/ext/ext_handlebars/#cement.ext.ext_handlebars.HandlebarsTemplateHandler.Meta.helpers). |
+| **Setting** | **Description** |
 | :--- | :--- |
-| **handlerbars\_partials** | A list of partials \(template file names\) to search for, and pre-load before rendering templates.  Will **override** [`HandlebarsOutputHandler.Meta.partials`](http://cement.readthedocs.io/en/2.99/api/ext/ext_handlebars/#cement.ext.ext_handlebars.HandlebarsTemplateHandler.Meta.partials). |
+| **template\_dir** | Directory path of a local template directory. |
+
+### **Application Meta Options**
+
+This extension honors the following [`App.Meta`](http://cement.readthedocs.io/en/2.99/api/core/foundation/?highlight=app.meta#cement.core.foundation.App.Meta) options:
+
+| **Option** | **Description** |
+| :--- | :--- |
+| **template\_handler** | A template handler to use as the backend for templating |
+| **template\_dirs** | A list of data directories to look for templates |
+| **template\_module** | A python module to look for templates |
 
 ### Template Directories
 

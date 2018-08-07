@@ -2,7 +2,7 @@
 
 ## Introduction to the Output Interface
 
-Cement defines an [Output Interface](https://cement.readthedocs.io/en/2.99/api/core/output/#cement.core.output.OutputInterface), as well as the default [DummyOutputHandler](https://docs.builtoncement.com/%7B%7B%20version%20%7D%7D/api/ext/ext_dummy.html) that implements the interface as a placeholder that does not actually produce any output.
+Cement defines an [Output Interface](https://cement.readthedocs.io/en/2.99/api/core/output/#cement.core.output.OutputInterface), as well as the default [DummyOutputHandler](https://docs.builtoncement.com/%7B%7B%20version%20%7D%7D/api/ext/ext_dummy.html) that implements the interface as a placeholder but does not actually produce any output.
 
 {% hint style="warning" %}
 Cement often includes multiple handler implementations of an interface that may or may not have additional features or functionality than the interface requires.  The documentation below only references usage based on the interface and default handler \(not the full capabilities of an implementation\).

@@ -1,35 +1,59 @@
 # Caching
 
+## Introduction to the Cache Interface
 
-
-Cement defines a cache interface called [ICache](https://docs.builtoncement.com/%7B%7B%20version%20%7D%7D/api/core/cache.html#cement.core.cache.ICache), but does not implement caching by default. 
+Cement defines a [Cache Interface](https://cement.readthedocs.io/en/2.99/api/core/cache/#cement.core.cache.CacheInterface), but does not implement caching by default. 
 
 {% hint style="warning" %}
 Cement often includes multiple handler implementations of an interface that may or may not have additional features or functionality than the interface requires.  The documentation below only references usage based on the interface and default handler \(not the full capabilities of an implementation\).
 {% endhint %}
 
-**Cache Handlers Included with Cement:**
+**Cement Extensions That Provide Cache Handlers:**
 
-* ​[MemcachedCacheHandler](https://docs.builtoncement.com/%7B%7B%20version%20%7D%7D/api/ext/ext_memcached.html#cement.ext.ext_memcached.MemcachedCacheHandler)​
-* ​[RedisCacheHandler](https://docs.builtoncement.com/%7B%7B%20version%20%7D%7D/api/ext/ext_redis.html#cement.ext.ext_redis.RedisCacheHandler)​
+* [Memcached](../extensions/memcached.md)
+* [Redis](../extensions/redis.md)
 
-Please reference the [ICache](https://docs.builtoncement.com/%7B%7B%20version%20%7D%7D/api/core/cache.html#cement.core.cache.ICache) interface documentation for writing your own cache handler.
+**API References:**
 
-### General Usage {#general-usage}
+* [Cement Core Cache Module](https://cement.readthedocs.io/en/2.99/api/core/cache)
 
-For this example we use the Memcached extension, which requires the `pylibmc` library to be installed, as well as a Memcached server running on localhost.
+## Working with Caches
 
-Example:
+The following example uses the [Memcached Extension](../extensions/memcached.md), which requires the `pylibmc` library to be installed, as well as a Memcached server running on `localhost:11211`.
 
-**/path/to/myapp.conf**
+{% tabs %}
+{% tab title="Example: Working with Caches" %}
+```python
+from cement import App
+from cement.utils.misc import init_defaults
 
-```text
-[myapp]extensions = memcached​[cache.memcached]# comma separated list of hosts to usehosts = 127.0.0.1​# time in millisecondsexpire_time = 300
+CONFIG = init_defaults('myapp', 'memcached')
+CONFIG['cache.memcached']['expire_time'] = 300 # seconds
+CONFIG['cache.memcached']['hosts'] = ['127.0.0.1']
+
+class MyApp(App):
+    class Meta:
+        label = 'myapp'
+        config_defaults = CONFIG
+        extensions = ['memcached']
+        cache_handler = 'memcached'
+
+with MyApp() as app:
+    # Run the app
+    app.run()
+
+    # Set a cached value
+    app.cache.set('my_key', 'my value')
+
+    # Get a cached value
+    app.cache.get('my_key')
+
+    # Delete a cached value
+    app.cache.delete('my_key')
+
+    # Delete the entire cache
+    app.cache.purge()
 ```
-
-**myapp.py**
-
-```text
-from cement.core.foundation import CementApp​with CementApp('myapp') as app:    # run the application    app.run()​    # set a cached value    app.cache.set('my_key', 'my value')​    # get a cached value    app.cache.get('my_key')​    # delete a cached value    app.cache.delete('my_key')​    # delete the entire cache    app.cache.purge()
-```
+{% endtab %}
+{% endtabs %}
 
