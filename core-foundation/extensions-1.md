@@ -27,6 +27,7 @@ The following options under [`App.Meta`](https://cement.readthedocs.io/en/2.99/a
 | **Option** | **Description** |
 | :--- | :--- |
 | **extension\_handler** | A handler class that implements the Extension Interface.  This can be a string \(label of a registered handler\), an uninstantiated class, or an instantiated class object.  Default: [`ExtensionHandler`](https://cement.readthedocs.io/en/2.99/api/core/extension/#cement.core.extension.ExtensionHandler) |
+| **core\_extensions** | A list of Cement core extensions.  These are generally required by the framework and should only be modified if you know what you're doing.  Use `App.Meta.extensions` to add to this list, rather than overriding core extensions. |
 | **extensions** | A list of additional framework extensions to load. |
 
 ## Creating an Extension

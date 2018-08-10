@@ -1,6 +1,6 @@
-# Extending Applications
+# Extending The App Object
 
-
+## Introduction to App.extend\(\)
 
 CementApp provides a convenient `extend` mechanism that allows plugins, extensions, or the app itself to add objects/functions to the global application object. For example, a plugin might extend the CementApp with an `api` member allowing developers to call `app.api.get(...)`. The application itself does not provide `app.api` however the plugin does. As plugins are often third party, it is not possible for the plugin developer to simply sub-class the CementApp and add the functionality because the CementApp is already instantiated by the time plugins are loaded.
 

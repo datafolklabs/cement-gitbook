@@ -2,7 +2,7 @@
 
 ## Introduction to the Plugin Interface
 
-Cement defines a [Plugin Interface](https://cement.readthedocs.io/en/2.99/api/core/plugin/#cement.core.plugin.PluginInterface), as well as the default [CementPluginHandler](https://cement.readthedocs.io/en/2.99/api/ext/ext_plugin/#cement.ext.ext_plugin.CementPluginHandler) that implements the interface.
+Cement defines a Plugin Interface, as well as the default [CementPluginHandler](https://cement.readthedocs.io/en/2.99/api/ext/ext_plugin/#cement.ext.ext_plugin.CementPluginHandler) that implements the interface.
 
 {% hint style="warning" %}
 Cement often includes multiple handler implementations of an interface that may or may not have additional features or functionality than the interface requires.  The documentation below only references usage based on the interface and default handler \(not the full capabilities of an implementation\).
@@ -14,111 +14,80 @@ Cement often includes multiple handler implementations of an interface that may 
 
 **API References:**
 
-* [Cement Core Plugin Module](https://cement.readthedocs.io/en/2.99/api/core/plugin)
+* [Cement Core Plugin Module](https://cement.readthedocs.io/en/2.99/api/core/plugin/)
 
 ## Configuration
 
 ### Application Configuration Settings
 
-The framework honors the following settings under the primary section of the application configuration:
+The following settings under the applications primary configuration section modify plugin handling:
 
 | **Setting** | **Description** |
 | :--- | :--- |
-| **plugin\_config\_dir** | Directory path where plugin configuration files can be found.  Overrides `App.Meta.plugin_config_dir` and is appended to `App.Meta.plugin_config_dirs` |
+| **plugin\_config\_dir** | A directory path where plugin config files can be found.  Will be **appended** to `App.Meta.plugin_config_dirs` |
+| **plugin\_dir** | A directory path where plugin code can be found.  Will be **prepended** to `App.Meta.plugin_dirs` |
 
-### **Application Meta Options**
+### Application Meta Options:
 
-The following options under [`App.Meta`](https://cement.readthedocs.io/en/2.99/api/core/foundation/#cement.core.foundation.App.Meta) modify extension handling:
+The following options under [`App.Meta`](https://cement.readthedocs.io/en/2.99/api/core/foundation/#cement.core.foundation.App.Meta) modify plugin handling:
 
-There are a few settings related to how plugins are loaded under an applications meta options. These are:
+| **Option** | **Description** |
+| :--- | :--- |
+| **plugins** | A list of plugins to load.  This is generally considered bad practice since plugins should be dynamically enabled/disabled via the application's configuration files. Default: `[]` |
+| **plugin\_config\_dirs** | A list of directory paths where plugin config files can be found.  Files must end in `.conf` \(or whatever is defined by `App.Meta.config_file_suffix`\).  Default: `['/etc/myapp/plugins.d', '~/.config/myapp/plugins.d', '~/.myapp/plugins.d']` |
+| **plugin\_bootstrap** | A python module \(dotted import path\) where plugin code can be loaded from instead of external directories.  This is generally something like `myapp.plugins` \(builtin plugins shipped with the app code\)..  Default: `myapp.plugins` |
+| **plugin\_dirs** | A list of directory paths where plugin code \(modules\) can be loaded from \(external to the application\).  Default: `['~/.myapp/plugins/', '/usr/lib/myapp/plugins']` |
 
-#### plugins {#plugins}
+## Creating a Plugins
 
-_Default:_ `[]`
+The plugin system is a mechanism for dynamically loading code to extend the functionality of a specific application. In general, this includes the registration of interfaces, handlers, and/or hooks but can include controllers, command-line options, or anything else.
 
-A list of plugins to load. This is generally considered bad practice since plugins should be dynamically enabled/disabled via a plugin config file.
-
-#### plugin\_config\_dirs {#plugin_config_dirs}
-
-_Default:_ `None`
-
-A list of directory paths where plugin config files can be found. Files must end in `.conf` \(or the extension defined by `CementApp.Meta.config_extension`\), or they will be ignored.
-
-Note: Though `CementApp.Meta.plugin_config_dirs` is `None`, Cement will set this to a default list based on `CementApp.Meta.label`. This will equate to:
+The preferred method of creating an plugin would be via the included [developer tools](../getting-started/developer-tools.md):
 
 ```text
-['/etc/<app_label>/plugins.d', '~/.<app_label>/plugin.d']
+$ cement generate plugin /path/to/myapp/plugins
 ```
 
-Files are loaded in order, and have precedence in that order. Therefore, the last configuration loaded has precedence \(and overwrites settings loaded from previous configuration files\).
-
-#### plugin\_config\_dir {#plugin_config_dir}
-
-_Default:_ `None`
-
-A directory path where plugin config files can be found. Files must end in `.conf` \(or the extension defined by `CementApp.Meta.config_extension`\), or they will be ignored. By default, this setting is also overridden by the `[<app_label>] -> plugin_config_dir` config setting parsed in any of the application configuration files.
-
-If set, this item will be **appended** to `CementApp.Meta.plugin_config_dirs` so that it's settings will have presedence over other configuration files.
-
-In general, this setting should not be defined by the developer, as it is primarily used to allow the end-user to define a `plugin_config_dir` without completely trumping the hard-coded list of default `plugin_config_dirs` defined by the app/developer.
-
-#### plugin\_bootstrap {#plugin_bootstrap}
-
-_Default:_ `None`
-
-A python package \(dotted import path\) where plugin code can be loaded from. This is generally something like `myapp.plugins` where a plugin file would live at `myapp/plugins/myplugin.py` or `myapp/plugins/myplugin/__init__.py`. This provides a facility for applications that have builtin plugins that ship with the applications source code and live in the same Python module.
-
-Note: Though the meta default is `None`, Cement will set this to `<app_label>.plugins` if not set.
-
-#### plugin\_dirs {#plugin_dirs}
-
-_Default:_ `None`
-
-A list of directory paths where plugin code \(modules\) can be loaded from.
-
-Note: Though `CementApp.Meta.plugin_dirs` is None, Cement will set this to a default list based on `CementApp.Meta.label` if not set. This will equate to:
+This will produce an example plugin directory like the following:
 
 ```text
-['~/.<app_label>/plugins', '/usr/lib/<app_label>/plugins']
+├── __init__.py
+├── controllers
+│   ├── __init__.py
+│   └── myplugin.py
+└── templates
+    ├── __init__.py
+    └── plugins
+        └── myplugin
+            └── command1.jinja2
 ```
 
-Modules are attempted to be loaded in order, and will stop loading once a plugin is successfully loaded from a directory. Therefore this is the oposite of configuration file loading, in that here the first has precedence.
+The example plugin includes a controller, sub-command, and output generated via Jinja2 template.  That said, the only thing Cement needs is a `load()` function.... everything else is arbitrary.  In the generated plugin, we find that in `myplugin/__init__.py`:
 
-#### plugin\_dir {#plugin_dir}
+```python
+import os
+from .controllers.myplugin import MyPlugin
 
-_Default:_ `None`
+def add_template_dir(app):
+    path = os.path.join(os.path.dirname(__file__), 'templates')
+    app.add_template_dir(path)
 
-A directory path where plugin code \(modules\) can be loaded from. By default, this setting is also overridden by the `[<app_label>] -> plugin_dir` config setting parsed in any of the application configuration files.
-
-If set, this item will be **prepended** to `Meta.plugin_dirs` so that a users defined `plugin_dir` has precedence over others.
-
-In general, this setting should not be defined by the developer, as it is primarily used to allow the end-user to define a `plugin_dir` without completely trumping the hard-coded list of default `plugin_dirs` defined by the app/developer.
-
-### Creating a Plugin {#creating-a-plugin}
-
-A plugin is essentially an extension of a Cement application, that is loaded from an internal or external source location. It is a mechanism for dynamically loading code \(whether the plugin is enabled or not\). It can contain any code that would normally be part of your application, but should be thought of as optional features, where the core application does not rely on that code to operate.
-
-The following is an example plugin \(single file\) that provides a number of options and commands via an application controller:
-
-**myplugin.py**
-
-```text
-from cement.core.controller import CementBaseController, expose​class MyPluginController(CementBaseController):    class Meta:        label = 'myplugin'        description = 'this is my controller description'        stacked_on = 'base'​        config_defaults = dict(            foo='bar',            )​        arguments = [            (['--foo'],             dict(action='store', help='the infamous foo option')),            ]​    @expose(help="this is my command description")    def mycommand(self):        print 'in MyPlugin.mycommand()'​def load(app):    app.handler.register(MyPluginController)
+def load(app):
+    app.handler.register(MyPlugin)
+    app.hook.register('post_setup', add_template_dir)
 ```
 
-As you can see, this is very similar to an application that has a base controller, however as you'll note we do not create an application object via `foundation.CementApp()` like we do in our application. This code/file would then be saved to a location defined by your applications configuration that determines where plugins are loaded from \(see the next section\).
+{% hint style="info" %}
+Plugins can provide anything from defining interfaces, registering hooks, or even adding command line arguments.  The only thing required to make up a plugin is a `load()` function in `myplugin.py` or `myplugin/__init__.py`.
+{% endhint %}
 
-Notice that all 'bootstrapping' code goes in a `load()` function. This is where registration of handlers/hooks should happen. For convenience, and certain edge cases, the `app` object is passed here in its current state at the time that `load()` is called. You do not need to do anything with the `app` object, but you can.
+You will notice that plugins are essentially the same as framework extensions, however the difference is both when/how the code is loaded, as well as the purpose of that code. 
 
-A plugin also has a configuration file that will be Cement will attempt to find in one of the directories listed in `CementApp.Meta.plugin_config_dirs` as defined by your application's configuration. The following is an example plugin configuration file:
+{% hint style="info" %}
+Framework extensions add functionality **to the framework** for the application to utilize, where application plugins **extend the functionality of the application** itself.
+{% endhint %}
 
-**myplugin.conf**
-
-```text
-[myplugin]enable_plugin = truefoo = bar
-```
-
-### Loading a Plugin {#loading-a-plugin}
+## Loading a Plugin
 
 Plugin modules are looked for first in one of the defined `plugin_dirs`, and if not found then Cement attempts to load them from the `plugin_bootstrap`. The following application shows how to configure an application to load plugins. Take note that these are the **default settings** and will work the same if not defined:
 
@@ -156,7 +125,7 @@ $ python myapp.py --helpusage: myapp.py (sub-commands ...) [options ...] {argume
 
 We can see that the `my-plugin-command` and the `--some-option` option were provided by our plugin, which has been 'stacked' on top of the base controller.
 
-### User Defined Plugin Configuration and Module Directories {#user-defined-plugin-configuration-and-module-directories}
+## User Defined Plugin Configuration and Module Directories
 
 Most applications will want to provide the ability for the end-user to define where plugin configurations and modules live. This is possible by setting the `plugin_config_dir` and `plugin_dir` settings in any of the applications configuration files. Note that these paths will be **added** to the built-in `plugin_config_dirs` and `plugin_dirs` settings respectively, rather than completely overwriting them. Therefore, your application can maintain it's default list of plugin configuration and module paths while also allowing users to define their own.
 
@@ -168,7 +137,7 @@ Most applications will want to provide the ability for the end-user to define wh
 
 The `plugin_bootstrap` setting is however only configurable within the application itself.
 
-### What Can Go Into a Plugin? {#what-can-go-into-a-plugin}
+## What Can Go Into a Plugin?
 
 The above example shows how to add an optional application controller via a plugin, however a plugin can contain anything you want. This could be as simple as adding a hook that does something magical. For example:
 
@@ -184,7 +153,7 @@ $ python myapp.pySomething Magical is Happening!
 
 The primary detail is that Cement calls the `load()` function of a plugin... after that, you can do anything you like.
 
-### Single File Plugins vs. Plugin Directories {#single-file-plugins-vs-plugin-directories}
+## Single File Plugins vs. Plugin Directories
 
 As of Cement 2.9.x, plugins can be either a single file \(i.e `myplugin.py`\) or a python module directory \(i.e. `myplugin/__init__.py`\). Both will be loaded and executed the exact same way.
 
@@ -202,7 +171,7 @@ from .controllers import MyPluginController​def load(app):    app.handler.regi
 from cement.core.controller import CementBaseController, expose​class MyPluginController(CementBaseController):    class Meta:        label = 'myplugin'        stacked_on = 'base'        stacked_type = 'embedded'​    @expose()    def my_command(self):        print('Inside MyPluginController.my_command()')
 ```
 
-### Loading Templates From Plugin Directories {#loading-templates-from-plugin-directories}
+## Loading Templates From Plugin Directories
 
 A common use case for complex applications is to use an output handler the uses templates, such as Mustache, Genshi, Jinja2, etc. In order for a plugin to use it's own template files it's templates directory first needs to be added to the list of template directories to be parsed. In the future, this will be more streamlined however currently the following is the recommeded way:
 
