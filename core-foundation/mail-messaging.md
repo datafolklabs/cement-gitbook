@@ -17,6 +17,16 @@ Cement often includes multiple handler implementations of an interface that may 
 
 * [Cement Core Mail Module](https://cement.readthedocs.io/en/2.99/api/core/mail)
 
+## **Configuration**
+
+### **Application Meta Options**
+
+The following options under [`App.Meta`](https://cement.readthedocs.io/en/2.99/api/core/foundation/#cement.core.foundation.App.Meta) modify configuration handling:
+
+| **Option** | **Description** |
+| :--- | :--- |
+| **mail\_handler** | The handler that implements the mail interface. |
+
 ## Working with Mail Messages
 
 {% tabs %}

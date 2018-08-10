@@ -17,6 +17,16 @@ Cement often includes multiple handler implementations of an interface that may 
 * [Cement Core Argument Module](https://cement.readthedocs.io/en/2.99/api/core/arg/)
 * [Cement Argparse Extension](https://cement.readthedocs.io/en/2.99/api/ext/ext_argparse)
 
+## **Configuration**
+
+### **Application Meta Options**
+
+The following options under [`App.Meta`](https://cement.readthedocs.io/en/2.99/api/core/foundation/#cement.core.foundation.App.Meta) modify configuration handling:
+
+| **Option** | **Description** |
+| :--- | :--- |
+| **arg\_handler** | The handler that implements the argument interface. |
+
 ## Adding Arguments
 
 The argument interface is loosely based on Argparse, but only defines a minimal set of params that must be honored as to ensure that the framework and extensions can add arguments regardless of what the argument handler implementation is.  That said, Cement has never intended to use anything other than Argparse to handle arguments and for that reason there may be some assumptions inherently builtin that assume the underlying argument handler is 100% argparse compliant.  For that reason, adding and working with arguments will be completely familiar for anyone who has ever used Argparse.

@@ -17,6 +17,16 @@ Cement often includes multiple handler implementations of an interface that may 
 
 * [Cement Core Cache Module](https://cement.readthedocs.io/en/2.99/api/core/cache)
 
+## **Configuration**
+
+### **Application Meta Options**
+
+The following options under [`App.Meta`](https://cement.readthedocs.io/en/2.99/api/core/foundation/#cement.core.foundation.App.Meta) modify configuration handling:
+
+| **Option** | **Description** |
+| :--- | :--- |
+| **cache\_handler** | The handler that implements the cache interface. |
+
 ## Working with Caches
 
 The following example uses the [Memcached Extension](../extensions/memcached.md), which requires the `pylibmc` library to be installed, as well as a Memcached server running on `localhost:11211`.

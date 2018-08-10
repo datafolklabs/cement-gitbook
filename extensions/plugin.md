@@ -16,10 +16,6 @@ The Plugin Extension handles application plugin support, and is the default plug
 
 * no external dependencies
 
-## Configuration
-
-This extension does rely on any application level configuration settings or meta options.
-
 ## Usage
 
 For usage information see [Application Plugins](../core-foundation/plugins.md).

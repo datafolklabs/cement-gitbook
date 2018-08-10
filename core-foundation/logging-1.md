@@ -18,6 +18,16 @@ Cement often includes multiple handler implementations of an interface that may 
 * [Cement Core Log Module](https://cement.readthedocs.io/en/2.99/api/core/log/)
 * [Cement Logging Extension](https://cement.readthedocs.io/en/2.99/api/ext/ext_logging/)
 
+## **Configuration**
+
+### **Application Meta Options**
+
+The following options under [`App.Meta`](https://cement.readthedocs.io/en/2.99/api/core/foundation/#cement.core.foundation.App.Meta) modify configuration handling:
+
+| **Option** | **Description** |
+| :--- | :--- |
+| **log\_handler** | The handler that implements the log interface. |
+
 ## Logging Messages
 
 The following shows logging to each of the defined log levels.

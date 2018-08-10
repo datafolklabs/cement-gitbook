@@ -29,6 +29,8 @@ When using application controllers there must be a single `base` controller resp
 
 {% hint style="info" %}
 The  initial base controller must have a `Controller.Meta.label` of `base` to designate it as the application's route of handing over runtime \(argument parsing, mapping sub-commands to controllers, etc.
+
+If no controller handler is registered with a `base` label, Cement will register a minimal controller in it's place that doesn't do anything other than allow extensions to stack properly.
 {% endhint %}
 
 {% tabs %}

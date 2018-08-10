@@ -1,18 +1,34 @@
 # Application Plugins
 
-Cement defines a plugin interface called [IPlugin](https://docs.builtoncement.com/%7B%7B%20version%20%7D%7D/api/core/plugin.html#cement.core.plugin.IPlugin), as well as the default [CementPluginHandler](https://docs.builtoncement.com/%7B%7B%20version%20%7D%7D/api/ext/ext_plugin.html#cement.ext.ext_plugin.CementPluginHandler) that implements the interface.
+## Introduction to the Plugin Interface
+
+Cement defines a [Plugin Interface](https://cement.readthedocs.io/en/2.99/api/core/plugin/#cement.core.plugin.PluginInterface), as well as the default [CementPluginHandler](https://cement.readthedocs.io/en/2.99/api/ext/ext_plugin/#cement.ext.ext_plugin.CementPluginHandler) that implements the interface.
 
 {% hint style="warning" %}
 Cement often includes multiple handler implementations of an interface that may or may not have additional features or functionality than the interface requires.  The documentation below only references usage based on the interface and default handler \(not the full capabilities of an implementation\).
 {% endhint %}
 
-**Plugin Handlers Included with Cement:**
+**Cement Extensions that Provide Plugin Handlers:**
 
-* ​[CementPluginHandler](https://docs.builtoncement.com/%7B%7B%20version%20%7D%7D/api/ext/ext_plugin.html#cement.ext.ext_plugin.CementPluginHandler)​
+* [Plugin](../extensions/plugin.md)
 
-Please reference the [IPlugin](https://docs.builtoncement.com/%7B%7B%20version%20%7D%7D/api/core/plugin.html#cement.core.plugin.IPlugin) interface documentation for writing your own plugin handler.
+**API References:**
 
-### Plugin Configuration Settings {#plugin-configuration-settings}
+* [Cement Core Plugin Module](https://cement.readthedocs.io/en/2.99/api/core/plugin)
+
+## Configuration
+
+### Application Configuration Settings
+
+The framework honors the following settings under the primary section of the application configuration:
+
+| **Setting** | **Description** |
+| :--- | :--- |
+| **plugin\_config\_dir** | Directory path where plugin configuration files can be found.  Overrides `App.Meta.plugin_config_dir` and is appended to `App.Meta.plugin_config_dirs` |
+
+### **Application Meta Options**
+
+The following options under [`App.Meta`](https://cement.readthedocs.io/en/2.99/api/core/foundation/#cement.core.foundation.App.Meta) modify extension handling:
 
 There are a few settings related to how plugins are loaded under an applications meta options. These are:
 

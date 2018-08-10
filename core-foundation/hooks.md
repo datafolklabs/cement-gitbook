@@ -14,6 +14,17 @@ The most important thing to remember when defining hooks for your application is
 
 * ​[Cement Hook Module](https://docs.builtoncement.com/%7B%7B%20version%20%7D%7D/api/core/hook.html)​
 
+## **Configuration**
+
+### **Application Meta Options**
+
+The following options under [`App.Meta`](https://cement.readthedocs.io/en/2.99/api/core/foundation/#cement.core.foundation.App.Meta) modify hook handling:
+
+| **Option** | **Description** |
+| :--- | :--- |
+| **define\_hooks** | List of hook labels to define hooks by. |
+| **hooks** | List of hooks to be registered.  |
+
 ## Working with Hooks
 
 The [`HookManager`](https://cement.readthedocs.io/en/2.99/api/core/hook/#cement.core.hook.HookManager) provides mechanisms for defining, registering, and executing hooks.

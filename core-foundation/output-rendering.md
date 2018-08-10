@@ -22,6 +22,16 @@ Cement often includes multiple handler implementations of an interface that may 
 
 * [Cement Core Output Module](https://cement.readthedocs.io/en/2.99/api/core/output)
 
+## **Configuration**
+
+### **Application Meta Options**
+
+The following options under [`App.Meta`](https://cement.readthedocs.io/en/2.99/api/core/foundation/#cement.core.foundation.App.Meta) modify configuration handling:
+
+| **Option** | **Description** |
+| :--- | :--- |
+| **output\_handler** | The handler that implements the output interface. |
+
 ## Rending Output
 
 Cement applications do not need to use an output handler by any means. Most small applications can get away with simple `print()` statements. However, anyone who has ever built a bigger application that produces a lot of output will know that this can get ugly very quickly in your code.
