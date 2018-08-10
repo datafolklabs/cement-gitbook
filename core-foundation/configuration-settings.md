@@ -95,11 +95,7 @@ Cement defines the following builtin default configuration file paths:
 ~/.myapp.conf
 ```
 
-{% hint style="info" %}
-The list is dynamically generated based on the `App.meta.label`, as well as [`App.meta.config_file_suffix`](https://cement.readthedocs.io/en/2.99/api/core/foundation/#cement.core.foundation.App.Meta.config_file_suffix). It can be extended by adding files via [`App.Meta.config_files`](https://cement.readthedocs.io/en/2.99/api/core/foundation/#cement.core.foundation.App.Meta.config_files). 
-{% endhint %}
-
-We also define the following configuration directories to scan for additional files if they exist:
+We also define the following configuration directories to scan for additional configuration files for extensions and plugins:
 
 ```text
 /etc/myapp/ext.d
@@ -110,10 +106,10 @@ We also define the following configuration directories to scan for additional fi
 ~/.myapp/config/plugins.d
 ```
 
-The above directory list can be expanded via [`App.Meta.config_dirs`](https://cement.readthedocs.io/en/2.99/api/core/foundation/#cement.core.foundation.App.Meta.config_dirs).
+
 
 {% hint style="info" %}
-The above paths are dynamically generated based on the [`App.Meta.label`](http://cement.readthedocs.io/en/2.99/api/core/foundation/#cement.core.foundation.App.Meta.label), and [`App.Meta.config_file_suffix`](http://cement.readthedocs.io/en/2.99/api/core/foundation/#cement.core.foundation.App.Meta.config_file_suffix).  The list of config files can be extended via the [`App.Meta.config_files`](http://cement.readthedocs.io/en/2.99/api/core/foundation/#cement.core.foundation.App.Meta.config_files) option.
+These lists are dynamically generated based on the `App.meta.label`, as well as [`App.meta.config_file_suffix`](https://cement.readthedocs.io/en/2.99/api/core/foundation/#cement.core.foundation.App.Meta.config_file_suffix). They can be extended by adding files via [`App.Meta.config_files`](https://cement.readthedocs.io/en/2.99/api/core/foundation/#cement.core.foundation.App.Meta.config_files) or directories to [`App.Meta.config_dirs`](https://cement.readthedocs.io/en/2.99/api/core/foundation/#cement.core.foundation.App.Meta.config_dirs). 
 {% endhint %}
 
 ## Accessing Configuration Settings
