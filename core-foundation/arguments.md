@@ -86,3 +86,34 @@ with App('myapp') as app:
 {% endtab %}
 {% endtabs %}
 
+## Creating an Argument Handler
+
+All interfaces in Cement can be overridden with your own implementation.  This can be done either by sub-classing [ArgumentHandler](https://cement.readthedocs.io/en/2.99/api/core/template/#cement.core.template.TemplateHandler) itself, or by sub-classing an existing extension's handlers in order to alter their functionality.
+
+{% tabs %}
+{% tab title="Example: Creating an Argument Handler" %}
+{% code-tabs %}
+{% code-tabs-item title="myapp.py" %}
+```python
+from cement import App
+from cement.core.arg import ArgumentHandler
+
+class MyArgumentHandler(ArgumentHandler):
+    class Meta:
+        label = 'my_argument_handler'
+    
+    # do something to implement the interface
+
+class MyApp(App):
+    class Meta:
+        label = 'myapp'
+        argument_handler = 'my_argument_handler'
+        handlers = [
+            MyArgumentHandler,
+        ]
+```
+{% endcode-tabs-item %}
+{% endcode-tabs %}
+{% endtab %}
+{% endtabs %}
+

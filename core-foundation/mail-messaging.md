@@ -73,3 +73,36 @@ Test mail message
 The default `dummy` mail handler simply prints the message to console, and does not send anything.  You can override the mail handler via `App.Meta.mail_handler`, for example using the [SMTP Extension](../extensions/smtp.md).
 {% endhint %}
 
+
+
+## Creating a Mail Handler
+
+All interfaces in Cement can be overridden with your own implementation.  This can be done either by sub-classing [`MailHandler`](https://cement.readthedocs.io/en/2.99/api/core/mail/#cement.core.mail.MailHandler) itself, or by sub-classing an existing extension's handlers in order to alter their functionality.
+
+{% tabs %}
+{% tab title="Example: Creating a Mail Handler" %}
+{% code-tabs %}
+{% code-tabs-item title="myapp.py" %}
+```python
+from cement import App
+from cement.core.mail import MailHandler
+
+class MyMailHandler(MailHandler):
+    class Meta:
+        label = 'my_mail_handler'
+    
+    # do something to implement the interface
+
+class MyApp(App):
+    class Meta:
+        label = 'myapp'
+        mail_handler = 'my_mail_handler'
+        handlers = [
+            MyMailHandler,
+        ]
+```
+{% endcode-tabs-item %}
+{% endcode-tabs %}
+{% endtab %}
+{% endtabs %}
+

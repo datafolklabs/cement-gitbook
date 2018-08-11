@@ -199,3 +199,36 @@ There may be slight confusion between the [`App.Meta.config_defaults`](http://ce
 
 The `Handler.Meta.config_defaults` only pertain to a single `[section]` and therefor is only a single level `dict`, whose settings are applied to that section of the application's configuration \(defined by [`Handler.Meta.config_section`](http://cement.readthedocs.io/en/2.99/api/core/handler/#cement.core.handler.Handler.Meta.config_section)\).
 
+
+
+## Creating a Config Handler
+
+All interfaces in Cement can be overridden with your own implementation.  This can be done either by sub-classing [`ConfigHandler`](https://cement.readthedocs.io/en/2.99/api/core/config/#cement.core.config.ConfigHandler) itself, or by sub-classing an existing extension's handlers in order to alter their functionality.
+
+{% tabs %}
+{% tab title="Example: Creating a Config Handler" %}
+{% code-tabs %}
+{% code-tabs-item title="myapp.py" %}
+```python
+from cement import App
+from cement.core.config import ConfigHandler
+
+class MyConfigHandler(ConfigHandler):
+    class Meta:
+        label = 'my_config_handler'
+    
+    # do something to implement the interface
+
+class MyApp(App):
+    class Meta:
+        label = 'myapp'
+        config_handler = 'my_config_handler'
+        handlers = [
+            MyConfigHandler,
+        ]
+```
+{% endcode-tabs-item %}
+{% endcode-tabs %}
+{% endtab %}
+{% endtabs %}
+

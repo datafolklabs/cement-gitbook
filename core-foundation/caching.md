@@ -67,3 +67,34 @@ with MyApp() as app:
 {% endtab %}
 {% endtabs %}
 
+## Creating a Cache Handler
+
+All interfaces in Cement can be overridden with your own implementation.  This can be done either by sub-classing [`CacheHandler`](https://cement.readthedocs.io/en/2.99/api/core/cache/#cement.core.cache.CacheHandler) itself, or by sub-classing an existing extension's handlers in order to alter their functionality.
+
+{% tabs %}
+{% tab title="Example: Creating a Cache Handler" %}
+{% code-tabs %}
+{% code-tabs-item title="myapp.py" %}
+```python
+from cement import App
+from cement.core.cache import CacheHandler
+
+class MyCacheHandler(CacheHandler):
+    class Meta:
+        label = 'my_cache_handler'
+    
+    # do something to implement the interface
+
+class MyApp(App):
+    class Meta:
+        label = 'myapp'
+        cache_handler = 'my_cache_handler'
+        handlers = [
+            MyCacheHandler,
+        ]
+```
+{% endcode-tabs-item %}
+{% endcode-tabs %}
+{% endtab %}
+{% endtabs %}
+

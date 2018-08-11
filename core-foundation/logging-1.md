@@ -198,3 +198,34 @@ Which would look like:
 2012-07-30 18:05:11,357 (DEBUG) myapp/somepackage/test.py : my_func() : This is my message
 ```
 
+## Creating a Log Handler
+
+All interfaces in Cement can be overridden with your own implementation.  This can be done either by sub-classing [`LogHandler`](https://cement.readthedocs.io/en/2.99/api/core/log/#cement.core.log.LogHandler) itself, or by sub-classing an existing extension's handlers in order to alter their functionality.
+
+{% tabs %}
+{% tab title="Example: Creating a Log Handler" %}
+{% code-tabs %}
+{% code-tabs-item title="myapp.py" %}
+```python
+from cement import App
+from cement.core.log import LogHandler
+
+class MyLogHandler(LogHandler):
+    class Meta:
+        label = 'my_log_handler'
+    
+    # do something to implement the interface
+
+class MyApp(App):
+    class Meta:
+        label = 'myapp'
+        log_handler = 'my_log_handler'
+        handlers = [
+            MyLogHandler,
+        ]
+```
+{% endcode-tabs-item %}
+{% endcode-tabs %}
+{% endtab %}
+{% endtabs %}
+

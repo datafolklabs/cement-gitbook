@@ -24,7 +24,6 @@ The following settings under the applications primary configuration section modi
 
 | **Setting** | **Description** |
 | :--- | :--- |
-| **plugin\_config\_dir** | A directory path where plugin config files can be found.  Will be **appended** to `App.Meta.plugin_config_dirs` |
 | **plugin\_dir** | A directory path where plugin code can be found.  Will be **prepended** to `App.Meta.plugin_dirs` |
 
 ### Application Meta Options:
@@ -33,12 +32,41 @@ The following options under [`App.Meta`](https://cement.readthedocs.io/en/2.99/a
 
 | **Option** | **Description** |
 | :--- | :--- |
-| **plugins** | A list of plugins to load.  This is generally considered bad practice since plugins should be dynamically enabled/disabled via the application's configuration files. Default: `[]` |
-| **plugin\_config\_dirs** | A list of directory paths where plugin config files can be found.  Files must end in `.conf` \(or whatever is defined by `App.Meta.config_file_suffix`\).  Default: `['/etc/myapp/plugins.d', '~/.config/myapp/plugins.d', '~/.myapp/plugins.d']` |
-| **plugin\_bootstrap** | A python module \(dotted import path\) where plugin code can be loaded from instead of external directories.  This is generally something like `myapp.plugins` \(builtin plugins shipped with the app code\)..  Default: `myapp.plugins` |
-| **plugin\_dirs** | A list of directory paths where plugin code \(modules\) can be loaded from \(external to the application\).  Default: `['~/.myapp/plugins/', '/usr/lib/myapp/plugins']` |
+| **plugins** | A _hardcoded_ list of plugins to load.  In general, application plugins should be dynamically enabled/disabled via the application's configuration files, however some application designs may desire always loading specific builtin plugins. Default: `[]` |
+| **config\_dirs** | Plugin configuration files are loaded from any discovered application configuration directories.   |
+| **plugin\_bootstrap** | A python module \(dotted import path\) where plugin code can be loaded from instead of external directories \(builtin plugins shipped with the application code\).  Default: `myapp.plugins` |
+| **plugin\_dirs** | A list of directory paths where plugin code \(modules\) can be loaded from \(external to the application\).  Will be merged with [`App.Meta.core_system_plugin_dirs`](https://cement.readthedocs.io/en/2.99/api/core/foundation/#cement.core.foundation.App.Meta.core_system_plugin_dirs) and [`App.Meta.core_user_plugin_dirs`](https://cement.readthedocs.io/en/2.99/api/core/foundation/#cement.core.foundation.App.Meta.core_user_plugin_dirs).  Default: `[]` |
 
-## Creating a Plugins
+## Working with Plugins
+
+The plugin handler can be used to access information about loaded plugins, as well as manually loading plugins if necessary.
+
+{% tabs %}
+{% tab title="Example: Working with Extensions" %}
+```python
+from cement import App
+
+with App('myapp') as app:
+    # list loaded plugins
+    app.plugin.get_loaded_plugins()
+    
+    # list enabled plugins
+    app.plugin.get_enabled_plugins()
+    
+    # list disabled plugins
+    app.plugin.get_disabled_plugins()
+    
+    # load a plugin
+    app.plugin.load_plugin('myplugin')
+    
+    # load a list of plugins
+    app.plugin.load_plugins(['myplugin1', 
+                             'myplugin2'])
+```
+{% endtab %}
+{% endtabs %}
+
+## Creating a Plugin
 
 The plugin system is a mechanism for dynamically loading code to extend the functionality of a specific application. In general, this includes the registration of interfaces, handlers, and/or hooks but can include controllers, command-line options, or anything else.
 
@@ -62,7 +90,7 @@ This will produce an example plugin directory like the following:
             └── command1.jinja2
 ```
 
-The example plugin includes a controller, sub-command, and output generated via Jinja2 template.  That said, the only thing Cement needs is a `load()` function.... everything else is arbitrary.  In the generated plugin, we find that in `myplugin/__init__.py`:
+The example plugin includes a controller, sub-command, and output generated via [Jinja2](../extensions/jinja2.md) template.  That said, the only thing Cement needs is a `load()` function.... everything else is arbitrary.  In the generated plugin, we find this in `myplugin/__init__.py`:
 
 ```python
 import os
@@ -78,7 +106,7 @@ def load(app):
 ```
 
 {% hint style="info" %}
-Plugins can provide anything from defining interfaces, registering hooks, or even adding command line arguments.  The only thing required to make up a plugin is a `load()` function in `myplugin.py` or `myplugin/__init__.py`.
+Plugins can provide anything from defining interfaces, registering hooks, or even adding command line sub-commands and arguments.  The only thing required to make up a plugin is a `load()` function in `myplugin.py` or `myplugin/__init__.py` files.
 {% endhint %}
 
 You will notice that plugins are essentially the same as framework extensions, however the difference is both when/how the code is loaded, as well as the purpose of that code. 
@@ -89,69 +117,57 @@ Framework extensions add functionality **to the framework** for the application 
 
 ## Loading a Plugin
 
-Plugin modules are looked for first in one of the defined `plugin_dirs`, and if not found then Cement attempts to load them from the `plugin_bootstrap`. The following application shows how to configure an application to load plugins. Take note that these are the **default settings** and will work the same if not defined:
+Plugin modules are discovered and loaded in the following order:
+
+* From directories listed in `App.Meta.plugin_dirs`
+* From the python path defined in `App.Meta.plugin_module`
+
+In order for the framework to know about a plugin, it must be defined in the applications configuration settings under it's designated section of `plugin.myplugin`.  This configuration block can live in any application configuration file, included files loaded from configuration dirs \(ex: `/etc/myapp/plugin.d/myplugin.conf`\).
+
+{% tabs %}
+{% tab title="Example: Loading a Plugin" %}
+{% code-tabs %}
+{% code-tabs-item title="myapp.py" %}
+```python
+from cement import App
+
+class MyApp(App):
+    class Meta:
+        label = 'myapp'
+        plugin_dirs = ['./plugins']
+
+with MyApp() as app:
+    app.run()
+```
+{% endcode-tabs-item %}
+
+{% code-tabs-item title="plugins/myplugin.py" %}
+```python
+def load(app):
+    print('Inside MyPlugin!')
+```
+{% endcode-tabs-item %}
+{% endcode-tabs %}
+{% endtab %}
+
+{% tab title="cli" %}
+```text
+$ python myapp.py
+Inside MyPlugin!
+...
+```
+{% endtab %}
+{% endtabs %}
+
+If a plugin configuration is found, it's settings will be loaded into the app however the plugin will only be loaded if it is enabled:
 
 ```text
-from cement.core.foundation import CementAppfrom cement.core.controller import CementBaseController, expose​class MyBaseController(CementBaseController):    class Meta:        label = 'base'        description = 'MyApp Does Amazing Things'​class MyApp(CementApp):    class Meta:        label = 'myapp'        base_controller = MyBaseController        plugin_bootstrap='myapp.bootstrap',        plugin_config_dirs=[            '/etc/myapp/plugins.d',            '~/.myapp/plugins.d',            ]        plugin_dirs=[            '/usr/lib/myapp/plugins',            '~/.myapp/plugins',            ]​​def main():    with MyApp() as app:        app.run()​if __name__ == '__main__':    main()
+[myapp]
+# ...
+
+[plugin.myplugin]
+enabled: true
 ```
-
-We modified the default settings for `plugin_config_dirs` and `plugin_dirs`. These are the default settings under `Cementapp`, however we have put them here for clarity.
-
-Running this application will do nothing particularly special, however the following demonstrates what happens when we add a simple plugin that provides an application controller:
-
-**/etc/myapp/plugins.d/myplugin.conf**
-
-```text
-[myplugin]enable_plugin = truesome_option = some value
-```
-
-**/usr/lib/myapp/plugins/myplugin.py**
-
-```text
-from cement.core.controller import CementBaseController, exposefrom cement.utils.misc import init_defaults​defaults = init_defaults('myplugin')​class MyPluginController(CementBaseController):    class Meta:        label = 'myplugin'        description = 'this is my plugin description'        stacked_on = 'base'        config_defaults = defaults        arguments = [            (['--some-option'], dict(action='store')),            ]​    @expose(help="this is my command description")    def my_plugin_command(self):        print 'In MyPlugin.my_plugin_command()'​def load(app):    app.handler.register(MyPluginController)
-```
-
-Running our application with the plugin disabled, we see:
-
-```text
-$ python myapp.py --helpusage: myapp.py (sub-commands ...) [options ...] {arguments ...}​MyApp Does Amazing Things​optional arguments:  -h, --help  show this help message and exit  --debug     toggle debug output  --quiet     suppress all output
-```
-
-But if we enable the plugin, we get something a little different:
-
-```text
-$ python myapp.py --helpusage: myapp.py (sub-commands ...) [options ...] {arguments ...}​MyApp Does Amazing Things​commands:​  my-plugin-command    this is my command description​optional arguments:  -h, --help            show this help message and exit  --debug               toggle debug output  --quiet               suppress all output  --some-option SOME_OPTION
-```
-
-We can see that the `my-plugin-command` and the `--some-option` option were provided by our plugin, which has been 'stacked' on top of the base controller.
-
-## User Defined Plugin Configuration and Module Directories
-
-Most applications will want to provide the ability for the end-user to define where plugin configurations and modules live. This is possible by setting the `plugin_config_dir` and `plugin_dir` settings in any of the applications configuration files. Note that these paths will be **added** to the built-in `plugin_config_dirs` and `plugin_dirs` settings respectively, rather than completely overwriting them. Therefore, your application can maintain it's default list of plugin configuration and module paths while also allowing users to define their own.
-
-**/etc/myapp/myapp.conf**
-
-```text
-[myapp]plugin_dir = /usr/lib/myapp/pluginsplugin_config_dir = /etc/myapp/plugins.d
-```
-
-The `plugin_bootstrap` setting is however only configurable within the application itself.
-
-## What Can Go Into a Plugin?
-
-The above example shows how to add an optional application controller via a plugin, however a plugin can contain anything you want. This could be as simple as adding a hook that does something magical. For example:
-
-```text
-from cement.core import hook​def my_magical_hook(app):    # do something magical    print('Something Magical is Happening!')​def load(app):    hook.register('post_setup', my_magical_hook)
-```
-
-And with the plugin enabled, we get this when we run the same app defined above:
-
-```text
-$ python myapp.pySomething Magical is Happening!
-```
-
-The primary detail is that Cement calls the `load()` function of a plugin... after that, you can do anything you like.
 
 ## Single File Plugins vs. Plugin Directories
 
@@ -159,27 +175,74 @@ As of Cement 2.9.x, plugins can be either a single file \(i.e `myplugin.py`\) or
 
 One caveat however, is that the submodules referenced from within a plugin directory must be relative path. For example:
 
-**myplugin/init.py**
+{% tabs %}
+{% tab title="Example: Loading Submodules in a Plugin" %}
+{% code-tabs %}
+{% code-tabs-item title="myplugin/\_\_init\_\_.py" %}
+```python
+from .controllers import MyPluginController
 
-```text
-from .controllers import MyPluginController​def load(app):    app.handler.register(MyPluginController)
+def load(app):
+    app.handler.register(MyPluginController)
 ```
+{% endcode-tabs-item %}
+{% endcode-tabs %}
+{% endtab %}
+{% endtabs %}
 
-**myplugin/controllers.py**
-
-```text
-from cement.core.controller import CementBaseController, expose​class MyPluginController(CementBaseController):    class Meta:        label = 'myplugin'        stacked_on = 'base'        stacked_type = 'embedded'​    @expose()    def my_command(self):        print('Inside MyPluginController.my_command()')
-```
+This will ensure that Python will properly load the sub-modules regardless of where they live on the filesystem \(or within a projects own modules, etc\).
 
 ## Loading Templates From Plugin Directories
 
-A common use case for complex applications is to use an output handler the uses templates, such as Mustache, Genshi, Jinja2, etc. In order for a plugin to use it's own template files it's templates directory first needs to be added to the list of template directories to be parsed. In the future, this will be more streamlined however currently the following is the recommeded way:
+In order for a plugin to use it's own template files, it's templates directory first needs to be registered with the app.  We accomplish this with a `post_setup` hook:
 
-**myplugin/init.py**
+{% tabs %}
+{% tab title="Example: Registering Plugin Template Directories" %}
+{% code-tabs %}
+{% code-tabs-item title="myplugin/\_\_init\_\_.py" %}
+```python
+import os
 
-```text
-def add_template_dir(app):    path = os.path.join(os.path.basename(self.__file__, 'templates')    app.add_template_dir(path)​def load(app):    app.hook.register('post_setup', add_template_dir)
+def add_template_dir(app):    
+    path = os.path.join(os.path.basename(self.__file__, 'templates')
+    app.add_template_dir(path)
+    
+​def load(app):
+    app.hook.register('post_setup', add_template_dir)
 ```
+{% endcode-tabs-item %}
+{% endcode-tabs %}
+{% endtab %}
+{% endtabs %}
 
-The above will append the directory `/path/to/myplugin/templates` to the list of template directories that the applications output handler with search for template files.
+## Creating a Plugin Handler
+
+All interfaces in Cement can be overridden with your own implementation.  This can be done either by sub-classing [`PluginHandler`](https://cement.readthedocs.io/en/2.99/api/core/plugin/#cement.core.plugin.PluginHandler) itself, or by sub-classing an existing extension's handlers in order to alter their functionality.
+
+{% tabs %}
+{% tab title="Example: Creating a Plugin Handler" %}
+{% code-tabs %}
+{% code-tabs-item title="myapp.py" %}
+```python
+from cement import App
+from cement.core.plugin import PluginHandler
+
+class MyPluginHandler(PluginHandler):
+    class Meta:
+        label = 'my_plugin_handler'
+    
+    # do something to implement the interface
+
+class MyApp(App):
+    class Meta:
+        label = 'myapp'
+        plugin_handler = 'my_plugin_handler'
+        handlers = [
+            MyPluginHandler,
+        ]
+```
+{% endcode-tabs-item %}
+{% endcode-tabs %}
+{% endtab %}
+{% endtabs %}
 

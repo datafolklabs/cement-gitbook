@@ -27,8 +27,30 @@ The following options under [`App.Meta`](https://cement.readthedocs.io/en/2.99/a
 | **Option** | **Description** |
 | :--- | :--- |
 | **extension\_handler** | A handler class that implements the Extension Interface.  This can be a string \(label of a registered handler\), an uninstantiated class, or an instantiated class object.  Default: [`ExtensionHandler`](https://cement.readthedocs.io/en/2.99/api/core/extension/#cement.core.extension.ExtensionHandler) |
-| **core\_extensions** | A list of Cement core extensions.  These are generally required by the framework and should only be modified if you know what you're doing.  Use `App.Meta.extensions` to add to this list, rather than overriding core extensions. |
-| **extensions** | A list of additional framework extensions to load. |
+| **extensions** | A list of additional framework extensions to load.  Will be merged together with [`App.Meta.core_extensions`](https://cement.readthedocs.io/en/2.99/api/core/foundation/#cement.core.foundation.App.Meta.core_extensions). |
+
+## Working with Extensions
+
+In general, extensions are only loaded and accessed by the framework.  That said the extension handler can be used to access information about loaded extensions, as well as manually load extensions if necessary.
+
+{% tabs %}
+{% tab title="Example: Working with Extensions" %}
+```python
+from cement import App
+
+with App('myapp') as app:
+    # list loaded extensions
+    app.ext.list()
+    
+    # load an extension
+    app.ext.load_extension('myapp.ext.myextension')
+    
+    # load a list of extensions
+    app.ext.load_extensions(['myapp.ext.ext1', 
+                             'myapp.ext.ext2'])
+```
+{% endtab %}
+{% endtabs %}
 
 ## Creating an Extension
 
@@ -93,10 +115,6 @@ class MyApp(App):
 {% endtab %}
 {% endtabs %}
 
-```text
-from cement.core.foundation import CementApp​class MyApp(CementApp):    class Meta:        label = 'myapp'        extensions = ['myapp.ext.ext_something_fancy']​with MyApp() as app:    app.run()
-```
-
 {% hint style="info" %}
 Note that Cement provides a shortcut for its own builtin extensions so that you can refer to extensions via their short name \(ex: `json` instead of `cement.ext.ext_json`\).  All other extensions must be referenced by their full dotted Python module name.
 {% endhint %}
@@ -150,4 +168,6 @@ myapp.ext.ext_myextension
 {% hint style="warning" %}
 Note that extensions loaded in this way will happen **after** the config handler is setup. Normally, extensions are loaded just before the configuration files are read. Therefore, some extensions may not be compatible with this method if they attempt to perform any actions before `app.setup()` completes \(such as in early framework hooks before configuration files are loaded\).
 {% endhint %}
+
+
 

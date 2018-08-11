@@ -160,5 +160,34 @@ End-users can prepend their own paths to this list by setting the `template_dir`
 
 Once a template is found, loading stops and the template is rendered.
 
-## 
+## Creating an Output Handler
+
+All interfaces in Cement can be overridden with your own implementation.  This can be done either by sub-classing [`OutputHandler`](https://cement.readthedocs.io/en/2.99/api/core/output/#cement.core.output.OutputHandler) itself, or by sub-classing an existing extension's handlers in order to alter their functionality.
+
+{% tabs %}
+{% tab title="Example: Creating an Output Handler" %}
+{% code-tabs %}
+{% code-tabs-item title="myapp.py" %}
+```python
+from cement import App
+from cement.core.output import OutputHandler
+
+class MyOutputHandler(OutputHandler):
+    class Meta:
+        label = 'my_output_handler'
+    
+    # do something to implement the interface
+
+class MyApp(App):
+    class Meta:
+        label = 'myapp'
+        output_handler = 'my_output_handler'
+        handlers = [
+            MyOutputHandler,
+        ]
+```
+{% endcode-tabs-item %}
+{% endcode-tabs %}
+{% endtab %}
+{% endtabs %}
 
