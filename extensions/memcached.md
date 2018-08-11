@@ -25,7 +25,7 @@ This extension honors the following config settings under a `[cache.memcached]` 
 | **Setting** | **Description** |
 | :--- | :--- |
 | **expire\_time** | The default time in seconds to expire items in the cache.  Default: `0` \(does not expire\) |
-| **hosts** | List of memcached servers. |
+| **hosts** | List of memcached servers \(comma separated if using a plain text based config handler like configparser\). |
 
 ## Usage
 
