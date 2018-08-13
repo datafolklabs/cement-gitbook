@@ -1,38 +1,44 @@
 # Extending The App Object
 
-## Introduction to App.extend\(\)
+The [`App.extend()`](https://cement.readthedocs.io/en/2.99/api/core/foundation/#cement.core.foundation.App.extend) method provides a mechanism that allows plugins, extensions, or the app itself to add objects or functions to the global application object. 
 
-CementApp provides a convenient `extend` mechanism that allows plugins, extensions, or the app itself to add objects/functions to the global application object. For example, a plugin might extend the CementApp with an `api` member allowing developers to call `app.api.get(...)`. The application itself does not provide `app.api` however the plugin does. As plugins are often third party, it is not possible for the plugin developer to simply sub-class the CementApp and add the functionality because the CementApp is already instantiated by the time plugins are loaded.
+For example, a plugin might extend the `App` with an `api` member allowing developers to call `app.api.get(...)`. The application itself does not provide `app.api` however the plugin does. As plugins are often third party, it is not possible for the plugin developer to simply sub-class the `App` class and add the functionality because the class is already instantiated by the time plugins are loaded.
 
-Take the following for example:
+{% tabs %}
+{% tab title="Example: Extending the App Object" %}
+```python
+from cement import App
 
-**myapp.py**
+def example_func():
+    print('Inside example_func')
+    
+def extend_myapp(app):
+    app.extend('example', example_func)
+    
+class MyApp(App):
+    class Meta:
+        label = 'myapp'
+        hooks = [
+            ('post_setup', extend_myapp),
+        ]
 
-```text
-from cement.core.foundation import CementApp​with CementApp('myapp') as app:    app.run()
+with MyApp() as app:
+    app.run()
+    
+    # call the extended object or function
+    app.example()
 ```
+{% endtab %}
 
-The above is a very simple Cement application, which obviously doesn't do much. That said, we can add a plugin that extends the application to add an API client object, for example, pretty easily. Note the following is an arbitrary and non-functional example using dRest:
-
-**/etc/myapp/plugins.d/api.conf**
-
+{% tab title="cli" %}
 ```text
-[api]enable_plugin = trueendpoint = https://example.com/api/v1user = john.doepassword = XXXXXXXXXXXX
+$ python test.py
+Inside example_func
 ```
+{% endtab %}
+{% endtabs %}
 
-**/var/lib/myapp/plugins/api.py**
-
-```text
-import drestfrom cement.core import hook​def extend_api_object(app):    # get api info from this plugins configuration    endpoint = app.config.get('api', 'endpoint')    user = app.config.get('api', 'user')    password = app.config.get('api', 'password')​    # create an api object and authenticate    my_api_client = drest.API(endpoint)    my_api_client.auth(username, password)​    # extend the global app object with an ``api`` member    app.extend('api', my_api_client)​def load(app):    hook.register('pre_run', extend_api_object)
-```
-
-In the above plugin, we simply created a dRest API client within a `pre_run` hook and then extended the global `app` with it. The developer can now reference `app.api` anywhere that the global `app` object is accessible.
-
-Our application code could now look like:
-
-**myapp.py**
-
-```text
-from cement.core.foundation import CementApp​with CementApp('myapp') as app:    app.run()​    # use the api object that the plugin provides    app.api.get(...)
-```
+{% hint style="info" %}
+Extended members can be anything from instantiated objects to callables of any kind.  It's use case is varied, and arbitrary... but should be documented well by the developer that is extending it.
+{% endhint %}
 
