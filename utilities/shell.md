@@ -108,7 +108,7 @@ code = shell.cmd('echo helloworld', capture=False)
 
 ## Spawning Processes and Threads
 
-Spawning processes and threads is easy via the `fs.spawn()` helper.
+Spawning processes and threads is easy via the `shell.spawn()` helper.
 
 {% tabs %}
 {% tab title="Example: Spawning Processes and Threads" %}
@@ -128,4 +128,6 @@ t.join()
 ```
 {% endtab %}
 {% endtabs %}
+
+See the [multiprocessing](https://docs.python.org/3/library/multiprocessing.html) and [threading](https://docs.python.org/3/library/threading.html) modules in the Python standard library for more information on working with processes and threads.
 
