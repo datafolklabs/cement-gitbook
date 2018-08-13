@@ -414,10 +414,10 @@ optional arguments:
 $ python myapp.py
 Foo: bar
 
-$ python -o json myapp.py
+$ python myapp.py -o json 
 {"foo": "bar"}
 
-$ python -o yaml myapp.py
+$ python myapp.py -o yaml 
 foo: bar
 ```
 {% endtab %}
