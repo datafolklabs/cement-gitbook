@@ -109,7 +109,7 @@ class MyApp(App):
     class Meta:
         label = 'myapp'
         hooks = [
-            ('pre_setup', 'my_hook_function'),
+            ('pre_setup', my_hook_function),
         ]        
 ```
 {% endtab %}
@@ -226,10 +226,11 @@ def load(app):
 
 ## Cement Framework Hooks
 
-Cement defines a number of hooks that tie into the framework.
+Cement defines a number of hooks that tie into the framework.H
 
-| **pre\_setup** | Run first when `App.setup()` is called. The application object is passed as an argument. Nothing is expected in return. |
+| **Hook Name** | **Description** |
 | :--- | :--- |
+| **pre\_setup** | Run first when `App.setup()` is called. The application object is passed as an argument.  Nothing is expected in return. |
 | **post\_setup** | Run last when `App.setup()` is called. The application object is passed as an argument. Nothing is expected in return. |
 | **pre\_run** | Run first when `App.run()` is called. The application object is passed as an argument. Nothing is expected in return. |
 | **post\_run** | Run last when `App.run()` is called. The application object is passed as an argument. Nothing is expected in return. |

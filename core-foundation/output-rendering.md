@@ -13,7 +13,6 @@ Cement often includes multiple handler implementations of an interface that may 
 * [Dummy](../extensions/dummy.md)
 * [Json](../extensions/json.md)
 * [Yaml](../extensions/yaml.md)
-* [Handlebars](../extensions/handlebars.md)
 * [Jinja2](../extensions/jinja2.md)
 * [Mustache](../extensions/mustache.md)
 * [Tabulate](../extensions/tabulate.md)

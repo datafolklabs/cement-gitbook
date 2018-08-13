@@ -39,7 +39,6 @@
   * [Daemon](extensions/daemon.md)
   * [Dummy](extensions/dummy.md)
   * [Generate](extensions/generate.md)
-  * [Handlebars](extensions/handlebars.md)
   * [Jinja2](extensions/jinja2.md)
   * [Json](extensions/json.md)
   * [Logging](extensions/logging.md)

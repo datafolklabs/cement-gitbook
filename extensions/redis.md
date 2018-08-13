@@ -37,7 +37,7 @@ This extension honors the following config settings under a `[cache.redis]` sect
 ```python
 from cement import App, init_defaults
 
-CONFIG = init_defaults('myapp', 'redis')
+CONFIG = init_defaults('myapp', 'cache.redis')
 CONFIG['cache.redis']['expire_time'] = 300 # seconds
 CONFIG['cache.redis']['host'] = '127.0.0.1'
 CONFIG['cache.redis']['port'] = 6379

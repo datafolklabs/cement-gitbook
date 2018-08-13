@@ -37,7 +37,7 @@ This extension honors the following config settings under a `[cache.memcached]` 
 from cement import App
 from cement.utils.misc import init_defaults
 
-CONFIG = init_defaults('myapp', 'memcached')
+CONFIG = init_defaults('myapp', 'cache.memcached')
 CONFIG['cache.memcached']['expire_time'] = 300 # seconds
 CONFIG['cache.memcached']['hosts'] = ['127.0.0.1']
 

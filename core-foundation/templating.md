@@ -14,7 +14,6 @@ Cement often includes multiple handler implementations of an interface that may 
 
 * ​[Jinja2](../extensions/jinja2.md)
 * [Mustache](../extensions/mustache.md)
-* [Handlebars](../extensions/handlebars.md)
 * [Dummy](../extensions/dummy.md)
 
 **API References:**

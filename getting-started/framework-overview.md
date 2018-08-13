@@ -432,7 +432,7 @@ The following output handlers ship with Cement:
 * [Json](../extensions/json.md) - Produces JSON output from dicts
 * [Yaml](../extensions/yaml.md) - Produces Yaml output from dicts
 * [Mustache](../extensions/mustache.md) - Produces text output rendered from [Mustache](http://mustache.github.io/) templates
-* [Handlebars](../extensions/handlebars.md) - Produces text output rendered from [Handlebars](https://github.com/wbond/pybars3) templates
+* [Handlebars]() - Produces text output rendered from [Handlebars](https://github.com/wbond/pybars3) templates
 * [Jinja2](../extensions/jinja2.md) - Produces text output rendered from [Jinja2](http://jinja.pocoo.org/) templates
 * [Tabulated](../extensions/tabulate.md) - Produces tabulated text output rendered via the [Tabulate](https://pypi.python.org/pypi/tabulate) library.
 
