@@ -38,8 +38,8 @@ Find and modify the following section of `todo/main.py` in order to define a def
 
 ```python
 # configuration defaults
-DEFAULTS = init_defaults('todo')
-DEFAULTS['todo']['db_file'] = '~/.todo/db.json'
+CONFIG = init_defaults('todo')
+CONFIG['todo']['db_file'] = '~/.todo/db.json'
 ```
 
 To be kind to our users, we will also want to add this default setting to our example configuration file `config/todo.yml.example`.  Modify the file to include the following:
@@ -436,6 +436,14 @@ class Items(Controller):
 ```
 {% endcode-tabs-item %}
 {% endcode-tabs %}
+
+Add/modify the following in `todo/main.py`:
+
+```python
+# configuration defaults
+CONFIG = init_defaults('todo')
+CONFIG['todo']['email'] = 'you@yourdomain.com'
+```
 
 Now let's complete one of our items:
 
