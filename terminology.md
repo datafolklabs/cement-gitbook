@@ -6,7 +6,7 @@ description: Common terminology used throughout the framework and documentation.
 
 ## Controller Stacking
 
-In Cement, there are two ways that [application controllers](core-foundation/controllers.md) can be be implemented:
+In Cement, there are two ways that [application controllers](core-foundation/controllers.md) can be  implemented:
 
 * **embedded**: The controllers sub-commands, arguments, and options are embedded within it's parent controller's namespace.  To the end-user, usage would appear to be part of the parent controller. Examples:
   * `myapp embedded-sub-command`
