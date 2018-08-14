@@ -80,6 +80,12 @@ level = info
 {% endtab %}
 {% endtabs %}
 
+{% hint style="info" %}
+Note that `init_defaults` is a helper from the Miscellaneous Utility Module, and simply generates a dict with nested dicts of the given keys.  It does not do anything special, but is used throughout the documentation as it generally makes things more readable in examples.  
+
+You can always use a standard `dict` for configuration and meta defaults, which often makes more sense when building larger applications with a lot of default settings to manage.
+{% endhint %}
+
 ## Builtin Default Configuration Settings
 
 Cement defines a list of meta options that can be overridden by configuration settings in [`App.Meta.core_meta_override`](http://cement.readthedocs.io/en/2.99/api/core/foundation/#cement.core.foundation.App.Meta.core_meta_override) \(used by the framework\), and [`App.Meta.meta_override`](http://cement.readthedocs.io/en/2.99/api/core/foundation/#cement.core.foundation.App.Meta.meta_override) \(used by the application developer\). These are not required to exist in the config defaults or parsed configuration files, however if they do Cement will honor them and override the defined application meta options.

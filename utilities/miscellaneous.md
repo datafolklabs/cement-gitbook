@@ -10,12 +10,12 @@ Cement includes a Miscellaneous Utilities Module with helpers for common tasks t
 
 ## Initialize Default Dictionaries
 
-The included [`misc.init_defaults()`](https://cement.readthedocs.io/en/2.99/api/utils/misc/#cement.utils.misc.init_defaults) is used to initialize a defaults dictionary, streamlining the setup of multiple nested dictionaries with one command.
+The included [`misc.init_defaults()`](https://cement.readthedocs.io/en/2.99/api/utils/misc/#cement.utils.misc.init_defaults) is used to initialize a defaults dictionary for configuration settings and meta options.
 
 {% tabs %}
 {% tab title="Example: Initialize Default Dictionaries" %}
 ```python
-from cement import misc
+from cement.utils.misc import init_defaults
 
 # create a dict with nested dicts
 CONFIG = init_defaults('myapp', 
@@ -30,6 +30,12 @@ CONFIG['output.json']['overridable'] = True
 {% endtab %}
 {% endtabs %}
 
+{% hint style="info" %}
+The `init_defaults` helper simply generates a dict with nested dicts of the given keys.  It does not do anything special, but is used throughout the documentation as it generally makes things more readable in examples.  
+
+You can always use a standard `dict` for configuration and meta defaults, which often makes more sense when building larger applications with a lot of default settings to manage.
+{% endhint %}
+
 ## Testing True Values
 
 When reading configuration files and other unknown data sources, we often need to convert strings to boolean.  For example, a setting of `true` read from a configparser text based config file will be a `str` type, but we want it as an `bool`.
@@ -39,28 +45,28 @@ The [`misc.is_true()`](https://cement.readthedocs.io/en/2.99/api/utils/misc/#cem
 {% tabs %}
 {% tab title="Example: Testing True Values" %}
 ```python
-from cement import misc
+from cement.utils.misc import is_true
 
 # testing true values
-misc.is_true(1)
-misc.is_true('1')
-misc.is_true('true')
-misc.is_true('True')
-misc.is_true('TRUE')
-misc.is_true('yes')
-misc.is_true('on')
-misc.is_true(True)
+is_true(1)
+is_true('1')
+is_true('true')
+is_true('True')
+is_true('TRUE')
+is_true('yes')
+is_true('on')
+is_true(True)
 
 
 # testing false values
-misc.is_true(0)
-misc.is_true('0')
-misc.is_true('false')
-misc.is_true('False')
-misc.is_true('FALSE')
-misc.is_true('no')
-misc.is_true('off')
-misc.is_true(False)
+is_true(0)
+is_true('0')
+is_true('false')
+is_true('False')
+is_true('FALSE')
+is_true('no')
+is_true('off')
+is_true(False)
 ```
 {% endtab %}
 {% endtabs %}
@@ -86,13 +92,13 @@ The [`misc.rando()`](https://cement.readthedocs.io/en/2.99/api/utils/misc/#cemen
 {% tabs %}
 {% tab title="Example: Random Strings" %}
 ```python
-from cement import misc
+from cement.utils.misc import rando
 
 # create a random string (md5)
-misc.rando()
+rando()
 
 # add a salt
-misc.rando('anchG45jJfka')
+rando('anchG45jJfka')
 ```
 {% endtab %}
 {% endtabs %}
@@ -104,16 +110,16 @@ When working with command lines, keeping output lines to less than 78 characters
 {% tabs %}
 {% tab title="Example: Limit Text Line Length" %}
 ```python
-from cement import misc
+from cement.utils.misc import wrap
 
 long = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis blandit cursus eros eget dictum. Curabitur eleifend nunc id eros consequat, vitae convallis quam sollicitudin. Nunc vitae efficitur lorem. Quisque facilisis imperdiet sem, nec facilisis elit faucibus non. Cras vitae interdum orci. Donec rutrum diam eget leo tincidunt, quis feugiat neque fermentum. Cras vel velit nibh. Phasellus porttitor, diam vitae ornare malesuada, mauris nulla ornare tortor, id congue tellus justo vel urna. Quisque tincidunt quis enim a bibendum. Donec sagittis nulla eu elit sollicitudin consequat."
 
 # wrap with default 77 characters
-res = misc.wrap(long)
+res = wrap(long)
 print(res)
 
 # wrap with a total of 50 characters, and break long words / hyphens
-res = misc.wrap(long, width=50, long_words=True, hyphens=True)
+res = wrap(long, width=50, long_words=True, hyphens=True)
 print(res)
 ```
 {% endtab %}

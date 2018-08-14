@@ -39,7 +39,7 @@ with fs.Tmp() as t:
 ```text
 $ python example.py
 Temp Dir: /var/folders/jm/cr24ncsn1lgdblxm2mvgtdt40000gn/T/tmpwzo8kh89
-Temp File: /var/folders/jm/cr24ncsn1lgdblxm2mvgtdt40000gn/T/tmpwzo8kh89/tmps4s7n8xg
+Temp File: /var/folders/jm/cr24ncsn1lgdblxm2mvgtdt40000gn/T/tmps4s7n8xg
 ```
 {% endtab %}
 {% endtabs %}
