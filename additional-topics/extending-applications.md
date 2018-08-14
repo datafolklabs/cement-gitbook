@@ -28,6 +28,19 @@ with MyApp() as app:
     # call the extended object or function
     app.example()
 ```
+
+Alternatively from within an extension or plugin:
+
+```python
+def example_func():
+    print('Inside example_func')
+    
+def extend_myapp(app):
+    app.extend('example', example_func)
+
+def load(app):
+    app.hook.register('post_setup', extend_myapp)
+```
 {% endtab %}
 
 {% tab title="cli" %}
