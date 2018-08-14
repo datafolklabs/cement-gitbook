@@ -129,13 +129,13 @@ Environment variables are logically mapped to configuration settings based on th
 
 | **Interface** | Description |
 | :--- | :--- |
-| [Template](../core-foundation/templating.md) | Rendering of template data \(content, files, etc\).  Existing output handler extensions were also updated to include an associated template handler \(`MustacheTemplateHandler`, `Jinja2TemplateHandler`, etc\). |
+| [**Template**](../core-foundation/templating.md)\*\*\*\* | Rendering of template data \(content, files, etc\).  Existing output handler extensions were also updated to include an associated template handler \(`MustacheTemplateHandler`, `Jinja2TemplateHandler`, etc\). |
 
 ## New Extensions
 
 | Extension | Description |
 | :--- | :--- |
-| [Print](../extensions/print.md) | Used primarily in development as a replacement for standard `print()`, allowing the developer to honor framework features like `pre_render` and `post_render` hooks. |
+| [**Print**](../extensions/print.md)\*\*\*\* | Used primarily in development as a replacement for standard `print()`, allowing the developer to honor framework features like `pre_render` and `post_render` hooks. |
 | \*\*\*\*[**Scrub**](../extensions/scrub.md)\*\*\*\* | Adds the ability to easily obfuscate sensitive data from rendered output \(think IP addresses, credit card numbers, etc\) |
 | \*\*\*\*[**Generate**](../extensions/generate.md)\*\*\*\* | Adds the ability for application developers to add a `generate` controller to their application, and include any number of source templates to generate from.  Think `myapp generate plugin` for third party developers to create plugins for your application from a fully-functional working template. |
 
