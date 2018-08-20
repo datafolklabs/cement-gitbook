@@ -25,7 +25,7 @@ with fs.Tmp() as t:
     # do something with a temporary dir
     print('Temp Dir: %s' % t.dir)
     os.listdir(t.dir)
-    
+
     # do something with a temporary file
     print('Temp File: %s' % t.file)
     with open(t.file, 'w') as f:
@@ -65,7 +65,7 @@ fs.backup('/path/to/my/file')
 
 ## Filesystem Paths
 
-Best practice when working with paths is to use `os.path.join()` to ensure cross-platform compatibility, however also expanding the absolute path to account for things like `~` \(user home dir\) on Linux.  We've created a number of helpers to meld these together for common tasks:
+Best practice when working with paths is to use `os.path.join()` to ensure cross-platform compatibility and also expanding the absolute path to account for things like `~` \(user home dir\) on Linux.  We've created a number of helpers to meld these together for common tasks:
 
 {% tabs %}
 {% tab title="Example: Filesystem Paths" %}

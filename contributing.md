@@ -15,7 +15,7 @@ If you've found a bug, or would like to request a feature please create a detail
 **The ideal bug report would include:**
 
 * Bug description
-* Include the version of Python, Cement, and any dependencies in use
+* Version numbers of Python, Cement, and any dependencies in use
 * Steps to reproduce the bug
 * Code samples that show the bug in action
 * A pull request including code that:
@@ -39,7 +39,7 @@ If you've found a bug, or would like to request a feature please create a detail
 
 ## Guidelines for Code Contributions
 
-If you are new to Cement, looking for something quick to fix, or just want an opportunity to contribute to the project... the best place to start is to review the issues labeled as `low-hanging-fruit` on [Github](https://github.com/datafolklabs/cement/labels/low-hanging-fruit).
+If you are new to Cement, looking for something quick to fix, or just want an opportunity to contribute to the project, the best place to start is to review the issues labeled as `low-hanging-fruit` on [Github](https://github.com/datafolklabs/cement/labels/low-hanging-fruit).
 
 All contributors should attempt to abide by the following:
 
@@ -62,7 +62,7 @@ All contributors should attempt to abide by the following:
   * `Resolves Issue #1127`
   * `Partially Resolves Issue #9873`
 * A single commit per issue.
-* Contributors should add their full name, or handle, to the CONTRIBUTORS file.
+* Contributors should add their full name or handle to the CONTRIBUTORS file.
 
 Regarding git commit messages, please read the following:
 

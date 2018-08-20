@@ -9,7 +9,7 @@ Cement often includes multiple handler implementations of an interface that may 
 {% endhint %}
 
 {% hint style="info" %}
-As of Cement 2.1.3, optional extensions with external dependencies are now being shipped along with mainline sources. This means, that Cement Core continues to maintain a 100% zero dependency policy, however Framework Extensions _can_ rely on external deps. It is the responsibility of the application developer to include these dependencies in their application \(as the Cement package does not include these dependencies\).
+As of Cement 2.1.3, optional extensions with external dependencies are now being shipped along with mainline sources. This means that although Cement Core continues to maintain a 100% zero dependency policy, Framework Extensions _can_ rely on external deps. It is the responsibility of the application developer to include these dependencies in their application \(as the Cement package does not include these dependencies\).
 {% endhint %}
 
 
@@ -41,12 +41,12 @@ from cement import App
 with App('myapp') as app:
     # list loaded extensions
     app.ext.list()
-    
+
     # load an extension
     app.ext.load_extension('myapp.ext.myextension')
-    
+
     # load a list of extensions
-    app.ext.load_extensions(['myapp.ext.ext1', 
+    app.ext.load_extensions(['myapp.ext.ext1',
                              'myapp.ext.ext2'])
 ```
 {% endtab %}
@@ -90,17 +90,17 @@ def load(app):
 Extensions can provide anything from defining interfaces, registering hooks, or even adding command line arguments.  The only thing required to make up an extension is the `load()` function.
 {% endhint %}
 
-You will notice that extensions are essentially the same as application plugins, however the difference is both when/how the code is loaded, as well as the purpose of that code. 
+You will notice that extensions are essentially the same as application plugins. The difference is found both in when/how the code is loaded, as well as the purpose of that code.
 
 {% hint style="info" %}
-Framework extensions add functionality **to the framework** for the application to utilize, where application plugins **extend the functionality of the application** itself.
+Framework extensions add functionality **to the framework** for the application to utilize, whereas application plugins **extend the functionality of the application** itself.
 {% endhint %}
 
 ## Loading Extensions
 
-Extensions are loaded when [`App.setup()`](http://cement.readthedocs.io/en/2.99/api/core/foundation/#cement.core.foundation.App.setup) is called on an application. Cement automatically loads all extensions listed under the applications [`App.Meta.core_extensions`](http://cement.readthedocs.io/en/2.99/api/core/foundation/#cement.core.foundation.App.Meta.core_extensions) and [`App.Meta.extensions`](http://cement.readthedocs.io/en/2.99/api/core/foundation/#cement.core.foundation.App.Meta.extensions) meta options.
+Extensions are loaded when [`App.setup()`](http://cement.readthedocs.io/en/2.99/api/core/foundation/#cement.core.foundation.App.setup) is called on an application. Cement automatically loads all extensions listed under the application's [`App.Meta.core_extensions`](http://cement.readthedocs.io/en/2.99/api/core/foundation/#cement.core.foundation.App.Meta.core_extensions) and [`App.Meta.extensions`](http://cement.readthedocs.io/en/2.99/api/core/foundation/#cement.core.foundation.App.Meta.extensions) meta options.
 
-To load the above example into our application, we just add it to the list of `App.Meta.extensions`. Lets assume the extension code lives in `myapp/ext/ext_myextension.py`:
+To load the above example into our application, we just add it to the list of `App.Meta.extensions`. Let's assume the extension code lives in `myapp/ext/ext_myextension.py`:
 
 {% tabs %}
 {% tab title="Example: Loading Extensions" %}
@@ -134,7 +134,7 @@ from cement import App
 
 with App('myapp') as app:
     app.run()
-    
+
     for e in app.extension.list():
         print(e)
 ```

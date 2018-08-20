@@ -2,7 +2,7 @@
 
 ## Introduction to Hooks
 
-Hooks allow developers to tie into different pieces of the framework and an application. 
+Hooks allow developers to tie into different pieces of the framework and an application.
 
 A hook can be defined anywhere, be it internally in the application, or in a plugin, extension, etc. Once a hook is defined, functions can be registered to that hook so that when the hook is called, all functions registered to that hook will be run. By defining a hook, you are saying that you are going to honor that hook somewhere in your application. Using descriptive hook names are good for clarity. For example, `pre_database_connect` is obviously a hook that will be run before a database connection is attempted.
 
@@ -40,16 +40,16 @@ def some_function():
 with App('myapp') as app:
     # list all defined hooks
     app.hook.list()
-    
+
     # define a hook
     app.hook.define('my_example_hook')
-    
+
     # test if a hook is defined
     app.hook.defined('my_example_hook')
-    
+
     # register a function to a hook
     app.hook.register('my_example_hook', some_function)
-    
+
     # run a hook
     for res in app.hook.run('my_example_hook'):
         # do something with res...
@@ -60,7 +60,7 @@ with App('myapp') as app:
 
 ## Defining a Hook
 
-A hook can be defined anywhere, however it is generally recommended to define the hook as early as possible. A hook definition simply gives a label to the hook, and allows the developer \(or third-party plugin developers\) to register functions to that hook. It's label is arbitrary.
+A hook can be defined anywhere.  However it is generally recommended to define the hook as early as possible. A hook definition simply gives a label to the hook, and allows the developer \(or third-party plugin developers\) to register functions to that hook. Its label is arbitrary.
 
 The most convenient way to define a hook is via [`CementApp.Meta.define_hooks`](https://cement.readthedocs.io/en/2.99/api/core/foundation/#cement.core.foundation.App.Meta.define_hooks):
 
@@ -110,7 +110,7 @@ class MyApp(App):
         label = 'myapp'
         hooks = [
             ('pre_setup', my_hook_function),
-        ]        
+        ]
 ```
 {% endtab %}
 {% endtabs %}
@@ -132,7 +132,7 @@ def load(app):
 
 ## Hook Parameters and Return Values
 
-What you receive from a hook \(arguments, keyword arguments\), and what you return from your hook function depends on what the developer who owns the hook has defined. Each hook is different, and the nature of the hook determines whether you need to accept arguments, or return anything. 
+What you receive from a hook \(arguments, keyword arguments\), and what you return from your hook function depends on what the developer who owns the hook has defined. Each hook is different, and the nature of the hook determines whether you need to accept arguments, or return anything.
 
 {% hint style="warning" %}
 It is important that the owner of the hook \(application/plugin developer, etc\) properly document the usage of the hook including the `*args`, `**kwargs` it is sending as well as what it is expecting in return.
@@ -151,7 +151,7 @@ class MyApp(App):
     class Meta:
         label = 'myapp'
         define_hooks = ['my_example_hook']
-        
+
 with MyApp() as app:
     for res in app.hook.run('my_example_hook'):
         # do something with res
@@ -186,7 +186,7 @@ def func3(app):
 class MyApp(App):
     class Meta:
         label = 'myapp'
-        
+
         hooks = [
             ('pre_setup', func1, 0),
             ('pre_setup', func2, 100),
@@ -203,7 +203,7 @@ with MyApp() as app:
 $ python tmp/myapp.py
 Inside func3()
 Inside func1()
-Inside func2() 
+Inside func2()
 ```
 {% endtab %}
 {% endtabs %}
@@ -226,7 +226,7 @@ def load(app):
 
 ## Cement Framework Hooks
 
-Cement defines a number of hooks that tie into the framework.H
+Cement defines a number of hooks that tie into the framework.
 
 | **Hook Name** | **Description** |
 | :--- | :--- |

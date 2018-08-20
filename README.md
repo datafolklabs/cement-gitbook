@@ -6,9 +6,9 @@ Portland is a complete fork of Cement 2, and will eventually become Cement 3. It
 
 ## What is Cement?
 
-Cement is an advanced application framework for Python, with a primary focus on Command Line Interfaces \(CLI\). Its goal is to introduce a standard, and feature-full platform for both simple and complex command line applications as well as support rapid development needs without sacrificing quality. Cement is flexible, and it's use cases span from the simplicity of a micro-framework to the complexity of a mega-framework. Whether it's a single file script, or a multi-tier application, Cement is the foundation you've been looking for.
+Cement is an advanced application framework for Python, with a primary focus on Command Line Interfaces \(CLI\). Its goal is to introduce a standard and feature-full platform for both simple and complex command line applications, as well as to support rapid development needs without sacrificing quality. Cement is flexible, and its use cases span from the simplicity of a micro-framework to the complexity of a mega-framework. Whether it's a single file script or a multi-tier application, Cement is the foundation you've been looking for.
 
-The first commit to Git was on Dec 4, 2009. Since then, the framework has seen several iterations in design, and has continued to grow and improve since it's inception. Cement is the most stable, and complete framework for command line and backend application development.
+The first commit to Git was on Dec 4, 2009. Since then, the framework has seen several iterations in design, and has continued to grow and improve since its inception. Cement is the most stable and complete framework for command line and backend application development.
 
 ## Core Features
 
@@ -23,7 +23,7 @@ Cement core features include \(but are not limited to\):
 * Output handler renders data to the end-user \(often via template handler backends\)
 * Template handler renders content and file templates
 * Cache handler adds caching support for improved performance or key/value storage
-* Controller handler supports sub-commands, and nested/embedded controllers
+* Controller handler supports sub-commands and nested/embedded controllers
 * Hook support adds a bit of magic to apps and also ties into framework
 * Zero external dependencies\* \(not including optional extensions\)
 * 100% test coverage using `pytest` and `coverage`

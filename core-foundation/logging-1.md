@@ -89,7 +89,7 @@ level = WARNING
 {% endtabs %}
 
 {% hint style="info" %}
-Cement also includes a `--debug` command line option by default. This triggers `App.Meta.debug` and sets the log level to `DEBUG`. 
+Cement also includes a `--debug` command line option by default. This triggers `App.Meta.debug` and sets the log level to `DEBUG`.
 {% endhint %}
 
 ## Logging to Console
@@ -103,7 +103,7 @@ from cement import App
 
 with App('myapp') as app:
     app.run()
-    
+
     # log messages to different levels
     app.log.debug('This is a debug message')
     app.log.info('This is an info message')
@@ -168,7 +168,7 @@ file = /path/to/file.log
 The following is specific to the default [`LoggingLogHandler`](https://cement.readthedocs.io/en/2.99/api/ext/ext_logging/#cement.ext.ext_logging.LoggingLogHandler), and is not an requirement of the logging interface.
 {% endhint %}
 
-Logging to `app.log.debug()` is pretty straight forward, however adding an additional parameter for the `namespace` can greatly increase insight into where that log is happening. The `namespace` defaults to the application name which you will see in every log like this:
+Logging to `app.log.debug()` is pretty straightforward. However, adding an additional parameter for the `namespace` can greatly increase insight into where that log is happening. The `namespace` defaults to the application name which you will see in every log like this:
 
 ```text
 2012-07-30 18:05:11,357 (DEBUG) myapp : This is my message
@@ -213,7 +213,7 @@ from cement.core.log import LogHandler
 class MyLogHandler(LogHandler):
     class Meta:
         label = 'my_log_handler'
-    
+
     # do something to implement the interface
 
 class MyApp(App):
