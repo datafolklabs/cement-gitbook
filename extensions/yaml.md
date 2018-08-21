@@ -79,7 +79,11 @@ class MyApp(App):
 
 with MyApp() as app:
     app.run()
+<<<<<<< HEAD
 
+=======
+
+>>>>>>> 32e55157fe1955e5e296ca422e8c2b796a5fdc4f
     data = {'foo': 'bar'}
     app.render(data, 'example.m')
 ```

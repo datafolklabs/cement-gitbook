@@ -42,7 +42,7 @@ An application's configuration is made up of a number of things, including defau
 * Defaults defined in [`App.Meta.config_defaults`](http://cement.readthedocs.io/en/2.99/api/core/foundation/#cement.core.foundation.App.Meta.config_defaults)
 * Extended by [`Handler.Meta.config_defaults`](http://cement.readthedocs.io/en/2.99/api/core/handler/#cement.core.handler.Handler.Meta.config_defaults) _\(extended, not overridden\)_
 * Overridden by configuration files defined in [`App.Meta.config_files`](http://cement.readthedocs.io/en/2.99/api/core/foundation/#cement.core.foundation.App.Meta.config_files) in the order they are listed/loaded \(last has precedence\)
-* Overridden by environment variables \(ex: `$MYAPP_FOO` `$MYAPP_LOG_LOGGING_LEVEL`, etc\)
+* Overridden by environment variables \(ex: `$MAPP_FOO` `$MYAPP_LOG_LOGGING_LEVEL`, etc\)
 
 ## Application Default Settings
 
@@ -179,7 +179,7 @@ The key detail to note is that configuration settings are intended to be used an
 
 **Configuration Settings**
 
-Configuration settings are application specific. There are config defaults defined by the application developer that can be \(and are intended to be\) overridden by end-user defined settings in a configuration file.
+Configuration settings are application specific. There are config defaults defined by the application developer, that can be \(and are intended to be\) overridden by end-user defined settings in a configuration file.
 
 Cement does not rely on the application configuration, though it can honor configuration settings. For example, `App` honors the `debug` config option which is documented, but it doesn't rely on it existing either.
 

@@ -1,14 +1,10 @@
 # Cement Developer Guide
 
-{% hint style="warning" %}
-Portland is a complete fork of Cement 2, and will eventually become Cement 3. It is guaranteed to be broken! Please use Cement 2 in production until stable/3.0.0 is released.
-{% endhint %}
-
 ## What is Cement?
 
-Cement is an advanced application framework for Python, with a primary focus on Command Line Interfaces \(CLI\). Its goal is to introduce a standard and feature-full platform for both simple and complex command line applications, as well as to support rapid development needs without sacrificing quality. Cement is flexible, and its use cases span from the simplicity of a micro-framework to the complexity of a mega-framework. Whether it's a single file script or a multi-tier application, Cement is the foundation you've been looking for.
+Cement is an advanced application framework for Python, with a primary focus on Command Line Interfaces \(CLI\). Its goal is to introduce a standard, and feature-full platform for both simple and complex command line applications as well as support rapid development needs without sacrificing quality. Cement is flexible, and its use cases span from the simplicity of a micro-framework to the complexity of a mega-framework. Whether its a single file script, or a multi-tier application, Cement is the foundation you've been looking for.
 
-The first commit to Git was on Dec 4, 2009. Since then, the framework has seen several iterations in design, and has continued to grow and improve since its inception. Cement is the most stable and complete framework for command line and backend application development.
+The first commit to Git was on Dec 4, 2009. Since then, the framework has seen several iterations in design, and has continued to grow and improve since its inception. Cement is the most stable, and complete framework for command line and backend application development.
 
 ## Core Features
 
@@ -23,7 +19,7 @@ Cement core features include \(but are not limited to\):
 * Output handler renders data to the end-user \(often via template handler backends\)
 * Template handler renders content and file templates
 * Cache handler adds caching support for improved performance or key/value storage
-* Controller handler supports sub-commands and nested/embedded controllers
+* Controller handler supports sub-commands, and nested/embedded controllers
 * Hook support adds a bit of magic to apps and also ties into framework
 * Zero external dependencies\* \(not including optional extensions\)
 * 100% test coverage using `pytest` and `coverage`
@@ -40,7 +36,7 @@ The Cement Framework is Open Source and is distributed under the [BSD License \(
 
 ## Projects Built on Cement™
 
-The following is an incomplete lists of notable projects that are Built on Cement™:
+The following are some notable projects that are Built on Cement™:
 
 * [Amazon Elastic Beanstalk CLI](http://docs.aws.amazon.com/elasticbeanstalk/latest/dg/eb-cli3.html) \([PYPI](https://pypi.python.org/pypi/awsebcli)\)
 * [Easy Engine](https://easyengine.io/) \([GitHub](https://github.com/EasyEngine/easyengine)\)
@@ -49,5 +45,5 @@ The following is an incomplete lists of notable projects that are Built on Cemen
 * [HCE Project](http://hce-project.com/)
 * [QLDS Manager](https://qlds-manager.readthedocs.io/en/stable/index.html) \([GitHub](https://github.com/rzeka/QLDS-Manager)\)
 
-If you are building a project on the Cement Framework and would like to see your company or project listed here [please create an issue and/or pull request on GitHub](https://github.com/datafolklabs/cement/).
+A more complete list of projects that depend on Cement can be found at [Librario.io](https://libraries.io/pypi/cement/usage).  If you are building a project on the Cement Framework and would like to see your company or project listed here [please create an issue and/or pull request on GitHub](https://github.com/datafolklabs/cement/).
 

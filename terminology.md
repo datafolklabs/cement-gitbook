@@ -12,7 +12,7 @@ In Cement, there are two ways that [application controllers](core-foundation/con
   * `myapp embedded-sub-command`
   * `myapp --embedded-option`
   * etc
-* **nested**: The controller's sub-comands, arguments, and options are nested below it's parent controller's namespace.  To the end-user, usage would require prefixing sub-commands with the controller's namespace.  Examples:
+* **nested**: The controller's sub-comands, arguments, and options are nested below its parent controller's namespace.  To the end-user, usage would require prefixing sub-commands with the controller's namespace.  Examples:
   * `myapp nested-controller nested-sub-command`
   * `myapp nested-controller --nested-option`
 

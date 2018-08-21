@@ -15,7 +15,7 @@ If you've found a bug, or would like to request a feature please create a detail
 **The ideal bug report would include:**
 
 * Bug description
-* Version numbers of Python, Cement, and any dependencies in use
+* The version of Python, Cement, and any dependencies in use
 * Steps to reproduce the bug
 * Code samples that show the bug in action
 * A pull request including code that:

@@ -11,6 +11,8 @@ Our application will include the following features:
 * Persist data using [TinyDB](http://tinydb.readthedocs.io/en/latest/intro.html)
 * Send an email message when tasks are complete
 
+A [video walk-thru](https://builtoncement.com/assets/video/beginner-tutorial.mp4) of the tutorial is also available.
+
 ## Generating a New Project Repository
 
 Cement includes a [developer utility](../developer-tools.md) called `cement` that includes tools to make our lives easier.  This was introduced in Cement 3, and will continue to grow as feature requests are made for new and improved ways of streamlining the development process.
@@ -67,7 +69,7 @@ The following covers the primary components included with your new project.  Fir
 9 directories, 24 files
 ```
 
-This looks like a lot, however there is a lot of placeholders here for best practice or recommended design.  Keep in mind, a Cement application can be as simple as a single file script... however we know that our TODO application will be disrupting the industry of task management, therefore we want to start things on the right track. 
+This looks like a lot, however there is a lot of placeholders here for best practice or recommended design.  Keep in mind, a Cement application can be as simple as a single file script... however we know that our TODO application will be disrupting the industry of task management, therefore we want to start things on the right track.
 
 Let's break this down into more manageable pieces:
 
@@ -79,7 +81,7 @@ Let's break this down into more manageable pieces:
 ├── README.md
 ```
 
-These files should look familiar as they are common in most projects.  The `README.md` is populated with some starter info to help get more familiar with the layout and navigation of the project.  You should read the `README.md` now. 
+These files should look familiar as they are common in most projects.  The `README.md` is populated with some starter info to help get more familiar with the layout and navigation of the project.  You should read the `README.md` now.
 
 **Common Python Packaging Files**
 
@@ -146,7 +148,7 @@ $ make virtualenv
 
 $ source env/bin/activate
 
-|> todo <| $ 
+|> todo <| $
 ```
 
 This runs common commands to create our virtual environment in `./env/`, and then runs `pip` to install our dependencies.  We activate the environment, and are ready to run our TODO application:
