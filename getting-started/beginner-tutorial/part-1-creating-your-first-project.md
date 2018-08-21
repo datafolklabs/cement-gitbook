@@ -11,6 +11,8 @@ Our application will include the following features:
 * Persist data using [TinyDB](http://tinydb.readthedocs.io/en/latest/intro.html)
 * Send an email message when tasks are complete
 
+A [video walk-thru](https://builtoncement.com/assets/video/beginner-tutorial.mp4) of the tutorial is also available.
+
 ## Generating a New Project Repository
 
 Cement includes a [developer utility](../developer-tools.md) called `cement` that includes tools to make our lives easier.  This was introduced in Cement 3, and will continue to grow as feature requests are made for new and improved ways of streamlining the development process.

@@ -6,11 +6,7 @@ description: >-
 
 # ChangeLog
 
-## 2.99.2 - Aug 13, 2018
-
-{% hint style="warning" %}
-This is a complete fork from Cement 2 code base. Please continue to use stable versions of Cement 2, until Cement 3.0.0 is released.
-{% endhint %}
+## 3.0.0 - Aug 21, 2018
 
 **Bugs:**
 
