@@ -19,7 +19,7 @@ The ConfigParser Extension provides the [ConfigParserConfigHandler](https://ceme
 
 ## Configuration
 
-This extension does rely on any application level configuration settings or meta options.
+This extension does not rely on any application level configuration settings or meta options.
 
 ## Usage
 

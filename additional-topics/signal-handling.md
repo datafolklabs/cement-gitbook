@@ -100,7 +100,7 @@ def load(app):
 {% endtab %}
 {% endtabs %}
 
-The key thing to note here is that the main application itself can easily handle the `CaughtSignal` exception without using hooks.  However using the `signal` hook is useful for plugins and extensions to be able to tie into the signal handling outside of the main application. Both serve the same purpose.
+The key thing to note here is that the main application itself can easily handle the `CaughtSignal` exception without using hooks.  However, using the `signal` hook is useful for plugins and extensions to be able to tie into the signal handling outside of the main application. Both serve the same purpose.
 
 Regardless of how signals are handled, all extensions or plugins should use the `pre_close` hook for cleanup purposes as much as possible as it is always run when `app.close()` is called.
 

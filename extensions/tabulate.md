@@ -2,7 +2,7 @@
 
 ## Introduction
 
-The Tabulate Extension includes the [`TabulateOutputHandler`](https://cement.readthedocs.io/en/2.99/api/ext/ext_tabulate/#cement.ext.ext_tabulate.TabulateOutputHandler), and provides output handling based on the [Tabulate](https://pypi.python.org/pypi/tabulate) library. It’s format is familiar to users of MySQL, Postgres, etc.
+The Tabulate Extension includes the [`TabulateOutputHandler`](https://cement.readthedocs.io/en/2.99/api/ext/ext_tabulate/#cement.ext.ext_tabulate.TabulateOutputHandler), and provides output handling based on the [Tabulate](https://pypi.python.org/pypi/tabulate) library. Its format is familiar to users of MySQL, Postgres, etc.
 
 **Documentation References:**
 

@@ -135,7 +135,7 @@ $ ps -x | grep example
 37452 ttys000    0:00.00 grep example
 ```
 
-#### Daemizing Without Commandline Option
+#### Daemonizing Without Commandline Option
 
 Some use cases might require daemonizing the process without having to always pass the `--daemon` option, or where passing the option might be redundant. You can work around that programatically by simply overriding the `daemon` argument value in order to force daemonization even if `--daemon` wasn’t passed.
 

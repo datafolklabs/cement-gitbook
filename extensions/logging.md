@@ -2,7 +2,7 @@
 
 ## Introduction
 
-The Logging Extension includes the LoggingLogHandler, and provides log handling based on the standard [`logging`](https://docs.python.org/3.6/library/logging.html#logging.Logger) library. 
+The Logging Extension includes the LoggingLogHandler, and provides log handling based on the standard [`logging`](https://docs.python.org/3.6/library/logging.html#logging.Logger) library.
 
 **Documentation References:**
 
@@ -23,12 +23,13 @@ The Logging Extension includes the LoggingLogHandler, and provides log handling 
 
 This handler honors the following settings under a `[log.logging]` section of the configuration:
 
-| **level** | The logging to display logs for. One of `INFO, WARNING, ERROR, FATAL, DEBUG`. Default: `INFO` |
+| **Setting** | **Description** |
 | :--- | :--- |
+| **level** | The logging to display logs for. One of `INFO, WARNING, ERROR, FATAL, DEBUG`. Default: `INFO` |
 | **file** | The filesystem path of the log file.  Default: `None` |
 | **to\_console** | Whether or not to log to console.  Default: `True` |
 | **rotate** | Whether or not rotate the log file.  Default: `False` |
-| **max\_bytes** | Maximum file size \(in bytes\) until the log file is rotate \(if rotation is enabled\).  Default: _512000_ |
+| **max\_bytes** | Maximum file size \(in bytes\) until the log file is rotated \(if rotation is enabled\).  Default: _512000_ |
 | **max\_files** | Maximum number of files to keep when rotating is enabled.  Default: `4` |
 
 
@@ -51,7 +52,7 @@ max_files = 4
 
 ### **Toggle Log Level via Command-line**
 
-This extension supports an optional feature to add a command-line argument to toggle the log level. This feature is not enabled by default for one specific reason; the log level will not be modified until **after** argument parsing happens. This can lead to a lot of confusion for developers who might not see their debug logs from a `pre_setup` hook, or anything that happens before argument parsing completes. For this reason, you should use this feature with caution and is why we disable it by default.
+This extension supports an optional feature to add a command-line argument to toggle the log level. This feature is not enabled by default for one specific reason: the log level will not be modified until **after** argument parsing happens. This can lead to a lot of confusion for developers who might not see their debug logs from a `pre_setup` hook, or anything that happens before argument parsing completes. For this reason, you should use this feature with caution and thus we disable it by default.
 
 You can enable the log level argument by setting via [`App.Meta.meta_defaults`](https://cement.readthedocs.io/en/2.99/api/core/foundation/#cement.core.foundation.App.Meta.meta_defaults) for the `log.logging` handler:
 

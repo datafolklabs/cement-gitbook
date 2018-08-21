@@ -53,7 +53,7 @@ class MyTestApp(MyApp):
 {% endtabs %}
 
 {% hint style="info" %}
-The default exit code is `0`, however any uncaught exceptions will cause the application to exit with a code of `1` \(error\).
+The default exit code is `0`.  However, any uncaught exceptions will cause the application to exit with a code of `1` \(error\).
 {% endhint %}
 
 ## Running Cleanup Code

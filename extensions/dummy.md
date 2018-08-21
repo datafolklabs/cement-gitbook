@@ -22,8 +22,8 @@ This extension supports the following configuration settings under a `[mail.dumm
 | :--- | :--- |
 | **to** | Default recipient address \(list, or comma separated depending on the config handler in use\). |
 | **from\_addr** | Default sender address |
-| **cc** | Default carbon-copy addresses \(list, or comma separated depending on the config handler in use |
-| **bcc** | Default blind-carbon-copy addresses \(list, or comma separated depending on the config handler in use |
+| **cc** | Default carbon-copy addresses \(list, or comma separated depending on the config handler in use\) |
+| **bcc** | Default blind-carbon-copy addresses \(list, or comma separated depending on the config handler in use\) |
 | **subject** | Default subject line |
 | **subject\_prefix** | Additional string to prepend to the subject line of all messages |
 
