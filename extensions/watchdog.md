@@ -25,24 +25,15 @@ On application startup, the Watchdog Observer is automatically started and then 
 
 ### Application Configuration Settings
 
-<<<<<<< HEAD
 This extension does not support any application level configuration settings.
-=======
-This extension does not support any application level configuration settings
->>>>>>> 32e55157fe1955e5e296ca422e8c2b796a5fdc4f
 
 ### Application Meta Options
 
 This extension honors the following application meta options:
 
-<<<<<<< HEAD
 | Option | **Description** |
 | :--- | :--- |
 | **watchdog\_paths** | A list of tuples that are passed directly as arguments to [`WatchdogManager.add()`](https://cement.readthedocs.io/en/2.99/api/ext/ext_watchdog/#cement.ext.ext_watchdog.WatchdogManager.add) \(a shortcut equivalent to `app.watchdog.add()`. |
-=======
-| **watchdog\_paths** | A list of tuples that are passed directly as arguments to [`WatchdogManager.add()`](https://cement.readthedocs.io/en/2.99/api/ext/ext_watchdog/#cement.ext.ext_watchdog.WatchdogManager.add) \(a shortcut equivalent to `app.watchdog.add()`. |
-| :--- | :--- |
->>>>>>> 32e55157fe1955e5e296ca422e8c2b796a5fdc4f
 
 
 ## Hooks
@@ -94,11 +85,6 @@ class MyApp(App):
 
 with MyApp() as app:
     app.run()
-<<<<<<< HEAD
-
-=======
-
->>>>>>> 32e55157fe1955e5e296ca422e8c2b796a5fdc4f
     try:
         while True:
             sleep(1)
@@ -108,11 +94,7 @@ with MyApp() as app:
 {% endtab %}
 {% endtabs %}
 
-<<<<<<< HEAD
 In the above example, nothing is printed to console.  However you will see something like the following via debug logging:
-=======
-In the above example, nothing is printed to console however you will see something like the following via debug logging:
->>>>>>> 32e55157fe1955e5e296ca422e8c2b796a5fdc4f
 
 ```text
 $ python myapp.py --debug 2>&1 | grep -i watchdog
