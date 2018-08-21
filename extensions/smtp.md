@@ -2,7 +2,7 @@
 
 ## Introduction
 
-The SMTP Extension includes the [`SMTPMailHandler`](https://cement.readthedocs.io/en/2.99/api/ext/ext_smtp/#cement.ext.ext_smtp.SMTPMailHandler), and provides the ability for applications to send email via standard SMTP.
+The SMTP Extension includes the [`SMTPMailHandler`](https://cement.readthedocs.io/en/3.0/api/ext/ext_smtp/#cement.ext.ext_smtp.SMTPMailHandler), and provides the ability for applications to send email via standard SMTP.
 
 **Documentation References:**
 
@@ -10,7 +10,7 @@ The SMTP Extension includes the [`SMTPMailHandler`](https://cement.readthedocs.i
 
 **API References:**
 
-* [Cement SMTP Extension](https://cement.readthedocs.io/en/2.99/api/ext/ext_smtp)
+* [Cement SMTP Extension](https://cement.readthedocs.io/en/3.0/api/ext/ext_smtp)
 * [Python SMTP Library](https://docs.python.org/3/library/smtplib.html)
 
 ## Requirements

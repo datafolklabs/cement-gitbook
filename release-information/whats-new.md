@@ -10,7 +10,7 @@ description: Overview of notable features and major changes in the latest releas
 
 A lot of time and effort has gone into revamping the developer documentation, which includes:
 
-* Separation of Developer Guide \(this\) and [API Reference](http://cement.readthedocs.io/en/2.99/)
+* Separation of Developer Guide \(this\) and [API Reference](http://cement.readthedocs.io/en/3.0/)
 * Complete [framework overview](../getting-started/framework-overview.md) and [beginner tutorial](../getting-started/beginner-tutorial/) to get started building your first application
 * List of [terminology](../terminology.md) used throughout the framework and documentation
 * Thorough guide of all [builtin extensions](../extensions/)

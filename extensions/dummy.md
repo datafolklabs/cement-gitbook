@@ -2,11 +2,11 @@
 
 ## Introduction
 
-The Dummy Extension provides several placeholder type handlers to either mock operations or provide local-only usage during development. A perfect example is the [`DummyMailHandler`](http://cement.readthedocs.io/en/2.99/api/ext/ext_dummy/#cement.ext.ext_dummy.DummyMailHandler) that can be use during development or staging to prevent real email messages from being sent externally.
+The Dummy Extension provides several placeholder type handlers to either mock operations or provide local-only usage during development. A perfect example is the [`DummyMailHandler`](http://cement.readthedocs.io/en/3.0/api/ext/ext_dummy/#cement.ext.ext_dummy.DummyMailHandler) that can be use during development or staging to prevent real email messages from being sent externally.
 
 **API References:**
 
-* [Cement Dummy Extension](http://cement.readthedocs.io/en/2.99/api/ext/ext_dummy/)
+* [Cement Dummy Extension](http://cement.readthedocs.io/en/3.0/api/ext/ext_dummy/)
 
 ## Requirements
 

@@ -12,8 +12,8 @@ We call the implementation of an interface a **handler**, and provide the abilit
 
 **API References**
 
-* [Cement Core Interface Module](https://cement.readthedocs.io/en/2.99/api/core/interface/)
-* [Cement Core Handler Module](https://cement.readthedocs.io/en/2.99/api/core/handler/)
+* [Cement Core Interface Module](https://cement.readthedocs.io/en/3.0/api/core/interface/)
+* [Cement Core Handler Module](https://cement.readthedocs.io/en/3.0/api/core/handler/)
 
 ### Builtin Interfaces
 
@@ -34,7 +34,7 @@ The following interfaces are builtin to Cement's core foundation:
 
 ### Working With Interfaces
 
-The [InterfaceManager](https://cement.readthedocs.io/en/2.99/api/core/handler/) \(`app.interface`\) provides quick mechanisms to list, get, and verify interfaces:
+The [InterfaceManager](https://cement.readthedocs.io/en/3.0/api/core/handler/) \(`app.interface`\) provides quick mechanisms to list, get, and verify interfaces:
 
 ```python
 from cement import App
@@ -241,7 +241,7 @@ Where an interface defines what an implementation is expected to provide, a hand
 
 ### Working with Handlers
 
-The [HandlerManager](https://cement.readthedocs.io/en/2.99/api/core/handler/#cement.core.handler.HandlerManager) \(`app.handler`\) provides quick mechanisms to list, get, resolve and verify handlers. The following are a few examples of working with handlers:
+The [HandlerManager](https://cement.readthedocs.io/en/3.0/api/core/handler/#cement.core.handler.HandlerManager) \(`app.handler`\) provides quick mechanisms to list, get, resolve and verify handlers. The following are a few examples of working with handlers:
 
 ```python
 from cement import App
@@ -295,7 +295,7 @@ class MyApp(App):
 
 ### Overriding Default Handlers {#overriding-default-handlers}
 
-Cement sets up a number of default handlers for logging, config parsing, etc. These can be overridden in a number of ways, however the primary method is to override their associated setting in [App.Meta](https://cement.readthedocs.io/en/2.99/api/core/foundation/#cement.core.foundation.App.Meta).
+Cement sets up a number of default handlers for logging, config parsing, etc. These can be overridden in a number of ways, however the primary method is to override their associated setting in [App.Meta](https://cement.readthedocs.io/en/3.0/api/core/foundation/#cement.core.foundation.App.Meta).
 
 {% tabs %}
 {% tab title="Overriding Default Handlers" %}
@@ -311,11 +311,11 @@ class MyApp(App):
 {% endtab %}
 {% endtabs %}
 
-All builtin core interfaces have an associated `App.Meta.x_handler` option, allowing complete customization of every aspect of the framework.  See the reference documentation of [App.Meta](https://cement.readthedocs.io/en/2.99/api/core/foundation/#cement.core.foundation.App.Meta) for more detail.
+All builtin core interfaces have an associated `App.Meta.x_handler` option, allowing complete customization of every aspect of the framework.  See the reference documentation of [App.Meta](https://cement.readthedocs.io/en/3.0/api/core/foundation/#cement.core.foundation.App.Meta) for more detail.
 
 ### Multiple Registered Handlers {#multiple-registered-handlers}
 
-All handlers and interfaces are unique. In most cases, where the framework is concerned, only one handler is used. For example, whatever is configured for the [`App.Meta.log_handler`](https://cement.readthedocs.io/en/2.99/api/core/foundation/#cement.core.foundation.App.Meta.log_handler) will be used and setup as `app.log`. However, take for example an Output Handler. You might have a default [`App.Meta.output_handler`](https://cement.readthedocs.io/en/2.99/api/core/foundation/#cement.core.foundation.App.Meta.output_handler) of `mustache` \(a text templating language\) but may also want to override that handler with the `json` output handler when `-o json` is passed at command line. In order to allow this functionality, both the `mustache` and `json` output handlers must be registered.
+All handlers and interfaces are unique. In most cases, where the framework is concerned, only one handler is used. For example, whatever is configured for the [`App.Meta.log_handler`](https://cement.readthedocs.io/en/3.0/api/core/foundation/#cement.core.foundation.App.Meta.log_handler) will be used and setup as `app.log`. However, take for example an Output Handler. You might have a default [`App.Meta.output_handler`](https://cement.readthedocs.io/en/3.0/api/core/foundation/#cement.core.foundation.App.Meta.output_handler) of `mustache` \(a text templating language\) but may also want to override that handler with the `json` output handler when `-o json` is passed at command line. In order to allow this functionality, both the `mustache` and `json` output handlers must be registered.
 
 Any number of handlers can be registered to an interface. You might have a use case for an Interface/Handler that may provide different compatibility based on the operating system, or perhaps based on simply how the application is called. A good example would be an application that automates building packages for Linux distributions. An interface would define what a build handler needs to provide, but the build handler would be different based on the OS. The application might have an `rpm` build handler, or a `dpkg` build handler to perform the build process differently.
 

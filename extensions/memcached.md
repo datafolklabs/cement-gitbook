@@ -2,7 +2,7 @@
 
 ## Introduction
 
-The Memcached Extension includes the [`MemcachedCacheHandler`](https://cement.readthedocs.io/en/2.99/api/ext/ext_memcached/#cement.ext.ext_memcached.MemcachedCacheHandler) and provides application caching and key/value store support via Memcached.
+The Memcached Extension includes the [`MemcachedCacheHandler`](https://cement.readthedocs.io/en/3.0/api/ext/ext_memcached/#cement.ext.ext_memcached.MemcachedCacheHandler) and provides application caching and key/value store support via Memcached.
 
 **Documentation References:**
 
@@ -10,7 +10,7 @@ The Memcached Extension includes the [`MemcachedCacheHandler`](https://cement.re
 
 **API References:**
 
-* [Cement Memcached Extension](https://cement.readthedocs.io/en/2.99/api/ext/ext_memcached/)
+* [Cement Memcached Extension](https://cement.readthedocs.io/en/3.0/api/ext/ext_memcached/)
 * [Pylibmc Library](http://sendapatch.se/projects/pylibmc/)
 
 ## Requirements

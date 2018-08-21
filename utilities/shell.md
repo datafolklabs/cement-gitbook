@@ -2,15 +2,15 @@
 
 ## Introduction to the Shell Utilities {#introduction-to-the-output-interface}
 
-Cement includes a [Shell Utility Module](https://cement.readthedocs.io/en/2.99/api/utils/shell/) with helpers for common tasks related to executing commands, spawning subprocesses/threads, and other tasks.
+Cement includes a [Shell Utility Module](https://cement.readthedocs.io/en/3.0/api/utils/shell/) with helpers for common tasks related to executing commands, spawning subprocesses/threads, and other tasks.
 
 **API References:**
 
-* [Cement Shell Utility Module](https://cement.readthedocs.io/en/2.99/api/utils/shell/)
+* [Cement Shell Utility Module](https://cement.readthedocs.io/en/3.0/api/utils/shell/)
 
 ## Prompting User Input
 
-Requesting input from the user is straight forward, however we've included the [`shell.Prompt`](https://cement.readthedocs.io/en/2.99/api/utils/shell/#cement.utils.shell.Prompt) utility to expand beyond just a simple one-dimensional input response.
+Requesting input from the user is straight forward, however we've included the [`shell.Prompt`](https://cement.readthedocs.io/en/3.0/api/utils/shell/#cement.utils.shell.Prompt) utility to expand beyond just a simple one-dimensional input response.
 
 {% tabs %}
 {% tab title="Example: User Input Prompts" %}

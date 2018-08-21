@@ -2,7 +2,7 @@
 
 ## Introduction to the Extension Interface
 
-Cement defines an [Extension Interface](https://cement.readthedocs.io/en/2.99/api/core/extension/#cement.core.extension.ExtensionInterface), as well as the default [CementExtensionHandler](https://cement.readthedocs.io/en/2.99/api/core/extension/#cement.core.extension.ExtensionHandler) that implements the interface. Its purpose is to manage loading framework extensions and making them usable by the application. Extensions are similar to [Application Plugins](plugins.md), but at the framework level \(application agnostic\).
+Cement defines an [Extension Interface](https://cement.readthedocs.io/en/3.0/api/core/extension/#cement.core.extension.ExtensionInterface), as well as the default [CementExtensionHandler](https://cement.readthedocs.io/en/3.0/api/core/extension/#cement.core.extension.ExtensionHandler) that implements the interface. Its purpose is to manage loading framework extensions and making them usable by the application. Extensions are similar to [Application Plugins](plugins.md), but at the framework level \(application agnostic\).
 
 {% hint style="warning" %}
 Cement often includes multiple handler implementations of an interface that may or may not have additional features or functionality than the interface requires.  The documentation below only references usage based on the interface and default handler \(not the full capabilities of an implementation\).
@@ -16,18 +16,18 @@ As of Cement 2.1.3, optional extensions with external dependencies are now being
 
 **API References:**
 
-* [Cement Core Extension Module](https://cement.readthedocs.io/en/2.99/api/core/extension)
+* [Cement Core Extension Module](https://cement.readthedocs.io/en/3.0/api/core/extension)
 
 ## Configuration
 
 ### Application Meta Options
 
-The following options under [`App.Meta`](https://cement.readthedocs.io/en/2.99/api/core/foundation/#cement.core.foundation.App.Meta) modify extension handling:
+The following options under [`App.Meta`](https://cement.readthedocs.io/en/3.0/api/core/foundation/#cement.core.foundation.App.Meta) modify extension handling:
 
 | **Option** | **Description** |
 | :--- | :--- |
-| **extension\_handler** | A handler class that implements the Extension Interface.  This can be a string \(label of a registered handler\), an uninstantiated class, or an instantiated class object.  Default: [`ExtensionHandler`](https://cement.readthedocs.io/en/2.99/api/core/extension/#cement.core.extension.ExtensionHandler) |
-| **extensions** | A list of additional framework extensions to load.  Will be merged together with [`App.Meta.core_extensions`](https://cement.readthedocs.io/en/2.99/api/core/foundation/#cement.core.foundation.App.Meta.core_extensions). |
+| **extension\_handler** | A handler class that implements the Extension Interface.  This can be a string \(label of a registered handler\), an uninstantiated class, or an instantiated class object.  Default: [`ExtensionHandler`](https://cement.readthedocs.io/en/3.0/api/core/extension/#cement.core.extension.ExtensionHandler) |
+| **extensions** | A list of additional framework extensions to load.  Will be merged together with [`App.Meta.core_extensions`](https://cement.readthedocs.io/en/3.0/api/core/foundation/#cement.core.foundation.App.Meta.core_extensions). |
 
 ## Working with Extensions
 
@@ -98,7 +98,7 @@ Framework extensions add functionality **to the framework** for the application 
 
 ## Loading Extensions
 
-Extensions are loaded when [`App.setup()`](http://cement.readthedocs.io/en/2.99/api/core/foundation/#cement.core.foundation.App.setup) is called on an application. Cement automatically loads all extensions listed under the application's [`App.Meta.core_extensions`](http://cement.readthedocs.io/en/2.99/api/core/foundation/#cement.core.foundation.App.Meta.core_extensions) and [`App.Meta.extensions`](http://cement.readthedocs.io/en/2.99/api/core/foundation/#cement.core.foundation.App.Meta.extensions) meta options.
+Extensions are loaded when [`App.setup()`](http://cement.readthedocs.io/en/3.0/api/core/foundation/#cement.core.foundation.App.setup) is called on an application. Cement automatically loads all extensions listed under the application's [`App.Meta.core_extensions`](http://cement.readthedocs.io/en/3.0/api/core/foundation/#cement.core.foundation.App.Meta.core_extensions) and [`App.Meta.extensions`](http://cement.readthedocs.io/en/3.0/api/core/foundation/#cement.core.foundation.App.Meta.extensions) meta options.
 
 To load the above example into our application, we just add it to the list of `App.Meta.extensions`. Let's assume the extension code lives in `myapp/ext/ext_myextension.py`:
 

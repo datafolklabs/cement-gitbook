@@ -10,7 +10,7 @@ The Plugin Extension handles application plugin support, and is the default plug
 
 **API References:**
 
-* [Cement Plugin Extension](https://cement.readthedocs.io/en/2.99/api/ext/ext_plugin/)
+* [Cement Plugin Extension](https://cement.readthedocs.io/en/3.0/api/ext/ext_plugin/)
 
 ## Requirements
 

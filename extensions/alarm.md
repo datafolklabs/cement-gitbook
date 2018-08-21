@@ -2,11 +2,11 @@
 
 ## Introduction
 
-The Alarm Extension provides the [AlarmManager](http://cement.readthedocs.io/en/2.99/api/ext/ext_alarm/#cement.ext.ext_alarm.AlarmManager) extended object, with easy mechanisms for handling long running operations that might timeout after a set amount of time.
+The Alarm Extension provides the [AlarmManager](http://cement.readthedocs.io/en/3.0/api/ext/ext_alarm/#cement.ext.ext_alarm.AlarmManager) extended object, with easy mechanisms for handling long running operations that might timeout after a set amount of time.
 
 **API References:**
 
-* [Cement Alarm Extension](http://cement.readthedocs.io/en/2.99/api/ext/ext_alarm/)
+* [Cement Alarm Extension](http://cement.readthedocs.io/en/3.0/api/ext/ext_alarm/)
 * [Python Signal Library](https://docs.python.org/3.5/library/signal.html)
 
 ## **Requirements**

@@ -13,7 +13,7 @@ The Daemon Extension enables applications to easily perform standard daemonizati
 
 **API References:**
 
-* [Cement Daemon Extension](https://cement.readthedocs.io/en/2.99/api/ext/ext_daemon/)
+* [Cement Daemon Extension](https://cement.readthedocs.io/en/3.0/api/ext/ext_daemon/)
 
 ## Requirements
 

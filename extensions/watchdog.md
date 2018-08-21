@@ -2,13 +2,13 @@
 
 ## Introduction
 
-The Watchdog Extension includes the [`WatchdogManager`](https://cement.readthedocs.io/en/2.99/api/ext/ext_watchdog/#cement.ext.ext_watchdog.WatchdogManager), enabling applications to easily monitor, and react to, changes in filesystem paths based on the filesystem events monitoring library [Watchdog](https://pypi.python.org/pypi/watchdog).
+The Watchdog Extension includes the [`WatchdogManager`](https://cement.readthedocs.io/en/3.0/api/ext/ext_watchdog/#cement.ext.ext_watchdog.WatchdogManager), enabling applications to easily monitor, and react to, changes in filesystem paths based on the filesystem events monitoring library [Watchdog](https://pypi.python.org/pypi/watchdog).
 
 On application startup, the Watchdog Observer is automatically started and then upon application close, the observer thread is properly stopped and joined with the parent process before exit.
 
 **API References:**
 
-* [Cement Watchdog Extension](https://cement.readthedocs.io/en/2.99/api/ext/ext_watchdog/)
+* [Cement Watchdog Extension](https://cement.readthedocs.io/en/3.0/api/ext/ext_watchdog/)
 * [Watchdog Library](https://pythonhosted.org/watchdog/)
 
 ## Requirements
@@ -33,7 +33,7 @@ This extension honors the following application meta options:
 
 | Option | **Description** |
 | :--- | :--- |
-| **watchdog\_paths** | A list of tuples that are passed directly as arguments to [`WatchdogManager.add()`](https://cement.readthedocs.io/en/2.99/api/ext/ext_watchdog/#cement.ext.ext_watchdog.WatchdogManager.add) \(a shortcut equivalent to `app.watchdog.add()`. |
+| **watchdog\_paths** | A list of tuples that are passed directly as arguments to [`WatchdogManager.add()`](https://cement.readthedocs.io/en/3.0/api/ext/ext_watchdog/#cement.ext.ext_watchdog.WatchdogManager.add) \(a shortcut equivalent to `app.watchdog.add()`. |
 
 
 ## Hooks

@@ -438,7 +438,7 @@ The following output handlers ship with Cement:
 
 **Multiple Output Handler Support**
 
-One of the unique features of Cement is that you can build your application to support multiple output handlers and formats. Output handlers have a special attribute that _optionally_ allows them to be exposed via the CLI option `-o` \(configurable via [`Handler.Meta.overridable`](http://cement.readthedocs.io/en/2.99/api/core/handler/#cement.core.handler.Handler.Meta.overridable) and [`App.Meta.core_handler_override_options`](https://cement.readthedocs.io/en/portland/api/core/foundation/#cement.core.foundation.App.Meta.core_handler_override_options)\). Therefore, you might have default text based output rendered from Mustache templates, but optionally output programatic structures **from the same code** when necessary \(i.e.`$ myapp -o json`\).
+One of the unique features of Cement is that you can build your application to support multiple output handlers and formats. Output handlers have a special attribute that _optionally_ allows them to be exposed via the CLI option `-o` \(configurable via [`Handler.Meta.overridable`](http://cement.readthedocs.io/en/3.0/api/core/handler/#cement.core.handler.Handler.Meta.overridable) and [`App.Meta.core_handler_override_options`](https://cement.readthedocs.io/en/portland/api/core/foundation/#cement.core.foundation.App.Meta.core_handler_override_options)\). Therefore, you might have default text based output rendered from Mustache templates, but optionally output programatic structures **from the same code** when necessary \(i.e.`$ myapp -o json`\).
 
 Ex: Mixed Template/JSON Output Example
 

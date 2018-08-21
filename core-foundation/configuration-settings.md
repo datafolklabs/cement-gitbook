@@ -2,7 +2,7 @@
 
 ## Introduction to the Config Interface
 
-Cement defines a [Config Interface](http://cement.readthedocs.io/en/2.99/api/core/config/#cement.core.config.ConfigInterface), as well as the default [ConfigParserConfigHandler](http://cement.readthedocs.io/en/2.99/api/ext/ext_configparser/#cement.ext.ext_configparser.ConfigParserConfigHandler) that implements the interface. This handler is built on top of [ConfigParser](http://docs.python.org/library/configparser.html) which is included in the Python standard library. Therefore, this class will work much like ConfigParser but with any added functions necessary to meet the requirements of the interface.
+Cement defines a [Config Interface](http://cement.readthedocs.io/en/3.0/api/core/config/#cement.core.config.ConfigInterface), as well as the default [ConfigParserConfigHandler](http://cement.readthedocs.io/en/3.0/api/ext/ext_configparser/#cement.ext.ext_configparser.ConfigParserConfigHandler) that implements the interface. This handler is built on top of [ConfigParser](http://docs.python.org/library/configparser.html) which is included in the Python standard library. Therefore, this class will work much like ConfigParser but with any added functions necessary to meet the requirements of the interface.
 
 {% hint style="warning" %}
 Cement often includes multiple handler implementations of an interface that may or may not have additional features or functionality than the interface requires.  The documentation below only references usage based on the interface and default handler \(not the full capabilities of an implementation\).
@@ -16,15 +16,15 @@ Cement often includes multiple handler implementations of an interface that may 
 
 **API References:**
 
-* [Cement Core Config Module](https://cement.readthedocs.io/en/2.99/api/core/config/)
-* [Cement ConfigParser Extension](https://cement.readthedocs.io/en/2.99/api/ext/ext_configparser/)
+* [Cement Core Config Module](https://cement.readthedocs.io/en/3.0/api/core/config/)
+* [Cement ConfigParser Extension](https://cement.readthedocs.io/en/3.0/api/ext/ext_configparser/)
 * [Python ConfigParser Library](https://docs.python.org/3/library/configparser.html)
 
 ## **Configuration**
 
 ### **Application Meta Options**
 
-The following options under [`App.Meta`](https://cement.readthedocs.io/en/2.99/api/core/foundation/#cement.core.foundation.App.Meta) modify configuration handling:
+The following options under [`App.Meta`](https://cement.readthedocs.io/en/3.0/api/core/foundation/#cement.core.foundation.App.Meta) modify configuration handling:
 
 | **Option** | **Description** |
 | :--- | :--- |
@@ -39,9 +39,9 @@ The following options under [`App.Meta`](https://cement.readthedocs.io/en/2.99/a
 
 An application's configuration is made up of a number of things, including default settings, handler defaults, config file settings, environment variables, etc. The following is the order in which configurations are discovered and loaded:
 
-* Defaults defined in [`App.Meta.config_defaults`](http://cement.readthedocs.io/en/2.99/api/core/foundation/#cement.core.foundation.App.Meta.config_defaults)
-* Extended by [`Handler.Meta.config_defaults`](http://cement.readthedocs.io/en/2.99/api/core/handler/#cement.core.handler.Handler.Meta.config_defaults) _\(extended, not overridden\)_
-* Overridden by configuration files defined in [`App.Meta.config_files`](http://cement.readthedocs.io/en/2.99/api/core/foundation/#cement.core.foundation.App.Meta.config_files) in the order they are listed/loaded \(last has precedence\)
+* Defaults defined in [`App.Meta.config_defaults`](http://cement.readthedocs.io/en/3.0/api/core/foundation/#cement.core.foundation.App.Meta.config_defaults)
+* Extended by [`Handler.Meta.config_defaults`](http://cement.readthedocs.io/en/3.0/api/core/handler/#cement.core.handler.Handler.Meta.config_defaults) _\(extended, not overridden\)_
+* Overridden by configuration files defined in [`App.Meta.config_files`](http://cement.readthedocs.io/en/3.0/api/core/foundation/#cement.core.foundation.App.Meta.config_files) in the order they are listed/loaded \(last has precedence\)
 * Overridden by environment variables \(ex: `$MAPP_FOO` `$MYAPP_LOG_LOGGING_LEVEL`, etc\)
 
 ## Application Default Settings
@@ -88,7 +88,7 @@ You can always use a standard `dict` for configuration and meta defaults, which 
 
 ## Builtin Default Configuration Settings
 
-Cement defines a list of meta options that can be overridden by configuration settings in [`App.Meta.core_meta_override`](http://cement.readthedocs.io/en/2.99/api/core/foundation/#cement.core.foundation.App.Meta.core_meta_override) \(used by the framework\), and [`App.Meta.meta_override`](http://cement.readthedocs.io/en/2.99/api/core/foundation/#cement.core.foundation.App.Meta.meta_override) \(used by the application developer\). These are not required to exist in the config defaults or parsed configuration files. However, if they do, Cement will honor them and override the defined application meta options.
+Cement defines a list of meta options that can be overridden by configuration settings in [`App.Meta.core_meta_override`](http://cement.readthedocs.io/en/3.0/api/core/foundation/#cement.core.foundation.App.Meta.core_meta_override) \(used by the framework\), and [`App.Meta.meta_override`](http://cement.readthedocs.io/en/3.0/api/core/foundation/#cement.core.foundation.App.Meta.meta_override) \(used by the application developer\). These are not required to exist in the config defaults or parsed configuration files. However, if they do, Cement will honor them and override the defined application meta options.
 
 ## Configuration File Loading
 
@@ -115,7 +115,7 @@ We also define the following configuration directories to scan for additional co
 
 
 {% hint style="info" %}
-These lists are dynamically generated based on the `App.meta.label`, as well as [`App.meta.config_file_suffix`](https://cement.readthedocs.io/en/2.99/api/core/foundation/#cement.core.foundation.App.Meta.config_file_suffix). They can be extended by adding files via [`App.Meta.config_files`](https://cement.readthedocs.io/en/2.99/api/core/foundation/#cement.core.foundation.App.Meta.config_files) or directories to [`App.Meta.config_dirs`](https://cement.readthedocs.io/en/2.99/api/core/foundation/#cement.core.foundation.App.Meta.config_dirs).
+These lists are dynamically generated based on the `App.meta.label`, as well as [`App.meta.config_file_suffix`](https://cement.readthedocs.io/en/3.0/api/core/foundation/#cement.core.foundation.App.Meta.config_file_suffix). They can be extended by adding files via [`App.Meta.config_files`](https://cement.readthedocs.io/en/3.0/api/core/foundation/#cement.core.foundation.App.Meta.config_files) or directories to [`App.Meta.config_dirs`](https://cement.readthedocs.io/en/3.0/api/core/foundation/#cement.core.foundation.App.Meta.config_dirs).
 {% endhint %}
 
 ## Accessing Configuration Settings
@@ -190,26 +190,26 @@ The key things to note about application configuration settings are:
 
 **Meta Options**
 
-Meta options are used on the backend by developers to alter how classes operate. For example, the [`App.Meta.log_handler`](http://cement.readthedocs.io/en/2.99/api/core/foundation/#cement.core.foundation.App.Meta.log_handler) defines the default log handler as `logging` \(`cement.ext.ext_logging.LoggingLogHandler`\), however because this is built on an interface definition, Cement can use any other log handler the same way without issue as long as that log handler properly implements the interface definition. Meta options make this change seamless and allows the handler to alter functionality, rather than having to change code in the top level class itself.
+Meta options are used on the backend by developers to alter how classes operate. For example, the [`App.Meta.log_handler`](http://cement.readthedocs.io/en/3.0/api/core/foundation/#cement.core.foundation.App.Meta.log_handler) defines the default log handler as `logging` \(`cement.ext.ext_logging.LoggingLogHandler`\), however because this is built on an interface definition, Cement can use any other log handler the same way without issue as long as that log handler properly implements the interface definition. Meta options make this change seamless and allows the handler to alter functionality, rather than having to change code in the top level class itself.
 
 The key thing to note about meta options are:
 
 * They give the **developer** flexibility in how the code operates.
-* End users should not have access to modify meta options via a config file or similar 'dynamic' configuration unless explicitly listed in [`Cement.Meta.core_meta_override`](http://cement.readthedocs.io/en/2.99/api/core/foundation/#cement.core.foundation.App.Meta.core_meta_override) or [`CementApp.Meta.meta_override`](http://cement.readthedocs.io/en/2.99/api/core/foundation/#cement.core.foundation.App.Meta.meta_override) \(for example, the `debug` setting under the `[<app_label>]` section overrides `App.Meta.debug` by default.
+* End users should not have access to modify meta options via a config file or similar 'dynamic' configuration unless explicitly listed in [`Cement.Meta.core_meta_override`](http://cement.readthedocs.io/en/3.0/api/core/foundation/#cement.core.foundation.App.Meta.core_meta_override) or [`CementApp.Meta.meta_override`](http://cement.readthedocs.io/en/3.0/api/core/foundation/#cement.core.foundation.App.Meta.meta_override) \(for example, the `debug` setting under the `[<app_label>]` section overrides `App.Meta.debug` by default.
 * Meta options are used to alter how classes work, but they are considered 'hard-coded' settings. If the developer chooses to alter a meta option, it is for the life of that release.
 * Meta options should have a sane default, and be clearly documented.
 
 ## Application Defaults vs Handler Defaults
 
-There may be slight confusion between the [`App.Meta.config_defaults`](http://cement.readthedocs.io/en/2.99/api/core/foundation/#cement.core.foundation.App.Meta.config_defaults) and the [`Handler.Meta.config_defaults`](http://cement.readthedocs.io/en/2.99/api/core/handler/#cement.core.handler.Handler.Meta.config_defaults) meta options. They both are very similar, however the application level configuration defaults are intended to be used to set defaults for multiple sections. Therefore, the `App.Meta.config_defaults` option is a `dict` with nested `dict`s under it. Each key of the top level `dict` relates to a config `[section]` and the nested `dict`s are the settings for that `[section]`.
+There may be slight confusion between the [`App.Meta.config_defaults`](http://cement.readthedocs.io/en/3.0/api/core/foundation/#cement.core.foundation.App.Meta.config_defaults) and the [`Handler.Meta.config_defaults`](http://cement.readthedocs.io/en/3.0/api/core/handler/#cement.core.handler.Handler.Meta.config_defaults) meta options. They both are very similar, however the application level configuration defaults are intended to be used to set defaults for multiple sections. Therefore, the `App.Meta.config_defaults` option is a `dict` with nested `dict`s under it. Each key of the top level `dict` relates to a config `[section]` and the nested `dict`s are the settings for that `[section]`.
 
-The `Handler.Meta.config_defaults` only pertain to a single `[section]` and therefore is only a single level `dict`, whose settings are applied to that section of the application's configuration \(defined by [`Handler.Meta.config_section`](http://cement.readthedocs.io/en/2.99/api/core/handler/#cement.core.handler.Handler.Meta.config_section)\).
+The `Handler.Meta.config_defaults` only pertain to a single `[section]` and therefore is only a single level `dict`, whose settings are applied to that section of the application's configuration \(defined by [`Handler.Meta.config_section`](http://cement.readthedocs.io/en/3.0/api/core/handler/#cement.core.handler.Handler.Meta.config_section)\).
 
 
 
 ## Creating a Config Handler
 
-All interfaces in Cement can be overridden with your own implementation.  This can be done either by sub-classing [`ConfigHandler`](https://cement.readthedocs.io/en/2.99/api/core/config/#cement.core.config.ConfigHandler) itself, or by sub-classing an existing extension's handlers in order to alter their functionality.
+All interfaces in Cement can be overridden with your own implementation.  This can be done either by sub-classing [`ConfigHandler`](https://cement.readthedocs.io/en/3.0/api/core/config/#cement.core.config.ConfigHandler) itself, or by sub-classing an existing extension's handlers in order to alter their functionality.
 
 {% tabs %}
 {% tab title="Example: Creating a Config Handler" %}

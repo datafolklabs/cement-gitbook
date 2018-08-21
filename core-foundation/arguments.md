@@ -2,7 +2,7 @@
 
 ## Introduction to the Argument Interface
 
-Cement defines an [Argument Interface](https://cement.readthedocs.io/en/2.99/api/core/arg/#cement.core.arg.ArgumentInterface), as well as the default [ArgParseArgumentHandler](https://cement.readthedocs.io/en/2.99/api/core/arg/#cement.core.arg.ArgumentHandler) that implements the interface. This handler is built on top of the [ArgParse](http://docs.python.org/library/argparse.html) module which is included in the Python standard library.
+Cement defines an [Argument Interface](https://cement.readthedocs.io/en/3.0/api/core/arg/#cement.core.arg.ArgumentInterface), as well as the default [ArgParseArgumentHandler](https://cement.readthedocs.io/en/3.0/api/core/arg/#cement.core.arg.ArgumentHandler) that implements the interface. This handler is built on top of the [ArgParse](http://docs.python.org/library/argparse.html) module which is included in the Python standard library.
 
 {% hint style="warning" %}
 Cement often includes multiple handler implementations of an interface that may or may not have additional features or functionality than the interface requires.  The documentation below only references usage based on the interface and default handler \(not the full capabilities of an implementation\).
@@ -14,14 +14,14 @@ Cement often includes multiple handler implementations of an interface that may 
 
 **API References:**
 
-* [Cement Core Argument Module](https://cement.readthedocs.io/en/2.99/api/core/arg/)
-* [Cement Argparse Extension](https://cement.readthedocs.io/en/2.99/api/ext/ext_argparse)
+* [Cement Core Argument Module](https://cement.readthedocs.io/en/3.0/api/core/arg/)
+* [Cement Argparse Extension](https://cement.readthedocs.io/en/3.0/api/ext/ext_argparse)
 
 ## **Configuration**
 
 ### **Application Meta Options**
 
-The following options under [`App.Meta`](https://cement.readthedocs.io/en/2.99/api/core/foundation/#cement.core.foundation.App.Meta) modify configuration handling:
+The following options under [`App.Meta`](https://cement.readthedocs.io/en/3.0/api/core/foundation/#cement.core.foundation.App.Meta) modify configuration handling:
 
 | **Option** | **Description** |
 | :--- | :--- |
@@ -63,7 +63,7 @@ optional arguments:
 
 ## Accessing Parsed Arguments
 
-During `app.run()`, command line arguments are parsed by the argument handler, and the results are stored by the application.  Arguments are then accessible by [`App.pargs`](https://cement.readthedocs.io/en/2.99/api/core/foundation/#cement.core.foundation.App.pargs) \(parsed args\).
+During `app.run()`, command line arguments are parsed by the argument handler, and the results are stored by the application.  Arguments are then accessible by [`App.pargs`](https://cement.readthedocs.io/en/3.0/api/core/foundation/#cement.core.foundation.App.pargs) \(parsed args\).
 
 {% tabs %}
 {% tab title="Example: Accessing Parsed Arguments" %}
@@ -88,7 +88,7 @@ with App('myapp') as app:
 
 ## Creating an Argument Handler
 
-All interfaces in Cement can be overridden with your own implementation.  This can be done either by sub-classing [ArgumentHandler](https://cement.readthedocs.io/en/2.99/api/core/template/#cement.core.template.TemplateHandler) itself, or by sub-classing an existing extension's handlers in order to alter their functionality.
+All interfaces in Cement can be overridden with your own implementation.  This can be done either by sub-classing [ArgumentHandler](https://cement.readthedocs.io/en/3.0/api/core/template/#cement.core.template.TemplateHandler) itself, or by sub-classing an existing extension's handlers in order to alter their functionality.
 
 {% tabs %}
 {% tab title="Example: Creating an Argument Handler" %}

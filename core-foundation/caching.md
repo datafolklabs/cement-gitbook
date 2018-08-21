@@ -2,7 +2,7 @@
 
 ## Introduction to the Cache Interface
 
-Cement defines a [Cache Interface](https://cement.readthedocs.io/en/2.99/api/core/cache/#cement.core.cache.CacheInterface), but does not implement caching by default. 
+Cement defines a [Cache Interface](https://cement.readthedocs.io/en/3.0/api/core/cache/#cement.core.cache.CacheInterface), but does not implement caching by default. 
 
 {% hint style="warning" %}
 Cement often includes multiple handler implementations of an interface that may or may not have additional features or functionality than the interface requires.  The documentation below only references usage based on the interface and default handler \(not the full capabilities of an implementation\).
@@ -15,13 +15,13 @@ Cement often includes multiple handler implementations of an interface that may 
 
 **API References:**
 
-* [Cement Core Cache Module](https://cement.readthedocs.io/en/2.99/api/core/cache)
+* [Cement Core Cache Module](https://cement.readthedocs.io/en/3.0/api/core/cache)
 
 ## **Configuration**
 
 ### **Application Meta Options**
 
-The following options under [`App.Meta`](https://cement.readthedocs.io/en/2.99/api/core/foundation/#cement.core.foundation.App.Meta) modify configuration handling:
+The following options under [`App.Meta`](https://cement.readthedocs.io/en/3.0/api/core/foundation/#cement.core.foundation.App.Meta) modify configuration handling:
 
 | **Option** | **Description** |
 | :--- | :--- |
@@ -69,7 +69,7 @@ with MyApp() as app:
 
 ## Creating a Cache Handler
 
-All interfaces in Cement can be overridden with your own implementation.  This can be done either by sub-classing [`CacheHandler`](https://cement.readthedocs.io/en/2.99/api/core/cache/#cement.core.cache.CacheHandler) itself, or by sub-classing an existing extension's handlers in order to alter their functionality.
+All interfaces in Cement can be overridden with your own implementation.  This can be done either by sub-classing [`CacheHandler`](https://cement.readthedocs.io/en/3.0/api/core/cache/#cement.core.cache.CacheHandler) itself, or by sub-classing an existing extension's handlers in order to alter their functionality.
 
 {% tabs %}
 {% tab title="Example: Creating a Cache Handler" %}

@@ -2,7 +2,7 @@
 
 ## Introduction
 
-The Argparse Extension provides the [`ArgparseArgumentHandler`](http://cement.readthedocs.io/en/2.99/api/ext/ext_argparse/#cement.ext.ext_argparse.ArgparseArgumentHandler) for argument parsing, and the [`ArgparseController`](http://cement.readthedocs.io/en/2.99/api/ext/ext_argparse/#cement.ext.ext_argparse.ArgparseController) for runtime dispatch.  Both are the defaults used by Cement.
+The Argparse Extension provides the [`ArgparseArgumentHandler`](http://cement.readthedocs.io/en/3.0/api/ext/ext_argparse/#cement.ext.ext_argparse.ArgparseArgumentHandler) for argument parsing, and the [`ArgparseController`](http://cement.readthedocs.io/en/3.0/api/ext/ext_argparse/#cement.ext.ext_argparse.ArgparseController) for runtime dispatch.  Both are the defaults used by Cement.
 
 **Documentation References:**
 
@@ -11,7 +11,7 @@ The Argparse Extension provides the [`ArgparseArgumentHandler`](http://cement.re
 
 **API References**
 
-* [Cement Argparse Extension](http://cement.readthedocs.io/en/2.99/api/ext/ext_argparse/)
+* [Cement Argparse Extension](http://cement.readthedocs.io/en/3.0/api/ext/ext_argparse/)
 * [Python Argparse Module](https://docs.python.org/3/library/argparse.html)
 
 ## Requirements
@@ -25,7 +25,7 @@ This extension does not rely on any application level configuration settings or 
 
 ## Usage
 
-The following is an example application using both the [`ArgparseArgumentHandler`](http://cement.readthedocs.io/en/2.99/api/ext/ext_argparse/#cement.ext.ext_argparse.ArgparseArgumentHandler) and [`ArgparseController`](http://cement.readthedocs.io/en/2.99/api/ext/ext_argparse/#cement.ext.ext_argparse.ArgparseController). Note that the default `arg_handler` is already set to`ArgparseArgumentHandler` by `App`.
+The following is an example application using both the [`ArgparseArgumentHandler`](http://cement.readthedocs.io/en/3.0/api/ext/ext_argparse/#cement.ext.ext_argparse.ArgparseArgumentHandler) and [`ArgparseController`](http://cement.readthedocs.io/en/3.0/api/ext/ext_argparse/#cement.ext.ext_argparse.ArgparseController). Note that the default `arg_handler` is already set to`ArgparseArgumentHandler` by `App`.
 
 {% tabs %}
 {% tab title="Example: Using Argparse Extension" %}

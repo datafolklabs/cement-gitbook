@@ -2,15 +2,15 @@
 
 ## Introduction to the Filesystem Utilities {#introduction-to-the-output-interface}
 
-Cement includes a [Filesystem Utility Module](https://cement.readthedocs.io/en/2.99/api/utils/fs/) with helpers for common tasks related to filesystem management.
+Cement includes a [Filesystem Utility Module](https://cement.readthedocs.io/en/3.0/api/utils/fs/) with helpers for common tasks related to filesystem management.
 
 **API References:**
 
-* [Cement Filesystem Utility Module](https://cement.readthedocs.io/en/2.99/api/utils/fs/)
+* [Cement Filesystem Utility Module](https://cement.readthedocs.io/en/3.0/api/utils/fs/)
 
 ## Temporary Directories and Files
 
-Creating and cleaning up temporary directories and files can be tedious, so we created the [`fs.Tmp`](https://cement.readthedocs.io/en/2.99/api/utils/fs/#cement.utils.fs.Tmp) class to make management easy:
+Creating and cleaning up temporary directories and files can be tedious, so we created the [`fs.Tmp`](https://cement.readthedocs.io/en/3.0/api/utils/fs/#cement.utils.fs.Tmp) class to make management easy:
 
 {% tabs %}
 {% tab title="Example: Temporary Directories and Files" %}

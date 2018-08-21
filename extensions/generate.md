@@ -2,7 +2,7 @@
 
 ## Introduction
 
-The Generate Extension includes the [Generate](https://cement.readthedocs.io/en/2.99/api/ext/ext_generate/#cement.ext.ext_generate.Generate) controller, and provides a mechanism for generating common content from template directories. An example use case would be the ability for application developers to easily generate new plugins for their application… similar in other applications such as Chef Software’s `chef generate cookbook` type utilities.
+The Generate Extension includes the [Generate](https://cement.readthedocs.io/en/3.0/api/ext/ext_generate/#cement.ext.ext_generate.Generate) controller, and provides a mechanism for generating common content from template directories. An example use case would be the ability for application developers to easily generate new plugins for their application… similar in other applications such as Chef Software’s `chef generate cookbook` type utilities.
 
 The [Cement Developer Tools](../getting-started/developer-tools.md) use this extension to generate projects, plugins, extensions, scripts, etc for developers building their applications on the framework.
 
@@ -12,12 +12,12 @@ The [Cement Developer Tools](../getting-started/developer-tools.md) use this ext
 
 **API References:**
 
-* [Cement Generate Extension](http://cement.readthedocs.io/en/2.99/api/ext/ext_generate/)
+* [Cement Generate Extension](http://cement.readthedocs.io/en/3.0/api/ext/ext_generate/)
 
 ## **Requirements**
 
 * pyYaml \(`pip install pyYaml`\)
-* A valid [template handler](../core-foundation/templating.md) must be defined at the application level via [`App.Meta.template_handler`](http://cement.readthedocs.io/en/2.99/api/core/foundation/#cement.core.foundation.App.Meta.template_handler) such as `jinja2`, `mustache`, etc.
+* A valid [template handler](../core-foundation/templating.md) must be defined at the application level via [`App.Meta.template_handler`](http://cement.readthedocs.io/en/3.0/api/core/foundation/#cement.core.foundation.App.Meta.template_handler) such as `jinja2`, `mustache`, etc.
 
 ## **Configuration**
 
@@ -31,7 +31,7 @@ This extension honors the following settings under the primary namespace \(ex: `
 
 ### **Application Meta Options**
 
-This extension honors the following [`App.Meta`](http://cement.readthedocs.io/en/2.99/api/core/foundation/?highlight=app.meta#cement.core.foundation.App.Meta) options:
+This extension honors the following [`App.Meta`](http://cement.readthedocs.io/en/3.0/api/core/foundation/?highlight=app.meta#cement.core.foundation.App.Meta) options:
 
 | **Option** | **Description** |
 | :--- | :--- |

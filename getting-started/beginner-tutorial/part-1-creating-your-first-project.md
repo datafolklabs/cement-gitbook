@@ -180,7 +180,7 @@ Look at that!  Let's play around with some of the pre-built features:
 
 $ todo --version
 A Simple TODO Application 0.0.1.dev20180730022818
-Cement Framework 2.99.2
+Cement Framework 3.0.0 
 Python 3.7.0
 Platform Darwin-17.7.0-x86_64-i386-64bit
 

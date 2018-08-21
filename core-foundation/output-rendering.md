@@ -2,7 +2,7 @@
 
 ## Introduction to the Output Interface
 
-Cement defines an [Output Interface](https://cement.readthedocs.io/en/2.99/api/core/output/#cement.core.output.OutputInterface), as well as the default [DummyOutputHandler](https://docs.builtoncement.com/%7B%7B%20version%20%7D%7D/api/ext/ext_dummy.html) that implements the interface as a placeholder but does not actually produce any output.
+Cement defines an [Output Interface](https://cement.readthedocs.io/en/3.0/api/core/output/#cement.core.output.OutputInterface), as well as the default [DummyOutputHandler](https://docs.builtoncement.com/%7B%7B%20version%20%7D%7D/api/ext/ext_dummy.html) that implements the interface as a placeholder but does not actually produce any output.
 
 {% hint style="warning" %}
 Cement often includes multiple handler implementations of an interface that may or may not have additional features or functionality than the interface requires.  The documentation below only references usage based on the interface and default handler \(not the full capabilities of an implementation\).
@@ -19,13 +19,13 @@ Cement often includes multiple handler implementations of an interface that may 
 
 **API References:**
 
-* [Cement Core Output Module](https://cement.readthedocs.io/en/2.99/api/core/output)
+* [Cement Core Output Module](https://cement.readthedocs.io/en/3.0/api/core/output)
 
 ## **Configuration**
 
 ### **Application Meta Options**
 
-The following options under [`App.Meta`](https://cement.readthedocs.io/en/2.99/api/core/foundation/#cement.core.foundation.App.Meta) modify configuration handling:
+The following options under [`App.Meta`](https://cement.readthedocs.io/en/3.0/api/core/foundation/#cement.core.foundation.App.Meta) modify configuration handling:
 
 | **Option** | **Description** |
 | :--- | :--- |
@@ -147,7 +147,7 @@ Example Jinja2 Template
 
 ## Template Directory Loading
 
-Template directories are looked for in the most common places by default as defined by [`App.Meta.template_dirs`](https://cement.readthedocs.io/en/2.99/api/core/foundation/#cement.core.foundation.App.Meta.template_dirs):
+Template directories are looked for in the most common places by default as defined by [`App.Meta.template_dirs`](https://cement.readthedocs.io/en/3.0/api/core/foundation/#cement.core.foundation.App.Meta.template_dirs):
 
 * ~/.myapp/templates
 * ~/.config/myapp/templates
@@ -161,7 +161,7 @@ Once a template is found, loading stops and the template is rendered.
 
 ## Creating an Output Handler
 
-All interfaces in Cement can be overridden with your own implementation.  This can be done either by sub-classing [`OutputHandler`](https://cement.readthedocs.io/en/2.99/api/core/output/#cement.core.output.OutputHandler) itself, or by sub-classing an existing extension's handlers in order to alter their functionality.
+All interfaces in Cement can be overridden with your own implementation.  This can be done either by sub-classing [`OutputHandler`](https://cement.readthedocs.io/en/3.0/api/core/output/#cement.core.output.OutputHandler) itself, or by sub-classing an existing extension's handlers in order to alter their functionality.
 
 {% tabs %}
 {% tab title="Example: Creating an Output Handler" %}

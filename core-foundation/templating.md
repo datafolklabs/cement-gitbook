@@ -2,7 +2,7 @@
 
 ## Introduction to the Template Interface {#introduction-to-the-output-interface}
 
-Cement defines a [Template Interface](https://cement.readthedocs.io/en/2.99/api/core/template/#cement.core.template.TemplateInterface), as well as a default [`DummyTemplateHandler`](https://cement.readthedocs.io/en/2.99/api/ext/ext_dummy/#cement.ext.ext_dummy.DummyTemplateHandler) that implements the interface as a placeholder but does not actually do anything.
+Cement defines a [Template Interface](https://cement.readthedocs.io/en/3.0/api/core/template/#cement.core.template.TemplateInterface), as well as a default [`DummyTemplateHandler`](https://cement.readthedocs.io/en/3.0/api/ext/ext_dummy/#cement.ext.ext_dummy.DummyTemplateHandler) that implements the interface as a placeholder but does not actually do anything.
 
 {% hint style="warning" %}
 Cement often includes multiple handler implementations of an interface that may or may not have additional features or functionality than the interface requires. The documentation below only references usage based on the interface and default handler \(not the full capabilities of an implementation\).
@@ -18,13 +18,13 @@ Cement often includes multiple handler implementations of an interface that may 
 
 **API References:**
 
-* [​Cement Core Template Module​](https://cement.readthedocs.io/en/2.99/api/core/template)
+* [​Cement Core Template Module​](https://cement.readthedocs.io/en/3.0/api/core/template)
 
 ## **Configuration** {#configuration}
 
 ### **Application Meta Options** {#application-meta-options}
 
-The following options under [`App.Meta`](https://cement.readthedocs.io/en/2.99/api/core/foundation/#cement.core.foundation.App.Meta) modify configuration handling:
+The following options under [`App.Meta`](https://cement.readthedocs.io/en/3.0/api/core/foundation/#cement.core.foundation.App.Meta) modify configuration handling:
 
 | **Option** | **Description** |
 | :--- | :--- |
@@ -68,7 +68,7 @@ When copying a source directory, both the file/directory path names themselves a
 
 ## Creating a Template Handler
 
-All interfaces in Cement can be overridden with your own implementation.  This can be done either by sub-classing [`TemplateHandler`](https://cement.readthedocs.io/en/2.99/api/core/template/#cement.core.template.TemplateHandler) itself, or by sub-classing an existing extension's handlers in order to alter their functionality.
+All interfaces in Cement can be overridden with your own implementation.  This can be done either by sub-classing [`TemplateHandler`](https://cement.readthedocs.io/en/3.0/api/core/template/#cement.core.template.TemplateHandler) itself, or by sub-classing an existing extension's handlers in order to alter their functionality.
 
 {% tabs %}
 {% tab title="Example: Creating a Template Handler" %}

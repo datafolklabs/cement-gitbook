@@ -2,7 +2,7 @@
 
 ## Introduction to the Mail Interface
 
-Cement defines a [Mail Interface](https://cement.readthedocs.io/en/2.99/api/core/mail/#cement.core.mail.MailInterface), as well as the default [DummyMailHandler](https://docs.builtoncement.com/%7B%7B%20version%20%7D%7D/api/ext/ext_dummy.html#cement.ext.ext_dummy.DummyMailHandler) that implements the interface as a placeholder but does not actually send any mail.
+Cement defines a [Mail Interface](https://cement.readthedocs.io/en/3.0/api/core/mail/#cement.core.mail.MailInterface), as well as the default [DummyMailHandler](https://docs.builtoncement.com/%7B%7B%20version%20%7D%7D/api/ext/ext_dummy.html#cement.ext.ext_dummy.DummyMailHandler) that implements the interface as a placeholder but does not actually send any mail.
 
 {% hint style="warning" %}
 Cement often includes multiple handler implementations of an interface that may or may not have additional features or functionality than the interface requires.  The documentation below only references usage based on the interface and default handler \(not the full capabilities of an implementation\).
@@ -15,13 +15,13 @@ Cement often includes multiple handler implementations of an interface that may 
 
 **API References:**
 
-* [Cement Core Mail Module](https://cement.readthedocs.io/en/2.99/api/core/mail)
+* [Cement Core Mail Module](https://cement.readthedocs.io/en/3.0/api/core/mail)
 
 ## **Configuration**
 
 ### **Application Meta Options**
 
-The following options under [`App.Meta`](https://cement.readthedocs.io/en/2.99/api/core/foundation/#cement.core.foundation.App.Meta) modify configuration handling:
+The following options under [`App.Meta`](https://cement.readthedocs.io/en/3.0/api/core/foundation/#cement.core.foundation.App.Meta) modify configuration handling:
 
 | **Option** | **Description** |
 | :--- | :--- |
@@ -77,7 +77,7 @@ The default `dummy` mail handler simply prints the message to console, and does 
 
 ## Creating a Mail Handler
 
-All interfaces in Cement can be overridden with your own implementation.  This can be done either by sub-classing [`MailHandler`](https://cement.readthedocs.io/en/2.99/api/core/mail/#cement.core.mail.MailHandler) itself, or by sub-classing an existing extension's handlers in order to alter their functionality.
+All interfaces in Cement can be overridden with your own implementation.  This can be done either by sub-classing [`MailHandler`](https://cement.readthedocs.io/en/3.0/api/core/mail/#cement.core.mail.MailHandler) itself, or by sub-classing an existing extension's handlers in order to alter their functionality.
 
 {% tabs %}
 {% tab title="Example: Creating a Mail Handler" %}

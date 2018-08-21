@@ -106,7 +106,7 @@ Regardless of how signals are handled, all extensions or plugins should use the 
 
 ## Configuring Which Signals To Catch
 
-You can define what signals to catch via [App.Meta.catch\_signals](https://cement.readthedocs.io/en/2.99/api/core/foundation/#cement.core.foundation.App.Meta.catch_signals).
+You can define what signals to catch via [App.Meta.catch\_signals](https://cement.readthedocs.io/en/3.0/api/core/foundation/#cement.core.foundation.App.Meta.catch_signals).
 
 {% tabs %}
 {% tab title="Example: Configuring Which Signals to Catch" %}
@@ -132,7 +132,7 @@ What happens is, Cement iterates over the `App.Meta.catch_signals` list and adds
 
 If you want more control over what happens when a signal is caught, you are more than welcome to override the default signal handler callback. That said, please be kind and be sure to at least run the cement `signal` hook within your callback.
 
-The following is an example taken from the builtin [`cement_signal_handler`](https://cement.readthedocs.io/en/2.99/api/core/foundation/#cement.core.foundation.cement_signal_handler) callback. Note that there is a bit of hackery in how we are acquiring the `CementApp` from the frame. This is because the signal is picked up outside of our control so we need to find it.
+The following is an example taken from the builtin [`cement_signal_handler`](https://cement.readthedocs.io/en/3.0/api/core/foundation/#cement.core.foundation.cement_signal_handler) callback. Note that there is a bit of hackery in how we are acquiring the `CementApp` from the frame. This is because the signal is picked up outside of our control so we need to find it.
 
 {% tabs %}
 {% tab title="Example: Overriding the Builtin Signal Handler Callback" %}

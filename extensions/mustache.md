@@ -11,7 +11,7 @@ The Mustache Extension provides output and file templating based on the [Mustach
 
 **API References**
 
-* [Cement Mustache Extension](https://cement.readthedocs.io/en/2.99/api/ext/ext_mustache/)
+* [Cement Mustache Extension](https://cement.readthedocs.io/en/3.0/api/ext/ext_mustache/)
 * [Mustache Library](http://mustache.github.io/)
 
 ## Requirements
@@ -30,7 +30,7 @@ This extension honors the following settings under the primary namespace \(ex: `
 
 ### **Application Meta Options**
 
-This extension honors the following [`App.Meta`](http://cement.readthedocs.io/en/2.99/api/core/foundation/?highlight=app.meta#cement.core.foundation.App.Meta) options:
+This extension honors the following [`App.Meta`](http://cement.readthedocs.io/en/3.0/api/core/foundation/?highlight=app.meta#cement.core.foundation.App.Meta) options:
 
 | **Option** | **Description** |
 | :--- | :--- |

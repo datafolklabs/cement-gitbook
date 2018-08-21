@@ -2,7 +2,7 @@
 
 ## Introduction
 
-The Print Extension adds the [`PrintOutputHandler`](http://cement.readthedocs.io/en/2.99/api/ext/ext_print/#cement.ext.ext_print.PrintOutputHandler) and [`PrintDictOutputHandler`](http://cement.readthedocs.io/en/2.99/api/ext/ext_print/#cement.ext.ext_print.PrintDictOutputHandler) to render output in pure text. It is mostly intended for development, but also supports the additional `app.print()`extended function which can be used in place of the standard `print()` so that apps can continue to utilize features of the framework consistently \(such as honoring [`pre_render`](../core-foundation/hooks.md#pre_render) and [`post_render`](../core-foundation/hooks.md#post_render)hooks, etc\).
+The Print Extension adds the [`PrintOutputHandler`](http://cement.readthedocs.io/en/3.0/api/ext/ext_print/#cement.ext.ext_print.PrintOutputHandler) and [`PrintDictOutputHandler`](http://cement.readthedocs.io/en/3.0/api/ext/ext_print/#cement.ext.ext_print.PrintDictOutputHandler) to render output in pure text. It is mostly intended for development, but also supports the additional `app.print()`extended function which can be used in place of the standard `print()` so that apps can continue to utilize features of the framework consistently \(such as honoring [`pre_render`](../core-foundation/hooks.md#pre_render) and [`post_render`](../core-foundation/hooks.md#post_render)hooks, etc\).
 
 **Documentation References:**
 
@@ -10,7 +10,7 @@ The Print Extension adds the [`PrintOutputHandler`](http://cement.readthedocs.io
 
 **API References:**
 
-* [Cement Print Extension](https://cement.readthedocs.io/en/2.99/api/ext/ext_print/)
+* [Cement Print Extension](https://cement.readthedocs.io/en/3.0/api/ext/ext_print/)
 
 ## Requirements
 

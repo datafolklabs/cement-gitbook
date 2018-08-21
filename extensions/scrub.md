@@ -8,7 +8,7 @@ Scrubbing happens in a [`post_render`](../core-foundation/hooks.md#pre_render) h
 
 **API References:**
 
-* [Cement Scrub Extension](https://cement.readthedocs.io/en/2.99/api/ext/ext_scrub/)
+* [Cement Scrub Extension](https://cement.readthedocs.io/en/3.0/api/ext/ext_scrub/)
 
 ## **Requirements**
 

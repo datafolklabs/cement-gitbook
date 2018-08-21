@@ -2,7 +2,7 @@
 
 ## Introduction
 
-The ColorLog Extension provides the [`ColorLogHandler`](http://cement.readthedocs.io/en/2.99/api/ext/ext_colorlog/#cement.ext.ext_colorlog.ColorLogHandler) for logging, and is a sub-class and drop-in replacement for the default log handler [`LoggingLogHandler`](http://cement.readthedocs.io/en/2.99/api/ext/ext_logging/#cement.ext.ext_logging.LoggingLogHandler).
+The ColorLog Extension provides the [`ColorLogHandler`](http://cement.readthedocs.io/en/3.0/api/ext/ext_colorlog/#cement.ext.ext_colorlog.ColorLogHandler) for logging, and is a sub-class and drop-in replacement for the default log handler [`LoggingLogHandler`](http://cement.readthedocs.io/en/3.0/api/ext/ext_logging/#cement.ext.ext_logging.LoggingLogHandler).
 
 **Documentation References:**
 
@@ -10,7 +10,7 @@ The ColorLog Extension provides the [`ColorLogHandler`](http://cement.readthedoc
 
 **API References:**
 
-* [Cement Colorlog Extension](http://cement.readthedocs.io/en/2.99/api/ext/ext_colorlog/)
+* [Cement Colorlog Extension](http://cement.readthedocs.io/en/3.0/api/ext/ext_colorlog/)
 * [Colorlog Module](https://pypi.org/project/colorlog/)
 
 ## Requirements
@@ -79,7 +79,7 @@ with MyApp() as app:
 {% endtabs %}
 
 {% hint style="info" %}
-The colors can be customized by passing in a `colors` dictionary mapping overriding the [`ColorLogHandler.Meta.colors`](http://cement.readthedocs.io/en/2.99/api/ext/ext_colorlog/#cement.ext.ext_colorlog.ColorLogHandler.Meta.colors) option
+The colors can be customized by passing in a `colors` dictionary mapping overriding the [`ColorLogHandler.Meta.colors`](http://cement.readthedocs.io/en/3.0/api/ext/ext_colorlog/#cement.ext.ext_colorlog.ColorLogHandler.Meta.colors) option
 {% endhint %}
 
 {% tabs %}

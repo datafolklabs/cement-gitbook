@@ -10,7 +10,7 @@ The Logging Extension includes the LoggingLogHandler, and provides log handling 
 
 **API References:**
 
-* [Cement Logging Extension](https://cement.readthedocs.io/en/2.99/api/ext/ext_logging/)
+* [Cement Logging Extension](https://cement.readthedocs.io/en/3.0/api/ext/ext_logging/)
 * [Python Logging Library](https://docs.python.org/3/library/logging.html)
 
 ## Requirements
@@ -54,7 +54,7 @@ max_files = 4
 
 This extension supports an optional feature to add a command-line argument to toggle the log level. This feature is not enabled by default for one specific reason: the log level will not be modified until **after** argument parsing happens. This can lead to a lot of confusion for developers who might not see their debug logs from a `pre_setup` hook, or anything that happens before argument parsing completes. For this reason, you should use this feature with caution and thus we disable it by default.
 
-You can enable the log level argument by setting via [`App.Meta.meta_defaults`](https://cement.readthedocs.io/en/2.99/api/core/foundation/#cement.core.foundation.App.Meta.meta_defaults) for the `log.logging` handler:
+You can enable the log level argument by setting via [`App.Meta.meta_defaults`](https://cement.readthedocs.io/en/3.0/api/core/foundation/#cement.core.foundation.App.Meta.meta_defaults) for the `log.logging` handler:
 
 {% tabs %}
 {% tab title="Example: Enabling Log Level Argument" %}

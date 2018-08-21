@@ -10,7 +10,7 @@ Documentation References:
 
 API References:
 
-* [Cement Redis Extension](https://cement.readthedocs.io/en/2.99/api/ext/ext_redis/)
+* [Cement Redis Extension](https://cement.readthedocs.io/en/3.0/api/ext/ext_redis/)
 * [Redis Library](https://redislabs.com/lp/python-redis/)
 
 ## Requirements

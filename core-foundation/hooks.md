@@ -18,7 +18,7 @@ The most important thing to remember when defining hooks for your application is
 
 ### **Application Meta Options**
 
-The following options under [`App.Meta`](https://cement.readthedocs.io/en/2.99/api/core/foundation/#cement.core.foundation.App.Meta) modify hook handling:
+The following options under [`App.Meta`](https://cement.readthedocs.io/en/3.0/api/core/foundation/#cement.core.foundation.App.Meta) modify hook handling:
 
 | **Option** | **Description** |
 | :--- | :--- |
@@ -27,7 +27,7 @@ The following options under [`App.Meta`](https://cement.readthedocs.io/en/2.99/a
 
 ## Working with Hooks
 
-The [`HookManager`](https://cement.readthedocs.io/en/2.99/api/core/hook/#cement.core.hook.HookManager) provides mechanisms for defining, registering, and executing hooks.
+The [`HookManager`](https://cement.readthedocs.io/en/3.0/api/core/hook/#cement.core.hook.HookManager) provides mechanisms for defining, registering, and executing hooks.
 
 {% tabs %}
 {% tab title="Example: Working with Hooks" %}
@@ -62,7 +62,7 @@ with App('myapp') as app:
 
 A hook can be defined anywhere.  However it is generally recommended to define the hook as early as possible. A hook definition simply gives a label to the hook, and allows the developer \(or third-party plugin developers\) to register functions to that hook. Its label is arbitrary.
 
-The most convenient way to define a hook is via [`CementApp.Meta.define_hooks`](https://cement.readthedocs.io/en/2.99/api/core/foundation/#cement.core.foundation.App.Meta.define_hooks):
+The most convenient way to define a hook is via [`CementApp.Meta.define_hooks`](https://cement.readthedocs.io/en/3.0/api/core/foundation/#cement.core.foundation.App.Meta.define_hooks):
 
 {% tabs %}
 {% tab title="Example: Defining Hooks via App" %}
@@ -94,7 +94,7 @@ def load(app):
 
 A hook is just an identifier, but the functions registered to that hook are what get run when the hook is called. Registering a hook function should also be done early on in the runtime process, any time after the application has been created, after the hook is defined, and before the hook is run. Note that every hook is different, and therefore should be clearly documented by the owner of the hook \(application developer, plugin developer, etc\).
 
-The most convenient way to register a hook function is via [`CementApp.Meta.hooks`](https://cement.readthedocs.io/en/2.99/api/core/foundation/#cement.core.foundation.App.Meta.hooks):
+The most convenient way to register a hook function is via [`CementApp.Meta.hooks`](https://cement.readthedocs.io/en/3.0/api/core/foundation/#cement.core.foundation.App.Meta.hooks):
 
 {% tabs %}
 {% tab title="Example: Registering Functions to a Hook" %}

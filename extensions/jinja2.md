@@ -2,7 +2,7 @@
 
 ## Introduction
 
-The Jinja2 Extension provides the [`Jinja2OutputHandler`](http://cement.readthedocs.io/en/2.99/api/ext/ext_jinja2/#cement.ext.ext_jinja2.Jinja2OutputHandler) for output rendering, and the [`Jinja2TemplateHandler`](http://cement.readthedocs.io/en/2.99/api/ext/ext_jinja2/#cement.ext.ext_jinja2.Jinja2TemplateHandler) for file/content templating based on the Jinja2 templating language.
+The Jinja2 Extension provides the [`Jinja2OutputHandler`](http://cement.readthedocs.io/en/3.0/api/ext/ext_jinja2/#cement.ext.ext_jinja2.Jinja2OutputHandler) for output rendering, and the [`Jinja2TemplateHandler`](http://cement.readthedocs.io/en/3.0/api/ext/ext_jinja2/#cement.ext.ext_jinja2.Jinja2TemplateHandler) for file/content templating based on the Jinja2 templating language.
 
 **Documentation References:**
 
@@ -11,7 +11,7 @@ The Jinja2 Extension provides the [`Jinja2OutputHandler`](http://cement.readthed
 
 **API References:**
 
-* [Cement Jinja2 Extension](http://cement.readthedocs.io/en/2.99/api/ext/ext_jinja2/)
+* [Cement Jinja2 Extension](http://cement.readthedocs.io/en/3.0/api/ext/ext_jinja2/)
 * [Jinja2 Module](http://jinja.pocoo.org/docs/2.10/api/)
 
 ## Requirements
@@ -30,7 +30,7 @@ This extension honors the following settings under the primary namespace \(ex: `
 
 ### **Application Meta Options**
 
-This extension honors the following [`App.Meta`](http://cement.readthedocs.io/en/2.99/api/core/foundation/?highlight=app.meta#cement.core.foundation.App.Meta) options:
+This extension honors the following [`App.Meta`](http://cement.readthedocs.io/en/3.0/api/core/foundation/?highlight=app.meta#cement.core.foundation.App.Meta) options:
 
 | **Option** | **Description** |
 | :--- | :--- |

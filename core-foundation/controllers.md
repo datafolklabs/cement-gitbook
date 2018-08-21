@@ -2,13 +2,13 @@
 
 ## Introduction to the Controller Interface
 
-Cement defines a [Controller Interface](https://cement.readthedocs.io/en/2.99/api/core/controller/#cement.core.controller.ControllerInterface), but does not enable any handlers that implement the interface by default.
+Cement defines a [Controller Interface](https://cement.readthedocs.io/en/3.0/api/core/controller/#cement.core.controller.ControllerInterface), but does not enable any handlers that implement the interface by default.
 
 {% hint style="info" %}
 For convenience, the preferred `ArgparseController` and `expose()` decorator from the [Argparse Extension](../extensions/argparse.md) are available as `Controller` and `ex` in the top level cement module.
 {% endhint %}
 
-Using application controllers is not necessary, but enables rapid development by wrapping pieces of the framework like adding arguments, and linking commands with controller methods. The examples below use the [`ArgparseController`](https://cement.readthedocs.io/en/2.99/api/ext/ext_argparse/#cement.ext.ext_argparse.ArgparseController) as examples \(again, imported as `cement.Controller` for convenience\).
+Using application controllers is not necessary, but enables rapid development by wrapping pieces of the framework like adding arguments, and linking commands with controller methods. The examples below use the [`ArgparseController`](https://cement.readthedocs.io/en/3.0/api/ext/ext_argparse/#cement.ext.ext_argparse.ArgparseController) as examples \(again, imported as `cement.Controller` for convenience\).
 
 {% hint style="warning" %}
 Cement often includes multiple handler implementations of an interface that may or may not have additional features or functionality than the interface requires.  The documentation below only references usage based on the interface and default handler \(not the full capabilities of an implementation\).
@@ -20,8 +20,8 @@ Cement often includes multiple handler implementations of an interface that may 
 
 **API References:**
 
-* [Cement Core Controller Module](https://cement.readthedocs.io/en/2.99/api/core/controller)
-* [Cement Argparse Extension](https://cement.readthedocs.io/en/2.99/api/ext/ext_argparse)
+* [Cement Core Controller Module](https://cement.readthedocs.io/en/3.0/api/core/controller)
+* [Cement Argparse Extension](https://cement.readthedocs.io/en/3.0/api/ext/ext_argparse)
 
 ## Application Base Controllers
 
