@@ -2,7 +2,7 @@
 
 ## Introduction to Interfaces
 
-Cement builds upon a standard interface and handler system that is used extensively to break up pieces of the framework into relatable chucks, and allow customization of everything from logging to config file parsing, and almost every operation in between.
+Cement builds upon a standard interface and handler system that is used extensively to break up pieces of the framework into relatable chunks, and allow customization of everything from logging to config file parsing, and almost every operation in between.
 
 {% hint style="info" %}
 In Cement, an interface is what **defines** some functionality, and a handler is what **implements** that functionality.
@@ -53,7 +53,7 @@ with App('myapp') as app:
 ### Defining an Interface
 
 {% hint style="warning" %}
-Defining interfaces is more of an advanced topic, and is not required to fully grasp for new developers or those new to the framework. 
+Defining interfaces is more of an advanced topic, and is not required to fully grasp for new developers or those new to the framework.
 {% endhint %}
 
 Cement uses interfaces and handlers extensively to manage the framework, however developers can also make use of this system to provide a clean, and standardized way of allowing other developers to customize their application \(generally via application plugins\).
@@ -64,26 +64,26 @@ The following defines a basic interface we'll call `greeting`:
 from abc import abstractmethod
 from cement import App, Interface
 
-​class GreetingInterface(Interface):    
-    class Meta:     
-        interface = 'greeting'   
-        
+​class GreetingInterface(Interface):
+    class Meta:
+        interface = 'greeting'
+
     @abstractmethod
     def _get_greeting(self):
         """
         Get a greeting message for the end-user.
-        
+
         Returns:
             greeting (str): The greeting string to present to
                 the end-user.
         """
         pass
-            
+
     @abstractmethod
     def greet(self):
         """
         Display a greeting message for the end-user.
-        
+
         Returns: None
         """
         pass
@@ -95,7 +95,7 @@ class MyApp(App):
     ]
 ```
 
-The above example defines the `greeting` interface, by providing abstract methods that any handlers implementing this interface must provide. It does not implement any functionality on it's own \(though it could\), but rather defines and documents it's purpose and it's expected implementation.  The interface is easily defined with the framework by listing it in `App.Meta.interfaces`, but you can also define interfaces directly with `app.interface.define()`.
+The above example defines the `greeting` interface, by providing abstract methods that any handlers implementing this interface must provide. It does not implement any functionality on its own \(though it could\), but rather defines and documents its purpose and its expected implementation.  The interface is easily defined with the framework by listing it in `App.Meta.interfaces`, but you can also define interfaces directly with `app.interface.define()`.
 
 ### Implementing an Interface
 
@@ -125,7 +125,7 @@ In order to complete our implementation of the above `greeting` interface, we ca
 class Hello(GreetingHandler):
     class Meta:
         label = 'hello'
-    
+
     def _get_greeting(self):
         return 'Hello!'
 
@@ -133,7 +133,7 @@ class Hello(GreetingHandler):
 class Goodbye(GreetingHandler):
     class Meta:
         label = 'goodbye'
-    
+
     def _get_greeting(self):
         return 'Goodbye!'
 
@@ -172,7 +172,7 @@ class GreetingInterface(Interface):
     def greet(self):
         """
         Display a greeting message for the end-user.
-        
+
         Returns: None
         """
         pass
@@ -246,17 +246,17 @@ The [HandlerManager](https://cement.readthedocs.io/en/2.99/api/core/handler/#cem
 ```python
 from cement import App
 
-​with App('myapp') as app:    
+​with App('myapp') as app:
     # get a log handler called logging
-    lh = app.handler.get('log', 'logging', setup=True)​    
-    
-    # List all handlers registered to the config interface    
-    app.handler.list('config')​    
-    
-    # check if the handler argparse is registered 
-    # to the argument interface    
+    lh = app.handler.get('log', 'logging', setup=True)​
+
+    # List all handlers registered to the config interface
+    app.handler.list('config')​
+
+    # check if the handler argparse is registered
+    # to the argument interface
     app.handler.registered('argument', 'argparse')
-    
+
     # resolve a handler by string, class, or object
     app.handler.resolve('log', 'logging')
     app.handler.resolve('log', LoggingLogHandler)
@@ -269,7 +269,7 @@ It is important to note that handlers are stored within the application as unins
 
 ### Registering Handlers to an Interface
 
-An interface simply defines what an implementation is expected to provide, where a handler actually implements the interface. 
+An interface simply defines what an implementation is expected to provide, whereas a handler actually implements the interface.
 
 {% tabs %}
 {% tab title="Registering a Handler to an Interface" %}
@@ -284,7 +284,7 @@ class MyConfigHandler(ConfigParserConfigHandler):
         label = 'my_config_handler'
 
     # do something to sub-class ConfigParserConfigHandler
-    
+
 class MyApp(App):
     class Meta:
         label = 'myapp'
@@ -317,13 +317,13 @@ All builtin core interfaces have an associated `App.Meta.x_handler` option, allo
 
 All handlers and interfaces are unique. In most cases, where the framework is concerned, only one handler is used. For example, whatever is configured for the [`App.Meta.log_handler`](https://cement.readthedocs.io/en/2.99/api/core/foundation/#cement.core.foundation.App.Meta.log_handler) will be used and setup as `app.log`. However, take for example an Output Handler. You might have a default [`App.Meta.output_handler`](https://cement.readthedocs.io/en/2.99/api/core/foundation/#cement.core.foundation.App.Meta.output_handler) of `mustache` \(a text templating language\) but may also want to override that handler with the `json` output handler when `-o json` is passed at command line. In order to allow this functionality, both the `mustache` and `json` output handlers must be registered.
 
-Any number of handlers can be registered to an interface. You might have a use case for an Interface/Handler that may provide different compatibility base on the operating system, or perhaps based on simply how the application is called. A good example would be an application that automates building packages for Linux distributions. An interface would define what a build handler needs to provide, but the build handler would be different based on the OS. The application might have an `rpm` build handler, or a `dpkg` build handler to perform the build process differently.
+Any number of handlers can be registered to an interface. You might have a use case for an Interface/Handler that may provide different compatibility based on the operating system, or perhaps based on simply how the application is called. A good example would be an application that automates building packages for Linux distributions. An interface would define what a build handler needs to provide, but the build handler would be different based on the OS. The application might have an `rpm` build handler, or a `dpkg` build handler to perform the build process differently.
 
 ### Customizing Handler Configuration and Meta {#customizing-handlers}
 
 Depending on the handler, you will have different ways of customizing its functionality.  Some handlers honor application configuration setting, while others may only rely on meta-options.  In either case, both can be modified at the top level of your application meta.
 
-In the following example, we modify the configuration _defaults_ of the log handler, and also the meta-options to enable an optional log level command line argument feature it supports.  
+In the following example, we modify the configuration _defaults_ of the log handler, and also the meta-options to enable an optional log level command line argument feature it supports.
 
 {% hint style="warning" %}
 Note that configuration settings are always overridable via configuration files, however this example is modifying the builtin default setting of the log handler.
@@ -350,7 +350,7 @@ class MyApp(App):
 {% endtabs %}
 
 {% hint style="info" %}
-If modifying the configuration or meta options isn't enough, you can always sub-class an existing handler and register your own in it's place.
+If modifying the configuration or meta options isn't enough, you can always sub-class an existing handler and register your own in its place.
 {% endhint %}
 
 ###  {#handler-default-configuration-settings}
@@ -363,7 +363,7 @@ In some use cases, you will want the end user to have access to override the def
 Output hander overrides are not enabled by default, but can be enabled by  setting the `OutputHandler.Meta.overridable` option to `True` for the output handlers that you want overridable by the `-o` option at command line.  See the documentation on [Output Rendering](output-rendering.md) for more details and examples.
 {% endhint %}
 
-The only built-in handler override that Cement includes is for the above mentioned example, but you can add any that your application requires.
+The only built-in handler override that Cement includes is for the above mentioned JSON example, but you can add any that your application requires.
 
 {% tabs %}
 {% tab title="Example: Overriding Handlers via Command Line" %}
@@ -386,7 +386,7 @@ class MyApp(App):
 
 with MyApp() as app:
     app.run()
-    
+
     data = {'foo': 'bar'}
     app.render(data, 'example.m')
 ```
@@ -410,14 +410,14 @@ optional arguments:
   -d, --debug     full application debug mode
   -q, --quiet     suppress all console output
   -o {json,yaml}  output handler
-  
+
 $ python myapp.py
 Foo: bar
 
-$ python myapp.py -o json 
+$ python myapp.py -o json
 {"foo": "bar"}
 
-$ python myapp.py -o yaml 
+$ python myapp.py -o yaml
 foo: bar
 ```
 {% endtab %}

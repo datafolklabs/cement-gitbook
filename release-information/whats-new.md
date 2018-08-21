@@ -29,7 +29,7 @@ class Base(Controller):
     @ex(help='this is a command')
     def cmd1(self):
         print('Inside Base.cmd1()')
-    
+
 class MyApp(App):
     class Meta:
         label = 'myapp'
@@ -57,13 +57,13 @@ INFO: Generating cement script in .
 
 ### Clearer Interface Definition and Implementation
 
-In Cement 2, the design of the interface and handler system was not easy to follow for new developers to the framework.  It was also loosely modeled after ZopeInterface that may have lead to some odd naming conventions \(IMeta, IMyInterface, etc\), and an implementation that just felt weird.
+In Cement 2, the design of the interface and handler system was not easy to follow for new developers to the framework.  It was also loosely modeled after ZopeInterface, and that may have lead to some odd naming conventions \(IMeta, IMyInterface, etc\), and an implementation that just felt weird.
 
-Interfaces are now defined using the standard library's [Abstract Base Class](https://docs.python.org/3/library/abc.html) module per the [request of the community](https://github.com/datafolklabs/cement/issues/192), moving the framework away from oddities and more toward common Python standards.  
+Interfaces are now defined using the standard library's [Abstract Base Class](https://docs.python.org/3/library/abc.html) module per the [request of the community](https://github.com/datafolklabs/cement/issues/192), moving the framework away from oddities and more toward common Python standards.
 
-### Docker / Docker Compose Support 
+### Docker / Docker Compose Support
 
-Cement now includes a fully functioning docker setup out-of-the-box for local development of the framework that includes all dependencies, and dependency services like Redis, Memcached, etc. 
+Cement now includes a fully functioning docker setup out-of-the-box for local development of the framework that includes all dependencies, and dependency services like Redis, Memcached, etc.
 
 Getting up and running is as simple as running the following:
 
@@ -120,7 +120,7 @@ Foo => not-bar
 {% endtab %}
 {% endtabs %}
 
-Environment variables are logically mapped to configuration settings based on their config keys and are prefixed with `MYAPP_` \(based on the label of the app\).  So: 
+Environment variables are logically mapped to configuration settings based on their config keys and are prefixed with `MYAPP_` \(based on the label of the app\).  So:
 
 * `config['myapp']['foo']` =&gt; `$MYAPP_FOO`
 * `config['some_section']['foo']` =&gt; `$MYAPP_SOME_SECTION_FOO`

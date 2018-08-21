@@ -20,7 +20,7 @@ Cement often includes multiple handler implementations of an interface that may 
 
 ### Application Configuration Settings
 
-The following settings under the applications primary configuration section modify plugin handling:
+The following settings under the application's primary configuration section modify plugin handling:
 
 | **Setting** | **Description** |
 | :--- | :--- |
@@ -32,7 +32,7 @@ The following options under [`App.Meta`](https://cement.readthedocs.io/en/2.99/a
 
 | **Option** | **Description** |
 | :--- | :--- |
-| **plugins** | A _hardcoded_ list of plugins to load.  In general, application plugins should be dynamically enabled/disabled via the application's configuration files, however some application designs may desire always loading specific builtin plugins. Default: `[]` |
+| **plugins** | A _hardcoded_ list of plugins to load.  In general, application plugins should be dynamically enabled/disabled via the application's configuration files.  However, some application designs may prefer to always load specific builtin plugins. Default: `[]` |
 | **config\_dirs** | Plugin configuration files are loaded from any discovered application configuration directories.   |
 | **plugin\_bootstrap** | A python module \(dotted import path\) where plugin code can be loaded from instead of external directories \(builtin plugins shipped with the application code\).  Default: `myapp.plugins` |
 | **plugin\_dirs** | A list of directory paths where plugin code \(modules\) can be loaded from \(external to the application\).  Will be merged with [`App.Meta.core_system_plugin_dirs`](https://cement.readthedocs.io/en/2.99/api/core/foundation/#cement.core.foundation.App.Meta.core_system_plugin_dirs) and [`App.Meta.core_user_plugin_dirs`](https://cement.readthedocs.io/en/2.99/api/core/foundation/#cement.core.foundation.App.Meta.core_user_plugin_dirs).  Default: `[]` |
@@ -49,18 +49,18 @@ from cement import App
 with App('myapp') as app:
     # list loaded plugins
     app.plugin.get_loaded_plugins()
-    
+
     # list enabled plugins
     app.plugin.get_enabled_plugins()
-    
+
     # list disabled plugins
     app.plugin.get_disabled_plugins()
-    
+
     # load a plugin
     app.plugin.load_plugin('myplugin')
-    
+
     # load a list of plugins
-    app.plugin.load_plugins(['myplugin1', 
+    app.plugin.load_plugins(['myplugin1',
                              'myplugin2'])
 ```
 {% endtab %}
@@ -70,7 +70,7 @@ with App('myapp') as app:
 
 The plugin system is a mechanism for dynamically loading code to extend the functionality of a specific application. In general, this includes the registration of interfaces, handlers, and/or hooks but can include controllers, command-line options, or anything else.
 
-The preferred method of creating an plugin would be via the included [developer tools](../getting-started/developer-tools.md):
+The preferred method of creating a plugin would be via the included [developer tools](../getting-started/developer-tools.md):
 
 ```text
 $ cement generate plugin /path/to/myapp/plugins
@@ -109,10 +109,10 @@ def load(app):
 Plugins can provide anything from defining interfaces, registering hooks, or even adding command line sub-commands and arguments.  The only thing required to make up a plugin is a `load()` function in `myplugin.py` or `myplugin/__init__.py` files.
 {% endhint %}
 
-You will notice that plugins are essentially the same as framework extensions, however the difference is both when/how the code is loaded, as well as the purpose of that code. 
+You will notice that plugins are essentially the same as framework extensions. The difference is found both in when/how the code is loaded, as well as the purpose of that code.
 
 {% hint style="info" %}
-Framework extensions add functionality **to the framework** for the application to utilize, where application plugins **extend the functionality of the application** itself.
+Framework extensions add functionality **to the framework** for the application to utilize, whereas application plugins **extend the functionality of the application** itself.
 {% endhint %}
 
 ## Loading a Plugin
@@ -122,7 +122,7 @@ Plugin modules are discovered and loaded in the following order:
 * From directories listed in `App.Meta.plugin_dirs`
 * From the python path defined in `App.Meta.plugin_module`
 
-In order for the framework to know about a plugin, it must be defined in the applications configuration settings under it's designated section of `plugin.myplugin`.  This configuration block can live in any application configuration file, included files loaded from configuration dirs \(ex: `/etc/myapp/plugin.d/myplugin.conf`\).
+In order for the framework to know about a plugin, it must be defined in the application's configuration settings under its designated section of `plugin.myplugin`.  This configuration block can live in any application configuration file, including files loaded from configuration dirs \(ex: `/etc/myapp/plugin.d/myplugin.conf`\).
 
 {% tabs %}
 {% tab title="Example: Loading a Plugin" %}
@@ -159,7 +159,7 @@ Inside MyPlugin!
 {% endtab %}
 {% endtabs %}
 
-If a plugin configuration is found, it's settings will be loaded into the app however the plugin will only be loaded if it is enabled:
+If a plugin configuration is found, its settings will be loaded into the app.  However, the plugin will only be loaded if it is enabled:
 
 ```text
 [myapp]
@@ -173,7 +173,7 @@ enabled: true
 
 As of Cement 2.9.x, plugins can be either a single file \(i.e `myplugin.py`\) or a python module directory \(i.e. `myplugin/__init__.py`\). Both will be loaded and executed the exact same way.
 
-One caveat however, is that the submodules referenced from within a plugin directory must be relative path. For example:
+One caveat, however, is that the submodules referenced from within a plugin directory must be relative paths. For example:
 
 {% tabs %}
 {% tab title="Example: Loading Submodules in a Plugin" %}
@@ -190,11 +190,11 @@ def load(app):
 {% endtab %}
 {% endtabs %}
 
-This will ensure that Python will properly load the sub-modules regardless of where they live on the filesystem \(or within a projects own modules, etc\).
+This will ensure that Python will properly load the sub-modules regardless of where they live on the filesystem \(or within a project's own modules, etc\).
 
 ## Loading Templates From Plugin Directories
 
-In order for a plugin to use it's own template files, it's templates directory first needs to be registered with the app.  We accomplish this with a `post_setup` hook:
+In order for a plugin to use its own template files, its templates directory first needs to be registered with the app.  We accomplish this with a `post_setup` hook:
 
 {% tabs %}
 {% tab title="Example: Registering Plugin Template Directories" %}
@@ -203,10 +203,10 @@ In order for a plugin to use it's own template files, it's templates directory f
 ```python
 import os
 
-def add_template_dir(app):    
+def add_template_dir(app):
     path = os.path.join(os.path.basename(self.__file__, 'templates')
     app.add_template_dir(path)
-    
+
 ​def load(app):
     app.hook.register('post_setup', add_template_dir)
 ```
@@ -230,7 +230,7 @@ from cement.core.plugin import PluginHandler
 class MyPluginHandler(PluginHandler):
     class Meta:
         label = 'my_plugin_handler'
-    
+
     # do something to implement the interface
 
 class MyApp(App):

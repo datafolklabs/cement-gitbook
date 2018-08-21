@@ -19,7 +19,7 @@ You can optionally configure your application to automatically call `sys.exit()`
 {% tabs %}
 {% tab title="Example: Exit Status and Error Codes" %}
 ```python
-from cement imporpt App
+from cement import App
 
 class MyApp(App):
     class Meta:
@@ -53,12 +53,12 @@ class MyTestApp(MyApp):
 {% endtabs %}
 
 {% hint style="info" %}
-The default exit code is `0`, however any uncaught exceptions will cause the application to exit with a code of `1` \(error\).
+The default exit code is `0`.  However, any uncaught exceptions will cause the application to exit with a code of `1` \(error\).
 {% endhint %}
 
 ## Running Cleanup Code
 
-Any extension, or plugin, or even the application itself that has cleanup code should do so within the `pre_close` or `post_close` framework hooks to ensure that it gets run. 
+Any extension, or plugin, or even the application itself that has cleanup code should do so within the `pre_close` or `post_close` framework hooks to ensure that it gets run.
 
 {% tabs %}
 {% tab title="Example: Running Cleanup Code" %}

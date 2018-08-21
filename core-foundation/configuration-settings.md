@@ -2,7 +2,7 @@
 
 ## Introduction to the Config Interface
 
-Cement defines a [Config Interface](http://cement.readthedocs.io/en/2.99/api/core/config/#cement.core.config.ConfigInterface), as well as the default [ConfigParserConfigHandler](http://cement.readthedocs.io/en/2.99/api/ext/ext_configparser/#cement.ext.ext_configparser.ConfigParserConfigHandler) that implements the interface. This handler is built on top of [ConfigParser](http://docs.python.org/library/configparser.html) which is included in the Python standard library. Therefor, this class will work much like ConfigParser but with any added functions necessary to meet the requirements of the interface.
+Cement defines a [Config Interface](http://cement.readthedocs.io/en/2.99/api/core/config/#cement.core.config.ConfigInterface), as well as the default [ConfigParserConfigHandler](http://cement.readthedocs.io/en/2.99/api/ext/ext_configparser/#cement.ext.ext_configparser.ConfigParserConfigHandler) that implements the interface. This handler is built on top of [ConfigParser](http://docs.python.org/library/configparser.html) which is included in the Python standard library. Therefore, this class will work much like ConfigParser but with any added functions necessary to meet the requirements of the interface.
 
 {% hint style="warning" %}
 Cement often includes multiple handler implementations of an interface that may or may not have additional features or functionality than the interface requires.  The documentation below only references usage based on the interface and default handler \(not the full capabilities of an implementation\).
@@ -33,11 +33,11 @@ The following options under [`App.Meta`](https://cement.readthedocs.io/en/2.99/a
 | **config\_file\_suffix** | The suffix \(extension\) of configuration files.  Default: `.conf` |
 | **config\_files** | List of configuration file paths to load. |
 | **config\_handler** | The configuration handler that implements the config interface. |
-| **config\_section** | The section label of the applications configuration within config files. Defaults: `App.Meta.label` |
+| **config\_section** | The section label of the application's configuration within config files. Defaults: `App.Meta.label` |
 
 ## Configuration Load Order
 
-An applications configuration is made up of a number of things, including default settings, handler defaults, config file settings, environment variables, etc. The following is the order in which configurations are discovered and loaded:
+An application's configuration is made up of a number of things, including default settings, handler defaults, config file settings, environment variables, etc. The following is the order in which configurations are discovered and loaded:
 
 * Defaults defined in [`App.Meta.config_defaults`](http://cement.readthedocs.io/en/2.99/api/core/foundation/#cement.core.foundation.App.Meta.config_defaults)
 * Extended by [`Handler.Meta.config_defaults`](http://cement.readthedocs.io/en/2.99/api/core/handler/#cement.core.handler.Handler.Meta.config_defaults) _\(extended, not overridden\)_
@@ -81,14 +81,14 @@ level = info
 {% endtabs %}
 
 {% hint style="info" %}
-Note that `init_defaults` is a helper from the Miscellaneous Utility Module, and simply generates a dict with nested dicts of the given keys.  It does not do anything special, but is used throughout the documentation as it generally makes things more readable in examples.  
+Note that `init_defaults` is a helper from the Miscellaneous Utility Module, and simply generates a dict with nested dicts of the given keys.  It does not do anything special, but is used throughout the documentation as it generally makes things more readable in examples.
 
 You can always use a standard `dict` for configuration and meta defaults, which often makes more sense when building larger applications with a lot of default settings to manage.
 {% endhint %}
 
 ## Builtin Default Configuration Settings
 
-Cement defines a list of meta options that can be overridden by configuration settings in [`App.Meta.core_meta_override`](http://cement.readthedocs.io/en/2.99/api/core/foundation/#cement.core.foundation.App.Meta.core_meta_override) \(used by the framework\), and [`App.Meta.meta_override`](http://cement.readthedocs.io/en/2.99/api/core/foundation/#cement.core.foundation.App.Meta.meta_override) \(used by the application developer\). These are not required to exist in the config defaults or parsed configuration files, however if they do Cement will honor them and override the defined application meta options.
+Cement defines a list of meta options that can be overridden by configuration settings in [`App.Meta.core_meta_override`](http://cement.readthedocs.io/en/2.99/api/core/foundation/#cement.core.foundation.App.Meta.core_meta_override) \(used by the framework\), and [`App.Meta.meta_override`](http://cement.readthedocs.io/en/2.99/api/core/foundation/#cement.core.foundation.App.Meta.meta_override) \(used by the application developer\). These are not required to exist in the config defaults or parsed configuration files. However, if they do, Cement will honor them and override the defined application meta options.
 
 ## Configuration File Loading
 
@@ -115,12 +115,12 @@ We also define the following configuration directories to scan for additional co
 
 
 {% hint style="info" %}
-These lists are dynamically generated based on the `App.meta.label`, as well as [`App.meta.config_file_suffix`](https://cement.readthedocs.io/en/2.99/api/core/foundation/#cement.core.foundation.App.Meta.config_file_suffix). They can be extended by adding files via [`App.Meta.config_files`](https://cement.readthedocs.io/en/2.99/api/core/foundation/#cement.core.foundation.App.Meta.config_files) or directories to [`App.Meta.config_dirs`](https://cement.readthedocs.io/en/2.99/api/core/foundation/#cement.core.foundation.App.Meta.config_dirs). 
+These lists are dynamically generated based on the `App.meta.label`, as well as [`App.meta.config_file_suffix`](https://cement.readthedocs.io/en/2.99/api/core/foundation/#cement.core.foundation.App.Meta.config_file_suffix). They can be extended by adding files via [`App.Meta.config_files`](https://cement.readthedocs.io/en/2.99/api/core/foundation/#cement.core.foundation.App.Meta.config_files) or directories to [`App.Meta.config_dirs`](https://cement.readthedocs.io/en/2.99/api/core/foundation/#cement.core.foundation.App.Meta.config_dirs).
 {% endhint %}
 
 ## Accessing Configuration Settings
 
-After application creation and setup, you can access the config handler via the `app.config` object. 
+After application creation and setup, you can access the config handler via the `app.config` object.
 
 {% tabs %}
 {% tab title="Example: Using App Config Object" %}
@@ -129,29 +129,29 @@ from cement import App
 
 with App('myapp') as app:
     app.run()
-    
+
     ​# get a setting
     app.config.get('myapp', 'debug')
-    
+
     ​# set settings
     app.config.set('myapp', 'debug', True)
-    
+
     ​# get a list of sections
     app.config.get_sections()​
-    
+
     # add a section
     app.config.add_section('my_config_section')
-    
+
     ​# test if a section exists
     app.config.has_section('my_config_section')​
-    
+
     # get configuration keys for the 'myapp' section
     app.config.keys('myapp')​
-    
+
     # test if a key exists
     if 'debug' in app.config.keys('myapp')​:
         pass
-    
+
     # merge a dict of settings into the config
     other_config = {
         'myapp': {
@@ -159,10 +159,10 @@ with App('myapp') as app:
         }
     }
     app.config.merge(other_config)
-    
+
     # parse a file into the config
     app.config.parse('/path/to/file')
-    
+
     # get a dict of the entire config
     app.config.get_dict()
 ```
@@ -171,10 +171,10 @@ with App('myapp') as app:
 
 ## Configuration Settings vs. Meta Options
 
-As you will see extensively throughout the Cement code is the use of meta options. There can be some confusion between the use of meta options, and application configuration settings. 
+As you will see extensively throughout the Cement code is the use of meta options. There can be some confusion between the use of meta options, and application configuration settings.
 
 {% hint style="info" %}
-The key detail to note is that configuration settings are intended to be used and modified by the **end-user**, where meta options are intended to be used by the application **developer** to alter the applications core functionality.
+The key detail to note is that configuration settings are intended to be used and modified by the **end-user**, whereas meta options are intended to be used by the application **developer** to alter the application's core functionality.
 {% endhint %}
 
 **Configuration Settings**
@@ -186,7 +186,7 @@ Cement does not rely on the application configuration, though it can honor confi
 The key things to note about application configuration settings are:
 
 * They give the **end-user** flexibility in how the application operates.
-* Anything that you want users to be able to customize via a config file should be defined in the applications configuration. For example, the path to a log file or the location of a database server. These are things that you do not want hard-coded into your app, but rather should have sane and functional defaults for.
+* Anything that you want users to be able to customize via a config file should be defined in the application's configuration. For example, the path to a log file or the location of a database server. These are things that you do not want hard-coded into your app, but rather should have sane and functional defaults for.
 
 **Meta Options**
 
@@ -196,14 +196,14 @@ The key thing to note about meta options are:
 
 * They give the **developer** flexibility in how the code operates.
 * End users should not have access to modify meta options via a config file or similar 'dynamic' configuration unless explicitly listed in [`Cement.Meta.core_meta_override`](http://cement.readthedocs.io/en/2.99/api/core/foundation/#cement.core.foundation.App.Meta.core_meta_override) or [`CementApp.Meta.meta_override`](http://cement.readthedocs.io/en/2.99/api/core/foundation/#cement.core.foundation.App.Meta.meta_override) \(for example, the `debug` setting under the `[<app_label>]` section overrides `App.Meta.debug` by default.
-* Meta options are used to alter how classes work, however are considered 'hard-coded' settings. If the developer chooses to alter a meta option, it is for the life of that release.
+* Meta options are used to alter how classes work, but they are considered 'hard-coded' settings. If the developer chooses to alter a meta option, it is for the life of that release.
 * Meta options should have a sane default, and be clearly documented.
 
 ## Application Defaults vs Handler Defaults
 
-There may be slight confusion between the [`App.Meta.config_defaults`](http://cement.readthedocs.io/en/2.99/api/core/foundation/#cement.core.foundation.App.Meta.config_defaults) and the [`Handler.Meta.config_defaults`](http://cement.readthedocs.io/en/2.99/api/core/handler/#cement.core.handler.Handler.Meta.config_defaults) meta options. They both are very similar, however the application level configuration defaults are intended to be used to set defaults for multiple sections. Therefore, the `App.Meta.config_defaults` option is a `dict` with nested `dict`'s under it. Each key of the top level `dict` relates to a config `[section]` and the nested `dict` are the settings for that `[section]`.
+There may be slight confusion between the [`App.Meta.config_defaults`](http://cement.readthedocs.io/en/2.99/api/core/foundation/#cement.core.foundation.App.Meta.config_defaults) and the [`Handler.Meta.config_defaults`](http://cement.readthedocs.io/en/2.99/api/core/handler/#cement.core.handler.Handler.Meta.config_defaults) meta options. They both are very similar, however the application level configuration defaults are intended to be used to set defaults for multiple sections. Therefore, the `App.Meta.config_defaults` option is a `dict` with nested `dict`s under it. Each key of the top level `dict` relates to a config `[section]` and the nested `dict`s are the settings for that `[section]`.
 
-The `Handler.Meta.config_defaults` only pertain to a single `[section]` and therefor is only a single level `dict`, whose settings are applied to that section of the application's configuration \(defined by [`Handler.Meta.config_section`](http://cement.readthedocs.io/en/2.99/api/core/handler/#cement.core.handler.Handler.Meta.config_section)\).
+The `Handler.Meta.config_defaults` only pertain to a single `[section]` and therefore is only a single level `dict`, whose settings are applied to that section of the application's configuration \(defined by [`Handler.Meta.config_section`](http://cement.readthedocs.io/en/2.99/api/core/handler/#cement.core.handler.Handler.Meta.config_section)\).
 
 
 
@@ -222,7 +222,7 @@ from cement.core.config import ConfigHandler
 class MyConfigHandler(ConfigHandler):
     class Meta:
         label = 'my_config_handler'
-    
+
     # do something to implement the interface
 
 class MyApp(App):

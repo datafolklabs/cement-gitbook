@@ -2,7 +2,7 @@
 
 ## Introduction
 
-The Scrub Extension provides a easy mechanism for obfuscating sensitive information from command line output. Useful for debugging, and providing end-user output to developers without including sensitive info like IP addresses, phone numbers, credit card numbers, etc.
+The Scrub Extension provides an easy mechanism for obfuscating sensitive information from command line output. It is useful for debugging and for providing end-user output to developers without including sensitive info like IP addresses, phone numbers, credit card numbers, etc.
 
 Scrubbing happens in a [`post_render`](../core-foundation/hooks.md#pre_render) hook by iterating over the list of tuples in `App.Meta.scrub`and calling `re.sub()` on the text provided by the output handler in use. Therefore, all output produced by `app.render()` will be scrubbed… including JSON, YAML, or any other output handler.
 
@@ -18,7 +18,7 @@ Scrubbing happens in a [`post_render`](../core-foundation/hooks.md#pre_render) h
 
 ### Application Configuration Settings
 
-This extension does rely on any application level configuration settings or meta options.
+This extension does not rely on any application level configuration settings or meta options.
 
 ### **Application Meta Data**
 

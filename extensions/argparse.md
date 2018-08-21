@@ -21,7 +21,7 @@ The Argparse Extension provides the [`ArgparseArgumentHandler`](http://cement.re
 
 ## Configuration
 
-This extension does rely on any application level configuration settings or meta options.
+This extension does not rely on any application level configuration settings or meta options.
 
 ## Usage
 
@@ -36,7 +36,7 @@ class Base(Controller):
     class Meta:
         label = 'base'
         arguments = [
-            (['--base-foo'], 
+            (['--base-foo'],
              {'help': 'base foo option'}),
         ]
 
@@ -51,7 +51,7 @@ class Base(Controller):
     @ex(
         arguments=[
             (['--command1-opt'],
-             {'help': 'option under command1', 
+             {'help': 'option under command1',
               'action': 'store_true'})
         ],
         aliases=['cmd1'],

@@ -7,9 +7,9 @@ Python provides the [Signal](http://docs.python.org/library/signal.html) library
 A caveat when setting a signal handler is that only one handler can be defined for a given signal. Therefore, all handling must be done from a single callback function. This is a slight roadblock for applications built on Cement in that many pieces of the framework are broken out into independent extensions as well as applications that have 3rd party plugins. The trouble happens when the application, plugins, and framework extensions all need to perform some action when a signal is caught. This section outlines the recommended way of handling signals with Cement versus manually setting signal handlers that may collide.
 
 {% hint style="warning" %}
-It is important to note that it is not necessary to use the Cement mechanisms for signal handling, what-so-ever. That said, the primary concern of the framework is that `app.close()` is called no matter what the situation so that the `pre_close` and `post_close` framework hooks get run for cleanup. 
+It is important to note that it is not necessary to use the Cement mechanisms for signal handling, what-so-ever. That said, the primary concern of the framework is that `app.close()` is called no matter what the situation so that the `pre_close` and `post_close` framework hooks get run for cleanup.
 
-Therefore, if you decide to disable signal handling all together you **must** ensure that you at the very least catch `signal.SIGTERM` and `signal.SIGINT` with the ability to call `app.close()` \(or allow the `with` operator to exit properly. 
+Therefore, if you decide to disable signal handling all together you **must** ensure that you at the very least catch `signal.SIGTERM` and `signal.SIGINT` with the ability to call `app.close()` \(or allow the `with` operator to exit properly\).
 
 You will likely find that it is more complex than you might think. The reason we put these mechanisms in place is primarily that we found it was the best way to a\) handle a signal, and b\) have access to our `app` object in order to be able to call `app.close()` when a process is terminated.
 {% endhint %}
@@ -39,7 +39,7 @@ with App('myapp') as app:
 {% endtab %}
 {% endtabs %}
 
-The above provides a very simple means of handling the most common signals, which in turns allows our application to "exit clean" by running `app.close()` and any `pre_close` or `post_close` hooks \(via `__exit__` from the `with` operator. 
+The above provides a very simple means of handling the most common signals, which in turn allows our application to "exit clean" by running `app.close()` and any `pre_close` or `post_close` hooks \(via `__exit__` from the `with` operator\).
 
 {% hint style="warning" %}
 If we don't catch the signals, then the exceptions will be unhandled and the application will not exit clean.
@@ -60,7 +60,7 @@ from cement import App, CaughtSignal
 def my_signal_handler(app, signum, frame):
     # do something with app
     app.log.warning('Inside my_signal_handler')
-    
+
     # do something with signum, or frame
     sig_name = signal.Signals(signum)
     print('Caught Signal %s' % sig_name)
@@ -89,7 +89,7 @@ Alternatively for extensions and plugins:
 def my_signal_handler(app, signum, frame):
     # do something with app
     app.log.warning('Inside my_signal_handler')
-    
+
     # do something with signum, or frame
     sig_name = signal.Signals(signum)
     print('Caught Signal %s' % sig_name)
@@ -100,7 +100,7 @@ def load(app):
 {% endtab %}
 {% endtabs %}
 
-The key thing to note here is that the main application itself can easily handle the `CaughtSignal` exception without using hooks, however using the `signal` hook is useful for plugins and extensions to be able to tie into the signal handling outside of the main application. Both serve the same purpose.
+The key thing to note here is that the main application itself can easily handle the `CaughtSignal` exception without using hooks.  However, using the `signal` hook is useful for plugins and extensions to be able to tie into the signal handling outside of the main application. Both serve the same purpose.
 
 Regardless of how signals are handled, all extensions or plugins should use the `pre_close` hook for cleanup purposes as much as possible as it is always run when `app.close()` is called.
 

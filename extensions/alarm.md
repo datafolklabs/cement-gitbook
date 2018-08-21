@@ -21,7 +21,7 @@ The Alarm Extension provides the [AlarmManager](http://cement.readthedocs.io/en/
 
 ## **Configuration**
 
-This extension does rely on any application level configuration settings or meta options.
+This extension does not rely on any application level configuration settings or meta options.
 
 ## **Usage**
 

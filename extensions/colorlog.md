@@ -27,7 +27,7 @@ This handler honors the following settings under a `[log.colorlog]` section of t
 | **file** | The filesystem path of the log file.  Default: `None` |
 | **to\_console** | Whether or not to log to console.  Default: `True` |
 | **rotate** | Whether or not rotate the log file.  Default: `False` |
-| **max\_bytes** | Maximum file size \(in bytes\) until the log file is rotate \(if rotation is enabled\).  Default: _512000_ |
+| **max\_bytes** | Maximum file size \(in bytes\) until the log file is rotated \(if rotation is enabled\).  Default: _512000_ |
 | **max\_files** | Maximum number of files to keep when rotating is enabled.  Default: `4` |
 | **colorize\_file\_log** | Whether or not to colorize the log file.  Default: `False` |
 | **colorize\_console\_log** | Whether or not to colorize the console log.  Default: `True` |

@@ -50,10 +50,10 @@ with MyApp() as app:
     data = {
         'foo': 'bar'
     }
-    
-    # render content as template    
+
+    # render content as template
     app.template.render('Foo => {{ foo }}', data)
-    
+
     # render and copy a source directory
     src = '/path/to/source/dir'
     dst = '/path/to/destination/dir'
@@ -63,7 +63,7 @@ with MyApp() as app:
 {% endtabs %}
 
 {% hint style="info" %}
-When copying a source directory, both the file/directory path names themselves are rendered as template as well as the contents of files.
+When copying a source directory, both the file/directory path names themselves are rendered as templates as well as the contents of files.
 {% endhint %}
 
 ## Creating a Template Handler
@@ -81,7 +81,7 @@ from cement.core.template import TemplateHandler
 class MyTemplateHandler(TemplateHandler):
     class Meta:
         label = 'my_template_handler'
-    
+
     # do something to implement the interface
 
 class MyApp(App):

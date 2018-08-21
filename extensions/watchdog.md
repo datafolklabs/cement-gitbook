@@ -25,14 +25,15 @@ On application startup, the Watchdog Observer is automatically started and then 
 
 ### Application Configuration Settings
 
-This extension does not support any application level configuration settings
+This extension does not support any application level configuration settings.
 
 ### Application Meta Options
 
 This extension honors the following application meta options:
 
-| **watchdog\_paths** | A list of tuples that are passed directly as arguments to [`WatchdogManager.add()`](https://cement.readthedocs.io/en/2.99/api/ext/ext_watchdog/#cement.ext.ext_watchdog.WatchdogManager.add) \(a shortcut equivalent to `app.watchdog.add()`. |
+| Option | **Description** |
 | :--- | :--- |
+| **watchdog\_paths** | A list of tuples that are passed directly as arguments to [`WatchdogManager.add()`](https://cement.readthedocs.io/en/2.99/api/ext/ext_watchdog/#cement.ext.ext_watchdog.WatchdogManager.add) \(a shortcut equivalent to `app.watchdog.add()`. |
 
 
 ## Hooks
@@ -84,7 +85,6 @@ class MyApp(App):
 
 with MyApp() as app:
     app.run()
-    
     try:
         while True:
             sleep(1)
@@ -94,7 +94,7 @@ with MyApp() as app:
 {% endtab %}
 {% endtabs %}
 
-In the above example, nothing is printed to console however you will see something like the following via debug logging:
+In the above example, nothing is printed to console.  However you will see something like the following via debug logging:
 
 ```text
 $ python myapp.py --debug 2>&1 | grep -i watchdog
@@ -158,7 +158,7 @@ class MyApp(App):
 
 with MyApp() as app:
     app.run()
-    
+
     try:
         while True:
             sleep(1)
@@ -178,7 +178,7 @@ The modified path was: /path/to/tmp/test.file
 {% endtabs %}
 
 {% hint style="info" %}
-Note that the `WatchdogEventHandler` could be replaced with any other event handler classes \(i.e. those available from `watchdog` directly\), however to play nicely with Cement, we sub-class them first in order to pass in our application object
+Note that the `WatchdogEventHandler` could be replaced with any other event handler classe \(i.e. those available from `watchdog` directly\).  However to play nicely with Cement, we sub-class them first in order to pass in our application object.
 {% endhint %}
 
 {% tabs %}
