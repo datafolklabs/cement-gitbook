@@ -8,7 +8,7 @@ Cement builds upon a standard interface and handler system that is used extensiv
 In Cement, an interface is what **defines** some functionality, and a handler is what **implements** that functionality.
 {% endhint %}
 
-We call the implementation of an interface a **handler**, and provide the ability to easily register and retrieve them via the `app.handler` object.  Cement interfaces are defined as [Python Abstract Base Classes](https://docs.python.org/3/library/abc.html), and handlers implement them by sub-classing and overriding the defined abstract methods required to make the implementation legit.
+We call the implementation of an interface a **handler**, and provide the ability to easily register and retrieve them via the `app.handler` object. Cement interfaces are defined as [Python Abstract Base Classes](https://docs.python.org/3/library/abc.html), and handlers implement them by sub-classing and overriding the defined abstract methods required to make the implementation legit.
 
 **API References**
 
@@ -19,18 +19,18 @@ We call the implementation of an interface a **handler**, and provide the abilit
 
 The following interfaces are builtin to Cement's core foundation:
 
-| **Interface**  | **Description** |
+| **Interface** | **Description** |
 | :--- | :--- |
-| \*\*\*\*[**Extension**](extensions-1.md)\*\*\*\* | Framework extension loading. |
-| \*\*\*\*[**Log**](https://cement.readthedocs.io/en/portland/api/core/log/#cement.core.log.LogHandler)\*\*\*\* | Messaging to console, and/or file via common log facilities \(INFO, WARNING, ERROR, FATAL, DEBUG\). |
-| \*\*\*\*[**Config**](https://cement.readthedocs.io/en/portland/api/core/config/#cement.core.config.ConfigHandler)\*\*\*\* | Merging of application configuration defaults, configuration files, and environment settings into a single config object. |
-| \*\*\*\*[**Mail**](https://cement.readthedocs.io/en/portland/api/core/mail/#cement.core.mail.MailHandler)\*\*\*\* | Remote message sending \(email, smtp, etc\). |
-| \*\*\*\*[**Plugin**](https://cement.readthedocs.io/en/portland/api/core/plugin/#cement.core.plugin.PluginHandler)\*\*\*\* | Application plugin loading. |
-| \*\*\*\*[**Template**](https://cement.readthedocs.io/en/portland/api/core/template/#cement.core.template.TemplateHandler)\*\*\*\* | Rendering of template data \(content, files, etc\). |
-| \*\*\*\*[**Output**](https://cement.readthedocs.io/en/portland/api/core/output/#cement.core.output.OutputHandler)\*\*\*\* | Rendering of data/content to end-user output \(console text from template, JSON, Yaml, etc\).  Often uses an associated template handler backend. |
-| \*\*\*\*[**Argument**](https://cement.readthedocs.io/en/portland/api/core/arg/#cement.core.arg.ArgumentHandler)\*\*\*\* | Command line argument/option parsing. |
-| \*\*\*\*[**Controller**](https://cement.readthedocs.io/en/portland/api/core/controller/#cement.core.controller.ControllerHandler)\*\*\*\* | Command dispatch \(sub-commands, arguments, etc\) |
-| \*\*\*\*[**Cache**](https://cement.readthedocs.io/en/portland/api/core/cache/#cement.core.cache.CacheHandler)\*\*\*\* | Key/Value data store \(memcached, redis, etc\) |
+| [**Extension**](extensions-1.md) | Framework extension loading. |
+| [**Log**](https://cement.readthedocs.io/en/portland/api/core/log/#cement.core.log.LogHandler) | Messaging to console, and/or file via common log facilities \(INFO, WARNING, ERROR, FATAL, DEBUG\). |
+| [**Config**](https://cement.readthedocs.io/en/portland/api/core/config/#cement.core.config.ConfigHandler) | Merging of application configuration defaults, configuration files, and environment settings into a single config object. |
+| [**Mail**](https://cement.readthedocs.io/en/portland/api/core/mail/#cement.core.mail.MailHandler) | Remote message sending \(email, smtp, etc\). |
+| [**Plugin**](https://cement.readthedocs.io/en/portland/api/core/plugin/#cement.core.plugin.PluginHandler) | Application plugin loading. |
+| [**Template**](https://cement.readthedocs.io/en/portland/api/core/template/#cement.core.template.TemplateHandler) | Rendering of template data \(content, files, etc\). |
+| [**Output**](https://cement.readthedocs.io/en/portland/api/core/output/#cement.core.output.OutputHandler) | Rendering of data/content to end-user output \(console text from template, JSON, Yaml, etc\).  Often uses an associated template handler backend. |
+| [**Argument**](https://cement.readthedocs.io/en/portland/api/core/arg/#cement.core.arg.ArgumentHandler) | Command line argument/option parsing. |
+| [**Controller**](https://cement.readthedocs.io/en/portland/api/core/controller/#cement.core.controller.ControllerHandler) | Command dispatch \(sub-commands, arguments, etc\) |
+| [**Cache**](https://cement.readthedocs.io/en/portland/api/core/cache/#cement.core.cache.CacheHandler) | Key/Value data store \(memcached, redis, etc\) |
 
 ### Working With Interfaces
 
@@ -95,7 +95,7 @@ class MyApp(App):
     ]
 ```
 
-The above example defines the `greeting` interface, by providing abstract methods that any handlers implementing this interface must provide. It does not implement any functionality on its own \(though it could\), but rather defines and documents its purpose and its expected implementation.  The interface is easily defined with the framework by listing it in `App.Meta.interfaces`, but you can also define interfaces directly with `app.interface.define()`.
+The above example defines the `greeting` interface, by providing abstract methods that any handlers implementing this interface must provide. It does not implement any functionality on its own \(though it could\), but rather defines and documents its purpose and its expected implementation. The interface is easily defined with the framework by listing it in `App.Meta.interfaces`, but you can also define interfaces directly with `app.interface.define()`.
 
 ### Implementing an Interface
 
@@ -114,10 +114,10 @@ class GreetingHandler(GreetingInterface, Handler):
 ```
 
 {% hint style="info" %}
-Handler base classes sub-class from both the interface they are implementing \(`GreetingInterface`\), and also the Cement Handler base class \(`Handler`\).  The application developer defining the interface should always provide a handler base class for the implementation, even if the base class does not fully satisfy the interface.
+Handler base classes sub-class from both the interface they are implementing \(`GreetingInterface`\), and also the Cement Handler base class \(`Handler`\). The application developer defining the interface should always provide a handler base class for the implementation, even if the base class does not fully satisfy the interface.
 {% endhint %}
 
-In the above example, the developer would call the `greet()` method that will do all of the common operations like logging, exception handling, etc for all implementations, leaving only the minimal `_get_greeting()` method to be provided by the final implementation sub-classes.  This follows the common [Don't Repeat Yourself \(DRY\)](https://en.wikipedia.org/wiki/Don%27t_repeat_yourself) principle's best practice \(all-be-it a tediously simple example\), where all of the reusable logic can live in one place, and sub-classes only focus on their unique means of implementing an interface.
+In the above example, the developer would call the `greet()` method that will do all of the common operations like logging, exception handling, etc for all implementations, leaving only the minimal `_get_greeting()` method to be provided by the final implementation sub-classes. This follows the common [Don't Repeat Yourself \(DRY\)](https://en.wikipedia.org/wiki/Don't_repeat_yourself) principle's best practice \(all-be-it a tediously simple example\), where all of the reusable logic can live in one place, and sub-classes only focus on their unique means of implementing an interface.
 
 In order to complete our implementation of the above `greeting` interface, we can now sub-class from the provided `GreetingHandler` base class, and fill in the missing pieces:
 
@@ -136,11 +136,10 @@ class Goodbye(GreetingHandler):
 
     def _get_greeting(self):
         return 'Goodbye!'
-
 ```
 
 {% hint style="info" %}
-An interface defines itself to the framework via the `Interface.Meta.interface` string, and a handler defines itself via the `Handler.Meta.label` string.  Collectively, all implementation handlers are referred to by both as `<interface>.<label>` or in the above examples `greeting.hello` and `greeting.goodbye`.
+An interface defines itself to the framework via the `Interface.Meta.interface` string, and a handler defines itself via the `Handler.Meta.label` string. Collectively, all implementation handlers are referred to by both as `<interface>.<label>` or in the above examples `greeting.hello` and `greeting.goodbye`.
 {% endhint %}
 
 ### Putting It All Together
@@ -205,16 +204,16 @@ class Goodbye(GreetingHandler):
 
 class MyApp(App):
     class Meta:
-    	label = 'myapp'
+        label = 'myapp'
 
-    	interfaces = [
-        	GreetingInterface,
-    	]
+        interfaces = [
+            GreetingInterface,
+        ]
 
-    	handlers = [
-        	Hello,
-        	Goodbye,
-    	]
+        handlers = [
+            Hello,
+            Goodbye,
+        ]
 
 with MyApp() as app:
     app.run()
@@ -311,7 +310,7 @@ class MyApp(App):
 {% endtab %}
 {% endtabs %}
 
-All builtin core interfaces have an associated `App.Meta.x_handler` option, allowing complete customization of every aspect of the framework.  See the reference documentation of [App.Meta](https://cement.readthedocs.io/en/3.0/api/core/foundation/#cement.core.foundation.App.Meta) for more detail.
+All builtin core interfaces have an associated `App.Meta.x_handler` option, allowing complete customization of every aspect of the framework. See the reference documentation of [App.Meta](https://cement.readthedocs.io/en/3.0/api/core/foundation/#cement.core.foundation.App.Meta) for more detail.
 
 ### Multiple Registered Handlers {#multiple-registered-handlers}
 
@@ -321,7 +320,7 @@ Any number of handlers can be registered to an interface. You might have a use c
 
 ### Customizing Handler Configuration and Meta {#customizing-handlers}
 
-Depending on the handler, you will have different ways of customizing its functionality.  Some handlers honor application configuration setting, while others may only rely on meta-options.  In either case, both can be modified at the top level of your application meta.
+Depending on the handler, you will have different ways of customizing its functionality. Some handlers honor application configuration setting, while others may only rely on meta-options. In either case, both can be modified at the top level of your application meta.
 
 In the following example, we modify the configuration _defaults_ of the log handler, and also the meta-options to enable an optional log level command line argument feature it supports.
 
@@ -353,14 +352,12 @@ class MyApp(App):
 If modifying the configuration or meta options isn't enough, you can always sub-class an existing handler and register your own in its place.
 {% endhint %}
 
-###  {#handler-default-configuration-settings}
-
 ### Overriding Handlers via Command Line {#overriding-handlers-via-command-line}
 
 In some use cases, you will want the end user to have access to override the default handler of a particular interface. For example, Cement ships with multiple Output Handlers including `json`, `yaml`, and `mustache`. A typical application might default to using `mustache` to render console output from text templates. That said, without changing any code in the application, the end user could simply pass the `-o json` command line option and output the same data that is rendered to template, out in pure JSON.
 
 {% hint style="warning" %}
-Output hander overrides are not enabled by default, but can be enabled by  setting the `OutputHandler.Meta.overridable` option to `True` for the output handlers that you want overridable by the `-o` option at command line.  See the documentation on [Output Rendering](output-rendering.md) for more details and examples.
+Output hander overrides are not enabled by default, but can be enabled by setting the `OutputHandler.Meta.overridable` option to `True` for the output handlers that you want overridable by the `-o` option at command line. See the documentation on [Output Rendering](output-rendering.md) for more details and examples.
 {% endhint %}
 
 The only built-in handler override that Cement includes is for the above mentioned JSON example, but you can add any that your application requires.
@@ -393,7 +390,7 @@ with MyApp() as app:
 {% endcode-tabs-item %}
 
 {% code-tabs-item title="templates/example.m" %}
-```
+```text
 Foo: {{ foo }}
 ```
 {% endcode-tabs-item %}
@@ -424,8 +421,4 @@ foo: bar
 {% endtabs %}
 
 Notice the `-o` command line option, that includes the choices: `yaml` and `json`. This feature will include all Output Handlers that have the `overridable` meta-data option set to `True`. We did not set this option for the mustache handler, therefore it did not show up as a choice for the `-o` option at command-line.
-
-
-
-
 

@@ -35,7 +35,6 @@ This extension honors the following application meta options:
 | :--- | :--- |
 | **watchdog\_paths** | A list of tuples that are passed directly as arguments to [`WatchdogManager.add()`](https://cement.readthedocs.io/en/3.0/api/ext/ext_watchdog/#cement.ext.ext_watchdog.WatchdogManager.add) \(a shortcut equivalent to `app.watchdog.add()`. |
 
-
 ## Hooks
 
 This extension defines the following hooks:
@@ -94,7 +93,7 @@ with MyApp() as app:
 {% endtab %}
 {% endtabs %}
 
-In the above example, nothing is printed to console.  However you will see something like the following via debug logging:
+In the above example, nothing is printed to console. However you will see something like the following via debug logging:
 
 ```text
 $ python myapp.py --debug 2>&1 | grep -i watchdog
@@ -178,7 +177,7 @@ The modified path was: /path/to/tmp/test.file
 {% endtabs %}
 
 {% hint style="info" %}
-Note that the `WatchdogEventHandler` could be replaced with any other event handler classe \(i.e. those available from `watchdog` directly\).  However to play nicely with Cement, we sub-class them first in order to pass in our application object.
+Note that the `WatchdogEventHandler` could be replaced with any other event handler classe \(i.e. those available from `watchdog` directly\). However to play nicely with Cement, we sub-class them first in order to pass in our application object.
 {% endhint %}
 
 {% tabs %}

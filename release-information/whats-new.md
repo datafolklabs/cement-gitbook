@@ -17,7 +17,7 @@ A lot of time and effort has gone into revamping the developer documentation, wh
 
 ### Simplified API Naming Conventions and Usage
 
-The naming conventions and library paths in Cement 2 were laborious to type and remember.  Now all modules/methods/etc are importable from `cement` namespace directly, and the naming is simplified \(ex: `CementApp` is now `App`, `CementHandler` is now `Handler`, etc\).
+The naming conventions and library paths in Cement 2 were laborious to type and remember. Now all modules/methods/etc are importable from `cement` namespace directly, and the naming is simplified \(ex: `CementApp` is now `App`, `CementHandler` is now `Handler`, etc\).
 
 ```python
 from cement import App, Controller, ex
@@ -34,7 +34,6 @@ class MyApp(App):
     class Meta:
         label = 'myapp'
         handlers = [Base]
-
 ```
 
 ### Developer Tools CLI
@@ -57,7 +56,7 @@ INFO: Generating cement script in .
 
 ### Clearer Interface Definition and Implementation
 
-In Cement 2, the design of the interface and handler system was not easy to follow for new developers to the framework.  It was also loosely modeled after ZopeInterface, and that may have lead to some odd naming conventions \(IMeta, IMyInterface, etc\), and an implementation that just felt weird.
+In Cement 2, the design of the interface and handler system was not easy to follow for new developers to the framework. It was also loosely modeled after ZopeInterface, and that may have lead to some odd naming conventions \(IMeta, IMyInterface, etc\), and an implementation that just felt weird.
 
 Interfaces are now defined using the standard library's [Abstract Base Class](https://docs.python.org/3/library/abc.html) module per the [request of the community](https://github.com/datafolklabs/cement/issues/192), moving the framework away from oddities and more toward common Python standards.
 
@@ -81,11 +80,11 @@ This drops you into a shell within a docker container, and environment so that e
 |> cement <| src # make docs
 ```
 
-_See the `Makefile` for more common development tasks \(for framework development\)._
+_See the_ `Makefile` _for more common development tasks \(for framework development\)._
 
 ### Environment Variable Overrides
 
-Cement now supports the ability to override all config object settings via their associated environment variables.  For example:
+Cement now supports the ability to override all config object settings via their associated environment variables. For example:
 
 {% tabs %}
 {% tab title="myapp.py" %}
@@ -120,7 +119,7 @@ Foo => not-bar
 {% endtab %}
 {% endtabs %}
 
-Environment variables are logically mapped to configuration settings based on their config keys and are prefixed with `MYAPP_` \(based on the label of the app\).  So:
+Environment variables are logically mapped to configuration settings based on their config keys and are prefixed with `MYAPP_` \(based on the label of the app\). So:
 
 * `config['myapp']['foo']` =&gt; `$MYAPP_FOO`
 * `config['some_section']['foo']` =&gt; `$MYAPP_SOME_SECTION_FOO`
@@ -129,13 +128,13 @@ Environment variables are logically mapped to configuration settings based on th
 
 | **Interface** | Description |
 | :--- | :--- |
-| [**Template**](../core-foundation/templating.md)\*\*\*\* | Rendering of template data \(content, files, etc\).  Existing output handler extensions were also updated to include an associated template handler \(`MustacheTemplateHandler`, `Jinja2TemplateHandler`, etc\). |
+| [**Template**](../core-foundation/templating.md) | Rendering of template data \(content, files, etc\).  Existing output handler extensions were also updated to include an associated template handler \(`MustacheTemplateHandler`, `Jinja2TemplateHandler`, etc\). |
 
 ## New Extensions
 
 | Extension | Description |
 | :--- | :--- |
-| [**Print**](../extensions/print.md)\*\*\*\* | Used primarily in development as a replacement for standard `print()`, allowing the developer to honor framework features like `pre_render` and `post_render` hooks. |
-| \*\*\*\*[**Scrub**](../extensions/scrub.md)\*\*\*\* | Adds the ability to easily obfuscate sensitive data from rendered output \(think IP addresses, credit card numbers, etc\) |
-| \*\*\*\*[**Generate**](../extensions/generate.md)\*\*\*\* | Adds the ability for application developers to add a `generate` controller to their application, and include any number of source templates to generate from.  Think `myapp generate plugin` for third party developers to create plugins for your application from a fully-functional working template. |
+| [**Print**](../extensions/print.md) | Used primarily in development as a replacement for standard `print()`, allowing the developer to honor framework features like `pre_render` and `post_render` hooks. |
+| [**Scrub**](../extensions/scrub.md) | Adds the ability to easily obfuscate sensitive data from rendered output \(think IP addresses, credit card numbers, etc\) |
+| [**Generate**](../extensions/generate.md) | Adds the ability for application developers to add a `generate` controller to their application, and include any number of source templates to generate from.  Think `myapp generate plugin` for third party developers to create plugins for your application from a fully-functional working template. |
 

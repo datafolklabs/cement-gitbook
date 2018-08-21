@@ -106,5 +106,3 @@ class MyApp(App):
 {% endtab %}
 {% endtabs %}
 
-
-

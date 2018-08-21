@@ -5,7 +5,7 @@
 Cement defines the [Log Interface](https://cement.readthedocs.io/en/3.0/api/core/log/#cement.core.log.LogInterface), as well as the default [LoggingLogHandler](https://cement.readthedocs.io/en/3.0/api/ext/ext_logging/#cement.ext.ext_logging.LoggingLogHandler) that implements the interface. This handler is built on top of the [Logging](http://docs.python.org/library/logging.html) module which is included in the Python standard library.
 
 {% hint style="warning" %}
-Cement often includes multiple handler implementations of an interface that may or may not have additional features or functionality than the interface requires.  The documentation below only references usage based on the interface and default handler \(not the full capabilities of an implementation\).
+Cement often includes multiple handler implementations of an interface that may or may not have additional features or functionality than the interface requires. The documentation below only references usage based on the interface and default handler \(not the full capabilities of an implementation\).
 {% endhint %}
 
 **Cement Extensions That Provide Log Handlers**
@@ -74,8 +74,7 @@ class MyApp(App):
 {% endcode-tabs-item %}
 
 {% code-tabs-item title="~/.myapp.conf" %}
-```
-
+```text
 [myapp]
 
 # ...
@@ -125,7 +124,7 @@ CRITICAL: This is a fatal message
 {% endtabs %}
 
 {% hint style="info" %}
-Console logging can be disabled by setting `to_console` to `False` in either the application defaults, or under the  `[log.logging]` section of the applications configuration file.
+Console logging can be disabled by setting `to_console` to `False` in either the application defaults, or under the `[log.logging]` section of the applications configuration file.
 {% endhint %}
 
 ## Logging to File
@@ -150,7 +149,7 @@ class MyApp(App):
 {% endcode-tabs-item %}
 
 {% code-tabs-item title="~/.myapp.conf" %}
-```
+```text
 [myapp]
 # ...
 
@@ -200,7 +199,7 @@ Which would look like:
 
 ## Creating a Log Handler
 
-All interfaces in Cement can be overridden with your own implementation.  This can be done either by sub-classing [`LogHandler`](https://cement.readthedocs.io/en/3.0/api/core/log/#cement.core.log.LogHandler) itself, or by sub-classing an existing extension's handlers in order to alter their functionality.
+All interfaces in Cement can be overridden with your own implementation. This can be done either by sub-classing [`LogHandler`](https://cement.readthedocs.io/en/3.0/api/core/log/#cement.core.log.LogHandler) itself, or by sub-classing an existing extension's handlers in order to alter their functionality.
 
 {% tabs %}
 {% tab title="Example: Creating a Log Handler" %}

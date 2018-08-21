@@ -69,7 +69,7 @@ with MyApp() as app:
 {% endcode-tabs-item %}
 
 {% code-tabs-item title="~/.myapp.conf" %}
-```
+```text
 [myapp]
 
 # set the cache handler to use

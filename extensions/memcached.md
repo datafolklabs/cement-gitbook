@@ -16,7 +16,7 @@ The Memcached Extension includes the [`MemcachedCacheHandler`](https://cement.re
 ## Requirements
 
 * Pylibmc \(`pip install pylibmc`\)
-  * _There are known issues installing `pylibmc` on macOS/Homebrew via PIP._  [_This post might be helpful_](http://stackoverflow.com/questions/14803310/error-when-install-pylibmc-using-pip)_._
+  * _There are known issues installing_ `pylibmc` _on macOS/Homebrew via PIP._  [_This post might be helpful_](http://stackoverflow.com/questions/14803310/error-when-install-pylibmc-using-pip)_._
 
 ## Configuration
 
@@ -67,7 +67,7 @@ with MyApp() as app:
 {% endcode-tabs-item %}
 
 {% code-tabs-item title="~/.myapp.conf" %}
-```
+```text
 [myapp]
 
 # set the cache handler to use

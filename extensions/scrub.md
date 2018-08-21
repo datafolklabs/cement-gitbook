@@ -62,6 +62,6 @@ This is an IPv4 Address: ***.***.***.***
 {% endtabs %}
 
 {% hint style="warning" %}
-In order for scrubbing to work, output must be rendered via a registered [output handler](../core-foundation/output-rendering.md).  If only printing to console is desired, use the `print` extension along with `app.print()` \(as in the above example\).
+In order for scrubbing to work, output must be rendered via a registered [output handler](../core-foundation/output-rendering.md). If only printing to console is desired, use the `print` extension along with `app.print()` \(as in the above example\).
 {% endhint %}
 

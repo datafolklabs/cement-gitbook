@@ -32,8 +32,6 @@ This handler honors the following settings under a `[log.logging]` section of th
 | **max\_bytes** | Maximum file size \(in bytes\) until the log file is rotated \(if rotation is enabled\).  Default: _512000_ |
 | **max\_files** | Maximum number of files to keep when rotating is enabled.  Default: `4` |
 
-
-
 A sample config section might look like:
 
 {% code-tabs %}

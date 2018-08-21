@@ -68,7 +68,7 @@ When copying a source directory, both the file/directory path names themselves a
 
 ## Creating a Template Handler
 
-All interfaces in Cement can be overridden with your own implementation.  This can be done either by sub-classing [`TemplateHandler`](https://cement.readthedocs.io/en/3.0/api/core/template/#cement.core.template.TemplateHandler) itself, or by sub-classing an existing extension's handlers in order to alter their functionality.
+All interfaces in Cement can be overridden with your own implementation. This can be done either by sub-classing [`TemplateHandler`](https://cement.readthedocs.io/en/3.0/api/core/template/#cement.core.template.TemplateHandler) itself, or by sub-classing an existing extension's handlers in order to alter their functionality.
 
 {% tabs %}
 {% tab title="Example: Creating a Template Handler" %}

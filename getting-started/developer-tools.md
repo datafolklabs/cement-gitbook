@@ -1,9 +1,3 @@
----
-description: >-
-  Introduction to the included developer tools provided that streamline the
-  process of creating new projects, and/or extending existing ones.
----
-
 # Developer Tools
 
 ## Introduction

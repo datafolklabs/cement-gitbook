@@ -10,7 +10,7 @@ This section is intended to give a brief overview of some of the most commonly u
 
 Some assumptions are being made here. Primarily, we assume that you've used and are familiar with Python. The overview is intended to give a high level look at using Cement. Please dive deeper into the individual sections after the overview in order to gain a better understanding of each component.
 
-### The Application Object
+## The Application Object
 
 The core of your project starts with the Cement `App` object, which we will refer to throughout this documentation in several ways:
 
@@ -56,7 +56,7 @@ optional arguments:
 {% endtab %}
 {% endtabs %}
 
-### MetaMixin
+## MetaMixin
 
 Cement uses `MetaMixin` classes everywhere, which allows the framework to define default functionality but also provides an easy mechanism for developers to override and customize.
 
@@ -83,13 +83,13 @@ App('myapp', config_defaults={'foo': 'bar'})
 
 Nearly every Cement class has an associated `Meta` class, which we often refer to as `App.Meta`, `SomeHandlerClass.Meta`, etc. The instantiated object is refered to in code as `app._meta`, `some_handler._meta`, etc.
 
-### Interfaces and Handlers
+## Interfaces and Handlers
 
 All aspects of the framework are broken up into interfaces, and handlers. Interfaces **define** some functionality, while handlers **implement** that functionality. Cement defines the following builtin core interfaces:
 
 | Interface | Descripton |
 | :--- | :--- |
-| [**Extension**](../core-foundation/extensions-1.md)\*\*\*\* | Framework extension loading. |
+| [**Extension**](../core-foundation/extensions-1.md) | Framework extension loading. |
 | **​**[**Log**](https://cement.readthedocs.io/en/portland/api/core/log/#cement.core.log.LogHandler)**​** | Messaging to console, and/or file via common log facilities \(INFO, WARNING, ERROR, FATAL, DEBUG\). |
 | **​**[**Config**](https://cement.readthedocs.io/en/portland/api/core/config/#cement.core.config.ConfigHandler)**​** | Merging of application configuration defaults, configuration files, and environment settings into a single config object. |
 | **​**[**Mail**](https://cement.readthedocs.io/en/portland/api/core/mail/#cement.core.mail.MailHandler)**​** | Remote message sending \(email, smtp, etc\). |
@@ -100,17 +100,13 @@ All aspects of the framework are broken up into interfaces, and handlers. Interf
 | **​**[**Controller**](https://cement.readthedocs.io/en/portland/api/core/controller/#cement.core.controller.ControllerHandler)**​** | Command dispatch \(sub-commands, arguments, etc\) |
 | **​**[**Cache**](https://cement.readthedocs.io/en/portland/api/core/cache/#cement.core.cache.CacheHandler)**​** | Key/Value data store \(memcached, redis, etc\) |
 
-
-
-To accompany the above interfaces, Cement also defines and registers default Handlers that implement the required functionality.  For example, the builtin configuration handler `ConfigParserConfigHandler`, implements the `config` interface.
+To accompany the above interfaces, Cement also defines and registers default Handlers that implement the required functionality. For example, the builtin configuration handler `ConfigParserConfigHandler`, implements the `config` interface.
 
 {% hint style="info" %}
 Handlers are referred to by the interfaces they implement, such as `config.configparser`, `config.json`, `config.yaml`, etc. Application developers can also define their own interfaces, allowing customization by plugins.
 {% endhint %}
 
-
-
-Developers can override the default functionality by creating their own handlers, or by sub-classing what is provided to alter its implementation.  The following example demonstrates how you would sub-class and override an existing handler:
+Developers can override the default functionality by creating their own handlers, or by sub-classing what is provided to alter its implementation. The following example demonstrates how you would sub-class and override an existing handler:
 
 Ex: Overriding Default Framework Handlers
 
@@ -155,11 +151,11 @@ mail_handler = my_mail_handler
 {% endtab %}
 {% endtabs %}
 
-### Configuration
+## Configuration
 
 Cement supports loading multiple configuration files out-of-the-box. Configurations loaded from files are merged in, overriding the applications default settings \(`App.Meta.config_defaults`\). The default configuration handler is `ConfigParserConfigHandler`, based on [ConfigParser](https://docs.python.org/3/library/configparser.html) in the standard library, and is instantiated as `app.config`.
 
-Cement looks for configuration files in the most common places by default.  For example:
+Cement looks for configuration files in the most common places by default. For example:
 
 * /etc/myapp/myapp.yml
 * ~/.config/myapp/myapp.yml
@@ -253,7 +249,7 @@ All configuration settings can be overridden by their associated environment var
 
 Note that all environment variable configurations are prefixed with the application label, therefore secondary namespaces such as `config['log.logging']['level']` would be overridable by `MYAPP_LOG_LOGGING_LEVEL`.
 
-### Arguments
+## Arguments
 
 Argument parsing is based on the standard [Argparse](https://docs.python.org/3/library/argparse.html) library, with the same usage that you're familiar with. The argument handler `ArgparseArgumentHandler` is instantiated as `app.args`, arguments are defined with `app.args.add_argument()`, and parsed arguments are stored as `app.args.parsed_args` \(or more conveniently `app.pargs` for easy reference\).
 
@@ -353,7 +349,7 @@ Foo Argument => bar
 {% endtab %}
 {% endtabs %}
 
-### Logging
+## Logging
 
 Logging is based on the standard [Logging](https://docs.python.org/3/library/logging.html) library, with the same usage you're familiar with. The logging facility is customizable via the `[log.logging]` section of an applications configuration:
 
@@ -416,7 +412,7 @@ CRITICAL: this is an fatal message
 {% endtab %}
 {% endtabs %}
 
-### Output
+## Output
 
 By default, Cement does not define any output handlers. Just like any other app, you are free to `print()` to console all you like or use the builtin logging facility. That said, more complex applications will benefit greatly by separating the output from the logic. Think of output handling as the `view` in a traditional [MVC Framework](https://en.wikipedia.org/wiki/Model-view-controller).
 
@@ -432,7 +428,7 @@ The following output handlers ship with Cement:
 * [Json](../extensions/json.md) - Produces JSON output from dicts
 * [Yaml](../extensions/yaml.md) - Produces Yaml output from dicts
 * [Mustache](../extensions/mustache.md) - Produces text output rendered from [Mustache](http://mustache.github.io/) templates
-* [Handlebars]() - Produces text output rendered from [Handlebars](https://github.com/wbond/pybars3) templates
+* [Handlebars](framework-overview.md) - Produces text output rendered from [Handlebars](https://github.com/wbond/pybars3) templates
 * [Jinja2](../extensions/jinja2.md) - Produces text output rendered from [Jinja2](http://jinja.pocoo.org/) templates
 * [Tabulated](../extensions/tabulate.md) - Produces tabulated text output rendered via the [Tabulate](https://pypi.python.org/pypi/tabulate) library.
 
@@ -456,7 +452,7 @@ class MyApp(App):
 
         ### override default handler meta options
         meta_defaults = META
-        
+
         ### add optional extensions
         extensions = ['json', 'mustache']
 
@@ -511,11 +507,11 @@ $ python myapp.py -o json
 {% endtab %}
 {% endtabs %}
 
-### Controllers
+## Controllers
 
 Controllers provide a common means of organizing application logic into relevant chunks of code, as well as the ability for plugins and extensions to extend an applications capabilities. It is the `Controller` piece of the traditional [MVC Framework](https://en.wikipedia.org/wiki/Model-view-controller).
 
-The first controller is called `base`, and if registered will take over runtime control when `app.run()` is called. What this means is, instead of Cement calling `app.args.parse_arguments()` directly, the [runtime dispatch](../terminology.md#runtime-dispatch) is handed over to the `base` controller, that is then responsible for parsing and handling arguments. 
+The first controller is called `base`, and if registered will take over runtime control when `app.run()` is called. What this means is, instead of Cement calling `app.args.parse_arguments()` directly, the [runtime dispatch](../terminology.md#runtime-dispatch) is handed over to the `base` controller, that is then responsible for parsing and handling arguments.
 
 The most notable action of runtime dispatch is mapping arguments and sub-commands to their respective controllers and functions. For example, the default action when running `$ myapp` without any arguments or sub-commands is to execute the `Base._default()` function.
 
@@ -640,7 +636,7 @@ To expose a function as a sub-command, you must decorate it with `@ex()`. It's u
 The term `ex` is short for `expose`, and allows for shorter reference and also four character indentation/alignment with functions to be easier on the eyes.
 {% endhint %}
 
-### Framework Extensions
+## Framework Extensions
 
 Cement's [Interfaces and Handlers](../core-foundation/interfaces-and-handlers.md) system makes extending the framework easy, and limitless. Cement ships with dozens of extensions that either alter existing functionality, or add to it. For example, the default logging facility provides basic logging capabilities, however with a single line of code an application can instead use the [Colorlog](../extensions/colorlog.md) extension to enable colorized console logging.
 
@@ -691,7 +687,7 @@ cement.core.exc.CaughtSignal: Caught signal 14
 
 See the [Extensions Documentation](../core-foundation/extensions-1.md) to learn more about the extended capabilities of the framework.
 
-### Application Plugins
+## Application Plugins
 
 Cement provides an interface that automatically handles the management, configuration, and loading of Application Plugins. A Plugin is essentially the same as a Framework Extension, but is application specific where extensions are agnostic \(can be used by any application\).
 
@@ -795,9 +791,7 @@ Inside MyPlugin.cmd1()
 {% endtab %}
 {% endtabs %}
 
-
-
-### Hooks
+## Hooks
 
 Hooks provide developers the ability to tie into the framework, and applications without direct access to the runtime. For example, a plugin might need to execute some code after arguments have been parsed, but before controller sub-commands are dispatched. As a plugin developer, you don't have direct access to the applications runtime code but you can still tie into it with the builtin `post_argument_parsing` hook.
 

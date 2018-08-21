@@ -33,7 +33,6 @@ with MyApp() as app:
         # do something with e
         app.log.fatal('Caught Exception: %s' % e)
         app.exit_code = 100
-
 ```
 {% endtab %}
 {% endtabs %}
@@ -53,7 +52,7 @@ class MyTestApp(MyApp):
 {% endtabs %}
 
 {% hint style="info" %}
-The default exit code is `0`.  However, any uncaught exceptions will cause the application to exit with a code of `1` \(error\).
+The default exit code is `0`. However, any uncaught exceptions will cause the application to exit with a code of `1` \(error\).
 {% endhint %}
 
 ## Running Cleanup Code

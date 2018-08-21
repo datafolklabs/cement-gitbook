@@ -5,7 +5,7 @@
 Cement defines a Plugin Interface, as well as the default [CementPluginHandler](https://cement.readthedocs.io/en/3.0/api/ext/ext_plugin/#cement.ext.ext_plugin.CementPluginHandler) that implements the interface.
 
 {% hint style="warning" %}
-Cement often includes multiple handler implementations of an interface that may or may not have additional features or functionality than the interface requires.  The documentation below only references usage based on the interface and default handler \(not the full capabilities of an implementation\).
+Cement often includes multiple handler implementations of an interface that may or may not have additional features or functionality than the interface requires. The documentation below only references usage based on the interface and default handler \(not the full capabilities of an implementation\).
 {% endhint %}
 
 **Cement Extensions that Provide Plugin Handlers:**
@@ -33,7 +33,7 @@ The following options under [`App.Meta`](https://cement.readthedocs.io/en/3.0/ap
 | **Option** | **Description** |
 | :--- | :--- |
 | **plugins** | A _hardcoded_ list of plugins to load.  In general, application plugins should be dynamically enabled/disabled via the application's configuration files.  However, some application designs may prefer to always load specific builtin plugins. Default: `[]` |
-| **config\_dirs** | Plugin configuration files are loaded from any discovered application configuration directories.   |
+| **config\_dirs** | Plugin configuration files are loaded from any discovered application configuration directories. |
 | **plugin\_bootstrap** | A python module \(dotted import path\) where plugin code can be loaded from instead of external directories \(builtin plugins shipped with the application code\).  Default: `myapp.plugins` |
 | **plugin\_dirs** | A list of directory paths where plugin code \(modules\) can be loaded from \(external to the application\).  Will be merged with [`App.Meta.core_system_plugin_dirs`](https://cement.readthedocs.io/en/3.0/api/core/foundation/#cement.core.foundation.App.Meta.core_system_plugin_dirs) and [`App.Meta.core_user_plugin_dirs`](https://cement.readthedocs.io/en/3.0/api/core/foundation/#cement.core.foundation.App.Meta.core_user_plugin_dirs).  Default: `[]` |
 
@@ -81,8 +81,8 @@ This will produce an example plugin directory like the following:
 ```text
 ├── __init__.py
 ├── controllers
-│   ├── __init__.py
-│   └── myplugin.py
+│   ├── __init__.py
+│   └── myplugin.py
 └── templates
     ├── __init__.py
     └── plugins
@@ -90,7 +90,7 @@ This will produce an example plugin directory like the following:
             └── command1.jinja2
 ```
 
-The example plugin includes a controller, sub-command, and output generated via [Jinja2](../extensions/jinja2.md) template.  That said, the only thing Cement needs is a `load()` function.... everything else is arbitrary.  In the generated plugin, we find this in `myplugin/__init__.py`:
+The example plugin includes a controller, sub-command, and output generated via [Jinja2](../extensions/jinja2.md) template. That said, the only thing Cement needs is a `load()` function.... everything else is arbitrary. In the generated plugin, we find this in `myplugin/__init__.py`:
 
 ```python
 import os
@@ -106,7 +106,7 @@ def load(app):
 ```
 
 {% hint style="info" %}
-Plugins can provide anything from defining interfaces, registering hooks, or even adding command line sub-commands and arguments.  The only thing required to make up a plugin is a `load()` function in `myplugin.py` or `myplugin/__init__.py` files.
+Plugins can provide anything from defining interfaces, registering hooks, or even adding command line sub-commands and arguments. The only thing required to make up a plugin is a `load()` function in `myplugin.py` or `myplugin/__init__.py` files.
 {% endhint %}
 
 You will notice that plugins are essentially the same as framework extensions. The difference is found both in when/how the code is loaded, as well as the purpose of that code.
@@ -122,7 +122,7 @@ Plugin modules are discovered and loaded in the following order:
 * From directories listed in `App.Meta.plugin_dirs`
 * From the python path defined in `App.Meta.plugin_module`
 
-In order for the framework to know about a plugin, it must be defined in the application's configuration settings under its designated section of `plugin.myplugin`.  This configuration block can live in any application configuration file, including files loaded from configuration dirs \(ex: `/etc/myapp/plugin.d/myplugin.conf`\).
+In order for the framework to know about a plugin, it must be defined in the application's configuration settings under its designated section of `plugin.myplugin`. This configuration block can live in any application configuration file, including files loaded from configuration dirs \(ex: `/etc/myapp/plugin.d/myplugin.conf`\).
 
 {% tabs %}
 {% tab title="Example: Loading a Plugin" %}
@@ -159,7 +159,7 @@ Inside MyPlugin!
 {% endtab %}
 {% endtabs %}
 
-If a plugin configuration is found, its settings will be loaded into the app.  However, the plugin will only be loaded if it is enabled:
+If a plugin configuration is found, its settings will be loaded into the app. However, the plugin will only be loaded if it is enabled:
 
 ```text
 [myapp]
@@ -194,7 +194,7 @@ This will ensure that Python will properly load the sub-modules regardless of wh
 
 ## Loading Templates From Plugin Directories
 
-In order for a plugin to use its own template files, its templates directory first needs to be registered with the app.  We accomplish this with a `post_setup` hook:
+In order for a plugin to use its own template files, its templates directory first needs to be registered with the app. We accomplish this with a `post_setup` hook:
 
 {% tabs %}
 {% tab title="Example: Registering Plugin Template Directories" %}
@@ -217,7 +217,7 @@ def add_template_dir(app):
 
 ## Creating a Plugin Handler
 
-All interfaces in Cement can be overridden with your own implementation.  This can be done either by sub-classing [`PluginHandler`](https://cement.readthedocs.io/en/3.0/api/core/plugin/#cement.core.plugin.PluginHandler) itself, or by sub-classing an existing extension's handlers in order to alter their functionality.
+All interfaces in Cement can be overridden with your own implementation. This can be done either by sub-classing [`PluginHandler`](https://cement.readthedocs.io/en/3.0/api/core/plugin/#cement.core.plugin.PluginHandler) itself, or by sub-classing an existing extension's handlers in order to alter their functionality.
 
 {% tabs %}
 {% tab title="Example: Creating a Plugin Handler" %}

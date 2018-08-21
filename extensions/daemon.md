@@ -36,8 +36,6 @@ The daemon extension is configurable with the following settings under a `[daemo
 | **pid\_file** | The filesystem path to store the PID \(Process ID\) file.  Default: `None` |
 | **umask** | The UMASK value to pass to `os.umask()`.  Default: `0` |
 
-
-
 Configurations can be passed as defaults to `App`:
 
 ```python
@@ -91,8 +89,6 @@ with MyApp() as app:
         sleep(10)
 ```
 
-
-
 Some applications may prefer to only daemonize certain sub-commands rather than the entire parent application. For example:
 
 ```python
@@ -135,7 +131,7 @@ $ ps -x | grep example
 37452 ttys000    0:00.00 grep example
 ```
 
-#### Daemonizing Without Commandline Option
+### Daemonizing Without Commandline Option
 
 Some use cases might require daemonizing the process without having to always pass the `--daemon` option, or where passing the option might be redundant. You can work around that programatically by simply overriding the `daemon` argument value in order to force daemonization even if `--daemon` wasn’t passed.
 

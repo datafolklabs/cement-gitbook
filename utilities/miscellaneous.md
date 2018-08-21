@@ -2,7 +2,7 @@
 
 ## Introduction to the Miscellaneous Utilities {#introduction-to-the-output-interface}
 
-Cement includes a Miscellaneous Utilities Module with helpers for common tasks that don't fit anywhere on their own. 
+Cement includes a Miscellaneous Utilities Module with helpers for common tasks that don't fit anywhere on their own.
 
 **API References:**
 
@@ -31,14 +31,14 @@ CONFIG['output.json']['overridable'] = True
 {% endtabs %}
 
 {% hint style="info" %}
-The `init_defaults` helper simply generates a dict with nested dicts of the given keys.  It does not do anything special, but is used throughout the documentation as it generally makes things more readable in examples.  
+The `init_defaults` helper simply generates a dict with nested dicts of the given keys. It does not do anything special, but is used throughout the documentation as it generally makes things more readable in examples.
 
 You can always use a standard `dict` for configuration and meta defaults, which often makes more sense when building larger applications with a lot of default settings to manage.
 {% endhint %}
 
 ## Testing True Values
 
-When reading configuration files and other unknown data sources, we often need to convert strings to boolean.  For example, a setting of `true` read from a configparser text based config file will be a `str` type, but we want it as an `bool`.
+When reading configuration files and other unknown data sources, we often need to convert strings to boolean. For example, a setting of `true` read from a configparser text based config file will be a `str` type, but we want it as an `bool`.
 
 The [`misc.is_true()`](https://cement.readthedocs.io/en/3.0/api/utils/misc/#cement.utils.misc.is_true) helper converts common `true` values to boolean.
 
@@ -73,7 +73,7 @@ is_true(False)
 
 ## Minimal Logging
 
-Cement provides a [`misc.minimal_logger()`](https://cement.readthedocs.io/en/3.0/api/utils/misc/#cement.utils.misc.minimal_logger) helper for use outside of the `App` object, most notably for extensions \(though they can use the application log also\).  This should only be used by the framework, or when the application log is not available \(before application is setup maybe\).
+Cement provides a [`misc.minimal_logger()`](https://cement.readthedocs.io/en/3.0/api/utils/misc/#cement.utils.misc.minimal_logger) helper for use outside of the `App` object, most notably for extensions \(though they can use the application log also\). This should only be used by the framework, or when the application log is not available \(before application is setup maybe\).
 
 {% tabs %}
 {% tab title="Example: Minimal Logging" %}
@@ -105,7 +105,7 @@ rando('anchG45jJfka')
 
 ## Limit Text Line Length
 
-When working with command lines, keeping output lines to less than 78 characters is a good best-practice.  Cement provides the [`misc.wrap()`](https://cement.readthedocs.io/en/3.0/api/utils/misc/#cement.utils.misc.wrap) helper to accomplish this by adding a line break `\n`
+When working with command lines, keeping output lines to less than 78 characters is a good best-practice. Cement provides the [`misc.wrap()`](https://cement.readthedocs.io/en/3.0/api/utils/misc/#cement.utils.misc.wrap) helper to accomplish this by adding a line break `\n`
 
 {% tabs %}
 {% tab title="Example: Limit Text Line Length" %}

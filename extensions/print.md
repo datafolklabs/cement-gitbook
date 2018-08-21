@@ -58,7 +58,7 @@ with MyApp() as app:
     data = {
         'foo' : 'bar',
     }
-    
+
     app.render(data)
 ```
 {% endtab %}

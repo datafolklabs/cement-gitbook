@@ -2,10 +2,10 @@
 
 ## Introduction to the Output Interface
 
-Cement defines an [Output Interface](https://cement.readthedocs.io/en/3.0/api/core/output/#cement.core.output.OutputInterface), as well as the default [DummyOutputHandler](https://docs.builtoncement.com/%7B%7B%20version%20%7D%7D/api/ext/ext_dummy.html) that implements the interface as a placeholder but does not actually produce any output.
+Cement defines an [Output Interface](https://cement.readthedocs.io/en/3.0/api/core/output/#cement.core.output.OutputInterface), as well as the default [DummyOutputHandler](https://docs.builtoncement.com/{{%20version%20}}/api/ext/ext_dummy.html) that implements the interface as a placeholder but does not actually produce any output.
 
 {% hint style="warning" %}
-Cement often includes multiple handler implementations of an interface that may or may not have additional features or functionality than the interface requires.  The documentation below only references usage based on the interface and default handler \(not the full capabilities of an implementation\).
+Cement often includes multiple handler implementations of an interface that may or may not have additional features or functionality than the interface requires. The documentation below only references usage based on the interface and default handler \(not the full capabilities of an implementation\).
 {% endhint %}
 
 **Cement Extensions That Provide Output Handlers:**
@@ -46,12 +46,12 @@ from cement import App
 
 with App('myapp' as app:
     app.run()
-    
+
     # create a data dictionary
     data = {
         'foo': 'bar',
     }
-    
+
     # render data dictionary
     app.render(data)
 ```
@@ -73,7 +73,7 @@ class MyApp(App):
 
 with MyApp() as app:
     app.run()
-    
+
     # create a data dictionary
     data = {
         'foo': 'bar',
@@ -124,7 +124,7 @@ with MyApp() as app:
 {% endcode-tabs-item %}
 
 {% code-tabs-item title="templates/example.jinja2" %}
-```
+```text
 Example Jinja2 Template
 
 {% if foo %}
@@ -161,7 +161,7 @@ Once a template is found, loading stops and the template is rendered.
 
 ## Creating an Output Handler
 
-All interfaces in Cement can be overridden with your own implementation.  This can be done either by sub-classing [`OutputHandler`](https://cement.readthedocs.io/en/3.0/api/core/output/#cement.core.output.OutputHandler) itself, or by sub-classing an existing extension's handlers in order to alter their functionality.
+All interfaces in Cement can be overridden with your own implementation. This can be done either by sub-classing [`OutputHandler`](https://cement.readthedocs.io/en/3.0/api/core/output/#cement.core.output.OutputHandler) itself, or by sub-classing an existing extension's handlers in order to alter their functionality.
 
 {% tabs %}
 {% tab title="Example: Creating an Output Handler" %}
@@ -174,7 +174,7 @@ from cement.core.output import OutputHandler
 class MyOutputHandler(OutputHandler):
     class Meta:
         label = 'my_output_handler'
-    
+
     # do something to implement the interface
 
 class MyApp(App):

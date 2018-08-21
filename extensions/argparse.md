@@ -2,7 +2,7 @@
 
 ## Introduction
 
-The Argparse Extension provides the [`ArgparseArgumentHandler`](http://cement.readthedocs.io/en/3.0/api/ext/ext_argparse/#cement.ext.ext_argparse.ArgparseArgumentHandler) for argument parsing, and the [`ArgparseController`](http://cement.readthedocs.io/en/3.0/api/ext/ext_argparse/#cement.ext.ext_argparse.ArgparseController) for runtime dispatch.  Both are the defaults used by Cement.
+The Argparse Extension provides the [`ArgparseArgumentHandler`](http://cement.readthedocs.io/en/3.0/api/ext/ext_argparse/#cement.ext.ext_argparse.ArgparseArgumentHandler) for argument parsing, and the [`ArgparseController`](http://cement.readthedocs.io/en/3.0/api/ext/ext_argparse/#cement.ext.ext_argparse.ArgparseController) for runtime dispatch. Both are the defaults used by Cement.
 
 **Documentation References:**
 

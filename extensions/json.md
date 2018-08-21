@@ -24,7 +24,7 @@ This extension does not rely on any application level configuration settings or 
 
 ### Using an Alternative Json Module
 
-In some edge cases users have wanted to use an alternative json module for performance reasons, in particular [UltraJson](https://github.com/esnme/ultrajson).  It is possible to override the backend `json` library module to use, such as `ujson` or another **drop-in replacement** library. The recommended solution would be to override the [`JsonOutputHandler.Meta.json_module`](http://cement.readthedocs.io/en/3.0/api/ext/ext_json/#cement.ext.ext_json.JsonConfigHandler.Meta.json_module):
+In some edge cases users have wanted to use an alternative json module for performance reasons, in particular [UltraJson](https://github.com/esnme/ultrajson). It is possible to override the backend `json` library module to use, such as `ujson` or another **drop-in replacement** library. The recommended solution would be to override the [`JsonOutputHandler.Meta.json_module`](http://cement.readthedocs.io/en/3.0/api/ext/ext_json/#cement.ext.ext_json.JsonConfigHandler.Meta.json_module):
 
 {% tabs %}
 {% tab title="Example: Using an Alternative Json Module" %}
@@ -65,7 +65,7 @@ class MyApp(App):
 {% endcode-tabs-item %}
 
 {% code-tabs-item title="~/.myapp.json" %}
-```
+```text
 {
     "myapp": {
         "foo": "bar"
@@ -79,7 +79,7 @@ class MyApp(App):
 
 ### Output Handler
 
-In general, you likely would not set `output_handler` to `json`, but rather another type of output handler that displays readable output to the end-user \(ex: Mustache, Jinja2, or Tabulate\). However, Cement supports overriding handlers via command line options if the [`Handler.Meta.overridable`](http://cement.readthedocs.io/en/3.0/api/core/handler/#cement.core.handler.Handler.Meta.overridable) option is set.  For example, `-o json` will trigger the framework to use the `json` output handler, overriding the default set in [`App.Meta.output_handler`](http://cement.readthedocs.io/en/3.0/api/core/foundation/#cement.core.foundation.App.Meta.output_handler).
+In general, you likely would not set `output_handler` to `json`, but rather another type of output handler that displays readable output to the end-user \(ex: Mustache, Jinja2, or Tabulate\). However, Cement supports overriding handlers via command line options if the [`Handler.Meta.overridable`](http://cement.readthedocs.io/en/3.0/api/core/handler/#cement.core.handler.Handler.Meta.overridable) option is set. For example, `-o json` will trigger the framework to use the `json` output handler, overriding the default set in [`App.Meta.output_handler`](http://cement.readthedocs.io/en/3.0/api/core/foundation/#cement.core.foundation.App.Meta.output_handler).
 
 See the documentation on [Overriding Handlers via Command Line](../core-foundation/interfaces-and-handlers.md#overriding-handlers-via-command-line).
 
@@ -110,7 +110,7 @@ with MyApp() as app:
 {% endcode-tabs-item %}
 
 {% code-tabs-item title="templates/example.m" %}
-```
+```text
 Foo: {{ foo }}
 ```
 {% endcode-tabs-item %}

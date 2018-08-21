@@ -65,7 +65,7 @@ with MyApp() as app:
 {% endcode-tabs-item %}
 
 {% code-tabs-item title="~/.myapp.conf" %}
-```
+```text
 [myapp]
 
 # set the mail handler to use

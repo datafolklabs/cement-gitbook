@@ -11,7 +11,7 @@ For convenience, the preferred `ArgparseController` and `expose()` decorator fro
 Using application controllers is not necessary, but enables rapid development by wrapping pieces of the framework like adding arguments, and linking commands with controller methods. The examples below use the [`ArgparseController`](https://cement.readthedocs.io/en/3.0/api/ext/ext_argparse/#cement.ext.ext_argparse.ArgparseController) as examples \(again, imported as `cement.Controller` for convenience\).
 
 {% hint style="warning" %}
-Cement often includes multiple handler implementations of an interface that may or may not have additional features or functionality than the interface requires.  The documentation below only references usage based on the interface and default handler \(not the full capabilities of an implementation\).
+Cement often includes multiple handler implementations of an interface that may or may not have additional features or functionality than the interface requires. The documentation below only references usage based on the interface and default handler \(not the full capabilities of an implementation\).
 {% endhint %}
 
 **Cement Extensions That Provide Controller Handlers**
@@ -25,10 +25,10 @@ Cement often includes multiple handler implementations of an interface that may 
 
 ## Application Base Controllers
 
-When using application controllers there must be a single `base` controller responsible for handling [runtime dispatch](../terminology.md#runtime-dispatch).  All other controllers are then [stacked](../terminology.md#controller-stacking) on top of the base controller \(or other controllers already stacked on base\).  The base controller is the root of the application's command-line namespace.
+When using application controllers there must be a single `base` controller responsible for handling [runtime dispatch](../terminology.md#runtime-dispatch). All other controllers are then [stacked](../terminology.md#controller-stacking) on top of the base controller \(or other controllers already stacked on base\). The base controller is the root of the application's command-line namespace.
 
 {% hint style="info" %}
-The  initial base controller must have a `Controller.Meta.label` of `base` to designate it as the application's route of handing over runtime \(argument parsing, mapping sub-commands to controllers, etc\).
+The initial base controller must have a `Controller.Meta.label` of `base` to designate it as the application's route of handing over runtime \(argument parsing, mapping sub-commands to controllers, etc\).
 
 If no controller handler is registered with a `base` label, Cement will register a minimal controller in it's place that doesn't do anything other than allow extensions to stack properly.
 {% endhint %}
@@ -78,7 +78,7 @@ Inside Base.cmd1()
 {% endtab %}
 {% endtabs %}
 
-The above example demonstrates registering an application base controller.  You will note in the `cli` tab that running `python myapp.py` without any arguments produces help output \(same as if passing `--help`\).  This is the default action of the `ArgparseController`, but can be modified by overriding the `_default` method.
+The above example demonstrates registering an application base controller. You will note in the `cli` tab that running `python myapp.py` without any arguments produces help output \(same as if passing `--help`\). This is the default action of the `ArgparseController`, but can be modified by overriding the `_default` method.
 
 {% tabs %}
 {% tab title="Example: Controller Default Method" %}
@@ -118,7 +118,7 @@ Inside Base._default()
 {% endtabs %}
 
 {% hint style="info" %}
-The `Controller._default` method is hidden from the command-line \(ex: `--help` output\), and does not require the `ex()` decorator to be active.  You can modify the default method by setting it via `Controller.Meta.default_func`.
+The `Controller._default` method is hidden from the command-line \(ex: `--help` output\), and does not require the `ex()` decorator to be active. You can modify the default method by setting it via `Controller.Meta.default_func`.
 {% endhint %}
 
 ## Controller Arguments
@@ -131,7 +131,7 @@ Command line arguments defined by controllers are handled in two ways:
 Controller level arguments are defined via `Controller.Meta.arguments` and are displayed/used at the top level of that controller, while sub-command level arguments are defined via the `ex()` decorator and only displayed and used under that sub-command namespace.
 
 {% hint style="info" %}
-Controller level arguments should be considered global, and relevant to the entire controller namespace.  Sub-command level arguments are only relevant to that sub-command.
+Controller level arguments should be considered global, and relevant to the entire controller namespace. Sub-command level arguments are only relevant to that sub-command.
 {% endhint %}
 
 {% tabs %}
@@ -214,14 +214,14 @@ Sub Option Was Passed
 {% endtabs %}
 
 {% hint style="warning" %}
-How and where arguments are defined determines how they are used.  An argument defined under a controller must be passed before any sub-command namespaces, otherwise the sub-parser will not recognize it and result in an `unrecognized argument error`.
+How and where arguments are defined determines how they are used. An argument defined under a controller must be passed before any sub-command namespaces, otherwise the sub-parser will not recognize it and result in an `unrecognized argument error`.
 {% endhint %}
 
 ## Processing Controller Level Arguments
 
-In the above example we demonstrated accessing the controller level argument via `app.pargs.foo` in the `Base.cmd1()` method/sub-command.  This worked fine. However, because controller level arguments should be considered global to the entire namespace, we should reduce duplicate code and handle controller level argument parsing in one place, regardless of what sub-command is passed.
+In the above example we demonstrated accessing the controller level argument via `app.pargs.foo` in the `Base.cmd1()` method/sub-command. This worked fine. However, because controller level arguments should be considered global to the entire namespace, we should reduce duplicate code and handle controller level argument parsing in one place, regardless of what sub-command is passed.
 
-The `ArgparseController` defines both a `_pre_argument_parsing` and`_post_argument_parsing` method for providing direct access to that controller's sub-parser \(`self._parser`\) and processing arguments.  This is very similar to the `pre_argument_parsing` and `post_argument_parsing` [framework hooks](hooks.md#cement-framework-hooks), but local in scope to the controller.
+The `ArgparseController` defines both a `_pre_argument_parsing` and`_post_argument_parsing` method for providing direct access to that controller's sub-parser \(`self._parser`\) and processing arguments. This is very similar to the `pre_argument_parsing` and `post_argument_parsing` [framework hooks](hooks.md#cement-framework-hooks), but local in scope to the controller.
 
 {% tabs %}
 {% tab title="Example: Processing Controller Level Arguments" %}
@@ -369,6 +369,4 @@ Inside Nested.cmd3()
 {% hint style="info" %}
 Controllers can be stacked on other controllers as many levels deep as necessary. An `embedded` controller can be stacked on top of a `nested` controller, and vice versa. There is little, if any, limitation.
 {% endhint %}
-
-
 

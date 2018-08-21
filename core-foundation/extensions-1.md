@@ -5,14 +5,12 @@
 Cement defines an [Extension Interface](https://cement.readthedocs.io/en/3.0/api/core/extension/#cement.core.extension.ExtensionInterface), as well as the default [CementExtensionHandler](https://cement.readthedocs.io/en/3.0/api/core/extension/#cement.core.extension.ExtensionHandler) that implements the interface. Its purpose is to manage loading framework extensions and making them usable by the application. Extensions are similar to [Application Plugins](plugins.md), but at the framework level \(application agnostic\).
 
 {% hint style="warning" %}
-Cement often includes multiple handler implementations of an interface that may or may not have additional features or functionality than the interface requires.  The documentation below only references usage based on the interface and default handler \(not the full capabilities of an implementation\).
+Cement often includes multiple handler implementations of an interface that may or may not have additional features or functionality than the interface requires. The documentation below only references usage based on the interface and default handler \(not the full capabilities of an implementation\).
 {% endhint %}
 
 {% hint style="info" %}
 As of Cement 2.1.3, optional extensions with external dependencies are now being shipped along with mainline sources. This means that although Cement Core continues to maintain a 100% zero dependency policy, Framework Extensions _can_ rely on external deps. It is the responsibility of the application developer to include these dependencies in their application \(as the Cement package does not include these dependencies\).
 {% endhint %}
-
-
 
 **API References:**
 
@@ -31,7 +29,7 @@ The following options under [`App.Meta`](https://cement.readthedocs.io/en/3.0/ap
 
 ## Working with Extensions
 
-In general, extensions are only loaded and accessed by the framework.  That said the extension handler can be used to access information about loaded extensions, as well as manually load extensions if necessary.
+In general, extensions are only loaded and accessed by the framework. That said the extension handler can be used to access information about loaded extensions, as well as manually load extensions if necessary.
 
 {% tabs %}
 {% tab title="Example: Working with Extensions" %}
@@ -87,7 +85,7 @@ def load(app):
 {% endtabs %}
 
 {% hint style="info" %}
-Extensions can provide anything from defining interfaces, registering hooks, or even adding command line arguments.  The only thing required to make up an extension is the `load()` function.
+Extensions can provide anything from defining interfaces, registering hooks, or even adding command line arguments. The only thing required to make up an extension is the `load()` function.
 {% endhint %}
 
 You will notice that extensions are essentially the same as application plugins. The difference is found both in when/how the code is loaded, as well as the purpose of that code.
@@ -116,7 +114,7 @@ class MyApp(App):
 {% endtabs %}
 
 {% hint style="info" %}
-Note that Cement provides a shortcut for its own builtin extensions so that you can refer to extensions via their short name \(ex: `json` instead of `cement.ext.ext_json`\).  All other extensions must be referenced by their full dotted Python module name.
+Note that Cement provides a shortcut for its own builtin extensions so that you can refer to extensions via their short name \(ex: `json` instead of `cement.ext.ext_json`\). All other extensions must be referenced by their full dotted Python module name.
 {% endhint %}
 
 ## Loading Extensions via a Configuration File
@@ -141,7 +139,7 @@ with App('myapp') as app:
 {% endcode-tabs-item %}
 
 {% code-tabs-item title="~/.myapp.conf" %}
-```
+```text
 [myapp]
 exensions = json, yaml, myapp.ext.ext_myextension
 ```
@@ -168,6 +166,4 @@ myapp.ext.ext_myextension
 {% hint style="warning" %}
 Note that extensions loaded in this way will happen **after** the config handler is setup. Normally, extensions are loaded just before the configuration files are read. Therefore, some extensions may not be compatible with this method if they attempt to perform any actions before `app.setup()` completes \(such as in early framework hooks before configuration files are loaded\).
 {% endhint %}
-
-
 

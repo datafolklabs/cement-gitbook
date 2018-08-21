@@ -20,9 +20,9 @@ If you've found a bug, or would like to request a feature please create a detail
 * Code samples that show the bug in action
 * A pull request including code that:
 
-   a. Fixes the bug
+  a. Fixes the bug
 
-   b. Atleast one test case that tests for the bug specifically
+  b. Atleast one test case that tests for the bug specifically
 
 **The ideal feature request would include:**
 
@@ -31,11 +31,11 @@ If you've found a bug, or would like to request a feature please create a detail
 * Example command line session showing how the feature would be used by the end-user
 * A pull request including:
 
-   a. The feature you would like added
+  a. The feature you would like added
 
-   b. At least one test case that tests the feature and maintains 100% code coverage when tests are run \(meaning that your tests should cover 100% of your contributed code\)
+  b. At least one test case that tests the feature and maintains 100% code coverage when tests are run \(meaning that your tests should cover 100% of your contributed code\)
 
-   c. Documentation that outlines how to use the feature
+  c. Documentation that outlines how to use the feature
 
 ## Guidelines for Code Contributions
 

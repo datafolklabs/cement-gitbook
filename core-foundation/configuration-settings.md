@@ -5,7 +5,7 @@
 Cement defines a [Config Interface](http://cement.readthedocs.io/en/3.0/api/core/config/#cement.core.config.ConfigInterface), as well as the default [ConfigParserConfigHandler](http://cement.readthedocs.io/en/3.0/api/ext/ext_configparser/#cement.ext.ext_configparser.ConfigParserConfigHandler) that implements the interface. This handler is built on top of [ConfigParser](http://docs.python.org/library/configparser.html) which is included in the Python standard library. Therefore, this class will work much like ConfigParser but with any added functions necessary to meet the requirements of the interface.
 
 {% hint style="warning" %}
-Cement often includes multiple handler implementations of an interface that may or may not have additional features or functionality than the interface requires.  The documentation below only references usage based on the interface and default handler \(not the full capabilities of an implementation\).
+Cement often includes multiple handler implementations of an interface that may or may not have additional features or functionality than the interface requires. The documentation below only references usage based on the interface and default handler \(not the full capabilities of an implementation\).
 {% endhint %}
 
 **Cement Extensions That Provide Config Handlers:**
@@ -68,7 +68,7 @@ class MyApp(App):
 {% endcode-tabs-item %}
 
 {% code-tabs-item title="~/.myapp.conf" %}
-```
+```text
 [myapp]
 foo = bar
 
@@ -81,7 +81,7 @@ level = info
 {% endtabs %}
 
 {% hint style="info" %}
-Note that `init_defaults` is a helper from the Miscellaneous Utility Module, and simply generates a dict with nested dicts of the given keys.  It does not do anything special, but is used throughout the documentation as it generally makes things more readable in examples.
+Note that `init_defaults` is a helper from the Miscellaneous Utility Module, and simply generates a dict with nested dicts of the given keys. It does not do anything special, but is used throughout the documentation as it generally makes things more readable in examples.
 
 You can always use a standard `dict` for configuration and meta defaults, which often makes more sense when building larger applications with a lot of default settings to manage.
 {% endhint %}
@@ -111,8 +111,6 @@ We also define the following configuration directories to scan for additional co
 ~/.myapp/config/ext.d
 ~/.myapp/config/plugins.d
 ```
-
-
 
 {% hint style="info" %}
 These lists are dynamically generated based on the `App.meta.label`, as well as [`App.meta.config_file_suffix`](https://cement.readthedocs.io/en/3.0/api/core/foundation/#cement.core.foundation.App.Meta.config_file_suffix). They can be extended by adding files via [`App.Meta.config_files`](https://cement.readthedocs.io/en/3.0/api/core/foundation/#cement.core.foundation.App.Meta.config_files) or directories to [`App.Meta.config_dirs`](https://cement.readthedocs.io/en/3.0/api/core/foundation/#cement.core.foundation.App.Meta.config_dirs).
@@ -205,11 +203,9 @@ There may be slight confusion between the [`App.Meta.config_defaults`](http://ce
 
 The `Handler.Meta.config_defaults` only pertain to a single `[section]` and therefore is only a single level `dict`, whose settings are applied to that section of the application's configuration \(defined by [`Handler.Meta.config_section`](http://cement.readthedocs.io/en/3.0/api/core/handler/#cement.core.handler.Handler.Meta.config_section)\).
 
-
-
 ## Creating a Config Handler
 
-All interfaces in Cement can be overridden with your own implementation.  This can be done either by sub-classing [`ConfigHandler`](https://cement.readthedocs.io/en/3.0/api/core/config/#cement.core.config.ConfigHandler) itself, or by sub-classing an existing extension's handlers in order to alter their functionality.
+All interfaces in Cement can be overridden with your own implementation. This can be done either by sub-classing [`ConfigHandler`](https://cement.readthedocs.io/en/3.0/api/core/config/#cement.core.config.ConfigHandler) itself, or by sub-classing an existing extension's handlers in order to alter their functionality.
 
 {% tabs %}
 {% tab title="Example: Creating a Config Handler" %}

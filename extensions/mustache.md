@@ -114,7 +114,7 @@ Inside base.mustache
 {% endcode-tabs-item %}
 
 {% code-tabs-item title="templates/partial.mustache" %}
-```
+```text
 Inside partial.mustache
 ```
 {% endcode-tabs-item %}

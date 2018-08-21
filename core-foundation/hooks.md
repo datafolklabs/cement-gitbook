@@ -12,7 +12,7 @@ The most important thing to remember when defining hooks for your application is
 
 **API Reference:**
 
-* ​[Cement Hook Module](https://docs.builtoncement.com/%7B%7B%20version%20%7D%7D/api/core/hook.html)​
+* ​[Cement Hook Module](https://docs.builtoncement.com/{{%20version%20}}/api/core/hook.html)​
 
 ## **Configuration**
 
@@ -23,7 +23,7 @@ The following options under [`App.Meta`](https://cement.readthedocs.io/en/3.0/ap
 | **Option** | **Description** |
 | :--- | :--- |
 | **define\_hooks** | List of hook labels to define hooks by. |
-| **hooks** | List of hooks to be registered.  |
+| **hooks** | List of hooks to be registered. |
 
 ## Working with Hooks
 
@@ -60,7 +60,7 @@ with App('myapp') as app:
 
 ## Defining a Hook
 
-A hook can be defined anywhere.  However it is generally recommended to define the hook as early as possible. A hook definition simply gives a label to the hook, and allows the developer \(or third-party plugin developers\) to register functions to that hook. Its label is arbitrary.
+A hook can be defined anywhere. However it is generally recommended to define the hook as early as possible. A hook definition simply gives a label to the hook, and allows the developer \(or third-party plugin developers\) to register functions to that hook. Its label is arbitrary.
 
 The most convenient way to define a hook is via [`CementApp.Meta.define_hooks`](https://cement.readthedocs.io/en/3.0/api/core/foundation/#cement.core.foundation.App.Meta.define_hooks):
 
@@ -160,8 +160,6 @@ with MyApp() as app:
 {% endtab %}
 {% endtabs %}
 
-
-
 As you can see we iterate over the hook, rather than just calling `app.hook.run()` by itself. This is necessary because `app.hook.run()` yields the results from each hook function as they are run. Hooks can be run anywhere _after_ the hook is defined, and hooks are registered to that hook.
 
 ## Controlling Hook Run Order
@@ -241,8 +239,4 @@ Cement defines a number of hooks that tie into the framework.
 | **pre\_close** | Run first when `App.close()` is called. This hook should be used by plugins and extensions to do any 'cleanup' at the end of program execution. Nothing is expected in return. |
 | **post\_close** | Run last when `App.close()` is called. Most use cases need `pre_close`, however this hook is available should anyone need to do anything after all other cleanup operations. |
 | **signal** | Run when signal handling is enabled, and the defined signal handler callback is executed. This hook should be used by the application, plugins, and extensions to perform any actions when a specific signal is caught. Nothing is expected in return. |
-
-
-
-
 
