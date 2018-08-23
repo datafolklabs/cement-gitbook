@@ -50,7 +50,7 @@ When using the Python `with` operator, the temporary directory and file are auto
 
 ## Backup Directories and Files
 
-Creating a `.bak` of a directory or file before modifying it is one of the most common tasks when working with the filesystem.
+Creating a `.bak` of a directory or file before modifying it is one of the most common tasks when working with the filesystem, but often takes some tedious code to do so without overwriting existing backups.  The [`fs.backup()`](https://cement.readthedocs.io/en/3.0/api/utils/fs/#cement.utils.fs.backup) creates a `.bak` file, or if it exists `.bak.0`, `.bak.1`, `.bak.2`, etc.
 
 {% tabs %}
 {% tab title="Example: Backup Directories and Files" %}
