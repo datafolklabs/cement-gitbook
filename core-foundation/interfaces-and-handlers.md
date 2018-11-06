@@ -292,7 +292,7 @@ class MyApp(App):
 {% endtab %}
 {% endtabs %}
 
-### Overriding Default Handlers {#overriding-default-handlers}
+### Overriding Default Handlers <a id="overriding-default-handlers"></a>
 
 Cement sets up a number of default handlers for logging, config parsing, etc. These can be overridden in a number of ways, however the primary method is to override their associated setting in [App.Meta](https://cement.readthedocs.io/en/3.0/api/core/foundation/#cement.core.foundation.App.Meta).
 
@@ -312,13 +312,13 @@ class MyApp(App):
 
 All builtin core interfaces have an associated `App.Meta.x_handler` option, allowing complete customization of every aspect of the framework. See the reference documentation of [App.Meta](https://cement.readthedocs.io/en/3.0/api/core/foundation/#cement.core.foundation.App.Meta) for more detail.
 
-### Multiple Registered Handlers {#multiple-registered-handlers}
+### Multiple Registered Handlers <a id="multiple-registered-handlers"></a>
 
 All handlers and interfaces are unique. In most cases, where the framework is concerned, only one handler is used. For example, whatever is configured for the [`App.Meta.log_handler`](https://cement.readthedocs.io/en/3.0/api/core/foundation/#cement.core.foundation.App.Meta.log_handler) will be used and setup as `app.log`. However, take for example an Output Handler. You might have a default [`App.Meta.output_handler`](https://cement.readthedocs.io/en/3.0/api/core/foundation/#cement.core.foundation.App.Meta.output_handler) of `mustache` \(a text templating language\) but may also want to override that handler with the `json` output handler when `-o json` is passed at command line. In order to allow this functionality, both the `mustache` and `json` output handlers must be registered.
 
 Any number of handlers can be registered to an interface. You might have a use case for an Interface/Handler that may provide different compatibility based on the operating system, or perhaps based on simply how the application is called. A good example would be an application that automates building packages for Linux distributions. An interface would define what a build handler needs to provide, but the build handler would be different based on the OS. The application might have an `rpm` build handler, or a `dpkg` build handler to perform the build process differently.
 
-### Customizing Handler Configuration and Meta {#customizing-handlers}
+### Customizing Handler Configuration and Meta <a id="customizing-handlers"></a>
 
 Depending on the handler, you will have different ways of customizing its functionality. Some handlers honor application configuration setting, while others may only rely on meta-options. In either case, both can be modified at the top level of your application meta.
 
@@ -352,7 +352,7 @@ class MyApp(App):
 If modifying the configuration or meta options isn't enough, you can always sub-class an existing handler and register your own in its place.
 {% endhint %}
 
-### Overriding Handlers via Command Line {#overriding-handlers-via-command-line}
+### Overriding Handlers via Command Line <a id="overriding-handlers-via-command-line"></a>
 
 In some use cases, you will want the end user to have access to override the default handler of a particular interface. For example, Cement ships with multiple Output Handlers including `json`, `yaml`, and `mustache`. A typical application might default to using `mustache` to render console output from text templates. That said, without changing any code in the application, the end user could simply pass the `-o json` command line option and output the same data that is rendered to template, out in pure JSON.
 

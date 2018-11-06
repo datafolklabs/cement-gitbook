@@ -1,6 +1,6 @@
 # Templating
 
-## Introduction to the Template Interface {#introduction-to-the-output-interface}
+## Introduction to the Template Interface <a id="introduction-to-the-output-interface"></a>
 
 Cement defines a [Template Interface](https://cement.readthedocs.io/en/3.0/api/core/template/#cement.core.template.TemplateInterface), as well as a default [`DummyTemplateHandler`](https://cement.readthedocs.io/en/3.0/api/ext/ext_dummy/#cement.ext.ext_dummy.DummyTemplateHandler) that implements the interface as a placeholder but does not actually do anything.
 
@@ -20,9 +20,9 @@ Cement often includes multiple handler implementations of an interface that may 
 
 * [​Cement Core Template Module​](https://cement.readthedocs.io/en/3.0/api/core/template)
 
-## **Configuration** {#configuration}
+## **Configuration** <a id="configuration"></a>
 
-### **Application Meta Options** {#application-meta-options}
+### **Application Meta Options** <a id="application-meta-options"></a>
 
 The following options under [`App.Meta`](https://cement.readthedocs.io/en/3.0/api/core/foundation/#cement.core.foundation.App.Meta) modify configuration handling:
 

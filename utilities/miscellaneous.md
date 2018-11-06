@@ -1,6 +1,6 @@
 # Miscellaneous
 
-## Introduction to the Miscellaneous Utilities {#introduction-to-the-output-interface}
+## Introduction to the Miscellaneous Utilities <a id="introduction-to-the-output-interface"></a>
 
 Cement includes a Miscellaneous Utilities Module with helpers for common tasks that don't fit anywhere on their own.
 

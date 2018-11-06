@@ -126,6 +126,7 @@ For maintainers before finalizing a release, create a Github issue called `Cemen
     - [ ] X.Y
 - [ ] Developer Documentation (Gitbook)
     - [ ] stable/X.Y
+    - [ ] Update Change Log and Release Notes
 - [ ] Docker Image Builds (Docker Hub)
     - [ ] datafolklabs/cement:X
     - [ ] datafolklabs/cement:X.Y
