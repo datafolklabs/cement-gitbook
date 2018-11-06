@@ -117,6 +117,12 @@ The `portland` branch is always very forward looking, and will contain significa
 For maintainers before finalizing a release, create a Github issue called `Cement X.YY.Z Release Tracker` with the following:
 
 ```text
+- [ ] Git Tag
+    - [ ] X
+    - [ ] X.Y
+    - [ ] X.Y.Z
+- [ ] Git Merge to Version Branch
+    - stable/X.Y
 - [ ] 100% Test Passing on Travis CI
     - [ ] Python 3.5
     - [ ] Python 3.6
@@ -131,6 +137,7 @@ For maintainers before finalizing a release, create a Github issue called `Cemen
     - [ ] datafolklabs/cement:X
     - [ ] datafolklabs/cement:X.Y
     - [ ] datafolklabs/cement:X.Y.Z
+- [ ]  PyPi Distribution
 ```
 
 _Replace X.Y.Z with the release versions._
