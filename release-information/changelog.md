@@ -1,5 +1,25 @@
 # ChangeLog
 
+## 
+
+## 3.0.2 - November 6, 2018
+
+**Bugs:**
+
+* `[cli]` Generate Variable Mishap in Project Template
+  * [Issue \#532](https://github.com/datafolklabs/cement/issues/532)
+* `[ext.generator]` Error class is malformed
+  * [Issue \#535](https://github.com/datafolklabs/cement/issues/535)
+* `[core.template]` MemoryError during 'cement generate project'
+  * [Issue \#531](https://github.com/datafolklabs/cement/issues/531)
+* `[core.foundation]` Contents of plugin\_dirs is printed to console
+  * [Issue \#538](https://github.com/datafolklabs/cement/issues/538)
+
+**Features:**
+
+* `[ext.argparse]` Command name override
+  * [Issue \#529](https://github.com/datafolklabs/cement/issues/529)
+
 ## 3.0.0 - Aug 21, 2018
 
 **Bugs:**
