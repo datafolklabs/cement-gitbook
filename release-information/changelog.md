@@ -1,7 +1,5 @@
 # ChangeLog
 
-## 
-
 ## 3.0.2 - November 6, 2018
 
 **Bugs:**
