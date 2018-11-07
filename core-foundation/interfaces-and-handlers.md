@@ -34,7 +34,7 @@ The following interfaces are builtin to Cement's core foundation:
 
 ### Working With Interfaces
 
-The [InterfaceManager](https://cement.readthedocs.io/en/3.0/api/core/handler/) \(`app.interface`\) provides quick mechanisms to list, get, and verify interfaces:
+The [InterfaceManager](https://cement.readthedocs.io/en/3.0/api/core/interface/#cement.core.interface.InterfaceManager) \(`app.interface`\) provides quick mechanisms to list, get, and verify interfaces:
 
 ```python
 from cement import App
