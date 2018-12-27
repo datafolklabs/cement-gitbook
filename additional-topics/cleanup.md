@@ -68,7 +68,7 @@ def my_cleanup_code(app):
         os.remove('/path/to/some/dir')
 
 def load(app):
-    app.hook.register('pre_cleanup', my_cleanup_code)
+    app.hook.register('pre_close', my_cleanup_code)
 ```
 {% endtab %}
 {% endtabs %}
