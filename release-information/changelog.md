@@ -1,5 +1,19 @@
 # ChangeLog
 
+## 3.0.4 - May 17, 2019
+
+**Bugs:**
+
+* `[ext.yaml]` YamlConfigHandler uses unsafe load method
+  * [Issue \#553](https://github.com/datafolklabs/cement/issues/553)
+* `[ext.configparser]` Configparser 'getboolean' exception
+  * [Issue \#558](https://github.com/datafolklabs/cement/issues/558)
+
+**Features:**
+
+* `[utils.misc]` Support `y` as a truth boolean in `utils.misc.is_true`
+  * [Issue \#542](https://github.com/datafolklabs/cement/issues/542)
+
 ## 3.0.2 - November 6, 2018
 
 **Bugs:**
