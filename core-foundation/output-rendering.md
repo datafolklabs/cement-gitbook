@@ -2,10 +2,10 @@
 
 ## Introduction to the Output Interface
 
-Cement defines an [Output Interface](https://cement.readthedocs.io/en/3.0/api/core/output/#cement.core.output.OutputInterface), as well as the default [DummyOutputHandler](https://docs.builtoncement.com/{{%20version%20}}/api/ext/ext_dummy.html) that implements the interface as a placeholder but does not actually produce any output.
+Cement defines an [Output Interface](https://cement.readthedocs.io/en/3.0/api/core/output/#cement.core.output.OutputInterface), as well as the default [DummyOutputHandler](https://docs.builtoncement.com/%7B%7B%20version%20%7D%7D/api/ext/ext\_dummy.html) that implements the interface as a placeholder but does not actually produce any output.
 
 {% hint style="warning" %}
-Cement often includes multiple handler implementations of an interface that may or may not have additional features or functionality than the interface requires. The documentation below only references usage based on the interface and default handler \(not the full capabilities of an implementation\).
+Cement often includes multiple handler implementations of an interface that may or may not have additional features or functionality than the interface requires. The documentation below only references usage based on the interface and default handler (not the full capabilities of an implementation).
 {% endhint %}
 
 **Cement Extensions That Provide Output Handlers:**
@@ -27,15 +27,15 @@ Cement often includes multiple handler implementations of an interface that may 
 
 The following options under [`App.Meta`](https://cement.readthedocs.io/en/3.0/api/core/foundation/#cement.core.foundation.App.Meta) modify configuration handling:
 
-| **Option** | **Description** |
-| :--- | :--- |
+| **Option**          | **Description**                                   |
+| ------------------- | ------------------------------------------------- |
 | **output\_handler** | The handler that implements the output interface. |
 
 ## Rending Output
 
 Cement applications do not need to use an output handler by any means. Most small applications can get away with simple `print()` statements. However, anyone who has ever built a bigger application that produces a lot of output will know that this can get ugly very quickly in your code.
 
-Using an output handler allows the developer to keep their logic clean, and offload the display of relevant data to an output handler, possibly by templates or other means \(GUI?\).
+Using an output handler allows the developer to keep their logic clean, and offload the display of relevant data to an output handler, possibly by templates or other means (GUI?).
 
 An output handler has a `render()` function that takes a data dictionary to produce output. Some output handlers may also accept a `template` or other parameters that define how output is rendered. This is easily accessible by the application object.
 
@@ -85,7 +85,7 @@ with MyApp() as app:
 {% endtab %}
 
 {% tab title="cli" %}
-```text
+```
 $ python myapp.py
 {"foo": "bar"}
 ```
@@ -98,8 +98,7 @@ While some output handlers only require the `data` dictionary, others can utiliz
 
 {% tabs %}
 {% tab title="Example: Rendering Output via Templates" %}
-{% code-tabs %}
-{% code-tabs-item title="myapp.py" %}
+{% code title="myapp.py" %}
 ```python
 from cement import App
 
@@ -121,22 +120,23 @@ with MyApp() as app:
     # render data dictionary
     app.render(data, 'example.jinja2')
 ```
-{% endcode-tabs-item %}
+{% endcode %}
 
-{% code-tabs-item title="templates/example.jinja2" %}
-```text
+{% code title="templates/example.jinja2" %}
+```
 Example Jinja2 Template
 
+{% raw %}
 {% if foo %}
     Foo => {{ foo }}
 {% endif %}
+{% endraw %}
 ```
-{% endcode-tabs-item %}
-{% endcode-tabs %}
+{% endcode %}
 {% endtab %}
 
 {% tab title="cli" %}
-```text
+```
 $ python myapp.py
 Example Jinja2 Template
 
@@ -147,10 +147,10 @@ Example Jinja2 Template
 
 ## Template Directory Loading
 
-Template directories are looked for in the most common places by default as defined by [`App.Meta.template_dirs`](https://cement.readthedocs.io/en/3.0/api/core/foundation/#cement.core.foundation.App.Meta.template_dirs):
+Template directories are looked for in the most common places by default as defined by [`App.Meta.template_dirs`](https://cement.readthedocs.io/en/3.0/api/core/foundation/#cement.core.foundation.App.Meta.template\_dirs):
 
-* ~/.myapp/templates
-* ~/.config/myapp/templates
+* \~/.myapp/templates
+* \~/.config/myapp/templates
 * /usr/lib/myapp/templates
 
 {% hint style="info" %}
@@ -165,8 +165,7 @@ All interfaces in Cement can be overridden with your own implementation. This ca
 
 {% tabs %}
 {% tab title="Example: Creating an Output Handler" %}
-{% code-tabs %}
-{% code-tabs-item title="myapp.py" %}
+{% code title="myapp.py" %}
 ```python
 from cement import App
 from cement.core.output import OutputHandler
@@ -185,8 +184,6 @@ class MyApp(App):
             MyOutputHandler,
         ]
 ```
-{% endcode-tabs-item %}
-{% endcode-tabs %}
+{% endcode %}
 {% endtab %}
 {% endtabs %}
-

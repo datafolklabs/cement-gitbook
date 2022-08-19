@@ -12,13 +12,13 @@ Let's begin by adding the dependency to our `requirements.txt` file, and install
 {% tab title="Add TinyDB Dependency" %}
 Add the following to the bottom of the pip `requirements.txt` file:
 
-```text
+```
 tinydb
 ```
 
 Install the new requirements with `pip`:
 
-```text
+```
 $ pip install -r requirements.txt
 ...
 Successfully installed tinydb-3.10.0
@@ -91,9 +91,9 @@ class Todo(App):
         ]
 ```
 
-Now, when we run `todo` again you will see that our hook is executed \(via the `info` logs\):
+Now, when we run `todo` again you will see that our hook is executed (via the `info` logs):
 
-```text
+```
 $ todo --help
 INFO: extending todo application with tinydb
 INFO: tinydb database file is: /Users/derks/.todo/db.json
@@ -102,7 +102,7 @@ INFO: tinydb database file is: /Users/derks/.todo/db.json
 
 And we can see that the database was created:
 
-```text
+```
 $ cat ~/.todo/db.json
 {"_default": {}}
 ```
@@ -111,9 +111,9 @@ $ cat ~/.todo/db.json
 
 ## Controllers and Sub-Commands
 
-In order to work with todo items we need to map out commands with our app.  We could do this with the existing `Base` controller, however to keep code clean and organized we want to create an new controller called `Items`.  
+In order to work with todo items we need to map out commands with our app.  We could do this with the existing `Base` controller, however to keep code clean and organized we want to create an new controller called `Items`. &#x20;
 
-At this point, we have a decision to make regarding [controller stacking](../../terminology.md#controller-stacking).  Do we want our controllers commands to appear **embedded** under the primary applications namespace \(ex: `todo my-command`\) or do we want a separate **nested** namespace \(ex: `todo items my-command`\).  As our application is still small, we will opt to embed our controllers commands under the primary namespace \(to keep our commands and examples shorter\).
+At this point, we have a decision to make regarding [controller stacking](../../terminology.md#controller-stacking).  Do we want our controllers commands to appear **embedded** under the primary applications namespace (ex: `todo my-command`) or do we want a separate **nested** namespace (ex: `todo items my-command`).  As our application is still small, we will opt to embed our controllers commands under the primary namespace (to keep our commands and examples shorter).
 
 {% tabs %}
 {% tab title="Add Items Controller Code" %}
@@ -173,7 +173,7 @@ class Todo(App):
 
 With our new controller registered, lets see it in action:
 
-```text
+```
 $ todo --help
 INFO: extending todo application with tinydb
 INFO: tinydb database file is: /Users/derks/.todo/db.json
@@ -210,8 +210,7 @@ We've stubbed out our `Items` controller and sub-commands, so lets add the actua
 {% tab title="Add Create Items Code" %}
 Add/modify the following in `todo/controllers/items.py`:
 
-{% code-tabs %}
-{% code-tabs-item title="todo/controllers/items.py" %}
+{% code title="todo/controllers/items.py" %}
 ```python
 from time import strftime
 
@@ -239,14 +238,13 @@ class Items(Controller):
 
         self.app.db.insert(item)
 ```
-{% endcode-tabs-item %}
-{% endcode-tabs %}
+{% endcode %}
 
-We've now built out the functionality to create items in our database, that will include the `text`, a `state` \(pending/complete\), and also the `timestamp` of when it was created/updated. Notice that we've added arguments to the sub-command function, and not the controller because the `item_text` argument is only relevant to the `create` action, and not the application or controller namespace as a whole.
+We've now built out the functionality to create items in our database, that will include the `text`, a `state` (pending/complete), and also the `timestamp` of when it was created/updated. Notice that we've added arguments to the sub-command function, and not the controller because the `item_text` argument is only relevant to the `create` action, and not the application or controller namespace as a whole.
 
- Let's try it out:
+&#x20;Let's try it out:
 
-```text
+```
 $ todo create "Call Saul"
 INFO: creating todo item: Call Saul
 
@@ -263,7 +261,7 @@ INFO: creating todo item: Meet with Jessie About a Thing
 
 We've created an item, so now we need to be able to list them.  First, let's take a look at our database:
 
-```text
+```
 $ cat ~/.todo/db.json | python -m json.tool
 {
     "_default": {
@@ -292,8 +290,7 @@ We can see that TinyDB automatically generates database IDs, so we will want to 
 {% tab title="Add List Items Code" %}
 Add/modify the following in `todo/controllers/items.py`:
 
-{% code-tabs %}
-{% code-tabs-item title="todo/controllers/items.py" %}
+{% code title="todo/controllers/items.py" %}
 ```python
 class Items(Controller):
     # ...
@@ -304,26 +301,25 @@ class Items(Controller):
         data['items'] = self.app.db.all()
         self.app.render(data, 'items/list.jinja2')
 ```
-{% endcode-tabs-item %}
-{% endcode-tabs %}
+{% endcode %}
 
 Here we are pulling all of the items from the database, putting it into a data dictionary, then rendering with the [Jinja2OutputHandler](../../extensions/jinja2.md).  Put the following in the template file `todo/templates/items/list.jinja2`:
 
-{% code-tabs %}
-{% code-tabs-item title="todo/templates/items/list.jinja2" %}
-```text
+{% code title="todo/templates/items/list.jinja2" %}
+```
+{% raw %}
 {% for item in items %}
 {{ item.doc_id }} [{% if item.state == 'complete' %}X{% else %} {% endif %}] {{ item.text }}
 {% endfor %}
+{% endraw %}
 ```
-{% endcode-tabs-item %}
-{% endcode-tabs %}
+{% endcode %}
 
-It's a little messy, but that's why we put this in a separate template and not in our code.  We are including the ID so that we can use that for updating/deleting/etc, and also a `[ ]` \(checkbox\) that will be "checked" when the item's state is `complete`.
+It's a little messy, but that's why we put this in a separate template and not in our code.  We are including the ID so that we can use that for updating/deleting/etc, and also a `[ ]` (checkbox) that will be "checked" when the item's state is `complete`.
 
 Let's have a go:
 
-```text
+```
 $ todo list
 1 [ ] Call Saul
 2 [ ] Go to Car Wash
@@ -334,14 +330,13 @@ $ todo list
 
 ### Update Items
 
-If we've made a typo, or want to change an existing item we need a way to update it.  
+If we've made a typo, or want to change an existing item we need a way to update it. &#x20;
 
 {% tabs %}
 {% tab title="Add Update Items Code" %}
 Add/modify the following in `todo/controllers/items.py`:
 
-{% code-tabs %}
-{% code-tabs-item title="todo/controllers/items.py" %}
+{% code title="todo/controllers/items.py" %}
 ```python
 class Items(Controller):
     # ...
@@ -371,12 +366,11 @@ class Items(Controller):
 
         self.app.db.update(item, doc_ids=[id])
 ```
-{% endcode-tabs-item %}
-{% endcode-tabs %}
+{% endcode %}
 
 Given a TinyDB ID, we can update our item including touching the `timestamp` and modifying the text.  Let's update our todo item:
 
-```text
+```
 $ todo update 2 --text "Send Skyler to Car Wash"
 INFO: updating todo item: 2 - Send Skyler to Car Wash
 
@@ -390,14 +384,13 @@ $ todo list
 
 ### Complete Items
 
-A TODO list is not complete \(ah! pun intended\) without the ability to check off items that are done. This operation gets a little more interesting as we want to also send an email message when items are completed.
+A TODO list is not complete (ah! pun intended) without the ability to check off items that are done. This operation gets a little more interesting as we want to also send an email message when items are completed.
 
 {% tabs %}
 {% tab title="Add Complete Items Code" %}
 Add/modify the following in `todo/controllers/items.py`:
 
-{% code-tabs %}
-{% code-tabs-item title="todo/controllers/items.py" %}
+{% code title="todo/controllers/items.py" %}
 ```python
 class Items(Controller):
     # ...
@@ -434,8 +427,7 @@ class Items(Controller):
                       from_addr='noreply@localhost',
                       )
 ```
-{% endcode-tabs-item %}
-{% endcode-tabs %}
+{% endcode %}
 
 Add/modify the following in `todo/main.py`:
 
@@ -447,7 +439,7 @@ CONFIG['todo']['email'] = 'you@yourdomain.com'
 
 Now let's complete one of our items:
 
-```text
+```
 $ todo complete 2
 INFO: completing todo item id: 2
 
@@ -480,7 +472,7 @@ $ todo list
 
 
 {% hint style="info" %}
-Notice that the email message was not sent, but rather printed to console.  This is because the default `mail_handler` is set to `dummy`.  You can override this to use the `smtp` mail handler via the applications configuration files \(ex:`~/.todo.yml)`
+Notice that the email message was not sent, but rather printed to console.  This is because the default `mail_handler` is set to `dummy`.  You can override this to use the `smtp` mail handler via the applications configuration files (ex:`~/.todo.yml)`
 {% endhint %}
 {% endtab %}
 {% endtabs %}
@@ -493,8 +485,7 @@ Finally, if we just want to get rid of something, we need the ability to delete 
 {% tab title="Add Delete Code" %}
 Add/modify the following in `todo/controllers/items.py`:
 
-{% code-tabs %}
-{% code-tabs-item title="todo/controllers/items.py" %}
+{% code title="todo/controllers/items.py" %}
 ```python
 class Items(Controller):
     # ...
@@ -512,12 +503,11 @@ class Items(Controller):
         self.app.log.info('deleting todo item id: %s' % id)
         self.app.db.remove(doc_ids=[id])
 ```
-{% endcode-tabs-item %}
-{% endcode-tabs %}
+{% endcode %}
 
 And lets delete our completed item:
 
-```text
+```
 $ todo delete 2
 INFO: deleting todo item id: 2
 
@@ -531,4 +521,3 @@ $ todo list
 ## Conclusion
 
 That concludes Part 2!  We now have a fully functional TODO application.  In the next parts we will discuss more indepth about extending the project with plugins, and digging deeper on things like documentation and testing.
-

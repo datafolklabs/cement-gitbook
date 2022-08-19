@@ -5,6 +5,7 @@
   * [What's New!](release-information/whats-new.md)
   * [Upgrading](release-information/upgrading.md)
   * [ChangeLog](release-information/changelog.md)
+  * [Deprecations](release-information/deprecations.md)
 * [Getting Started](getting-started/README.md)
   * [Installation](getting-started/installation.md)
   * [Developer Tools](getting-started/developer-tools.md)
@@ -57,6 +58,8 @@
   * [Unit Testing](additional-topics/unit-testing.md)
   * [Cleanup](additional-topics/cleanup.md)
   * [Signal Handling](additional-topics/signal-handling.md)
+  * [Pipenv](additional-topics/pipenv.md)
+  * [Autocomplete](additional-topics/autocomplete.md)
+* [Environment Variables](environment-variables.md)
 * [Terminology](terminology.md)
 * [Contributing](contributing.md)
-

@@ -5,7 +5,7 @@
 Cement defines a [Cache Interface](https://cement.readthedocs.io/en/3.0/api/core/cache/#cement.core.cache.CacheInterface), but does not implement caching by default.
 
 {% hint style="warning" %}
-Cement often includes multiple handler implementations of an interface that may or may not have additional features or functionality than the interface requires. The documentation below only references usage based on the interface and default handler \(not the full capabilities of an implementation\).
+Cement often includes multiple handler implementations of an interface that may or may not have additional features or functionality than the interface requires. The documentation below only references usage based on the interface and default handler (not the full capabilities of an implementation).
 {% endhint %}
 
 **Cement Extensions That Provide Cache Handlers:**
@@ -23,8 +23,8 @@ Cement often includes multiple handler implementations of an interface that may 
 
 The following options under [`App.Meta`](https://cement.readthedocs.io/en/3.0/api/core/foundation/#cement.core.foundation.App.Meta) modify configuration handling:
 
-| **Option** | **Description** |
-| :--- | :--- |
+| **Option**         | **Description**                                  |
+| ------------------ | ------------------------------------------------ |
 | **cache\_handler** | The handler that implements the cache interface. |
 
 ## Working with Caches
@@ -73,8 +73,7 @@ All interfaces in Cement can be overridden with your own implementation. This ca
 
 {% tabs %}
 {% tab title="Example: Creating a Cache Handler" %}
-{% code-tabs %}
-{% code-tabs-item title="myapp.py" %}
+{% code title="myapp.py" %}
 ```python
 from cement import App
 from cement.core.cache import CacheHandler
@@ -93,8 +92,6 @@ class MyApp(App):
             MyCacheHandler,
         ]
 ```
-{% endcode-tabs-item %}
-{% endcode-tabs %}
+{% endcode %}
 {% endtab %}
 {% endtabs %}
-

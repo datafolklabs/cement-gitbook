@@ -8,16 +8,16 @@ The Daemon Extension enables applications to easily perform standard daemonizati
 
 * Configurable runtime user and group
 * Adds the `--daemon` command line option
-* Add `app.daemonize()` function to trigger daemon functionality where necessary \(either in a cement `pre_run` hook or an application controller sub-command, etc\)
+* Add `app.daemonize()` function to trigger daemon functionality where necessary (either in a cement `pre_run` hook or an application controller sub-command, etc)
 * Manages a PID file including cleanup on `app.close()`
 
 **API References:**
 
-* [Cement Daemon Extension](https://cement.readthedocs.io/en/3.0/api/ext/ext_daemon/)
+* [Cement Daemon Extension](https://cement.readthedocs.io/en/3.0/api/ext/ext\_daemon/)
 
 ## Requirements
 
-* Python 2.6+, 3+
+* No external dependencies
 
 ## Platform Support
 
@@ -28,13 +28,13 @@ The Daemon Extension enables applications to easily perform standard daemonizati
 
 The daemon extension is configurable with the following settings under a `[daemon]` section in the application configuration:
 
-| Setting | **Description** |
-| :--- | :--- |
-| **user** | The user name the process runs as.  Default: `os.getlogin()` |
-| **group** | The group name the process runs as. Default: _the primary group of the user_ |
-| **dir** | The directory that the process runs in.  Default: `/` |
-| **pid\_file** | The filesystem path to store the PID \(Process ID\) file.  Default: `None` |
-| **umask** | The UMASK value to pass to `os.umask()`.  Default: `0` |
+| Setting       | **Description**                                                              |
+| ------------- | ---------------------------------------------------------------------------- |
+| **user**      | The user name the process runs as.  Default: `os.getlogin()`                 |
+| **group**     | The group name the process runs as. Default: _the primary group of the user_ |
+| **dir**       | The directory that the process runs in.  Default: `/`                        |
+| **pid\_file** | The filesystem path to store the PID (Process ID) file.  Default: `None`     |
+| **umask**     | The UMASK value to pass to `os.umask()`.  Default: `0`                       |
 
 Configurations can be passed as defaults to `App`:
 
@@ -56,7 +56,7 @@ class MyApp(App):
 
 Application defaults are then overridden by configurations parsed via a `[demon]` config section in any of the applications configuration paths. An example configuration block would look like:
 
-```text
+```
 [daemon]
 user = myuser
 group = mygroup
@@ -123,7 +123,7 @@ with MyApp() as app:
 By default, even after `app.daemonize()` is called… the application will continue to run in the foreground, but will still manage the pid and user/group switching. To detach a process and send it to the background you simply pass the `--daemon` option at command line.
 {% endhint %}
 
-```text
+```
 $ python example.py --daemon
 
 $ ps -x | grep example
@@ -140,5 +140,4 @@ app.pargs.daemon = True
 app.daemonize()
 ```
 
-Note that this would only work **after** arguments have been parsed \(i.e. after `app.run()` is called\).
-
+Note that this would only work **after** arguments have been parsed (i.e. after `app.run()` is called).

@@ -18,24 +18,24 @@ If you've found a bug, or would like to request a feature please create a detail
 * The version of Python, Cement, and any dependencies in use
 * Steps to reproduce the bug
 * Code samples that show the bug in action
-* A pull request including code that:
+*   A pull request including code that:
 
-  a. Fixes the bug
+    a. Fixes the bug
 
-  b. Atleast one test case that tests for the bug specifically
+    b. Atleast one test case that tests for the bug specifically
 
 **The ideal feature request would include:**
 
 * Feature description
 * Example code, or pseudo code of how you might use the feature
 * Example command line session showing how the feature would be used by the end-user
-* A pull request including:
+*   A pull request including:
 
-  a. The feature you would like added
+    a. The feature you would like added
 
-  b. At least one test case that tests the feature and maintains 100% code coverage when tests are run \(meaning that your tests should cover 100% of your contributed code\)
+    b. At least one test case that tests the feature and maintains 100% code coverage when tests are run (meaning that your tests should cover 100% of your contributed code)
 
-  c. Documentation that outlines how to use the feature
+    c. Documentation that outlines how to use the feature
 
 ## Guidelines for Code Contributions
 
@@ -57,7 +57,7 @@ All contributors should attempt to abide by the following:
   * Coverage reports 100% code coverage when running tests
   * New features are documented in the appropriate section of the doc
   * Significant changes are mentioned in the ChangeLog
-* All contributions must be associated with at least one issue in GitHub. If the issue does not exist, create one \(per the guidelines above\).
+* All contributions must be associated with at least one issue in GitHub. If the issue does not exist, create one (per the guidelines above).
 * Commit comments must include something like the following:
   * `Resolves Issue #1127`
   * `Partially Resolves Issue #9873`
@@ -110,35 +110,44 @@ This means:
 
 It should be noted that both the Minor, and Bugfix versions follow a `even == stable`, and `odd == development` scheme. Therefore, the current version in git will always end in an 'odd number'. For example, if the current stable version is `2.0.18`, then the version in `stable/2.0.x` would be `2.0.19`. That said, the `master` branch might then be `2.1.1` which is the first version of the next minor release. Bugfixes would get applied to both branches, however feature updates would only be applied to `master`. The next stable release would then be `2.2.0` and a new git branch of `stable/2.2.x` will be created.
 
-The `portland` branch is always very forward looking, and will contain significant \(and likely broken\) code changes. It should never be used for anything other than development and testing.
+The `portland` branch is always very forward looking, and will contain significant (and likely broken) code changes. It should never be used for anything other than development and testing.
 
 ## New Release Checklist
 
 For maintainers before finalizing a release, create a Github issue called `Cement X.YY.Z Release Tracker` with the following:
 
-```text
+```
+- [ ] 100% Test Passing on Travis CI
+    - [ ] Python 3.7
+    - [ ] Python 3.8
+    - [ ] Python 3.9
+    - [ ] Python 3.10
+- [ ] 100% Test Coverage
+- [ ] Core Tests on Windows
+- [ ] Cement CLI Smoke Tests
+    - [ ] Linux
+    - [ ] macOS
+    - [ ] Windows
 - [ ] Git Tag
     - [ ] X
     - [ ] X.Y
     - [ ] X.Y.Z
 - [ ] Git Merge to Version Branch
     - stable/X.Y
-- [ ] 100% Test Passing on Travis CI
-    - [ ] Python 3.5
-    - [ ] Python 3.6
-    - [ ] Python 3.7
-- [ ] 100% Test Coverage
 - [ ] API Documentation Builds (Read The Docs)
     - [ ] X.Y
 - [ ] Developer Documentation (Gitbook)
     - [ ] stable/X.Y
-    - [ ] Update Change Log and Release Notes
+    - [ ] Update Change Log
+    - [ ] Update Release Notes
+    - [ ] Update Deprecations
 - [ ] Docker Image Builds (Docker Hub)
     - [ ] datafolklabs/cement:X
     - [ ] datafolklabs/cement:X.Y
     - [ ] datafolklabs/cement:X.Y.Z
-- [ ]  PyPi Distribution
+- [ ] PyPi Distribution
+- [ ] Notify mailing list
+- [ ] Notify Slack channel
 ```
 
 _Replace X.Y.Z with the release versions._
-

@@ -2,7 +2,7 @@
 
 ## Introduction
 
-The JSON Extension provides the [`JsonOutputHandler`](http://cement.readthedocs.io/en/3.0/api/ext/ext_json/#cement.ext.ext_json.JsonOutputHandler) for output rendering in pure JSON, as well as the [`JsonConfigHandler`](http://cement.readthedocs.io/en/3.0/api/ext/ext_json/#cement.ext.ext_json.JsonConfigHandler) that allows applications to use JSON configuration files as a drop-in replacement of the default [`ConfigParserConfigHandler`](http://cement.readthedocs.io/en/3.0/api/ext/ext_configparser/#cement.ext.ext_configparser.ConfigParserConfigHandler).
+The JSON Extension provides the [`JsonOutputHandler`](http://cement.readthedocs.io/en/3.0/api/ext/ext\_json/#cement.ext.ext\_json.JsonOutputHandler) for output rendering in pure JSON, as well as the [`JsonConfigHandler`](http://cement.readthedocs.io/en/3.0/api/ext/ext\_json/#cement.ext.ext\_json.JsonConfigHandler) that allows applications to use JSON configuration files as a drop-in replacement of the default [`ConfigParserConfigHandler`](http://cement.readthedocs.io/en/3.0/api/ext/ext\_configparser/#cement.ext.ext\_configparser.ConfigParserConfigHandler).
 
 **Documentation References:**
 
@@ -11,12 +11,12 @@ The JSON Extension provides the [`JsonOutputHandler`](http://cement.readthedocs.
 
 **API References:**
 
-* [Cement Json Extension](http://cement.readthedocs.io/en/3.0/api/ext/ext_json/)
+* [Cement Json Extension](http://cement.readthedocs.io/en/3.0/api/ext/ext\_json/)
 * [Python Json Library](https://docs.python.org/3/library/json.html)
 
 ## Requirements
 
-This extension does not have any external dependencies.
+* No external dependencies
 
 ## Configuration
 
@@ -24,7 +24,7 @@ This extension does not rely on any application level configuration settings or 
 
 ### Using an Alternative Json Module
 
-In some edge cases users have wanted to use an alternative json module for performance reasons, in particular [UltraJson](https://github.com/esnme/ultrajson). It is possible to override the backend `json` library module to use, such as `ujson` or another **drop-in replacement** library. The recommended solution would be to override the [`JsonOutputHandler.Meta.json_module`](http://cement.readthedocs.io/en/3.0/api/ext/ext_json/#cement.ext.ext_json.JsonConfigHandler.Meta.json_module):
+In some edge cases users have wanted to use an alternative json module for performance reasons, in particular [UltraJson](https://github.com/esnme/ultrajson). It is possible to override the backend `json` library module to use, such as `ujson` or another **drop-in replacement** library. The recommended solution would be to override the [`JsonOutputHandler.Meta.json_module`](http://cement.readthedocs.io/en/3.0/api/ext/ext\_json/#cement.ext.ext\_json.JsonConfigHandler.Meta.json\_module):
 
 {% tabs %}
 {% tab title="Example: Using an Alternative Json Module" %}
@@ -50,8 +50,7 @@ class MyApp(App):
 
 {% tabs %}
 {% tab title="Example: Using Json Config Handler" %}
-{% code-tabs %}
-{% code-tabs-item title="myapp.py" %}
+{% code title="myapp.py" %}
 ```python
 from cement import App
 
@@ -62,31 +61,29 @@ class MyApp(App):
         config_handler = 'json'
         config_file_suffix = '.json'
 ```
-{% endcode-tabs-item %}
+{% endcode %}
 
-{% code-tabs-item title="~/.myapp.json" %}
-```text
+{% code title="~/.myapp.json" %}
+```
 {
     "myapp": {
         "foo": "bar"
     }
 }
 ```
-{% endcode-tabs-item %}
-{% endcode-tabs %}
+{% endcode %}
 {% endtab %}
 {% endtabs %}
 
 ### Output Handler
 
-In general, you likely would not set `output_handler` to `json`, but rather another type of output handler that displays readable output to the end-user \(ex: Mustache, Jinja2, or Tabulate\). However, Cement supports overriding handlers via command line options if the [`Handler.Meta.overridable`](http://cement.readthedocs.io/en/3.0/api/core/handler/#cement.core.handler.Handler.Meta.overridable) option is set. For example, `-o json` will trigger the framework to use the `json` output handler, overriding the default set in [`App.Meta.output_handler`](http://cement.readthedocs.io/en/3.0/api/core/foundation/#cement.core.foundation.App.Meta.output_handler).
+In general, you likely would not set `output_handler` to `json`, but rather another type of output handler that displays readable output to the end-user (ex: Mustache, Jinja2, or Tabulate). However, Cement supports overriding handlers via command line options if the [`Handler.Meta.overridable`](http://cement.readthedocs.io/en/3.0/api/core/handler/#cement.core.handler.Handler.Meta.overridable) option is set. For example, `-o json` will trigger the framework to use the `json` output handler, overriding the default set in [`App.Meta.output_handler`](http://cement.readthedocs.io/en/3.0/api/core/foundation/#cement.core.foundation.App.Meta.output\_handler).
 
 See the documentation on [Overriding Handlers via Command Line](../core-foundation/interfaces-and-handlers.md#overriding-handlers-via-command-line).
 
 {% tabs %}
 {% tab title="Example: Using Json Output Handler" %}
-{% code-tabs %}
-{% code-tabs-item title="myapp.py" %}
+{% code title="myapp.py" %}
 ```python
 from cement import App, init_defaults
 
@@ -107,18 +104,17 @@ with MyApp() as app:
     data = {'foo': 'bar'}
     app.render(data, 'example.m')
 ```
-{% endcode-tabs-item %}
+{% endcode %}
 
-{% code-tabs-item title="templates/example.m" %}
-```text
+{% code title="templates/example.m" %}
+```
 Foo: {{ foo }}
 ```
-{% endcode-tabs-item %}
-{% endcode-tabs %}
+{% endcode %}
 {% endtab %}
 
 {% tab title="cli" %}
-```text
+```
 $ python myapp.py
 Foo: bar
 
@@ -127,4 +123,3 @@ $ python myapp.py -o json
 ```
 {% endtab %}
 {% endtabs %}
-

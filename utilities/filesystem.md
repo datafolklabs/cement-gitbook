@@ -1,6 +1,6 @@
 # Filesystem
 
-## Introduction to the Filesystem Utilities <a id="introduction-to-the-output-interface"></a>
+## Introduction to the Filesystem Utilities <a href="#introduction-to-the-output-interface" id="introduction-to-the-output-interface"></a>
 
 Cement includes a [Filesystem Utility Module](https://cement.readthedocs.io/en/3.0/api/utils/fs/) with helpers for common tasks related to filesystem management.
 
@@ -14,8 +14,7 @@ Creating and cleaning up temporary directories and files can be tedious, so we c
 
 {% tabs %}
 {% tab title="Example: Temporary Directories and Files" %}
-{% code-tabs %}
-{% code-tabs-item title="example.py" %}
+{% code title="example.py" %}
 ```python
 import os
 from cement import fs
@@ -31,12 +30,11 @@ with fs.Tmp() as t:
     with open(t.file, 'w') as f:
         f.write('some data')
 ```
-{% endcode-tabs-item %}
-{% endcode-tabs %}
+{% endcode %}
 {% endtab %}
 
 {% tab title="cli" %}
-```text
+```
 $ python example.py
 Temp Dir: /var/folders/jm/cr24ncsn1lgdblxm2mvgtdt40000gn/T/tmpwzo8kh89
 Temp File: /var/folders/jm/cr24ncsn1lgdblxm2mvgtdt40000gn/T/tmps4s7n8xg
@@ -65,7 +63,7 @@ fs.backup('/path/to/my/file')
 
 ## Filesystem Paths
 
-Best practice when working with paths is to use `os.path.join()` to ensure cross-platform compatibility and also expanding the absolute path to account for things like `~` \(user home dir\) on Linux. We've created a number of helpers to meld these together for common tasks:
+Best practice when working with paths is to use `os.path.join()` to ensure cross-platform compatibility and also expanding the absolute path to account for things like `~` (user home dir) on Linux. We've created a number of helpers to meld these together for common tasks:
 
 {% tabs %}
 {% tab title="Example: Filesystem Paths" %}
@@ -94,4 +92,3 @@ fs.ensure_parent_dir_exists('/path/to/parent/child')
 ```
 {% endtab %}
 {% endtabs %}
-

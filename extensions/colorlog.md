@@ -2,7 +2,7 @@
 
 ## Introduction
 
-The ColorLog Extension provides the [`ColorLogHandler`](http://cement.readthedocs.io/en/3.0/api/ext/ext_colorlog/#cement.ext.ext_colorlog.ColorLogHandler) for logging, and is a sub-class and drop-in replacement for the default log handler [`LoggingLogHandler`](http://cement.readthedocs.io/en/3.0/api/ext/ext_logging/#cement.ext.ext_logging.LoggingLogHandler).
+The ColorLog Extension provides the [`ColorLogHandler`](http://cement.readthedocs.io/en/3.0/api/ext/ext\_colorlog/#cement.ext.ext\_colorlog.ColorLogHandler) for logging, and is a sub-class and drop-in replacement for the default log handler [`LoggingLogHandler`](http://cement.readthedocs.io/en/3.0/api/ext/ext\_logging/#cement.ext.ext\_logging.LoggingLogHandler).
 
 **Documentation References:**
 
@@ -10,27 +10,43 @@ The ColorLog Extension provides the [`ColorLogHandler`](http://cement.readthedoc
 
 **API References:**
 
-* [Cement Colorlog Extension](http://cement.readthedocs.io/en/3.0/api/ext/ext_colorlog/)
+* [Cement Colorlog Extension](http://cement.readthedocs.io/en/3.0/api/ext/ext\_colorlog/)
 * [Colorlog Module](https://pypi.org/project/colorlog/)
 
 ## Requirements
 
-* Colorlog \(`pip install colorlog)`
+* Colorlog
+
+{% hint style="info" %}
+Cement 3.0.8+:
+
+`pip install cement[colorlog]`
+{% endhint %}
+
+{% hint style="warning" %}
+Applications using Cement <3.0.8 should continue to include `colorlog` in their dependencies.
+{% endhint %}
+
+## Installation
+
+```
+pip install cement[colorlog]
+```
 
 ## Configuration
 
 This handler honors the following settings under a `[log.colorlog]` section of the configuration:
 
-| **Setting** | **Description** |
-| :--- | :--- |
-| **level** | The level to display logs for.  One of `INFO`, `WARNING`, `ERROR`, `FATAL`, `DEBUG`.  Default: `INFO` |
-| **file** | The filesystem path of the log file.  Default: `None` |
-| **to\_console** | Whether or not to log to console.  Default: `True` |
-| **rotate** | Whether or not rotate the log file.  Default: `False` |
-| **max\_bytes** | Maximum file size \(in bytes\) until the log file is rotated \(if rotation is enabled\).  Default: _512000_ |
-| **max\_files** | Maximum number of files to keep when rotating is enabled.  Default: `4` |
-| **colorize\_file\_log** | Whether or not to colorize the log file.  Default: `False` |
-| **colorize\_console\_log** | Whether or not to colorize the console log.  Default: `True` |
+| **Setting**                | **Description**                                                                                         |
+| -------------------------- | ------------------------------------------------------------------------------------------------------- |
+| **level**                  | The level to display logs for.  One of `INFO`, `WARNING`, `ERROR`, `FATAL`, `DEBUG`.  Default: `INFO`   |
+| **file**                   | The filesystem path of the log file.  Default: `None`                                                   |
+| **to\_console**            | Whether or not to log to console.  Default: `True`                                                      |
+| **rotate**                 | Whether or not rotate the log file.  Default: `False`                                                   |
+| **max\_bytes**             | Maximum file size (in bytes) until the log file is rotated (if rotation is enabled).  Default: _512000_ |
+| **max\_files**             | Maximum number of files to keep when rotating is enabled.  Default: `4`                                 |
+| **colorize\_file\_log**    | Whether or not to colorize the log file.  Default: `False`                                              |
+| **colorize\_console\_log** | Whether or not to colorize the console log.  Default: `True`                                            |
 
 {% hint style="warning" %}
 Note that there are precautions in place to disable colorized logging if the session is not a valid TTY via `sys.stdout.istty()`
@@ -38,9 +54,8 @@ Note that there are precautions in place to disable colorized logging if the ses
 
 A sample config section might look like:
 
-{% code-tabs %}
-{% code-tabs-item title="~/.myapp.conf" %}
-```text
+{% code title="~/.myapp.conf" %}
+```
 [log.colorlog]
 file = /path/to/config/file
 level = info
@@ -51,8 +66,7 @@ max_files = 4
 colorize_file_log = false
 colorize_console_log = true
 ```
-{% endcode-tabs-item %}
-{% endcode-tabs %}
+{% endcode %}
 
 ## Usage
 
@@ -79,7 +93,7 @@ with MyApp() as app:
 {% endtabs %}
 
 {% hint style="info" %}
-The colors can be customized by passing in a `colors` dictionary mapping overriding the [`ColorLogHandler.Meta.colors`](http://cement.readthedocs.io/en/3.0/api/ext/ext_colorlog/#cement.ext.ext_colorlog.ColorLogHandler.Meta.colors) option
+The colors can be customized by passing in a `colors` dictionary mapping overriding the [`ColorLogHandler.Meta.colors`](http://cement.readthedocs.io/en/3.0/api/ext/ext\_colorlog/#cement.ext.ext\_colorlog.ColorLogHandler.Meta.colors) option
 {% endhint %}
 
 {% tabs %}
@@ -105,4 +119,3 @@ class MyApp(App):
 ```
 {% endtab %}
 {% endtabs %}
-

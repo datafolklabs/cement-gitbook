@@ -1,7 +1,3 @@
----
-description: Common terminology used throughout the framework and documentation.
----
-
 # Terminology
 
 ## Controller Stacking
@@ -16,7 +12,7 @@ In Cement, there are two ways that [application controllers](core-foundation/con
   * `myapp nested-controller nested-sub-command`
   * `myapp nested-controller --nested-option`
 
-## Minimal, Complete, Verifiable Example \(MCVE\)
+## Minimal, Complete, Verifiable Example (MCVE)
 
 Cement has adopted this term from a post on [Stack Overflow](https://stackoverflow.com/help/mcve). "MCVE" is used to refer to something as a "complete working example". Generally this is used most often on Github when interacting with users, often times reporting bugs or other issues, where a working example is required to reproduce said issue.
 
@@ -31,4 +27,3 @@ Runtime encompasses the entire execution from the moment the application is call
 ## Runtime Dispatch
 
 A sub-step within the application runtime that we use to refer to the process of parsing the command-line, processing arguments, mapping sub-commands to controllers, and executing the specified controller function.
-

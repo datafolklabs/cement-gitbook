@@ -2,14 +2,14 @@
 
 ## Introduction to the Extension Interface
 
-Cement defines an [Extension Interface](https://cement.readthedocs.io/en/3.0/api/core/extension/#cement.core.extension.ExtensionInterface), as well as the default [CementExtensionHandler](https://cement.readthedocs.io/en/3.0/api/core/extension/#cement.core.extension.ExtensionHandler) that implements the interface. Its purpose is to manage loading framework extensions and making them usable by the application. Extensions are similar to [Application Plugins](plugins.md), but at the framework level \(application agnostic\).
+Cement defines an [Extension Interface](https://cement.readthedocs.io/en/3.0/api/core/extension/#cement.core.extension.ExtensionInterface), as well as the default [CementExtensionHandler](https://cement.readthedocs.io/en/3.0/api/core/extension/#cement.core.extension.ExtensionHandler) that implements the interface. Its purpose is to manage loading framework extensions and making them usable by the application. Extensions are similar to [Application Plugins](plugins.md), but at the framework level (application agnostic).
 
 {% hint style="warning" %}
-Cement often includes multiple handler implementations of an interface that may or may not have additional features or functionality than the interface requires. The documentation below only references usage based on the interface and default handler \(not the full capabilities of an implementation\).
+Cement often includes multiple handler implementations of an interface that may or may not have additional features or functionality than the interface requires. The documentation below only references usage based on the interface and default handler (not the full capabilities of an implementation).
 {% endhint %}
 
 {% hint style="info" %}
-As of Cement 2.1.3, optional extensions with external dependencies are now being shipped along with mainline sources. This means that although Cement Core continues to maintain a 100% zero dependency policy, Framework Extensions _can_ rely on external deps. It is the responsibility of the application developer to include these dependencies in their application \(as the Cement package does not include these dependencies\).
+As of Cement 2.1.3, optional extensions with external dependencies are now being shipped along with mainline sources. This means that although Cement Core continues to maintain a 100% zero dependency policy, Framework Extensions _can_ rely on external deps. It is the responsibility of the application developer to include these dependencies in their application (as the Cement package does not include these dependencies).
 {% endhint %}
 
 **API References:**
@@ -22,10 +22,10 @@ As of Cement 2.1.3, optional extensions with external dependencies are now being
 
 The following options under [`App.Meta`](https://cement.readthedocs.io/en/3.0/api/core/foundation/#cement.core.foundation.App.Meta) modify extension handling:
 
-| **Option** | **Description** |
-| :--- | :--- |
-| **extension\_handler** | A handler class that implements the Extension Interface.  This can be a string \(label of a registered handler\), an uninstantiated class, or an instantiated class object.  Default: [`ExtensionHandler`](https://cement.readthedocs.io/en/3.0/api/core/extension/#cement.core.extension.ExtensionHandler) |
-| **extensions** | A list of additional framework extensions to load.  Will be merged together with [`App.Meta.core_extensions`](https://cement.readthedocs.io/en/3.0/api/core/foundation/#cement.core.foundation.App.Meta.core_extensions). |
+| **Option**             | **Description**                                                                                                                                                                                                                                                                                           |
+| ---------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **extension\_handler** | A handler class that implements the Extension Interface.  This can be a string (label of a registered handler), an uninstantiated class, or an instantiated class object.  Default: [`ExtensionHandler`](https://cement.readthedocs.io/en/3.0/api/core/extension/#cement.core.extension.ExtensionHandler) |
+| **extensions**         | A list of additional framework extensions to load.  Will be merged together with [`App.Meta.core_extensions`](https://cement.readthedocs.io/en/3.0/api/core/foundation/#cement.core.foundation.App.Meta.core\_extensions).                                                                                |
 
 ## Working with Extensions
 
@@ -56,7 +56,7 @@ The extension system is a mechanism for dynamically loading code to extend the f
 
 The preferred method of creating an extension would be via the included [developer tools](../getting-started/developer-tools.md):
 
-```text
+```
 $ cement generate extension /path/to/myapp/ext
 ```
 
@@ -64,8 +64,7 @@ This would produce something like the following:
 
 {% tabs %}
 {% tab title="Example: Creating an Extension" %}
-{% code-tabs %}
-{% code-tabs-item title="myapp/ext/ext\_myextension.py" %}
+{% code title="myapp/ext/ext_myextension.py" %}
 ```python
 from cement import minimal_logger
 
@@ -79,8 +78,7 @@ def load(app):
     # do something to extend cement
     app.hook.register('pre_run', myextension_pre_run_hook)
 ```
-{% endcode-tabs-item %}
-{% endcode-tabs %}
+{% endcode %}
 {% endtab %}
 {% endtabs %}
 
@@ -96,7 +94,7 @@ Framework extensions add functionality **to the framework** for the application 
 
 ## Loading Extensions
 
-Extensions are loaded when [`App.setup()`](http://cement.readthedocs.io/en/3.0/api/core/foundation/#cement.core.foundation.App.setup) is called on an application. Cement automatically loads all extensions listed under the application's [`App.Meta.core_extensions`](http://cement.readthedocs.io/en/3.0/api/core/foundation/#cement.core.foundation.App.Meta.core_extensions) and [`App.Meta.extensions`](http://cement.readthedocs.io/en/3.0/api/core/foundation/#cement.core.foundation.App.Meta.extensions) meta options.
+Extensions are loaded when [`App.setup()`](http://cement.readthedocs.io/en/3.0/api/core/foundation/#cement.core.foundation.App.setup) is called on an application. Cement automatically loads all extensions listed under the application's [`App.Meta.core_extensions`](http://cement.readthedocs.io/en/3.0/api/core/foundation/#cement.core.foundation.App.Meta.core\_extensions) and [`App.Meta.extensions`](http://cement.readthedocs.io/en/3.0/api/core/foundation/#cement.core.foundation.App.Meta.extensions) meta options.
 
 To load the above example into our application, we just add it to the list of `App.Meta.extensions`. Let's assume the extension code lives in `myapp/ext/ext_myextension.py`:
 
@@ -114,7 +112,7 @@ class MyApp(App):
 {% endtabs %}
 
 {% hint style="info" %}
-Note that Cement provides a shortcut for its own builtin extensions so that you can refer to extensions via their short name \(ex: `json` instead of `cement.ext.ext_json`\). All other extensions must be referenced by their full dotted Python module name.
+Note that Cement provides a shortcut for its own builtin extensions so that you can refer to extensions via their short name (ex: `json` instead of `cement.ext.ext_json`). All other extensions must be referenced by their full dotted Python module name.
 {% endhint %}
 
 ## Loading Extensions via a Configuration File
@@ -125,8 +123,7 @@ The following example demonstrates an application loading extensions defined via
 
 {% tabs %}
 {% tab title="Example: Loading Extensions via Configuration File" %}
-{% code-tabs %}
-{% code-tabs-item title="myapp.py" %}
+{% code title="myapp.py" %}
 ```python
 from cement import App
 
@@ -136,19 +133,18 @@ with App('myapp') as app:
     for e in app.extension.list():
         print(e)
 ```
-{% endcode-tabs-item %}
+{% endcode %}
 
-{% code-tabs-item title="~/.myapp.conf" %}
-```text
+{% code title="~/.myapp.conf" %}
+```
 [myapp]
 exensions = json, yaml, myapp.ext.ext_myextension
 ```
-{% endcode-tabs-item %}
-{% endcode-tabs %}
+{% endcode %}
 {% endtab %}
 
 {% tab title="cli" %}
-```text
+```
 $ python myapp.py
 cement.ext.ext_dummy
 cement.ext.ext_smtp
@@ -164,6 +160,5 @@ myapp.ext.ext_myextension
 {% endtabs %}
 
 {% hint style="warning" %}
-Note that extensions loaded in this way will happen **after** the config handler is setup. Normally, extensions are loaded just before the configuration files are read. Therefore, some extensions may not be compatible with this method if they attempt to perform any actions before `app.setup()` completes \(such as in early framework hooks before configuration files are loaded\).
+Note that extensions loaded in this way will happen **after** the config handler is setup. Normally, extensions are loaded just before the configuration files are read. Therefore, some extensions may not be compatible with this method if they attempt to perform any actions before `app.setup()` completes (such as in early framework hooks before configuration files are loaded).
 {% endhint %}
-

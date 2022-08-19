@@ -2,15 +2,15 @@
 
 ## Introduction to the Mail Interface
 
-Cement defines a [Mail Interface](https://cement.readthedocs.io/en/3.0/api/core/mail/#cement.core.mail.MailInterface), as well as the default [DummyMailHandler](https://docs.builtoncement.com/{{%20version%20}}/api/ext/ext_dummy.html#cement.ext.ext_dummy.DummyMailHandler) that implements the interface as a placeholder but does not actually send any mail.
+Cement defines a [Mail Interface](https://cement.readthedocs.io/en/3.0/api/core/mail/#cement.core.mail.MailInterface), as well as the default [DummyMailHandler](https://docs.builtoncement.com/%7B%7B%20version%20%7D%7D/api/ext/ext\_dummy.html#cement.ext.ext\_dummy.DummyMailHandler) that implements the interface as a placeholder but does not actually send any mail.
 
 {% hint style="warning" %}
-Cement often includes multiple handler implementations of an interface that may or may not have additional features or functionality than the interface requires. The documentation below only references usage based on the interface and default handler \(not the full capabilities of an implementation\).
+Cement often includes multiple handler implementations of an interface that may or may not have additional features or functionality than the interface requires. The documentation below only references usage based on the interface and default handler (not the full capabilities of an implementation).
 {% endhint %}
 
 **Cement Extensions that Provide Mail Handlers:**
 
-* [Dummy](../extensions/dummy.md) _\(default\)_
+* [Dummy](../extensions/dummy.md) _(default)_
 * [SMTP](../extensions/smtp.md)
 
 **API References:**
@@ -23,8 +23,8 @@ Cement often includes multiple handler implementations of an interface that may 
 
 The following options under [`App.Meta`](https://cement.readthedocs.io/en/3.0/api/core/foundation/#cement.core.foundation.App.Meta) modify configuration handling:
 
-| **Option** | **Description** |
-| :--- | :--- |
+| **Option**        | **Description**                                 |
+| ----------------- | ----------------------------------------------- |
 | **mail\_handler** | The handler that implements the mail interface. |
 
 ## Working with Mail Messages
@@ -47,7 +47,7 @@ with App('myapp') as app:
 {% endtab %}
 
 {% tab title="cli" %}
-```text
+```
 python myapp.py
 
 =============================================================================
@@ -79,8 +79,7 @@ All interfaces in Cement can be overridden with your own implementation. This ca
 
 {% tabs %}
 {% tab title="Example: Creating a Mail Handler" %}
-{% code-tabs %}
-{% code-tabs-item title="myapp.py" %}
+{% code title="myapp.py" %}
 ```python
 from cement import App
 from cement.core.mail import MailHandler
@@ -99,8 +98,6 @@ class MyApp(App):
             MyMailHandler,
         ]
 ```
-{% endcode-tabs-item %}
-{% endcode-tabs %}
+{% endcode %}
 {% endtab %}
 {% endtabs %}
-

@@ -2,22 +2,28 @@
 
 ## Introduction
 
-The Alarm Extension provides the [AlarmManager](http://cement.readthedocs.io/en/3.0/api/ext/ext_alarm/#cement.ext.ext_alarm.AlarmManager) extended object, with easy mechanisms for handling long running operations that might timeout after a set amount of time.
+The Alarm Extension provides the [AlarmManager](http://cement.readthedocs.io/en/3.0/api/ext/ext\_alarm/#cement.ext.ext\_alarm.AlarmManager) extended object, with easy mechanisms for handling long running operations that might timeout after a set amount of time.
 
 **API References:**
 
-* [Cement Alarm Extension](http://cement.readthedocs.io/en/3.0/api/ext/ext_alarm/)
+* [Cement Alarm Extension](http://cement.readthedocs.io/en/3.0/api/ext/ext\_alarm/)
 * [Python Signal Library](https://docs.python.org/3.5/library/signal.html)
 
 ## **Requirements**
 
 * No external dependencies
 
+{% hint style="info" %}
+As of Cement 3.0.8, applications using optional extensions should include them in their dependencies for future compatibility in the event additional dependencies are required:
+
+Ex: `cement[alarm]`
+{% endhint %}
+
 ## Platform Support
 
 * Unix
 * Linux
-* macOS \(Darwin\)
+* macOS (Darwin)
 
 ## **Configuration**
 
@@ -55,11 +61,10 @@ with MyApp() as app:
 {% endtab %}
 
 {% tab title="cli" %}
-```text
+```
 $ python myapp.py
 ERROR: The operation timed out after 3 seconds!
 Caught signal 14
 ```
 {% endtab %}
 {% endtabs %}
-

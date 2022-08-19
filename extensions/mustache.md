@@ -11,32 +11,42 @@ The Mustache Extension provides output and file templating based on the [Mustach
 
 **API References**
 
-* [Cement Mustache Extension](https://cement.readthedocs.io/en/3.0/api/ext/ext_mustache/)
+* [Cement Mustache Extension](https://cement.readthedocs.io/en/3.0/api/ext/ext\_mustache/)
 * [Mustache Library](http://mustache.github.io/)
 
 ## Requirements
 
-* Pystache \(`pip install pystache`\)
+* Pystache
+
+{% hint style="info" %}
+Cement 3.0.8+:
+
+`pip install cement[mustache]`
+{% endhint %}
+
+{% hint style="warning" %}
+Applications using Cement <3.0.8 should continue to include `pystache` in their dependencies.
+{% endhint %}
 
 ## Configuration
 
 ### **Application Configuration Settings**
 
-This extension honors the following settings under the primary namespace \(ex: `[myapp]`\) of the application configuration:
+This extension honors the following settings under the primary namespace (ex: `[myapp]`) of the application configuration:
 
-| **Setting** | **Description** |
-| :--- | :--- |
+| **Setting**       | **Description**                               |
+| ----------------- | --------------------------------------------- |
 | **template\_dir** | Directory path of a local template directory. |
 
 ### **Application Meta Options**
 
 This extension honors the following [`App.Meta`](http://cement.readthedocs.io/en/3.0/api/core/foundation/?highlight=app.meta#cement.core.foundation.App.Meta) options:
 
-| **Option** | **Description** |
-| :--- | :--- |
+| **Option**            | **Description**                                         |
+| --------------------- | ------------------------------------------------------- |
 | **template\_handler** | A template handler to use as the backend for templating |
-| **template\_dirs** | A list of data directories to look for templates |
-| **template\_module** | A python module to look for templates |
+| **template\_dirs**    | A list of data directories to look for templates        |
+| **template\_module**  | A python module to look for templates                   |
 
 ## Usage
 
@@ -105,27 +115,24 @@ Mustache supports `partials`, or in other words template `includes`. These are a
 
 {% tabs %}
 {% tab title="Example: Using Mustache Partials" %}
-{% code-tabs %}
-{% code-tabs-item title="templates/base.mustache" %}
+{% code title="templates/base.mustache" %}
 ```python
 Inside base.mustache
 {{> partial.mustache}}
 ```
-{% endcode-tabs-item %}
+{% endcode %}
 
-{% code-tabs-item title="templates/partial.mustache" %}
-```text
+{% code title="templates/partial.mustache" %}
+```
 Inside partial.mustache
 ```
-{% endcode-tabs-item %}
-{% endcode-tabs %}
+{% endcode %}
 {% endtab %}
 {% endtabs %}
 
 The above would output:
 
-```text
+```
 Inside base.mustache
 Inside partial.mustache
 ```
-

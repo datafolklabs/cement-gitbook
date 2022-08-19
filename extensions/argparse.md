@@ -2,7 +2,7 @@
 
 ## Introduction
 
-The Argparse Extension provides the [`ArgparseArgumentHandler`](http://cement.readthedocs.io/en/3.0/api/ext/ext_argparse/#cement.ext.ext_argparse.ArgparseArgumentHandler) for argument parsing, and the [`ArgparseController`](http://cement.readthedocs.io/en/3.0/api/ext/ext_argparse/#cement.ext.ext_argparse.ArgparseController) for runtime dispatch. Both are the defaults used by Cement.
+The Argparse Extension provides the [`ArgparseArgumentHandler`](http://cement.readthedocs.io/en/3.0/api/ext/ext\_argparse/#cement.ext.ext\_argparse.ArgparseArgumentHandler) for argument parsing, and the [`ArgparseController`](http://cement.readthedocs.io/en/3.0/api/ext/ext\_argparse/#cement.ext.ext\_argparse.ArgparseController) for runtime dispatch. Both are the defaults used by Cement.
 
 **Documentation References:**
 
@@ -11,13 +11,12 @@ The Argparse Extension provides the [`ArgparseArgumentHandler`](http://cement.re
 
 **API References**
 
-* [Cement Argparse Extension](http://cement.readthedocs.io/en/3.0/api/ext/ext_argparse/)
+* [Cement Argparse Extension](http://cement.readthedocs.io/en/3.0/api/ext/ext\_argparse/)
 * [Python Argparse Module](https://docs.python.org/3/library/argparse.html)
 
 ## Requirements
 
-* Python 2.7+, 3+
-* Some features of ArgparseController are only available in Python 3 including controller and function/command aliases \(Python 3+\) and controller default functions/commands \(Python 3.4+\).
+* No external dependencies
 
 ## Configuration
 
@@ -25,7 +24,7 @@ This extension does not rely on any application level configuration settings or 
 
 ## Usage
 
-The following is an example application using both the [`ArgparseArgumentHandler`](http://cement.readthedocs.io/en/3.0/api/ext/ext_argparse/#cement.ext.ext_argparse.ArgparseArgumentHandler) and [`ArgparseController`](http://cement.readthedocs.io/en/3.0/api/ext/ext_argparse/#cement.ext.ext_argparse.ArgparseController). Note that the default `arg_handler` is already set to`ArgparseArgumentHandler` by `App`.
+The following is an example application using both the [`ArgparseArgumentHandler`](http://cement.readthedocs.io/en/3.0/api/ext/ext\_argparse/#cement.ext.ext\_argparse.ArgparseArgumentHandler) and [`ArgparseController`](http://cement.readthedocs.io/en/3.0/api/ext/ext\_argparse/#cement.ext.ext\_argparse.ArgparseController). Note that the default `arg_handler` is already set to`ArgparseArgumentHandler` by `App`.
 
 {% tabs %}
 {% tab title="Example: Using Argparse Extension" %}
@@ -103,7 +102,7 @@ with MyApp() as app:
 {% endtab %}
 
 {% tab title="cli" %}
-```text
+```
 $ python myapp.py --help
 usage: myapp.py [-h] [--quiet] [--base-foo BASE_FOO]
                 {nested-controller,command1,cmd1,default,command2} ...
@@ -158,4 +157,3 @@ Inside Nested.command3
 ```
 {% endtab %}
 {% endtabs %}
-

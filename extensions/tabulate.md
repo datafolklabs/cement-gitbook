@@ -2,7 +2,7 @@
 
 ## Introduction
 
-The Tabulate Extension includes the [`TabulateOutputHandler`](https://cement.readthedocs.io/en/3.0/api/ext/ext_tabulate/#cement.ext.ext_tabulate.TabulateOutputHandler), and provides output handling based on the [Tabulate](https://pypi.python.org/pypi/tabulate) library. Its format is familiar to users of MySQL, Postgres, etc.
+The Tabulate Extension includes the [`TabulateOutputHandler`](https://cement.readthedocs.io/en/3.0/api/ext/ext\_tabulate/#cement.ext.ext\_tabulate.TabulateOutputHandler), and provides output handling based on the [Tabulate](https://pypi.python.org/pypi/tabulate) library. Its format is familiar to users of MySQL, Postgres, etc.
 
 **Documentation References:**
 
@@ -10,12 +10,22 @@ The Tabulate Extension includes the [`TabulateOutputHandler`](https://cement.rea
 
 **API References:**
 
-* [Cement Tabulate Extension](https://cement.readthedocs.io/en/3.0/api/ext/ext_tabulate)
+* [Cement Tabulate Extension](https://cement.readthedocs.io/en/3.0/api/ext/ext\_tabulate)
 * [Tabulate Library](https://github.com/gregbanks/python-tabulate)
 
 ## Requirements
 
-* Tabulate \(`pip install tabulate`\)
+* Tabulate
+
+{% hint style="info" %}
+Cement 3.0.8+:
+
+`pip install cement[tabulate]`
+{% endhint %}
+
+{% hint style="warning" %}
+Applications using Cement <3.0.8 should continue to include `tabulate` in their dependencies.
+{% endhint %}
 
 ## Configuration
 
@@ -25,8 +35,7 @@ This extension does not support any application level configuration settings or 
 
 {% tabs %}
 {% tab title="Example: Using Tabulate Output Handler" %}
-{% code-tabs %}
-{% code-tabs-item title="myapp.py" %}
+{% code title="myapp.py" %}
 ```python
 from cement import App
 
@@ -49,12 +58,11 @@ with MyApp() as app:
 
     app.render(data, headers=headers)
 ```
-{% endcode-tabs-item %}
-{% endcode-tabs %}
+{% endcode %}
 {% endtab %}
 
 {% tab title="cli" %}
-```text
+```
 $ python myapp.py
 | NAME               | AGE | ADDRESS                                 |
 |--------------------+-----+-----------------------------------------|
@@ -64,4 +72,3 @@ $ python myapp.py
 ```
 {% endtab %}
 {% endtabs %}
-

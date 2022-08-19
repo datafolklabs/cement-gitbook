@@ -2,7 +2,7 @@
 
 ## Introduction
 
-The Memcached Extension includes the [`MemcachedCacheHandler`](https://cement.readthedocs.io/en/3.0/api/ext/ext_memcached/#cement.ext.ext_memcached.MemcachedCacheHandler) and provides application caching and key/value store support via Memcached.
+The Memcached Extension includes the [`MemcachedCacheHandler`](https://cement.readthedocs.io/en/3.0/api/ext/ext\_memcached/#cement.ext.ext\_memcached.MemcachedCacheHandler) and provides application caching and key/value store support via Memcached.
 
 **Documentation References:**
 
@@ -10,29 +10,38 @@ The Memcached Extension includes the [`MemcachedCacheHandler`](https://cement.re
 
 **API References:**
 
-* [Cement Memcached Extension](https://cement.readthedocs.io/en/3.0/api/ext/ext_memcached/)
+* [Cement Memcached Extension](https://cement.readthedocs.io/en/3.0/api/ext/ext\_memcached/)
 * [Pylibmc Library](http://sendapatch.se/projects/pylibmc/)
 
 ## Requirements
 
-* Pylibmc \(`pip install pylibmc`\)
-  * _There are known issues installing_ `pylibmc` _on macOS/Homebrew via PIP._  [_This post might be helpful_](http://stackoverflow.com/questions/14803310/error-when-install-pylibmc-using-pip)_._
+* Pylibmc
+  * There are known issues installing `pylibmc` on macOS/Homebrew via PIP.  [This post might be helpful](http://stackoverflow.com/questions/14803310/error-when-install-pylibmc-using-pip).
+
+{% hint style="info" %}
+Cement 3.0.8+:
+
+`pip install cement[memcached]`
+{% endhint %}
+
+{% hint style="warning" %}
+Applications using Cement <3.0.8 should continue to include `pylibmc` in their dependencies.
+{% endhint %}
 
 ## Configuration
 
 This extension honors the following config settings under a `[cache.memcached]` section in any configuration file:
 
-| **Setting** | **Description** |
-| :--- | :--- |
-| **expire\_time** | The default time in seconds to expire items in the cache.  Default: `0` \(does not expire\) |
-| **hosts** | List of memcached servers \(comma separated if using a plain text based config handler like configparser\). |
+| **Setting**      | **Description**                                                                                           |
+| ---------------- | --------------------------------------------------------------------------------------------------------- |
+| **expire\_time** | The default time in seconds to expire items in the cache.  Default: `0` (does not expire)                 |
+| **hosts**        | List of memcached servers (comma separated if using a plain text based config handler like configparser). |
 
 ## Usage
 
 {% tabs %}
 {% tab title="Example: Using Memcached Cache Handler" %}
-{% code-tabs %}
-{% code-tabs-item title="myapp.py" %}
+{% code title="myapp.py" %}
 ```python
 from cement import App
 from cement.utils.misc import init_defaults
@@ -64,10 +73,10 @@ with MyApp() as app:
     # Delete the entire cache
     app.cache.purge()
 ```
-{% endcode-tabs-item %}
+{% endcode %}
 
-{% code-tabs-item title="~/.myapp.conf" %}
-```text
+{% code title="~/.myapp.conf" %}
+```
 [myapp]
 
 # set the cache handler to use
@@ -82,8 +91,6 @@ expire_time = 3600
 # comma seperated list of memcached servers
 hosts = 127.0.0.1, cache.example.com
 ```
-{% endcode-tabs-item %}
-{% endcode-tabs %}
+{% endcode %}
 {% endtab %}
 {% endtabs %}
-

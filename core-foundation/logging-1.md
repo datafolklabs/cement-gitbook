@@ -2,10 +2,10 @@
 
 ## Introduction to the Log Interface
 
-Cement defines the [Log Interface](https://cement.readthedocs.io/en/3.0/api/core/log/#cement.core.log.LogInterface), as well as the default [LoggingLogHandler](https://cement.readthedocs.io/en/3.0/api/ext/ext_logging/#cement.ext.ext_logging.LoggingLogHandler) that implements the interface. This handler is built on top of the [Logging](http://docs.python.org/library/logging.html) module which is included in the Python standard library.
+Cement defines the [Log Interface](https://cement.readthedocs.io/en/3.0/api/core/log/#cement.core.log.LogInterface), as well as the default [LoggingLogHandler](https://cement.readthedocs.io/en/3.0/api/ext/ext\_logging/#cement.ext.ext\_logging.LoggingLogHandler) that implements the interface. This handler is built on top of the [Logging](http://docs.python.org/library/logging.html) module which is included in the Python standard library.
 
 {% hint style="warning" %}
-Cement often includes multiple handler implementations of an interface that may or may not have additional features or functionality than the interface requires. The documentation below only references usage based on the interface and default handler \(not the full capabilities of an implementation\).
+Cement often includes multiple handler implementations of an interface that may or may not have additional features or functionality than the interface requires. The documentation below only references usage based on the interface and default handler (not the full capabilities of an implementation).
 {% endhint %}
 
 **Cement Extensions That Provide Log Handlers**
@@ -16,7 +16,7 @@ Cement often includes multiple handler implementations of an interface that may 
 **API References:**
 
 * [Cement Core Log Module](https://cement.readthedocs.io/en/3.0/api/core/log/)
-* [Cement Logging Extension](https://cement.readthedocs.io/en/3.0/api/ext/ext_logging/)
+* [Cement Logging Extension](https://cement.readthedocs.io/en/3.0/api/ext/ext\_logging/)
 
 ## **Configuration**
 
@@ -24,8 +24,8 @@ Cement often includes multiple handler implementations of an interface that may 
 
 The following options under [`App.Meta`](https://cement.readthedocs.io/en/3.0/api/core/foundation/#cement.core.foundation.App.Meta) modify configuration handling:
 
-| **Option** | **Description** |
-| :--- | :--- |
+| **Option**       | **Description**                                |
+| ---------------- | ---------------------------------------------- |
 | **log\_handler** | The handler that implements the log interface. |
 
 ## Logging Messages
@@ -54,12 +54,11 @@ The above is displayed in order of severity. If the log level is set to `INFO`, 
 
 ## Changing Log Level
 
-The log level defaults to `INFO`, but can be set via [`LoggingLogHandler.Meta.config_defaults`](https://cement.readthedocs.io/en/3.0/api/ext/ext_logging/#cement.ext.ext_logging.LoggingLogHandler.Meta.config_defaults) or setting the `level` under the log handlers section of the application configuration:
+The log level defaults to `INFO`, but can be set via [`LoggingLogHandler.Meta.config_defaults`](https://cement.readthedocs.io/en/3.0/api/ext/ext\_logging/#cement.ext.ext\_logging.LoggingLogHandler.Meta.config\_defaults) or setting the `level` under the log handlers section of the application configuration:
 
 {% tabs %}
 {% tab title="Example: Changing Log Level" %}
-{% code-tabs %}
-{% code-tabs-item title="myapp.py" %}
+{% code title="myapp.py" %}
 ```python
 from cement import App, init_defaults
 
@@ -71,10 +70,10 @@ class MyApp(App):
         label = 'myapp'
         config_defaults = CONFIG
 ```
-{% endcode-tabs-item %}
+{% endcode %}
 
-{% code-tabs-item title="~/.myapp.conf" %}
-```text
+{% code title="~/.myapp.conf" %}
+```
 [myapp]
 
 # ...
@@ -82,8 +81,7 @@ class MyApp(App):
 [log.logging]
 level = WARNING
 ```
-{% endcode-tabs-item %}
-{% endcode-tabs %}
+{% endcode %}
 {% endtab %}
 {% endtabs %}
 
@@ -113,7 +111,7 @@ with App('myapp') as app:
 {% endtab %}
 
 {% tab title="cli" %}
-```text
+```
 $ python myapp.py
 INFO: This is an info message
 WARNING: This is a warning message
@@ -133,8 +131,7 @@ File logging is disabled by default but can be enabled by setting the `file` set
 
 {% tabs %}
 {% tab title="Example: Logging to File" %}
-{% code-tabs %}
-{% code-tabs-item title="myapp.py" %}
+{% code title="myapp.py" %}
 ```python
 from cement import App, init_defaults
 
@@ -146,30 +143,29 @@ class MyApp(App):
         label = 'myapp'
         config_defaults = CONFIG
 ```
-{% endcode-tabs-item %}
+{% endcode %}
 
-{% code-tabs-item title="~/.myapp.conf" %}
-```text
+{% code title="~/.myapp.conf" %}
+```
 [myapp]
 # ...
 
 [log.logging]
 file = /path/to/file.log
 ```
-{% endcode-tabs-item %}
-{% endcode-tabs %}
+{% endcode %}
 {% endtab %}
 {% endtabs %}
 
 ## Tips on Debugging
 
 {% hint style="info" %}
-The following is specific to the default [`LoggingLogHandler`](https://cement.readthedocs.io/en/3.0/api/ext/ext_logging/#cement.ext.ext_logging.LoggingLogHandler), and is not an requirement of the logging interface.
+The following is specific to the default [`LoggingLogHandler`](https://cement.readthedocs.io/en/3.0/api/ext/ext\_logging/#cement.ext.ext\_logging.LoggingLogHandler), and is not an requirement of the logging interface.
 {% endhint %}
 
 Logging to `app.log.debug()` is pretty straightforward. However, adding an additional parameter for the `namespace` can greatly increase insight into where that log is happening. The `namespace` defaults to the application name which you will see in every log like this:
 
-```text
+```
 2012-07-30 18:05:11,357 (DEBUG) myapp : This is my message
 ```
 
@@ -181,7 +177,7 @@ app.log.debug('This is my info message', __name__)
 
 Which looks like:
 
-```text
+```
 2012-07-30 18:05:11,357 (DEBUG) myapp.somepackage.test : This is my message
 ```
 
@@ -193,7 +189,7 @@ app.log.debug('This is my info message', '%s : my_func()' % __file__)
 
 Which would look like:
 
-```text
+```
 2012-07-30 18:05:11,357 (DEBUG) myapp/somepackage/test.py : my_func() : This is my message
 ```
 
@@ -203,8 +199,7 @@ All interfaces in Cement can be overridden with your own implementation. This ca
 
 {% tabs %}
 {% tab title="Example: Creating a Log Handler" %}
-{% code-tabs %}
-{% code-tabs-item title="myapp.py" %}
+{% code title="myapp.py" %}
 ```python
 from cement import App
 from cement.core.log import LogHandler
@@ -223,8 +218,6 @@ class MyApp(App):
             MyLogHandler,
         ]
 ```
-{% endcode-tabs-item %}
-{% endcode-tabs %}
+{% endcode %}
 {% endtab %}
 {% endtabs %}
-

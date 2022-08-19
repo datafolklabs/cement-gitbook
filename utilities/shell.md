@@ -1,6 +1,6 @@
 # Shell
 
-## Introduction to the Shell Utilities <a id="introduction-to-the-output-interface"></a>
+## Introduction to the Shell Utilities <a href="#introduction-to-the-output-interface" id="introduction-to-the-output-interface"></a>
 
 Cement includes a [Shell Utility Module](https://cement.readthedocs.io/en/3.0/api/utils/shell/) with helpers for common tasks related to executing commands, spawning subprocesses/threads, and other tasks.
 
@@ -14,8 +14,7 @@ Requesting input from the user is straight forward, however we've included the [
 
 {% tabs %}
 {% tab title="Example: User Input Prompts" %}
-{% code-tabs %}
-{% code-tabs-item title="example.py" %}
+{% code title="example.py" %}
 ```python
 from cement import shell
 
@@ -57,12 +56,11 @@ class MyPrompt(shell.Prompt):
 
 p = MyPrompt()
 ```
-{% endcode-tabs-item %}
-{% endcode-tabs %}
+{% endcode %}
 {% endtab %}
 
 {% tab title="cli" %}
-```text
+```
 $ python example.py
 
 ### simple user response prompt
@@ -130,4 +128,3 @@ t.join()
 {% endtabs %}
 
 See the [multiprocessing](https://docs.python.org/3/library/multiprocessing.html) and [threading](https://docs.python.org/3/library/threading.html) modules in the Python standard library for more information on working with processes and threads.
-

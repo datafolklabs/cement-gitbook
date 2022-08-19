@@ -10,30 +10,39 @@ Documentation References:
 
 API References:
 
-* [Cement Redis Extension](https://cement.readthedocs.io/en/3.0/api/ext/ext_redis/)
+* [Cement Redis Extension](https://cement.readthedocs.io/en/3.0/api/ext/ext\_redis/)
 * [Redis Library](https://redislabs.com/lp/python-redis/)
 
 ## Requirements
 
-* Redis \(`pip install redis`\)
+* Redis
+
+{% hint style="info" %}
+Cement 3.0.8+:
+
+`pip install redis`
+{% endhint %}
+
+{% hint style="warning" %}
+Applications using Cement <3.0.8 should continue to include `redis` in their dependencies.
+{% endhint %}
 
 ## Configuration
 
 This extension honors the following config settings under a `[cache.redis]` section in any configuration file:
 
-| **Setting** | **Description** |
-| :--- | :--- |
-| **expire\_time** | The default time in seconds to expire items in the cache.  Default: `0` \(does not expire\) |
-| **host** | Redis server ip address or hostname |
-| **port** | Redis server port |
-| **db** | Redis server database id/namespace |
+| **Setting**      | **Description**                                                                           |
+| ---------------- | ----------------------------------------------------------------------------------------- |
+| **expire\_time** | The default time in seconds to expire items in the cache.  Default: `0` (does not expire) |
+| **host**         | Redis server ip address or hostname                                                       |
+| **port**         | Redis server port                                                                         |
+| **db**           | Redis server database id/namespace                                                        |
 
 ## Usage
 
 {% tabs %}
 {% tab title="Example: Using Redis Cache Handler" %}
-{% code-tabs %}
-{% code-tabs-item title="myapp.py" %}
+{% code title="myapp.py" %}
 ```python
 from cement import App, init_defaults
 
@@ -66,10 +75,10 @@ with MyApp() as app:
     # Delete the entire cache
     app.cache.purge()
 ```
-{% endcode-tabs-item %}
+{% endcode %}
 
-{% code-tabs-item title="~/.myapp.conf" %}
-```text
+{% code title="~/.myapp.conf" %}
+```
 [myapp]
 
 # set the cache handler to use
@@ -90,8 +99,6 @@ port = 6379
 # Redis database number
 db = 0
 ```
-{% endcode-tabs-item %}
-{% endcode-tabs %}
+{% endcode %}
 {% endtab %}
 {% endtabs %}
-

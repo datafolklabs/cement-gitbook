@@ -2,7 +2,7 @@
 
 ## Introduction
 
-The Yaml Extension includes the [`YamlOutputHandler`](http://cement.readthedocs.io/en/3.0/api/ext/ext_yaml/#cement.ext.ext_yaml.YamlOutputHandler) to render output in pure Yaml, as well as the [`YamlConfigHandler`](http://cement.readthedocs.io/en/3.0/api/ext/ext_yaml/#cement.ext.ext_yaml.YamlConfigHandler) that allows applications to use Yaml configuration files as a drop-in replacement of the default [`ConfigParserConfigHandler`](https://cement.readthedocs.io/en/3.0/api/ext/ext_configparser/#cement.ext.ext_configparser.ConfigParserConfigHandler).
+The Yaml Extension includes the [`YamlOutputHandler`](http://cement.readthedocs.io/en/3.0/api/ext/ext\_yaml/#cement.ext.ext\_yaml.YamlOutputHandler) to render output in pure Yaml, as well as the [`YamlConfigHandler`](http://cement.readthedocs.io/en/3.0/api/ext/ext\_yaml/#cement.ext.ext\_yaml.YamlConfigHandler) that allows applications to use Yaml configuration files as a drop-in replacement of the default [`ConfigParserConfigHandler`](https://cement.readthedocs.io/en/3.0/api/ext/ext\_configparser/#cement.ext.ext\_configparser.ConfigParserConfigHandler).
 
 **Documentation References:**
 
@@ -11,12 +11,22 @@ The Yaml Extension includes the [`YamlOutputHandler`](http://cement.readthedocs.
 
 **API References:**
 
-* [Cement Yaml Extension](https://cement.readthedocs.io/en/3.0/api/ext/ext_yaml/)
+* [Cement Yaml Extension](https://cement.readthedocs.io/en/3.0/api/ext/ext\_yaml/)
 * [Yaml Library](https://pyyaml.org/wiki/PyYAMLDocumentation)
 
 ## Requirements
 
-* pyYaml \(`pip install pyYaml`\)
+* pyYaml
+
+{% hint style="info" %}
+Cement 3.0.8+:
+
+`pip install cement[yaml]`
+{% endhint %}
+
+{% hint style="warning" %}
+Applications using Cement <3.0.8 should continue to include `pyYaml` in their dependencies.
+{% endhint %}
 
 ## Configuration
 
@@ -28,8 +38,7 @@ This extension does not support any application level configuration settings or 
 
 {% tabs %}
 {% tab title="Example: Using Yaml Config Handler" %}
-{% code-tabs %}
-{% code-tabs-item title="myapp.py" %}
+{% code title="myapp.py" %}
 ```python
 from cement import App
 
@@ -40,29 +49,27 @@ class MyApp(App):
         config_handler = 'yaml'
         config_file_suffix = '.yml'
 ```
-{% endcode-tabs-item %}
+{% endcode %}
 
-{% code-tabs-item title="~/.myapp.yml" %}
-```text
+{% code title="~/.myapp.yml" %}
+```
 ---
 myapp:
     foo: bar
 ```
-{% endcode-tabs-item %}
-{% endcode-tabs %}
+{% endcode %}
 {% endtab %}
 {% endtabs %}
 
 ### Output Handler
 
-In general, you likely would not set `output_handler` to `yaml`, but rather another type of output handler that displays readable output to the end-user \(ex: Mustache, Jinja2, or Tabulate\). However, Cement supports overriding handlers via command line options if the [`Handler.Meta.overridable`](http://cement.readthedocs.io/en/3.0/api/core/handler/#cement.core.handler.Handler.Meta.overridable) option is set. For example, `-o yaml` will trigger the framework to use the `yaml` output handler, overriding the default set in [`App.Meta.output_handler`](http://cement.readthedocs.io/en/3.0/api/core/foundation/#cement.core.foundation.App.Meta.output_handler).
+In general, you likely would not set `output_handler` to `yaml`, but rather another type of output handler that displays readable output to the end-user (ex: Mustache, Jinja2, or Tabulate). However, Cement supports overriding handlers via command line options if the [`Handler.Meta.overridable`](http://cement.readthedocs.io/en/3.0/api/core/handler/#cement.core.handler.Handler.Meta.overridable) option is set. For example, `-o yaml` will trigger the framework to use the `yaml` output handler, overriding the default set in [`App.Meta.output_handler`](http://cement.readthedocs.io/en/3.0/api/core/foundation/#cement.core.foundation.App.Meta.output\_handler).
 
 See the documentation on [Overriding Handlers via Command Line](../core-foundation/interfaces-and-handlers.md#overriding-handlers-via-command-line).
 
 {% tabs %}
 {% tab title="Example: Using Yaml Output Handler" %}
-{% code-tabs %}
-{% code-tabs-item title="myapp.py" %}
+{% code title="myapp.py" %}
 ```python
 from cement import App, init_defaults
 
@@ -82,18 +89,17 @@ with MyApp() as app:
     data = {'foo': 'bar'}
     app.render(data, 'example.m')
 ```
-{% endcode-tabs-item %}
+{% endcode %}
 
-{% code-tabs-item title="templates/example.m" %}
-```text
+{% code title="templates/example.m" %}
+```
 Foo: {{ foo }}
 ```
-{% endcode-tabs-item %}
-{% endcode-tabs %}
+{% endcode %}
 {% endtab %}
 
 {% tab title="cli" %}
-```text
+```
 $ python myapp.py
 Foo: bar
 
@@ -102,4 +108,3 @@ $ python myapp.py -o yaml
 ```
 {% endtab %}
 {% endtabs %}
-

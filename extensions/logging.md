@@ -10,7 +10,7 @@ The Logging Extension includes the LoggingLogHandler, and provides log handling 
 
 **API References:**
 
-* [Cement Logging Extension](https://cement.readthedocs.io/en/3.0/api/ext/ext_logging/)
+* [Cement Logging Extension](https://cement.readthedocs.io/en/3.0/api/ext/ext\_logging/)
 * [Python Logging Library](https://docs.python.org/3/library/logging.html)
 
 ## Requirements
@@ -23,20 +23,19 @@ The Logging Extension includes the LoggingLogHandler, and provides log handling 
 
 This handler honors the following settings under a `[log.logging]` section of the configuration:
 
-| **Setting** | **Description** |
-| :--- | :--- |
-| **level** | The logging to display logs for. One of `INFO, WARNING, ERROR, FATAL, DEBUG`. Default: `INFO` |
-| **file** | The filesystem path of the log file.  Default: `None` |
-| **to\_console** | Whether or not to log to console.  Default: `True` |
-| **rotate** | Whether or not rotate the log file.  Default: `False` |
-| **max\_bytes** | Maximum file size \(in bytes\) until the log file is rotated \(if rotation is enabled\).  Default: _512000_ |
-| **max\_files** | Maximum number of files to keep when rotating is enabled.  Default: `4` |
+| **Setting**     | **Description**                                                                                         |
+| --------------- | ------------------------------------------------------------------------------------------------------- |
+| **level**       | The logging to display logs for. One of `INFO, WARNING, ERROR, FATAL, DEBUG`. Default: `INFO`           |
+| **file**        | The filesystem path of the log file.  Default: `None`                                                   |
+| **to\_console** | Whether or not to log to console.  Default: `True`                                                      |
+| **rotate**      | Whether or not rotate the log file.  Default: `False`                                                   |
+| **max\_bytes**  | Maximum file size (in bytes) until the log file is rotated (if rotation is enabled).  Default: _512000_ |
+| **max\_files**  | Maximum number of files to keep when rotating is enabled.  Default: `4`                                 |
 
 A sample config section might look like:
 
-{% code-tabs %}
-{% code-tabs-item title="~/.myapp.conf" %}
-```text
+{% code title="~/.myapp.conf" %}
+```
 [log.colorlog]
 file = /path/to/config/file
 level = info
@@ -45,14 +44,13 @@ rotate = true
 max_bytes = 512000
 max_files = 4
 ```
-{% endcode-tabs-item %}
-{% endcode-tabs %}
+{% endcode %}
 
 ### **Toggle Log Level via Command-line**
 
 This extension supports an optional feature to add a command-line argument to toggle the log level. This feature is not enabled by default for one specific reason: the log level will not be modified until **after** argument parsing happens. This can lead to a lot of confusion for developers who might not see their debug logs from a `pre_setup` hook, or anything that happens before argument parsing completes. For this reason, you should use this feature with caution and thus we disable it by default.
 
-You can enable the log level argument by setting via [`App.Meta.meta_defaults`](https://cement.readthedocs.io/en/3.0/api/core/foundation/#cement.core.foundation.App.Meta.meta_defaults) for the `log.logging` handler:
+You can enable the log level argument by setting via [`App.Meta.meta_defaults`](https://cement.readthedocs.io/en/3.0/api/core/foundation/#cement.core.foundation.App.Meta.meta\_defaults) for the `log.logging` handler:
 
 {% tabs %}
 {% tab title="Example: Enabling Log Level Argument" %}
@@ -70,7 +68,7 @@ class MyApp(App):
 {% endtab %}
 
 {% tab title="cli" %}
-```text
+```
 $ python myapp.py --help
 usage: myapp [-h] [--debug] [--quiet] [-l {info,warning,error,debug,fatal}]
 
@@ -98,4 +96,3 @@ CRITICAL: This is a fatal message
 ## Usage
 
 See the [Logging Documentation](../core-foundation/logging-1.md).
-

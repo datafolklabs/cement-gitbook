@@ -2,7 +2,7 @@
 
 ## Introduction
 
-The Generate Extension includes the [Generate](https://cement.readthedocs.io/en/3.0/api/ext/ext_generate/#cement.ext.ext_generate.Generate) controller, and provides a mechanism for generating common content from template directories. An example use case would be the ability for application developers to easily generate new plugins for their application… similar in other applications such as Chef Software’s `chef generate cookbook` type utilities.
+The Generate Extension includes the [Generate](https://cement.readthedocs.io/en/3.0/api/ext/ext\_generate/#cement.ext.ext\_generate.Generate) controller, and provides a mechanism for generating common content from template directories. An example use case would be the ability for application developers to easily generate new plugins for their application… similar in other applications such as Chef Software’s `chef generate cookbook` type utilities.
 
 The [Cement Developer Tools](../getting-started/developer-tools.md) use this extension to generate projects, plugins, extensions, scripts, etc for developers building their applications on the framework.
 
@@ -12,32 +12,42 @@ The [Cement Developer Tools](../getting-started/developer-tools.md) use this ext
 
 **API References:**
 
-* [Cement Generate Extension](http://cement.readthedocs.io/en/3.0/api/ext/ext_generate/)
+* [Cement Generate Extension](http://cement.readthedocs.io/en/3.0/api/ext/ext\_generate/)
 
 ## **Requirements**
 
-* pyYaml \(`pip install pyYaml`\)
-* A valid [template handler](../core-foundation/templating.md) must be defined at the application level via [`App.Meta.template_handler`](http://cement.readthedocs.io/en/3.0/api/core/foundation/#cement.core.foundation.App.Meta.template_handler) such as `jinja2`, `mustache`, etc.
+* pyYaml
+* A valid [template handler](../core-foundation/templating.md) must be defined at the application level via [`App.Meta.template_handler`](http://cement.readthedocs.io/en/3.0/api/core/foundation/#cement.core.foundation.App.Meta.template\_handler) such as `jinja2`, `mustache`, etc.
+
+{% hint style="info" %}
+Cement 3.0.8+:
+
+`pip install cement[generate]`
+{% endhint %}
+
+{% hint style="warning" %}
+Applications using Cement <3.0.8 should continue to include `pyYaml` in their dependencies.
+{% endhint %}
 
 ## **Configuration**
 
 ### **Application Configuration Settings**
 
-This extension honors the following settings under the primary namespace \(ex: `[myapp]`\) of the application configuration:
+This extension honors the following settings under the primary namespace (ex: `[myapp]`) of the application configuration:
 
-| **Setting** | **Description** |
-| :--- | :--- |
+| **Setting**       | **Description**                               |
+| ----------------- | --------------------------------------------- |
 | **template\_dir** | Directory path of a local template directory. |
 
 ### **Application Meta Options**
 
 This extension honors the following [`App.Meta`](http://cement.readthedocs.io/en/3.0/api/core/foundation/?highlight=app.meta#cement.core.foundation.App.Meta) options:
 
-| **Option** | **Description** |
-| :--- | :--- |
+| **Option**            | **Description**                                         |
+| --------------------- | ------------------------------------------------------- |
 | **template\_handler** | A template handler to use as the backend for templating |
-| **template\_dirs** | A list of data directories to look for templates |
-| **template\_module** | A python module to look for templates |
+| **template\_dirs**    | A list of data directories to look for templates        |
+| **template\_module**  | A python module to look for templates                   |
 
 ## **Usage**
 
@@ -61,7 +71,7 @@ with MyApp() as app:
 {% endtab %}
 
 {% tab title="cli" %}
-```text
+```
 $ python myapp.py --help
 usage: myapp [-h] [--debug] [--quiet] {generate} ...
 
@@ -113,8 +123,7 @@ variables:
 
 The following configurations are supported in a generate template’s config:
 
-| **ignore** | A list of regular expressions to match files that you want to completely ignore |
-| :--- | :--- |
-| **exclude** | A list of regular expressions to match files that you want to copy only \(not rendered as template\) |
-| **variables** | A list of variable definitions that support the following sub-keys: |
-
+| **ignore**    | A list of regular expressions to match files that you want to completely ignore                    |
+| ------------- | -------------------------------------------------------------------------------------------------- |
+| **exclude**   | A list of regular expressions to match files that you want to copy only (not rendered as template) |
+| **variables** | A list of variable definitions that support the following sub-keys:                                |

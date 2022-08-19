@@ -1,11 +1,11 @@
 # Templating
 
-## Introduction to the Template Interface <a id="introduction-to-the-output-interface"></a>
+## Introduction to the Template Interface <a href="#introduction-to-the-output-interface" id="introduction-to-the-output-interface"></a>
 
-Cement defines a [Template Interface](https://cement.readthedocs.io/en/3.0/api/core/template/#cement.core.template.TemplateInterface), as well as a default [`DummyTemplateHandler`](https://cement.readthedocs.io/en/3.0/api/ext/ext_dummy/#cement.ext.ext_dummy.DummyTemplateHandler) that implements the interface as a placeholder but does not actually do anything.
+Cement defines a [Template Interface](https://cement.readthedocs.io/en/3.0/api/core/template/#cement.core.template.TemplateInterface), as well as a default [`DummyTemplateHandler`](https://cement.readthedocs.io/en/3.0/api/ext/ext\_dummy/#cement.ext.ext\_dummy.DummyTemplateHandler) that implements the interface as a placeholder but does not actually do anything.
 
 {% hint style="warning" %}
-Cement often includes multiple handler implementations of an interface that may or may not have additional features or functionality than the interface requires. The documentation below only references usage based on the interface and default handler \(not the full capabilities of an implementation\).
+Cement often includes multiple handler implementations of an interface that may or may not have additional features or functionality than the interface requires. The documentation below only references usage based on the interface and default handler (not the full capabilities of an implementation).
 {% endhint %}
 
 \*\*\*\*
@@ -20,14 +20,14 @@ Cement often includes multiple handler implementations of an interface that may 
 
 * [​Cement Core Template Module​](https://cement.readthedocs.io/en/3.0/api/core/template)
 
-## **Configuration** <a id="configuration"></a>
+## **Configuration** <a href="#configuration" id="configuration"></a>
 
-### **Application Meta Options** <a id="application-meta-options"></a>
+### **Application Meta Options** <a href="#application-meta-options" id="application-meta-options"></a>
 
 The following options under [`App.Meta`](https://cement.readthedocs.io/en/3.0/api/core/foundation/#cement.core.foundation.App.Meta) modify configuration handling:
 
-| **Option** | **Description** |
-| :--- | :--- |
+| **Option**            | **Description**                                     |
+| --------------------- | --------------------------------------------------- |
 | **template\_handler** | The handler that implements the template interface. |
 
 ## Working with Templates
@@ -72,8 +72,7 @@ All interfaces in Cement can be overridden with your own implementation. This ca
 
 {% tabs %}
 {% tab title="Example: Creating a Template Handler" %}
-{% code-tabs %}
-{% code-tabs-item title="myapp.py" %}
+{% code title="myapp.py" %}
 ```python
 from cement import App
 from cement.core.template import TemplateHandler
@@ -92,8 +91,6 @@ class MyApp(App):
             MyTemplateHandler,
         ]
 ```
-{% endcode-tabs-item %}
-{% endcode-tabs %}
+{% endcode %}
 {% endtab %}
 {% endtabs %}
-

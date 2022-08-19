@@ -2,7 +2,7 @@
 
 ## Introduction
 
-The SMTP Extension includes the [`SMTPMailHandler`](https://cement.readthedocs.io/en/3.0/api/ext/ext_smtp/#cement.ext.ext_smtp.SMTPMailHandler), and provides the ability for applications to send email via standard SMTP.
+The SMTP Extension includes the [`SMTPMailHandler`](https://cement.readthedocs.io/en/3.0/api/ext/ext\_smtp/#cement.ext.ext\_smtp.SMTPMailHandler), and provides the ability for applications to send email via standard SMTP.
 
 **Documentation References:**
 
@@ -10,7 +10,7 @@ The SMTP Extension includes the [`SMTPMailHandler`](https://cement.readthedocs.i
 
 **API References:**
 
-* [Cement SMTP Extension](https://cement.readthedocs.io/en/3.0/api/ext/ext_smtp)
+* [Cement SMTP Extension](https://cement.readthedocs.io/en/3.0/api/ext/ext\_smtp)
 * [Python SMTP Library](https://docs.python.org/3/library/smtplib.html)
 
 ## Requirements
@@ -23,29 +23,28 @@ The SMTP Extension includes the [`SMTPMailHandler`](https://cement.readthedocs.i
 
 This extension supports the following configuration settings under a `[mail.dummy]` configuration section:
 
-| **Setting** | **Description** |
-| :--- | :--- |
-| **to** | Default recipient address \(list, or comma separated depending on the config handler in use\). |
-| **from\_addr** | Default sender address |
-| **cc** | Default carbon-copy addresses \(list, or comma separated depending on the config handler in use\) |
-| **bcc** | Default blind-carbon-copy addresses \(list, or comma separated depending on the config handler in use\) |
-| **subject** | Default subject line |
-| **subject\_prefix** | Additional string to prepend to the subject line of all messages |
-| **host** | The SMTP host server address. Default: `localhost` |
-| **port** | The SMTP host server port. Default: `25` |
-| **timeout** | The timeout in seconds before terminating a connection. Default: 30 |
-| **ssl** | Whether to initiate SSL or not. Default: `False` |
-| **tls** | Whether to use TLS or not \(requires SSL\). Default: `False` |
-| **auth** | Whether or not to initiate SMTP authentication. Default: `False` |
-| **username** | SMTP authentication username. Default: `None` |
-| **password** | SMTP authentication password. Default: `None` |
+| **Setting**         | **Description**                                                                                       |
+| ------------------- | ----------------------------------------------------------------------------------------------------- |
+| **to**              | Default recipient address (list, or comma separated depending on the config handler in use).          |
+| **from\_addr**      | Default sender address                                                                                |
+| **cc**              | Default carbon-copy addresses (list, or comma separated depending on the config handler in use)       |
+| **bcc**             | Default blind-carbon-copy addresses (list, or comma separated depending on the config handler in use) |
+| **subject**         | Default subject line                                                                                  |
+| **subject\_prefix** | Additional string to prepend to the subject line of all messages                                      |
+| **host**            | The SMTP host server address. Default: `localhost`                                                    |
+| **port**            | The SMTP host server port. Default: `25`                                                              |
+| **timeout**         | The timeout in seconds before terminating a connection. Default: 30                                   |
+| **ssl**             | Whether to initiate SSL or not. Default: `False`                                                      |
+| **tls**             | Whether to use TLS or not (requires SSL). Default: `False`                                            |
+| **auth**            | Whether or not to initiate SMTP authentication. Default: `False`                                      |
+| **username**        | SMTP authentication username. Default: `None`                                                         |
+| **password**        | SMTP authentication password. Default: `None`                                                         |
 
 ## Usage
 
 {% tabs %}
 {% tab title="Example: Using SMTP Mail Handler" %}
-{% code-tabs %}
-{% code-tabs-item title="myapp.py" %}
+{% code title="myapp.py" %}
 ```python
 from cement import App
 
@@ -62,10 +61,10 @@ with MyApp() as app:
         from_addr='me@example.com',
         )
 ```
-{% endcode-tabs-item %}
+{% endcode %}
 
-{% code-tabs-item title="~/.myapp.conf" %}
-```text
+{% code title="~/.myapp.conf" %}
+```
 [myapp]
 
 # set the mail handler to use
@@ -116,8 +115,6 @@ username = john.doe
 # smtp auth password
 password = oober_secure_password
 ```
-{% endcode-tabs-item %}
-{% endcode-tabs %}
+{% endcode %}
 {% endtab %}
 {% endtabs %}
-
