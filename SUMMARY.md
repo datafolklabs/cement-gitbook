@@ -63,3 +63,4 @@
 * [Environment Variables](environment-variables.md)
 * [Terminology](terminology.md)
 * [Contributing](contributing.md)
+* [Privacy Policy](privacy-policy.md)
