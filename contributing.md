@@ -122,6 +122,7 @@ For maintainers before finalizing a release, create a Github issue called `Cemen
     - [ ] Python 3.8
     - [ ] Python 3.9
     - [ ] Python 3.10
+    - [ ] Python 3.11
 - [ ] 100% Test Coverage
 - [ ] Core Tests on Windows
 - [ ] Cement CLI Smoke Tests
