@@ -45,4 +45,4 @@ The following are some notable projects that are Built on Cement™:
 * [HCE Project](http://hce-project.com/)
 * [QLDS Manager](https://qlds-manager.readthedocs.io/en/stable/index.html) ([GitHub](https://github.com/rzeka/QLDS-Manager))
 
-A more complete list of projects that depend on Cement can be found at [Librario.io](https://libraries.io/pypi/cement/usage). If you are building a project on the Cement Framework and would like to see your company or project listed here [please create an issue and/or pull request on GitHub](https://github.com/datafolklabs/cement/).
+A more complete list of projects that depend on Cement can be found at [Librario.io](https://libraries.io/pypi/cement/dependents). If you are building a project on the Cement Framework and would like to see your company or project listed here [please create an issue and/or pull request on GitHub](https://github.com/datafolklabs/cement/).
