@@ -129,10 +129,14 @@ For maintainers before finalizing a release, create a Github issue called `Cemen
     - [ ] Linux
     - [ ] macOS
     - [ ] Windows
-- [ ] Git Tag
-    - [ ] X
-    - [ ] X.Y
-    - [ ] X.Y.Z
+- [ ] Git Builds 
+    - Archs:
+        - linux/amd64
+        - linux/arm64
+    - Tags:
+        - [ ] X
+        - [ ] X.Y
+        - [ ] X.Y.Z
 - [ ] Git Merge to Version Branch
     - stable/X.Y
 - [ ] API Documentation Builds (Read The Docs)
@@ -152,3 +156,15 @@ For maintainers before finalizing a release, create a Github issue called `Cemen
 ```
 
 _Replace X.Y.Z with the release versions._
+
+## Misc
+
+### Multi-arch Docker Images
+
+```
+docker buildx build \
+    --platform linux/amd64,linux/arm64 \
+    --push \
+    -t datafolklabs/cement:latest \
+    .
+```
