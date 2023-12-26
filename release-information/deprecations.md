@@ -12,6 +12,22 @@ export PYTHONWARNINGS=once
 Python warnings should always be enabled for unit tests. Pytest, the default testing framework for Cement generated projects, enables this by default.
 {% endhint %}
 
+## Cement v3.0.10
+
+### 3.0.10-1
+
+The logging facility `FATAL` is being deprecated in favor of `CRITICAL`. This follows the standarding library upstream:
+
+* [https://docs.python.org/3/library/logging.html#logging-levels](https://docs.python.org/3/library/logging.html#logging-levels)
+
+Though the FATAL facility [may never be fully deprecated](https://bugs.python.org/issue40836) upstream, it makes sense to deprecate it in Cement.
+
+{% hint style="warning" %}
+Support for the `FATAL` facility, and `app.log.fatal()` may be removed any time in or after Cement v3.2.0.
+{% endhint %}
+
+##
+
 ## Cement v3.0.8
 
 ### 3.0.8-1
