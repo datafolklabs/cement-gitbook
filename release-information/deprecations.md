@@ -26,6 +26,13 @@ Though the FATAL facility [may never be fully removed](https://bugs.python.org/i
 Support for the `FATAL` facility, and `app.log.fatal()` may be removed any time in or after Cement v3.2.0.
 {% endhint %}
 
+Developers should modify their apps to use critical:
+
+```python
+app.log.set_level('CRITICAL')
+app.log.critical('Some log message')
+```
+
 ##
 
 ## Cement v3.0.8
