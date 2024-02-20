@@ -21,7 +21,7 @@ The SMTP Extension includes the [`SMTPMailHandler`](https://cement.readthedocs.i
 
 ### Application Configuration Settings
 
-This extension supports the following configuration settings under a `[mail.dummy]` configuration section:
+This extension supports the following configuration settings under a `[mail.smtp]` configuration section:
 
 | **Setting**         | **Description**                                                                                       |
 | ------------------- | ----------------------------------------------------------------------------------------------------- |
