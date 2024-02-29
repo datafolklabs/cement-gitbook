@@ -55,11 +55,28 @@ class MyApp(App):
 
 with MyApp() as app:
     app.run()
+    
+    # send a message
     app.mail.send('This is my fake message',
         subject='This is my subject',
         to=['john@example.com', 'rita@example.com'],
         from_addr='me@example.com',
-        )
+    )
+    
+    # send text/html message
+    app.mail.send(("message", "<body>message</body>"),
+        subject='This is my subject',
+        to=['john@example.com'],
+        from_addr='me@example.com',
+    )
+    
+    # send file attachments
+    app.mail.send("message", 
+        subject='This is my subject',
+        to=['john@example.com'],
+        from_addr='me@example.com',
+        files=['/path/to/file.ext']
+    )
 ```
 {% endcode %}
 
