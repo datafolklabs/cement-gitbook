@@ -4,11 +4,21 @@
 
 Cement ships with a CLI utility that includes tools and helpers for application developement. It is in-itself an application Built on Cement™, and can serve as a working example of some of the key features of the framework.
 
-See: `$ cement --help`
+Install additional dependencies:
+
+```
+$ pip install cement[cli]
+```
+
+See:&#x20;
+
+`$ cement --help`
 
 The Cement CLI uses the builtin [Generate Extension](../extensions/generate.md) in order to easily create new projects, extensions, plugins, or scripts.
 
-See `$ cement generate --help`
+See:&#x20;
+
+`$ cement generate --help`
 
 ## Creating Your First Project Built on Cement™
 
@@ -16,7 +26,7 @@ Using the Cement Developer Tools CLI, you can quickly generate a new project:
 
 _Note: Press_ `<ENTER>` _in order to take the default values for_ `myapp`_:_
 
-```text
+```
 $ cement generate project ./myapp
 INFO: Generating cement project in ./myapp
 App Label [myapp]:
@@ -37,21 +47,21 @@ The [Generate Extension](../extensions/generate.md) reads templates from any tem
 
 Add the following to `~/.cement.yml`:
 
-```text
+```
 cement:
     template_dir: ~/templates
 ```
 
 Then clone an existing template:
 
-```text
+```
 $ cement generate project \
     --clone ~/templates/generate/my-template
 ```
 
 Your template is now part of Cement!  Customize it to your liking, and use it in the same way as the builtin templates:
 
-```text
+```
 $ cement generate --help
 usage: cement generate [-h]
                        {project,script,plugin,extension,my-template}
@@ -69,6 +79,4 @@ sub-commands:
     my-template         generate my-template from template
     
 ```
-
-
 
