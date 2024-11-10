@@ -61,6 +61,7 @@
   * [Pipenv](additional-topics/pipenv.md)
   * [Autocomplete](additional-topics/autocomplete.md)
   * [Profiling with cProfile](additional-topics/profiling-with-cprofile.md)
+  * [Debugging with VSCode](additional-topics/debugging-with-vscode.md)
 * [Environment Variables](environment-variables.md)
 * [Terminology](terminology.md)
 * [Contributing](contributing.md)
