@@ -1,5 +1,30 @@
 # ChangeLog
 
+## # 3.0.14 - May 5, 2025
+
+Bugs:
+
+* `[ext_jinja2]` Refactor hard-coded reference to `jinja2` template handler.
+  * [Issue #749](https://github.com/datafolklabs/cement/issues/749)
+* `[ext_smtp]` Misc fixes and updates to better support content types.
+  * [PR #742](https://github.com/datafolklabs/cement/pull/742)
+
+Features:
+
+* None
+
+Refactoring:
+
+* None
+
+Misc:
+
+* None
+
+Deprecations:
+
+* None
+
 ## 3.0.12 - Nov 10, 2024
 
 Bugs:
