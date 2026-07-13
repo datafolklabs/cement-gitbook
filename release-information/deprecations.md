@@ -12,6 +12,12 @@ export PYTHONWARNINGS=once
 Python warnings should always be enabled for unit tests. Pytest, the default testing framework for Cement generated projects, enables this by default.
 {% endhint %}
 
+## Cement v3.0.16
+
+### 3.0.16-1
+
+`SMTPMailHandler.send()` returning bool is deprecated. It will return the smtplib senderrs dict in Cement v3.2.0
+
 ## Cement v3.0.10
 
 ### 3.0.10-1
@@ -39,7 +45,7 @@ app.log.critical('Some log message')
 
 ### 3.0.8-1
 
-The environment variable `CEMENT_FRAMEWORK_LOGGING` is being deprecated in favor of [`CEMENT_LOG`](../environment-variables.md#cement\_log).
+The environment variable `CEMENT_FRAMEWORK_LOGGING` is being deprecated in favor of [`CEMENT_LOG`](../environment-variables.md#cement_log).
 
 **Related:**
 
@@ -61,7 +67,7 @@ Support for `CEMENT_FRAMEWORK_LOGGING` will be removed in Cement v3.2.0.
 
 ### 3.0.8-2
 
-In Cement v3.0.x, the default for [`App.Meta.framework_logging`](https://cement.readthedocs.io/en/3.0/api/core/foundation/#cement.core.foundation.App.Meta.framework\_logging) is `True`, however framework logging is only triggered if the `--debug` option is passed at the command-line. The `--debug` option was previously hard-coded, but is now configurable and therefore should no longer be used to toggle framework logging. &#x20;
+In Cement v3.0.x, the default for [`App.Meta.framework_logging`](https://cement.readthedocs.io/en/3.0/api/core/foundation/#cement.core.foundation.App.Meta.framework_logging) is `True`, however framework logging is only triggered if the `--debug` option is passed at the command-line. The `--debug` option was previously hard-coded, but is now configurable and therefore should no longer be used to toggle framework logging. &#x20;
 
 In Cement 3.2.0, the logic of `App.Meta.framework_logging` will be repurposed, or removed.  The plan, currently, is that `--debug` will only toggle the logging level and `App.Meta.debug` but not toggle Cement framework logging. One thought is that `App.Meta.framework_logging` could trigger framework/extensions to use the App logger, once it is available (instead of MinimalLogger everywhere).&#x20;
 
